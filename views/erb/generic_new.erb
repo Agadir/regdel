@@ -1,0 +1,7 @@
+<div class="snippet">
+  <form action="/new/<%= @object_type %>" method="POST">
+    <input type="hidden" name="object_type" value="<%= @object_type %>"/>
+    <textarea name="<%= @object_type %>_name" id="<%= @object_type %>_name" rows="20"></textarea>
+    <br/><input type="submit" value="Save"/>
+  </form>
+</div>

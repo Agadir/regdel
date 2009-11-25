@@ -1,0 +1,7 @@
+
+
+
+2009-11-24  Albert Lash  <albert.lash@docunext.com>
+
+* Using number of cents instead of storing amounts as decimals thanks to a
+suggest I read on stack overflow by http://www.sarahmei.com/blog/

@@ -1,0 +1,14 @@
+<div class="accounts">
+<ul>
+<% @myitems.each do | item | %>
+<li>Entries: <%= item.id %>,<%= item.memorandum %>
+<br /><% item.credits.each do | credit | %>
+Credits: <%= credit.id %>,<%= "%.2f" % ( credit.amount.to_f / 100 ) %><br/>
+<% end %>
+<br /><% item.debits.each do | debit | %>
+Debits: <%= debit.id %>,<%= "%.2f" % ( debit.amount.to_f / 100 ) %><br/>
+<% end %>
+</li>
+<% end %>
+</ul>
+</div>
