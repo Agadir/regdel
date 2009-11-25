@@ -50,8 +50,8 @@ end
 post '/new/entry' do
     @entry = Entry.new(:memorandum => params[:memorandum])
     @entry.save
-    @credit = @entry.credits.create(:amount => (params[:credit].to_d * 100).to_i)
-    @debit = @entry.debits.create(:amount => (params[:debit].to_d * 100).to_i)
+    @entry.credits.create(:amount => RdMoney.new(params[:credit]).no_d)
+    @entry.debits.create(:amount => RdMoney.new(params[:debit]).no_d)
     redirect '/entries'
 end
 

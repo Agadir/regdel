@@ -3,10 +3,10 @@
 <% @myitems.each do | item | %>
 <li>Entries: <%= item.id %>,<%= item.memorandum %>
 <ul><% item.credits.each do | credit | %>
-<li>Credits: <%= credit.id %>,<%= "%.2f" % ( credit.amount.to_f / 100 ) %></li>
+<li>Credits: <%= credit.id %>,<%= credit.to_usd %></li>
 <% end %>
 <% item.debits.each do | debit | %>
-<li>Debits: <%= debit.id %>,<%= "%.2f" % ( debit.amount.to_f / 100 ) %></li>
+<li>Debits: <%= debit.id %>,<%= debit.to_usd %></li>
 <% end %>
 </ul></li>
 <% end %>
