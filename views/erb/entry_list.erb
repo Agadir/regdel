@@ -2,13 +2,13 @@
 <ul>
 <% @myitems.each do | item | %>
 <li>Entries: <%= item.id %>,<%= item.memorandum %>
-<br /><% item.credits.each do | credit | %>
-Credits: <%= credit.id %>,<%= "%.2f" % ( credit.amount.to_f / 100 ) %><br/>
+<ul><% item.credits.each do | credit | %>
+<li>Credits: <%= credit.id %>,<%= "%.2f" % ( credit.amount.to_f / 100 ) %></li>
 <% end %>
-<br /><% item.debits.each do | debit | %>
-Debits: <%= debit.id %>,<%= "%.2f" % ( debit.amount.to_f / 100 ) %><br/>
+<% item.debits.each do | debit | %>
+<li>Debits: <%= debit.id %>,<%= "%.2f" % ( debit.amount.to_f / 100 ) %></li>
 <% end %>
-</li>
+</ul></li>
 <% end %>
 </ul>
 </div>
