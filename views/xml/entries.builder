@@ -5,11 +5,13 @@ x = builder.entries { |b|
         b.entry( :memorandum=>entry.memorandum, :id=>entry.id) { |amt|
 
             entry.credits.each do |credit|
-                amt.credit(:id=>credit.id)
+                myamount = credit.amount.to_f / 100
+                amt.credit(:id=>credit.id,:amount=>myamount)
             end
 
             entry.debits.each do |debit|
-                amt.debit(:id=>debit.id)
+                myamount = debit.amount.to_f / 100
+                amt.debit(:id=>debit.id,:amount=>myamount)
             end
 
         }

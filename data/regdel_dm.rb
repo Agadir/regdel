@@ -1,5 +1,11 @@
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/rbeans.sqlite3")
 
+class String
+    def to_cents
+        return (self * 100).to_i
+    end
+end
+        
 class Account
   include DataMapper::Resource
   

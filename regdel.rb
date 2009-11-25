@@ -46,13 +46,10 @@ get '/new/entry' do
 end
 
 post '/new/entry' do
-    mydebit = params[:debit]
-    mydebit = mydebit.to_f * 100
-    mycredit = params[:credit].to_f * 100
-    @entry = Entry.new(:memorandum => params[:entry_name])
+    @entry = Entry.new(:memorandum => params[:memorandum])
     @entry.save
-    @credit = @entry.credits.create(:amount => mycredit)
-    @debit = @entry.debits.create(:amount => mydebit)
+    @credit = @entry.credits.create(:amount => (params[:credit].to_f * 100).ceil)
+    @debit = @entry.debits.create(:amount => (params[:debit].to_f * 100).ceil)
     redirect '/entries'
 end
 
