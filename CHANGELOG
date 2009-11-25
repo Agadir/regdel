@@ -1,4 +1,6 @@
+2009-11-25  Albert Lash  <albert.lash@docunext.com>
 
+* Switched to using BigDecimal instead of to_f and ceil which failed with .67 cents.
 
 
 2009-11-24  Albert Lash  <albert.lash@docunext.com>

@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'sinatra'
 require 'builder'
+require 'bigdecimal'
+require 'bigdecimal/util'
 require 'dm-core'
 require 'dm-validations'
 require 'dm-timestamps'
@@ -48,8 +50,8 @@ end
 post '/new/entry' do
     @entry = Entry.new(:memorandum => params[:memorandum])
     @entry.save
-    @credit = @entry.credits.create(:amount => (params[:credit].to_f * 100).ceil)
-    @debit = @entry.debits.create(:amount => (params[:debit].to_f * 100).ceil)
+    @credit = @entry.credits.create(:amount => (params[:credit].to_d * 100).to_i)
+    @debit = @entry.debits.create(:amount => (params[:debit].to_d * 100).to_i)
     redirect '/entries'
 end
 
