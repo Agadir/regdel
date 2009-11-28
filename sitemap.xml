@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<map:sitemap xmlns:map="http://www.nexista.org/sitemap">
+
+  <map:n1 name="general_tools">
+    <map:n2 name="accounts" visible="true" target="accounts">
+    </map:n2>
+    <map:n2 name="customer_accounts" visible="true" target="customer-accounts">
+    </map:n2>
+    <map:n2 name="journal" visible="true" target="journal">
+    </map:n2>
+    <map:n2 name="ledger" visible="true" target="ledger">
+    </map:n2>
+  </map:n1>
+
+  <map:n1 name="general_tools">
+    <map:n2 name="accounts">
+    </map:n2>
+    <map:n2 name="customer_accounts">
+    </map:n2>
+    <map:n2 name="accounts">
+    </map:n2>
+    <map:n2 name="journal">
+    </map:n2>
+    <map:n2 name="ledger">
+    </map:n2>
+  </map:n1>
+  
+</map:sitemap>
