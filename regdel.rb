@@ -7,7 +7,7 @@ require 'dm-core'
 require 'dm-validations'
 require 'dm-timestamps'
 require 'data/regdel_dm'
-
+require 'views/utils/template'
 
 
 
@@ -24,7 +24,7 @@ end
 
 get '/new/account' do
     @object_type = 'account'
-    erb :'erb/account_new'
+    erb :'xhtml/account_form'
 end
 
 post '/new/account' do
