@@ -80,16 +80,6 @@ get '/raw/entries' do
     builder :'xml/entries'
 end
 
-["/foo", "/bar", "/baz"].each do |path|
-  get path do
-    @barf = "You've reached me at #{request.path_info}"
-    pass
-  end
-end
-
-get '/foo' do
-    @barf << "ok"
-end
 
 helpers do
     def get_entries_and_accounts()
