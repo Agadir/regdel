@@ -6,15 +6,15 @@ require 'bigdecimal/util'
 require 'dm-core'
 require 'dm-validations'
 require 'dm-timestamps'
-require 'data/regdel_dm'
-require 'views/utils/template'
+#require 'views/utils/template'
 require 'xml/libxml'
 require 'xml/libxslt'
 require 'nokogiri'
-require 'open-uri'
+
+require 'data/regdel_dm'
+require 'helpers/xslview'
 
 set :views, File.dirname(__FILE__) + '/views'
-
 
 
 get '/' do
@@ -41,13 +41,10 @@ post '/new/account' do
   end
 end
 
-
 get '/entries' do
-    doc = ''
-    open('http://192.168.8.48:3001/raw/entries').each_line do |line|
-        doc += line
-    end
-    xsl :'xsl/entries', :locals => { :myxml => doc }
+    @myentries = Entry.all
+    myxml = builder :'xml/entries'
+    h myxml, '/var/www/dev/regdel/views/xsl/entries.xsl'
 end
 
 get '/new/entry' do
@@ -69,3 +66,16 @@ get '/raw/entries' do
     @myentries = Entry.all
     builder :'xml/entries'
 end
+
+
+
+
+
+# Requires patched sinatra
+#get '/remote/entries' do
+#    doc = ''
+#    open('http://192.168.8.48:3001/raw/entries').each_line do |line|
+#       doc += line
+#    end
+#    xsl :'xsl/entries', :locals => { :myxml => doc }
+#end

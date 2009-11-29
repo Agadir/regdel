@@ -1,5 +1,4 @@
-builder = Builder::XmlMarkup.new(:indent=>2)
-x = builder.entries { |b|
+xml.entries { |b|
     @myentries.each do |entry|
 
         b.entry( :memorandum=>entry.memorandum, :id=>entry.id) { |amt|
@@ -15,4 +14,3 @@ x = builder.entries { |b|
         }
     end
 }
-return x
