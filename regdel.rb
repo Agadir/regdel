@@ -43,8 +43,11 @@ end
 
 get '/entries' do
     @myentries = Entry.all
+    @myaccounts = Account.all
+    # Example of using xslview and how xslviews could be chained together
     myxml = builder :'xml/entries'
-    h myxml, '/var/www/dev/regdel/views/xsl/entries.xsl'
+    stepone = h myxml, '/var/www/dev/regdel/views/xsl/entries.xsl'
+    stepone
 end
 
 get '/new/entry' do

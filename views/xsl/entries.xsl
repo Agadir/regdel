@@ -57,7 +57,7 @@ xmlns="http://www.w3.org/1999/xhtml">
       </tr>
     </thead>
     <tbody>
-      <xsl:for-each select="/entries/entry">
+      <xsl:for-each select="//entries/entry">
       <tr>
         <td>
           <xsl:value-of select="@date"/>
