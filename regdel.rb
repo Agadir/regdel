@@ -76,8 +76,7 @@ end
 
 get '/raw/entries' do
     content_type 'application/xml', :charset => 'utf-8'
-    @myentries = Entry.all
-    @myaccounts = Account.all
+    get_entries_and_accounts()
     builder :'xml/entries'
 end
 
@@ -92,6 +91,12 @@ get '/foo' do
     @barf << "ok"
 end
 
+helpers do
+    def get_entries_and_accounts()
+        @myentries = Entry.all
+        @myaccounts = Account.all
+    end
+end
 
 
 
