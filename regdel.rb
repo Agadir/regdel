@@ -64,8 +64,10 @@ end
 get '/raw/entries' do
     content_type 'application/xml', :charset => 'utf-8'
     @myentries = Entry.all
+    @myaccounts = Account.all
     builder :'xml/entries'
 end
+
 
 
 

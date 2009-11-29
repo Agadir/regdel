@@ -1,4 +1,5 @@
-xml.entries { |b|
+xml._R_ { |r|
+    r.entries { |b|
     @myentries.each do |entry|
 
         b.entry( :memorandum=>entry.memorandum, :id=>entry.id) { |amt|
@@ -13,4 +14,10 @@ xml.entries { |b|
 
         }
     end
+    }
+    r.accounts { |a|
+        @myaccounts.each do |account|
+            a.account( :id=>account.id )
+        end
+    }
 }
