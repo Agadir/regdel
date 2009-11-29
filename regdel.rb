@@ -41,14 +41,6 @@ post '/new/account' do
   end
 end
 
-get '/entries' do
-    @myentries = Entry.all
-    @myaccounts = Account.all
-    # Example of using xslview and how xslviews could be chained together
-    myxml = builder :'xml/entries'
-    stepone = h myxml, '/var/www/dev/regdel/views/xsl/entries.xsl'
-    stepone
-end
 
 get '/new/entry' do
     @object_type = 'entry'
@@ -64,6 +56,24 @@ post '/new/entry' do
 end
 
 
+get '/entries*' do
+    @myentries = Entry.all
+    @myaccounts = Account.all
+    pass
+end
+    
+get '/entries' do
+    # Example of using xslview and how xslviews could be chained together
+    myxml = builder :'xml/entries'
+    stepone = h myxml, '/var/www/dev/regdel/views/xsl/entries.xsl'
+    stepone
+end
+
+get '/entries/raw' do
+    content_type 'application/xml', :charset => 'utf-8'
+    builder :'xml/entries'
+end
+
 get '/raw/entries' do
     content_type 'application/xml', :charset => 'utf-8'
     @myentries = Entry.all
@@ -71,7 +81,16 @@ get '/raw/entries' do
     builder :'xml/entries'
 end
 
+["/foo", "/bar", "/baz"].each do |path|
+  get path do
+    @barf = "You've reached me at #{request.path_info}"
+    pass
+  end
+end
 
+get '/foo' do
+    @barf << "ok"
+end
 
 
 
