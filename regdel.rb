@@ -8,7 +8,12 @@ require 'dm-validations'
 require 'dm-timestamps'
 require 'data/regdel_dm'
 require 'views/utils/template'
+require 'xml/libxml'
+require 'xml/libxslt'
+require 'nokogiri'
+require 'open-uri'
 
+set :views, File.dirname(__FILE__) + '/views'
 
 
 
@@ -38,8 +43,11 @@ end
 
 
 get '/entries' do
-    @myitems = Entry.all()
-    erb :'erb/entry_list'
+    doc = ''
+    open('http://192.168.8.48:3001/raw/entries').each_line do |line|
+        doc += line
+    end
+    xsl :'xsl/entries', :locals => { :myxml => doc }
 end
 
 get '/new/entry' do

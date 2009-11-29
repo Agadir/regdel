@@ -24,18 +24,12 @@ Fifth Floor, Boston, MA 02110-1301 USA
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 xmlns="http://www.w3.org/1999/xhtml">
 	<xsl:import href="http://github.com/docunext/1bb02b59/raw/master/output.xhtml11.xsl"/>
-  <xsl:include href="html_custom.xsl"/>
+  <!--<xsl:include href="html_custom.xsl"/>-->
 
 
 <!-- THIS TEMPLATE PROVIDES A LAYER OF ABSTRACTION. -->
 <xsl:template name="main">
-  <xsl:param name="link_prefix"/>
-  <xsl:param name="path_prefix"/>
-
-  <xsl:call-template name="body">
-    <xsl:with-param name="link_prefix" select="$link_prefix"/>
-    <xsl:with-param name="path_prefix" select="$path_prefix"/>
-  </xsl:call-template>
+<xsl:call-template name="content"/>
 </xsl:template>
 
 
