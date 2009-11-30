@@ -26,7 +26,7 @@ module Rack
     end
     def each(&block)
         @response.each { |x|
-            x.gsub('</body>','just saying hi</body>')
+            x.gsub!('</body>','just saying hi</body>')
             yield x
         }
     end
@@ -53,6 +53,7 @@ end
 
 # These are processed in reverse order it seems
 use Rack::MyCL
+use Rack::Deflater
 use Rack::This
 use Rack::CleanHeaders
 
