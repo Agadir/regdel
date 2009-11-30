@@ -34,24 +34,24 @@ xmlns="http://www.w3.org/1999/xhtml">
     <thead>
       <tr>
         <th>
-          <span id="i18n-date">Date</span>
+          <span class="i18n-date">Date</span>
         </th>
         <th />
         <th width="200">
-          <span id="i18n-memo">Memorandum</span>
+          <span class="i18n-memo">Memorandum</span>
         </th>
         <th width="15" />
         <th>
-          <span id="i18n-accounts">Accounts</span>
+          <span class="i18n-accounts">Accounts</span>
         </th>
         <th>
-          <span id="i18n-debit">Debit</span>
+          <span class="i18n-debit">Debit</span>
         </th>
         <th>
-          <span id="i18n-credit">Credit</span>
+          <span class="i18n-credit">Credit</span>
         </th>
         <th>
-          <span id="i18n-id">ID</span>
+          <span class="i18n-id">ID</span>
         </th>
         <th />
       </tr>
@@ -71,13 +71,13 @@ xmlns="http://www.w3.org/1999/xhtml">
           <xsl:value-of select="@date"/>
         </td>
         <td>
-          <span id="i18n-debit">Debit</span>
+          <span class="i18n-debit">Debit</span>
         </td>
         <td>
-          <span id="i18n-credit">Credit</span>
+          <span class="i18n-credit">Credit</span>
         </td>
         <td>
-          <span id="i18n-id">ID</span>
+          <span class="i18n-id">ID</span>
         </td>
         <td />
       </tr>

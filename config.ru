@@ -1,5 +1,7 @@
 require 'regdel'
 require 'rack/utils'
+require 'xml/libxml'
+require 'xml/libxslt'
 
 module Rack
   class CleanHeaders
@@ -32,6 +34,37 @@ module Rack
     end
   end
 end
+
+module Rack
+  class XSLView
+    def initialize(app, options={})
+      @app = app
+      @options = {:myxsl => nil}.merge(options)
+      if options[:myxsl] == nil
+        @xslt = ::XML::XSLT.new()
+        @xslt.xsl = '/var/www/dev/regdel/views/xsl/identity.xsl'
+      else
+        @xslt = options[:myxsl]
+      end
+    end
+
+    def call(env)
+        status, headers, @response = @app.call(env)
+        [status, headers, self]
+    end
+    def each(&block)
+        @response.each { |x|
+            if x.include? "<body"
+              @xslt.xml = x
+              yield @xslt.serve
+            else
+                yield x
+            end
+        }
+    end
+  end
+end
+
 module Rack
   class MyCL
     def initialize(app)
@@ -51,12 +84,16 @@ module Rack
 end
 
 
+xslt = ::XML::XSLT.new()
+xslt.xsl = '/var/www/dev/regdel/views/xsl/identity.xsl'
+
 # These are processed in reverse order it seems
 use Rack::MyCL
-use Rack::Deflater
+use Rack::XSLView, :myxsl => xslt
 use Rack::This
 use Rack::CleanHeaders
 
+#Rack::XSLView.config
 
 app = Sinatra::Application
 run app
