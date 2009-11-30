@@ -17,7 +17,7 @@ set :views, File.dirname(__FILE__) + '/views'
 
 get '/' do
     @myaccounts = Account.all
-    erb :'erb/list'
+    erb :'erb/account_list'
 end
 
 get '/accounts' do
@@ -63,7 +63,7 @@ end
 get '/entries' do
     # Example of using xslview and how xslviews could be chained together
     myxml = builder :'xml/entries'
-    stepone = h myxml, '/var/www/dev/regdel/views/xsl/entries.xsl'
+    stepone = xslview myxml, '/var/www/dev/regdel/views/xsl/entries.xsl'
     stepone
 end
 
@@ -78,6 +78,10 @@ get '/raw/entries' do
     builder :'xml/entries'
 end
 
+    
+get '/test/rack-middleware' do
+    "hello"
+end
 
 helpers do
     def get_entries_and_accounts()
@@ -87,12 +91,3 @@ helpers do
 end
 
 
-
-# Requires patched sinatra
-#get '/remote/entries' do
-#    doc = ''
-#    open('http://192.168.8.48:3001/raw/entries').each_line do |line|
-#       doc += line
-#    end
-#    xsl :'xsl/entries', :locals => { :myxml => doc }
-#end
