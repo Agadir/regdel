@@ -29,7 +29,7 @@ module Rack
     end
     def each(&block)
         @response.each { |x|
-            x.gsub!('</body>','just saying hi</body>')
+            x.gsub!('</div>','just saying hi</div>')
             yield x
         }
     end
