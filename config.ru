@@ -2,6 +2,7 @@ require 'regdel'
 require 'rack/utils'
 require 'xml/libxml'
 require 'xml/libxslt'
+require 'rexml/document'
 
 module Rack
   class CleanHeaders
@@ -40,11 +41,11 @@ module Rack
     def initialize(app, options={})
       @app = app
       @options = {:myxsl => nil}.merge(options)
-      if options[:myxsl] == nil
+      if @options[:myxsl] == nil
         @xslt = ::XML::XSLT.new()
         @xslt.xsl = '/var/www/dev/regdel/views/xsl/identity.xsl'
       else
-        @xslt = options[:myxsl]
+        @xslt = @options[:myxsl]
       end
     end
 
@@ -54,7 +55,7 @@ module Rack
     end
     def each(&block)
         @response.each { |x|
-            if x.include? "<body"
+            if x.include? "<_R_"
               @xslt.xml = x
               yield @xslt.serve
             else
@@ -85,7 +86,7 @@ end
 
 
 xslt = ::XML::XSLT.new()
-xslt.xsl = '/var/www/dev/regdel/views/xsl/identity.xsl'
+xslt.xsl = REXML::Document.new File.open('/var/www/dev/regdel/views/xsl/entries.xsl')
 
 # These are processed in reverse order it seems
 use Rack::MyCL
