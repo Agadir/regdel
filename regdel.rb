@@ -6,8 +6,10 @@ require 'bigdecimal/util'
 require 'dm-core'
 require 'dm-validations'
 require 'dm-timestamps'
+require 'dm-serializer'
 require 'xml/libxml'
 require 'xml/libxslt'
+require 'json'
 
 require 'data/regdel_dm'
 require 'helpers/xslview'
@@ -69,6 +71,13 @@ end
 get '/raw/test' do
     content_type 'application/xml', :charset => 'utf-8'
     builder :'xml/test'
+end
+get '/raw/jsontest' do
+    # Need to figure out how to get these to nest properly
+    #content_type :json
+    content_type 'text/plain'
+    @myentries = Entry.all
+    @myentries.to_json(:methods => [:credits,:debits])
 end
 
 
