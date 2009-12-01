@@ -55,34 +55,22 @@ post '/new/entry' do
 end
 
 
-get '/entries*' do
-    @myentries = Entry.all
-    @myaccounts = Account.all
-    pass
-end
-    
 get '/entries' do
-    # Example of using xslview and how xslviews could be chained together
-    myxml = builder :'xml/entries'
-    stepone = xslview myxml, '/var/www/dev/regdel/views/xsl/entries.xsl'
-    stepone
-end
-
-get '/entries/raw' do
-    content_type 'application/xml', :charset => 'utf-8'
+    get_entries_and_accounts()
     builder :'xml/entries'
 end
+
 
 get '/raw/entries' do
     content_type 'application/xml', :charset => 'utf-8'
     get_entries_and_accounts()
     builder :'xml/entries'
 end
-
-    
-get '/test/rack-middleware' do
-    "hello"
+get '/raw/test' do
+    content_type 'application/xml', :charset => 'utf-8'
+    builder :'xml/test'
 end
+
 
 helpers do
     def get_entries_and_accounts()
@@ -90,5 +78,3 @@ helpers do
         @myaccounts = Account.all
     end
 end
-
-

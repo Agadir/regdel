@@ -13,8 +13,12 @@ module Rack
     end
 
     def call(env)
-        status, headers, @response = @app.call(env)
-        [status, headers, self]
+        if env["PATH_INFO"].include? "/raw/"
+            @app.call(env)
+        else
+            status, headers, @response = @app.call(env)
+            [status, headers, self]
+        end
     end
     def each(&block)
         @response.each { |x|

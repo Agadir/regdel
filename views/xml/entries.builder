@@ -1,23 +1,26 @@
-xml._R_ { |r|
-    r.entries { |b|
+xml._R_ {
+    xml._get {
+        xml.path_info(env["PATH_INFO"])
+    }
+    xml.entries {
     @myentries.each do |entry|
 
-        b.entry( :memorandum=>entry.memorandum, :id=>entry.id) { |amt|
+        xml.entry( :memorandum=>entry.memorandum, :id=>entry.id) {
 
             entry.credits.each do |credit|
-                amt.credit(:id=>credit.id,:amount=>credit.to_usd)
+                xml.credit(:id=>credit.id,:amount=>credit.to_usd)
             end
 
             entry.debits.each do |debit|
-                amt.debit(:id=>debit.id,:amount=>debit.to_usd)
+                xml.debit(:id=>debit.id,:amount=>debit.to_usd)
             end
-
         }
+
     end
     }
-    r.accounts { |a|
+    xml.accounts {
         @myaccounts.each do |account|
-            a.account( :id=>account.id )
+            xml.account( :id=>account.id )
         end
     }
 }
