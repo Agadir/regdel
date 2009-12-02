@@ -17,14 +17,12 @@ require 'helpers/xslview'
 
 class RdMoney < String
     def no_d
-        # This is not good enough, it will fail if users enter dollar values only
-        return (self.gsub(/[^0-9]/,'').to_i)
+        return (self.gsub(/[^0-9\.]/,'').to_d * 100).to_i
     end
 end
 
 set :views, File.dirname(__FILE__) + '/views'
 set :public, File.dirname(__FILE__) + '/public'
-
 
 get '/' do
     redirect '/accounts'
