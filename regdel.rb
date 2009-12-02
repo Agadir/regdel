@@ -33,7 +33,8 @@ end
 
 get '/accounts' do
     @myaccounts = Account.all
-    @myaccounts.to_xml
+    accounts = @myaccounts.to_xml
+    xslview accounts, '/var/www/dev/regdel/views/xsl/accounts.xsl'
 end
 
 post '/new/account' do
@@ -66,9 +67,8 @@ get '/raw/entries' do
     builder :'xml/entries'
 end
 get '/raw/accounts' do
-    content_type 'application/xml', :charset => 'utf-8'
     @accounts = Account.all
-    builder :'xml/accounts'
+    accounts = builder :'xml/accounts'
 end
 get '/raw/test' do
     content_type 'application/xml', :charset => 'utf-8'
