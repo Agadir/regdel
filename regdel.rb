@@ -34,17 +34,17 @@ get '/accounts' do
     xslview accounts, '/var/www/dev/regdel/views/xsl/accounts.xsl'
 end
 
-post '/new/account' do
+post '/account/new' do
   @account = Account.new(:name => params[:account_name])
   redirect '/accounts'
 end
 
-get '/new/entry' do
+get '/entry/new' do
     @object_type = 'entry'
     erb :'erb/entry_new'
 end
 
-post '/new/entry' do
+post '/entry/new' do
     @entry = Entry.new(:memorandum => params[:memorandum])
     @entry.save
     @entry.credits.create(:amount => RdMoney.new(params[:credit]).no_d)
