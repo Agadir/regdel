@@ -31,3 +31,11 @@ Components
 by XSL
 * Views are XML-based and built Ruby Builder
 * User interface is rendered via XHTML and XSL by Nokogiri or NGINX
+
+
+Notes
+-----
+
+<pre>
+INSERT INTO accounts (name) VALUES ('test');
+</pre>
