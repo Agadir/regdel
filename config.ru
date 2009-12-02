@@ -20,7 +20,7 @@ xslt.xsl = REXML::Document.new File.open('/var/www/dev/regdel/views/xsl/html_mai
 # These are processed in reverse order it seems
 use Rack::FinalContentLength
 use Rack::XSLView, :myxsl => xslt
-use Rack::ExampleA
+#use Rack::ExampleA
 use Rack::NoLength
 
 
