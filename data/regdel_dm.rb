@@ -1,15 +1,10 @@
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/rbeans.sqlite3")
 
-class RdMoney < String
-    def no_d
-        return (self.gsub(/[^0-9]/,'').to_i)
-    end
-end
 
 
 class Account
   include DataMapper::Resource
-  
+
   property :id,Serial
   property :number,String
   property :name,String
@@ -26,7 +21,7 @@ end
 
 class Entry
   include DataMapper::Resource
-  
+
   property :id,Serial
   property :memorandum,String
   property :status,Integer

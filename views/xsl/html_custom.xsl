@@ -1,6 +1,6 @@
 <!--
 Program: http://www.regdel.com
-Component: html_main.xsl
+Component: html_custom.xsl
 Copyright: Savonix Corporation
 Author: Albert L. Lash, IV
 License: Gnu Affero Public License version 3
@@ -21,24 +21,33 @@ along with this program; if not, see http://www.gnu.org/licenses
 or write to the Free Software Foundation, Inc., 51 Franklin Street,
 Fifth Floor, Boston, MA 02110-1301 USA
 -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-xmlns="http://www.w3.org/1999/xhtml">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml">
 
   <!-- HTML SHELL -->
   <xsl:template match="/">
     <html>
-    
+      <xsl:call-template name="head"/>
       <body>
         <xsl:apply-templates />
       </body>
     </html>
   </xsl:template>
 
-<xsl:template match="@*|node()">
-  <xsl:copy>
-    <xsl:apply-templates select="@*|node()"/>
-  </xsl:copy>
-</xsl:template>
+  <xsl:template name="head">
+    <xsl:param name="link_prefix"/>
+    <xsl:param name="path_prefix"/>
+    <head>
+      <title>
+        <xsl:value-of select="(//h1|//h2)[1]" />
+      </title>
+    </head>
+  </xsl:template>
+
+  <xsl:template match="@*|node()">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+  </xsl:template>
 
 
 

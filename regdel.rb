@@ -14,6 +14,14 @@ require 'json'
 require 'data/regdel_dm'
 require 'helpers/xslview'
 
+
+class RdMoney < String
+    def no_d
+        # This is not good enough, it will fail if users enter dollar values only
+        return (self.gsub(/[^0-9]/,'').to_i)
+    end
+end
+
 set :views, File.dirname(__FILE__) + '/views'
 set :public, File.dirname(__FILE__) + '/public'
 
@@ -28,20 +36,10 @@ get '/accounts' do
     erb :'erb/account_list'
 end
 
-get '/new/account' do
-    @object_type = 'account'
-    erb :'xhtml/account_form'
-end
-
 post '/new/account' do
   @account = Account.new(:name => params[:account_name])
-  if @account.save
-      redirect '/accounts'
-  else
-      redirect '/accounts'
-  end
+  redirect '/accounts'
 end
-
 
 get '/new/entry' do
     @object_type = 'entry'
@@ -55,7 +53,6 @@ post '/new/entry' do
     @entry.debits.create(:amount => RdMoney.new(params[:debit]).no_d)
     redirect '/entries'
 end
-
 
 get '/entries' do
     get_entries_and_accounts()
