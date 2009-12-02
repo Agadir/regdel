@@ -52,9 +52,10 @@ post '/entry/new' do
     redirect '/entries'
 end
 
-get '/entries' do
+get '/journal' do
     get_entries_and_accounts()
-    erb :'erb/entry_list'
+    entries = builder :'xml/entries'
+    xslview entries, '/var/www/dev/regdel/views/xsl/entries.xsl'
 end
 
 

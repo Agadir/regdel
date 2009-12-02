@@ -25,7 +25,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
 xmlns="http://www.w3.org/1999/xhtml">
 	<xsl:include href="/var/www/dev/regdel/views/xsl/html_main.xsl"/>
 
-<xsl:template name="content">
+<xsl:template match="/">
 
 
 <div class="tableframe">
