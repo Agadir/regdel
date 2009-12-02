@@ -22,11 +22,11 @@ module Rack
     end
     def each(&block)
         @response.each { |x|
-            if x.include? "<_R_"
+            if x.include? "<html"
+                yield x
+            else
               @xslt.xml = x
               yield @xslt.serve
-            else
-                yield x
             end
         }
     end

@@ -72,12 +72,24 @@ get '/raw/test' do
     content_type 'application/xml', :charset => 'utf-8'
     builder :'xml/test'
 end
+
+
+
+
 get '/raw/jsontest' do
-    # Need to figure out how to get these to nest properly
-    #content_type :json
-    content_type 'text/plain'
+    content_type :json
+    @myentries = Entry.all
+    @myentries.to_json()
+end
+get '/raw/jsontestassoc' do
+    content_type :json
     @myentries = Entry.all
     @myentries.to_json(:methods => [:credits,:debits])
+end
+get '/raw/xmltest' do
+    content_type 'application/xml'
+    @myentries = Entry.all
+    @myentries.to_xml()
 end
 
 

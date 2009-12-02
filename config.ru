@@ -15,7 +15,7 @@ require 'helpers/rack/finalcontentlength'
 
 
 xslt = ::XML::XSLT.new()
-xslt.xsl = REXML::Document.new File.open('/var/www/dev/regdel/views/xsl/entries.xsl')
+xslt.xsl = REXML::Document.new File.open('/var/www/dev/regdel/views/xsl/html_main.xsl')
 
 # These are processed in reverse order it seems
 use Rack::FinalContentLength

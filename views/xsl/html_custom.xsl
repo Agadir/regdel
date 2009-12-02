@@ -23,9 +23,22 @@ Fifth Floor, Boston, MA 02110-1301 USA
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 xmlns="http://www.w3.org/1999/xhtml">
-	<xsl:import href="http://github.com/docunext/1bb02b59/raw/master/output.html4.xsl"/>
-  <xsl:include href="/var/www/dev/regdel/views/xsl/html_custom.xsl"/>
 
+  <!-- HTML SHELL -->
+  <xsl:template match="/">
+    <html>
+    
+      <body>
+        <xsl:apply-templates />
+      </body>
+    </html>
+  </xsl:template>
+
+<xsl:template match="@*|node()">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
 
 
 
