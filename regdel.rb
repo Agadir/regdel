@@ -27,8 +27,7 @@ set :public, File.dirname(__FILE__) + '/public'
 
 
 get '/' do
-    @myaccounts = Account.all
-    erb :'erb/account_list'
+    redirect '/accounts'
 end
 
 get '/accounts' do
