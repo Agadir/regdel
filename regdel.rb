@@ -25,7 +25,7 @@ set :views, File.dirname(__FILE__) + '/views'
 set :public, File.dirname(__FILE__) + '/public'
 
 get '/' do
-    redirect '/accounts'
+    redirect '/s/xhtml/welcome.html'
 end
 
 get '/accounts' do
