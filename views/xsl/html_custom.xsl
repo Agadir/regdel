@@ -29,6 +29,7 @@ xmlns="http://www.w3.org/1999/xhtml">
     <html>
       <xsl:call-template name="head"/>
       <body>
+        <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/html_menu.html')/div"/>
         <xsl:apply-templates />
       </body>
     </html>
