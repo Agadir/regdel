@@ -56,7 +56,7 @@ end
 
 get '/entries' do
     get_entries_and_accounts()
-    builder :'xml/entries'
+    erb :'erb/entry_list'
 end
 
 
