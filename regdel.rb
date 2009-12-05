@@ -39,11 +39,6 @@ post '/account/new' do
   redirect '/accounts'
 end
 
-get '/entry/new' do
-    @object_type = 'entry'
-    erb :'erb/entry_new'
-end
-
 post '/entry/new' do
     @entry = Entry.new(:memorandum => params[:memorandum])
     @entry.save
