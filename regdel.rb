@@ -31,7 +31,7 @@ get '/accounts' do
     xslview accounts, '/var/www/dev/regdel/views/xsl/accounts.xsl'
 end
 
-post '/account/new' do
+post '/account-edit' do
   @account = Account.new(:name => params[:account_name])
   redirect '/accounts'
 end

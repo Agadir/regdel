@@ -6,7 +6,7 @@ module Rack
       @options = {:myxsl => nil}.merge(options)
       if @options[:myxsl] == nil
         @xslt = ::XML::XSLT.new()
-        @xslt.xsl = '/var/www/dev/regdel/views/xsl/identity.xsl'
+        @xslt.xsl = 'http://github.com/docunext/1bb02b59/raw/master/output.xhtml10.xsl'
       else
         @xslt = @options[:myxsl]
       end
