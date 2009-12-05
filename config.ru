@@ -14,6 +14,7 @@ require 'helpers/rack/finalcontentlength'
 gem 'rack-rewrite', '~> 0.2.0'
 require 'rack-rewrite'
 use Rack::Rewrite do
+    rewrite '/entry/new', '/s/xhtml/entry_form.html'
     rewrite '/account-new', '/s/xhtml/account_form.html'
     rewrite '/', '/s/xhtml/welcome.html'
 end

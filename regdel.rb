@@ -36,7 +36,7 @@ post '/account-edit' do
   redirect '/accounts'
 end
 
-post '/entry/new' do
+post '/entry-edit' do
     @entry = Entry.new(:memorandum => params[:memorandum])
     @entry.save
     @entry.credits.create(:amount => RdMoney.new(params[:credit]).no_d)
