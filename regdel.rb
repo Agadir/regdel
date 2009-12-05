@@ -7,6 +7,7 @@ require 'dm-core'
 require 'dm-validations'
 require 'dm-timestamps'
 require 'dm-serializer'
+require 'dm-aggregates'
 require 'xml/libxml'
 require 'xml/libxslt'
 require 'json'
@@ -23,6 +24,7 @@ end
 
 set :views, File.dirname(__FILE__) + '/views'
 set :public, File.dirname(__FILE__) + '/public'
+
 
 
 get '/accounts' do
@@ -54,6 +56,12 @@ get '/journal' do
     xslview entries, '/var/www/dev/regdel/views/xsl/entries.xsl'
 end
 
+get '/ledger' do
+    @myentries = Entry.all
+    entries = builder :'xml/entries'
+    xslview entries, '/var/www/dev/regdel/views/xsl/entries.xsl'
+end
+
 
 get '/raw/entries' do
     content_type 'application/xml', :charset => 'utf-8'
@@ -72,20 +80,43 @@ end
 
 
 
+get '/raw/test/entries/:offset' do
+    content_type 'application/xml', :charset => 'utf-8'
+    @myentries = Entry.all(:limit => 4, :offset => params[:offset].to_i)
+    builder :'xml/entries_test'
+end
+get '/raw/test/entries2' do
+    content_type 'application/xml', :charset => 'utf-8'
+    @myentries = Entry.all
+    @mycredits = Credit.all
+    @mydebits = Debit.all
+    builder :'xml/entries_test_big'
+end
+get '/raw/test/entries3' do
+    content_type 'application/xml', :charset => 'utf-8'
+    @myentries = Entry.all
+    builder :'xml/entries_test_sum'
+end
 
-get '/raw/jsontest' do
+get '/raw/test/to_json' do
     content_type :json
     @myentries = Entry.all
     @myentries.to_json()
 end
-get '/raw/jsontestassoc' do
+get '/raw/test/to_jsonassoc' do
     content_type :json
     @myentries = Entry.all
     @myentries.to_json(:methods => [:credits,:debits])
 end
-get '/raw/xmltest' do
+get '/raw/test/to_xml' do
     content_type 'application/xml'
     @myentries = Entry.all
     @myentries.to_xml()
 end
+get '/raw/test/to_xmlassoc' do
+    content_type 'application/xml'
+    @myentries = Entry.all
+    @myentries.to_xml(:methods => [:credits,:debits])
+end
+
 

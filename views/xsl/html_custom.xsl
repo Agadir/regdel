@@ -42,6 +42,7 @@ xmlns="http://www.w3.org/1999/xhtml">
       <title>
         <xsl:value-of select="(//h1|//h2)[1]" />
       </title>
+      <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.7.0/build/reset/reset-min.css"/> 
     </head>
   </xsl:template>
 

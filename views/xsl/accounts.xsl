@@ -27,7 +27,7 @@ xmlns="http://www.w3.org/1999/xhtml">
 <xsl:template match="/">
 <table>
 <xsl:for-each select="//account">
-<tr><td>z
+<tr><td>
 <xsl:value-of select="@name"/>
 </td></tr>
 </xsl:for-each>
