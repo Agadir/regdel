@@ -26,6 +26,7 @@ class Entry
   property :memorandum,String
   property :status,Integer
   property :fiscal_period_id,Integer
+  property :entered_on,Integer
   has n, :credits
   has n, :debits
   has n, :ledgers

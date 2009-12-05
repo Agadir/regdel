@@ -68,13 +68,13 @@ xmlns="http://www.w3.org/1999/xhtml">
         </td>
         <td/>
         <td>
-          <xsl:value-of select="@date"/>
+          <xsl:value-of select="/debit/@account"/>
         </td>
         <td>
-          <xsl:value-of select="@debit"/>
+          <xsl:value-of select="./debit/@amount"/>
         </td>
         <td>
-          <xsl:value-of select="@credit"/>
+          <xsl:value-of select="./credit/@amount"/>
         </td>
         <td>
           <xsl:value-of select="@id"/>

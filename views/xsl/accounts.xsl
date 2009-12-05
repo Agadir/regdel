@@ -24,14 +24,14 @@ Fifth Floor, Boston, MA 02110-1301 USA
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 xmlns="http://www.w3.org/1999/xhtml">
 <xsl:output method="xml" omit-xml-declaration="yes" />
-<xsl:template match="//accounts">
-<table><tr>
-<xsl:for-each select="account">
-<td>
-<xsl:value-of select="name"/>
-</td>
+<xsl:template match="/">
+<table>
+<xsl:for-each select="//account">
+<tr><td>z
+<xsl:value-of select="@name"/>
+</td></tr>
 </xsl:for-each>
-</tr></table>
+</table>
 
 </xsl:template>
 </xsl:stylesheet>
