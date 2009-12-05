@@ -71,13 +71,13 @@ xmlns="http://www.w3.org/1999/xhtml">
           <xsl:value-of select="@date"/>
         </td>
         <td>
-          <span class="i18n-debit">Debit</span>
+          <xsl:value-of select="@debit"/>
         </td>
         <td>
-          <span class="i18n-credit">Credit</span>
+          <xsl:value-of select="@credit"/>
         </td>
         <td>
-          <span class="i18n-id">ID</span>
+          <xsl:value-of select="@id"/>
         </td>
         <td />
       </tr>
