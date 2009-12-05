@@ -1,7 +1,4 @@
 xml._R_ {
-    xml._get {
-        xml.path_info(env["PATH_INFO"])
-    }
     xml.entries {
     @myentries.each do |entry|
 
@@ -17,10 +14,5 @@ xml._R_ {
         }
 
     end
-    }
-    xml.accounts {
-        @myaccounts.each do |account|
-            xml.account( :id=>account.id )
-        end
     }
 }
