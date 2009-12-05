@@ -24,9 +24,6 @@ end
 set :views, File.dirname(__FILE__) + '/views'
 set :public, File.dirname(__FILE__) + '/public'
 
-get '/' do
-    redirect '/s/xhtml/welcome.html'
-end
 
 get '/accounts' do
     @myaccounts = Account.all
@@ -48,7 +45,7 @@ post '/entry/new' do
 end
 
 get '/journal' do
-    get_entries_and_accounts()
+    @myentries = Entry.all
     entries = builder :'xml/entries'
     xslview entries, '/var/www/dev/regdel/views/xsl/entries.xsl'
 end
@@ -56,7 +53,7 @@ end
 
 get '/raw/entries' do
     content_type 'application/xml', :charset => 'utf-8'
-    get_entries_and_accounts()
+    @myentries = Entry.all
     builder :'xml/entries'
 end
 get '/raw/accounts' do
@@ -87,10 +84,3 @@ get '/raw/xmltest' do
     @myentries.to_xml()
 end
 
-
-helpers do
-    def get_entries_and_accounts()
-        @myentries = Entry.all
-        @myaccounts = Account.all
-    end
-end
