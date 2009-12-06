@@ -36,8 +36,6 @@ xmlns="http://www.w3.org/1999/xhtml">
 </xsl:template>
 
 <xsl:template name="head">
-  <xsl:param name="link_prefix"/>
-  <xsl:param name="path_prefix"/>
   <head>
     <title>
       <xsl:value-of select="(//h1|//h2)[1]" />
@@ -51,6 +49,12 @@ xmlns="http://www.w3.org/1999/xhtml">
     </xsl:if>
     <xsl:if test="$my_path_info='/s/xhtml/entry_all_form.html'">
       <script type="text/javascript" src="/s/js/entry_form.js"></script>
+    </xsl:if>
+    <xsl:if test="contains($my_path_info,'/accounts')">
+      <script type="text/javascript" src="/s/js/accounts.js"></script>
+    </xsl:if>
+    <xsl:if test="contains($my_path_info,'/journal')">
+      <script type="text/javascript" src="/s/js/journal.js"></script>
     </xsl:if>
     <script type="text/javascript" src="/s/js/jquery/plugins/jquery.url.js"></script>
     <script type="text/javascript" src="/s/js/jquery/plugins/jquery.jselect.js"></script>
