@@ -143,6 +143,11 @@ get '/raw/entries' do
     @myentries = Entry.all
     builder :'xml/entries'
 end
+get '/raw/account/select' do
+    content_type 'application/xml', :charset => 'utf-8'
+    @accounts = Account.all
+    builder :'xml/account_select'
+end
 get '/raw/accounts' do
     content_type 'application/xml', :charset => 'utf-8'
     @accounts = Account.all
