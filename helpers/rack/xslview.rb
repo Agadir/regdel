@@ -24,6 +24,8 @@ module Rack
         @response.each { |x|
             if x.include? "<html"
                 yield x
+            elsif !x.include? "<"
+                yield x
             else
               @xslt.xml = x
               yield @xslt.serve

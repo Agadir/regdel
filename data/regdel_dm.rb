@@ -17,6 +17,10 @@ class Account
   has n, :credits
   has n, :debits
   has n, :ledgers
+  validates_present :name
+  validates_length :name, :max => 12, :message => "Name is too long or too short."
+  validates_length :name, :min => 2, :message => "Name is too long or too short."
+  validates_is_unique :name
 end
 
 class Entry

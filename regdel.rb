@@ -8,6 +8,7 @@ require 'dm-validations'
 require 'dm-timestamps'
 require 'dm-serializer'
 require 'dm-aggregates'
+require 'dm-validations'
 require 'xml/libxml'
 require 'xml/libxslt'
 require 'json'
@@ -24,7 +25,8 @@ end
 
 set :views, File.dirname(__FILE__) + '/views'
 set :public, File.dirname(__FILE__) + '/public'
-
+set :dump_errors, false
+set :raise_errors, true
 
 
 get '/accounts' do
@@ -38,7 +40,11 @@ post '/account/submit' do
   if @account.save
       redirect '/accounts'
   else
-      "Error"
+      myerrors = ""
+      @account.errors.each do |e|
+          myerrors << e.to_s
+      end
+      redirect '/account/new?error='+myerrors
   end
 end
 
@@ -62,6 +68,16 @@ get '/ledger' do
     xslview entries, '/var/www/dev/regdel/views/xsl/entries.xsl'
 end
 
+error do
+  'So what happened was...' + request.env['sinatra.error'].message
+end
+
+not_found do
+    'This is nowhere to be found'
+end
+    
+# TESTS
+
 
 get '/raw/entries' do
     content_type 'application/xml', :charset => 'utf-8'
@@ -80,10 +96,15 @@ end
 
 
 
+get '/raw/test/entries' do
+    content_type 'application/xml', :charset => 'utf-8'
+    @myentries = Entry.all(:limit => 4, :offset => 0)
+    builder :'xml/entries_test_sum'
+end
 get '/raw/test/entries/:offset' do
     content_type 'application/xml', :charset => 'utf-8'
     @myentries = Entry.all(:limit => 4, :offset => params[:offset].to_i)
-    builder :'xml/entries_test'
+    builder :'xml/entries_test_sum'
 end
 get '/raw/test/entries2' do
     content_type 'application/xml', :charset => 'utf-8'
