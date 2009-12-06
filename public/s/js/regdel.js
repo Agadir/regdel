@@ -59,4 +59,36 @@ $('document').ready(function() {
                 });
         });
     }
+
+    if(jQuery.url.segment(0)=='journal') {
+        $(".entry_row").toggle(
+            function () {
+                $(".entry_detail").remove();
+                var myid = $(this).get(0).getAttribute('id');
+                $.getJSON("http://dev-48-gl.savonix.com:3000/json/entry/"+myid, function(data) {
+                    $.each(data.credits, function(i, item) {
+                        var myamounts = '<tr class="entry_detail credit">';
+                        myamounts += '<td>'+item.account_id+'</td>';
+                        myamounts += '<td>'+item.memorandum+'</td>';
+                        myamounts += '<td/>';
+                        myamounts += '<td>'+item.amount+'</td>';
+                        myamounts += '</tr>';
+                        $("#"+myid).after(myamounts);
+                    });
+                    $.each(data.debits, function(i, item) {
+                        var myamounts = '<tr class="entry_detail debit">';
+                        myamounts += '<td>'+item.account_id+'</td>';
+                        myamounts += '<td>'+item.memorandum+'</td>';
+                        myamounts += '<td>'+item.amount+'</td>';
+                        myamounts += '<td/>';
+                        myamounts += '</tr>';
+                        $("#"+myid).after(myamounts);
+                    });
+                });
+            },
+            function () {
+                $(".entry_detail").remove();
+            }
+        );
+    }
 });

@@ -103,6 +103,14 @@ get '/json/entry/:id' do
     Entry.get(params[:id]).to_json(:methods => [:credits,:debits])
 end
 get '/journal' do
+    redirect '/journal/0'
+end
+get '/journal/:offset' do
+    @myentries = Entry.all(:limit => 10, :offset => params[:offset].to_i)
+    entries = builder :'xml/entries'
+    xslview entries, '/var/www/dev/regdel/views/xsl/entries_simpler.xsl'
+end
+get '/journal/full' do
     @myentries = Entry.all
     entries = builder :'xml/entries'
     xslview entries, '/var/www/dev/regdel/views/xsl/entries.xsl'
