@@ -5,6 +5,7 @@ DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/rbeans.sqlite3")
 class Account
   include DataMapper::Resource
 
+  name_length_error = "Name is too long or too short."
   property :id,Serial
   property :number,String
   property :name,String
@@ -18,8 +19,8 @@ class Account
   has n, :debits
   has n, :ledgers
   validates_present :name
-  validates_length :name, :max => 12, :message => "Name is too long or too short."
-  validates_length :name, :min => 2, :message => "Name is too long or too short."
+  validates_length :name, :max => 12, :message => name_length_error
+  validates_length :name, :min => 2, :message => name_length_error
   validates_is_unique :name
 end
 

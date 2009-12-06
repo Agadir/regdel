@@ -25,42 +25,34 @@ $('document').ready(function() {
 
 
     /* To be used with forms */
-    $.getScript("/s/js/jquery/plugins/jquery.url.js", function() {
-        if(jQuery.url.segment(0)=='account' && jQuery.url.segment(1)=='edit') {
-            $.getScript("/s/js/jquery/plugins/jquery.jselect.js", function() {
-                $('#type_id').jselect({
-                    replaceAll: true,
-                    loadType: "GET",
-                    loadUrl: "/s/xml/raw/account_types_select.xml",
-                });
-                var myid = jQuery.url.segment(2);
-                $.getJSON("http://dev-48-gl.savonix.com:3000/json/account/"+myid, function(data) {
-                    $.each(data, function(i, item) {
-                        if ($('#' + i).length) {
-                            $('#' + i).val(item);
-                        }
-                        //$("input").val(["check1","check2", "radio1" ]);
-                        //$("input").val(["takes_deposits"]);
-                    });
-                });
-                $("form").append('<input type="hidden" name="id" value="' + myid +'" />');
-                
+    if(jQuery.url.segment(0)=='account' && jQuery.url.segment(1)=='edit') {
+        $('#type_id').jselect({
+            replaceAll: true,
+            loadType: "GET",
+            loadUrl: "/s/xml/raw/account_types_select.xml",
+        });
+        var myid = jQuery.url.segment(2);
+        $.getJSON("http://dev-48-gl.savonix.com:3000/json/account/"+myid, function(data) {
+            $.each(data, function(i, item) {
+                if ($('#' + i).length) {
+                    $('#' + i).val(item);
+                }
             });
-        }
-        if(jQuery.url.segment(0)=='accounts') {
-            $("tbody.accounts tr").append('<td>Close</td>');
-            $("tbody.accounts tr td:last").click(function () {
-                var myid = $(this).parent().get(0).getAttribute('id');
-                $.ajax({
-                    type: "POST",
-                    url: "/account/close",
-                    data: ({id : myid}),
-                    success: function(msg){
-                        $('#'+myid).remove();
-                    }
-                    });
-            });
-        }
-    });
-    $.getScript("/s/js/relative_date.js");
+        });
+        $("form").append('<input type="hidden" name="id" value="' + myid +'" />');
+    }
+    if(jQuery.url.segment(0)=='accounts') {
+        $("tbody.accounts tr").append('<td>Close</td>');
+        $("tbody.accounts tr td:last").click(function () {
+            var myid = $(this).parent().get(0).getAttribute('id');
+            $.ajax({
+                type: "POST",
+                url: "/account/close",
+                data: ({id : myid}),
+                success: function(msg){
+                    $('#'+myid).remove();
+                }
+                });
+        });
+    }
 });

@@ -12,6 +12,7 @@ require 'dm-validations'
 require 'xml/libxml'
 require 'xml/libxslt'
 require 'json'
+require 'sass'
 
 require 'data/regdel_dm'
 require 'helpers/xslview'
@@ -49,6 +50,7 @@ post '/account/submit' do
             :number => params[:number],
             :description => params[:description]
         }
+        error_target = '/account/edit/' + params[:id]
     else
         @account = Account.new(
             :name => params[:name],
@@ -56,6 +58,7 @@ post '/account/submit' do
             :number => params[:number],
             :description => params[:description]
         )
+        error_target = '/account/new'
     end
 
     if @account.save
@@ -65,7 +68,7 @@ post '/account/submit' do
       @account.errors.each do |e|
           myerrors << e.to_s
       end
-      redirect '/account/new?error='+myerrors
+      redirect error_target + '?error=' + myerrors
     end
 end
 
@@ -103,6 +106,11 @@ get '/ledger' do
     @myentries = Entry.all
     entries = builder :'xml/entries'
     xslview entries, '/var/www/dev/regdel/views/xsl/entries.xsl'
+end
+
+get '/stylesheet.css' do
+  content_type 'text/css', :charset => 'utf-8'
+  sass :'css/regdel'
 end
 
 error do
