@@ -35,7 +35,11 @@ $('document').ready(function() {
         $.getJSON("http://dev-48-gl.savonix.com:3000/json/account/"+myid, function(data) {
             $.each(data, function(i, item) {
                 if ($('#' + i).length) {
-                    $('#' + i).val(item);
+                    if($('#' + i).attr("type")=="checkbox") {
+                        $('#' + i).val([item]);
+                    } else {
+                        $('#' + i).val(item);
+                    }
                 }
             });
         });

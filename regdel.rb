@@ -48,7 +48,8 @@ post '/account/submit' do
             :name => params[:name],
             :type_id => params[:type_id],
             :number => params[:number],
-            :description => params[:description]
+            :description => params[:description],
+            :hide => params[:hide]
         }
         error_target = '/account/edit/' + params[:id]
     else
@@ -56,7 +57,8 @@ post '/account/submit' do
             :name => params[:name],
             :type_id => params[:type_id],
             :number => params[:number],
-            :description => params[:description]
+            :description => params[:description],
+            :hide => params[:hide]
         )
         error_target = '/account/new'
     end

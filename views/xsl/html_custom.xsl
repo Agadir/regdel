@@ -24,33 +24,33 @@ Fifth Floor, Boston, MA 02110-1301 USA
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 xmlns="http://www.w3.org/1999/xhtml">
 
-  <!-- HTML SHELL -->
-  <xsl:template match="/">
-    <html>
-      <xsl:call-template name="head"/>
-      <body>
-        <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/nav_menu.html')/div"/>
-        <xsl:apply-templates />
-      </body>
-    </html>
-  </xsl:template>
+<!-- HTML SHELL -->
+<xsl:template match="/">
+  <html>
+    <xsl:call-template name="head"/>
+    <body>
+      <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/nav_menu.html')/div"/>
+      <xsl:apply-templates />
+    </body>
+  </html>
+</xsl:template>
 
-  <xsl:template name="head">
-    <xsl:param name="link_prefix"/>
-    <xsl:param name="path_prefix"/>
-    <head>
-      <title>
-        <xsl:value-of select="(//h1|//h2)[1]" />
-      </title>
-      <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.7.0/build/reset/reset-min.css"/>
-      <link rel="stylesheet" type="text/css" href="/stylesheet.css"/>
-      <script type="text/javascript" src="/s/js/jquery/jquery-1.3.2.js"></script>
-      <script type="text/javascript" src="/s/js/regdel.js"></script>
-      <script type="text/javascript" src="/s/js/jquery/plugins/jquery.url.js"></script>
-      <script type="text/javascript" src="/s/js/jquery/plugins/jquery.jselect.js"></script>
-      <script type="text/javascript" src="/s/js/relative_date.js"></script>
-    </head>
-  </xsl:template>
+<xsl:template name="head">
+  <xsl:param name="link_prefix"/>
+  <xsl:param name="path_prefix"/>
+  <head>
+    <title>
+      <xsl:value-of select="(//h1|//h2)[1]" />
+    </title>
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.7.0/build/reset/reset-min.css"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css"/>
+    <script type="text/javascript" src="/s/js/jquery/jquery-1.3.2.js"></script>
+    <script type="text/javascript" src="/s/js/regdel.js"></script>
+    <script type="text/javascript" src="/s/js/jquery/plugins/jquery.url.js"></script>
+    <script type="text/javascript" src="/s/js/jquery/plugins/jquery.jselect.js"></script>
+    <script type="text/javascript" src="/s/js/relative_date.js"></script>
+  </head>
+</xsl:template>
 
 
 
