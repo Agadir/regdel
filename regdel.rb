@@ -145,12 +145,12 @@ get '/raw/entries' do
 end
 get '/raw/account/select' do
     content_type 'application/xml', :charset => 'utf-8'
-    @accounts = Account.all
+    @accounts = Account.all(:closed_on => 0)
     builder :'xml/account_select'
 end
 get '/raw/accounts' do
     content_type 'application/xml', :charset => 'utf-8'
-    @accounts = Account.all
+    @accounts = Account.all(:closed_on => 0)
     builder :'xml/accounts'
 end
 get '/raw/test' do
