@@ -34,12 +34,11 @@ get '/accounts' do
     accounts = builder :'xml/accounts'
     xslview accounts, '/var/www/dev/regdel/views/xsl/accounts.xsl'
 end
+
 get '/json/account/:id' do
     content_type :json
     Account.get(params[:id]).to_json
 end
-
-
 
 post '/account/submit' do
     if params[:id]
@@ -85,7 +84,7 @@ post '/account/close' do
 end
 
 post '/entry/submit' do
-    @entry = Entry.new(:memorandum => params[:memorandum],:entered_on => Time.now.to_i)
+    @entry = Entry.new(:memorandum => params[:memorandum])
     @entry.save
     @entry.credits.create(:amount => RdMoney.new(params[:credit]).no_d)
     @entry.debits.create(:amount => RdMoney.new(params[:debit]).no_d)
