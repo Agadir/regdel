@@ -45,12 +45,14 @@ post '/account/submit' do
         @account = Account.get(params[:id])
         @account.attributes = {
             :name => params[:name],
+            :type_id => params[:type_id],
             :number => params[:number],
             :description => params[:description]
         }
     else
         @account = Account.new(
             :name => params[:name],
+            :type_id => params[:type_id],
             :number => params[:number],
             :description => params[:description]
         )
