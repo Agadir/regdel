@@ -13,7 +13,7 @@ module Rack
     end
 
     def call(env)
-        if env["PATH_INFO"].include? "/raw/"
+        if ((env["PATH_INFO"].include? "/raw/") || (env["PATH_INFO"].include? "/s/"))
             @app.call(env)
         else
             status, headers, @response = @app.call(env)
@@ -22,9 +22,7 @@ module Rack
     end
     def each(&block)
         @response.each { |x|
-            if x.include? "<html"
-                yield x
-            elsif !x.include? "<"
+            if ((x.include? "<html") || !(x.include? "<"))
                 yield x
             else
               @xslt.xml = x
