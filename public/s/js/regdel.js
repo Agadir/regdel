@@ -23,8 +23,11 @@ $('document').ready(function() {
     }
     /* To be used with forms */
     $.getScript("/s/js/jquery/plugins/jquery.populate.js");
-    $.getJSON("http://dev-48-gl.savonix.com:3000/json/account/5", function(data) {
-        $('form').populate(data);
+    $.getJSON("http://dev-48-gl.savonix.com:3000/json/account/8", function(data) {
+        $.each(data, function(i, item) {
+            $('#' + i).val(item);
+        });
+        //$('form').populate(data);
     });
     
 });
