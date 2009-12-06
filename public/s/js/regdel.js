@@ -45,7 +45,7 @@ $('document').ready(function() {
         });
         $("form").append('<input type="hidden" name="id" value="' + myid +'" />');
     }
-    if(jQuery.url.segment(0)=='entry' && jQuery.url.segment(1)=='new') {
+    if(jQuery.url.segment(0)=='entry' && (jQuery.url.segment(1)=='new' || jQuery.url.segment(1)=='edit')) {
         $('.account_id:first').jselect({
             replaceAll: true,
             loadType: "GET",
@@ -54,6 +54,19 @@ $('document').ready(function() {
                 $('.account_id:first option').clone().appendTo('.account_id:not(:first)');
             }
         });
+        if(jQuery.url.segment(1)=='edit') {
+          var myid = jQuery.url.segment(2);
+          $.getJSON("http://dev-48-gl.savonix.com:3000/json/entry/"+myid, function(data) {
+            $.each(data.credits, function(i, item) {
+                $(".credit-row:first").clone().insertAfter(".credit-row:first");
+            });
+            $(".credit-row:first").remove();
+            $.each(data.debits, function(i, item) {
+                $(".debits-row:first").clone().insertAfter(".debits-row:first");
+            });
+            $(".debits-row:first").remove();
+          });
+        }
     }
     if(jQuery.url.segment(0)=='accounts') {
         $("tbody.accounts tr").append('<td>Close</td>');

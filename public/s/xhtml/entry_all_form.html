@@ -1,0 +1,107 @@
+<form id="journal-entry-form">
+  <table class="form-table">
+    <tbody>
+      <tr>
+        <th>
+          <span id="i18n-entry">Entry</span>
+        </th>
+        <td />
+      </tr>
+      <tr>
+        <th>
+          <label for="entry_datetime">
+            <span id="i18n-date">Date</span>
+          </label>
+        </th>
+        <td>
+          <input type="text" name="entry_datetime" id="entry_datetime" />
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label for="fiscal_period_id">
+            <span id="i18n-fiscal_period">Fiscal Period</span>
+          </label>
+        </th>
+        <td>
+          <input type="text" name="fiscal_period_id" id="fiscal_period_id" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <p>
+            <span class="i18n-amounts">Amounts</span>
+          </p>
+          <table id="entry_form_table">
+            <thead>
+              <tr>
+                <th/>
+                <th>
+                  <span class="i18n-type">Type</span>
+                </th>
+                <th>
+                  <span class="i18n-accounts">Accounts</span>
+                </th>
+                <th>
+                  <span class="i18n-debit">Debit</span>
+                </th>
+                <th>
+                  <span class="i18n-credit">Credit</span>
+                </th>
+                <th width="20"/>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="debit-row">
+                <td/>
+                <td>
+                  <span class="i18n-debit">Debit</span>
+                </td>
+                <td>
+                  <select name="debit_account_1[]" class="account_id">
+                  </select>
+                </td>
+                <td>
+                  <input name="debit_amount_1[]" type="text" size="6" />
+                </td>
+                <td/>
+                <td/>
+              </tr>
+              <tr class="credit-row">
+                <td/>
+                <td>
+                  <span class="i18n-credit">Credit</span>
+                </td>
+                <td>
+                  <select name="credit_account_1[]" class="account_id">
+                  </select>
+                </td>
+                <td/>
+                <td>
+                  <input name="credit_amount_1[]" type="text" size="6" />
+                </td>
+                <td/>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="memorandum">
+            <span class="i18n-memorandum">Memorandum</span>
+          </label>
+        </td>
+        <td>
+          <textarea name="memorandum" id="memorandum" rows="5" cols="35">
+          </textarea>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input type="submit" name="submit" id="submit" value="Submit" class="generic-button"/>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

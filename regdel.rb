@@ -93,8 +93,8 @@ end
 post '/entry/submit' do
     @entry = Entry.new(:memorandum => params[:memorandum])
     @entry.save
-    @entry.credits.create(:amount => RdMoney.new(params[:credit]).no_d)
-    @entry.debits.create(:amount => RdMoney.new(params[:debit]).no_d)
+    @entry.credits.create(:amount => RdMoney.new(params[:credit]).no_d, :account_id => params[:credit_account_id])
+    @entry.debits.create(:amount => RdMoney.new(params[:debit]).no_d, :account_id => params[:debit_account_id])
     redirect '/journal'
 end
 
