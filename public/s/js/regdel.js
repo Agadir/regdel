@@ -25,7 +25,7 @@ $('document').ready(function() {
 
 
     /* To be used with forms */
-    if(jQuery.url.segment(0)=='account' && jQuery.url.segment(1)=='edit') {
+    if(jQuery.url.segment(0)=='account' && (jQuery.url.segment(1)=='new' || jQuery.url.segment(1)=='edit')) {
         $('#type_id').jselect({
             replaceAll: true,
             loadType: "GET",
