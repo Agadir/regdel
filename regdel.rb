@@ -98,6 +98,10 @@ post '/entry/submit' do
     redirect '/journal'
 end
 
+get '/json/entry/:id' do
+    content_type :json
+    Entry.get(params[:id]).to_json(:methods => [:credits,:debits])
+end
 get '/journal' do
     @myentries = Entry.all
     entries = builder :'xml/entries'
