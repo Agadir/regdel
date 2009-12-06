@@ -56,16 +56,7 @@ $('document').ready(function() {
         });
         if(jQuery.url.segment(1)=='edit') {
           var myid = jQuery.url.segment(2);
-          $.getJSON("http://dev-48-gl.savonix.com:3000/json/entry/"+myid, function(data) {
-            $.each(data.credits, function(i, item) {
-                $(".credit-row:first").clone().insertAfter(".credit-row:first");
-            });
-            $(".credit-row:first").remove();
-            $.each(data.debits, function(i, item) {
-                $(".debits-row:first").clone().insertAfter(".debits-row:first");
-            });
-            $(".debits-row:first").remove();
-          });
+          update_journal_entry_form(myid);
         }
     }
     if(jQuery.url.segment(0)=='accounts') {
@@ -115,3 +106,31 @@ $('document').ready(function() {
         );
     }
 });
+
+function update_journal_entry_form(myid) {
+  
+  $.getJSON("http://dev-48-gl.savonix.com:3000/json/entry/"+myid, function(data) {
+    $(".credit-row:not(:first)").remove();
+    var i = 0;
+    $.each(data.credits, function(i, item) {
+        if(i>=1) {
+          $(".credit-row:first").clone().appendTo("#entry_form_table tbody");
+        }
+        $(".credit-row:eq("+i+") input").val(item.amount);
+        i++;
+    });
+
+    $(".debit-row:not(:first)").remove();
+    var i = 0;
+    $.each(data.debits, function(i, item) {
+        if(i>=1) {
+        $(".debit-row:first").clone().appendTo("#entry_form_table tbody");
+        }
+        $(".debit-row:eq("+i+") input").val(item.amount);
+        i++;
+    });
+    $('input').click(function() {
+        update_journal_entry_form(myid);
+    });
+  });
+}
