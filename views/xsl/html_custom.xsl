@@ -53,6 +53,11 @@ xmlns="http://www.w3.org/1999/xhtml">
 </xsl:template>
 
 
+<xsl:template match="//tr[@class='credit-row']">
+  <xsl:copy>
+    <xsl:apply-templates />
+  </xsl:copy>
+</xsl:template>
 
 
 </xsl:stylesheet>

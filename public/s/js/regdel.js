@@ -75,10 +75,16 @@ $('document').ready(function() {
     }
 
     if(jQuery.url.segment(0)=='journal') {
-        $(".entry_row").toggle(
+        $(".entry_row").each(
+          function () {
+            var myid = $(this).get(0).getAttribute('id');
+            $(this).append('<td class="notoggle"><a href="/entry/edit/'+myid+'">edit</a></td>');
+          }
+        );
+        $(".entry_row td:not(.notoggle)").toggle(
             function () {
                 $(".entry_detail").remove();
-                var myid = $(this).get(0).getAttribute('id');
+                var myid = $(this).parent().get(0).getAttribute('id');
                 $.getJSON("/json/entry/"+myid, function(data) {
                     $.each(data.credits, function(i, item) {
                         var myamounts = '<tr class="entry_detail credit">';
