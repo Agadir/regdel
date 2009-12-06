@@ -16,18 +16,26 @@ function getUrlVars()
 }
 
 $('document').ready(function() {
+
     var hash = getUrlVars();
     if (hash['error']) {
         var err = '<div id="error">' + unescape(hash['error']) + '</div>';
         $("body").append(err);
     }
+
+
     /* To be used with forms */
-    $.getScript("/s/js/jquery/plugins/jquery.populate.js");
-    $.getJSON("http://dev-48-gl.savonix.com:3000/json/account/8", function(data) {
-        $.each(data, function(i, item) {
-            $('#' + i).val(item);
-        });
-        //$('form').populate(data);
+    $.getScript("/s/js/jquery/plugins/jquery.url.js", function() {
+        if(jQuery.url.segment(0)=='account' && jQuery.url.segment(1)=='edit') {
+            var myid = jQuery.url.segment(2);
+            $.getJSON("http://dev-48-gl.savonix.com:3000/json/account/"+myid, function(data) {
+                $.each(data, function(i, item) {
+                    if ($('#' + i).length) {
+                        $('#' + i).val(item);
+                    }
+                });
+            });
+            $("form").append('<input type="hidden" name="id" value="' + myid +'" />');
+        }
     });
-    
 });

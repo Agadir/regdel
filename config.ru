@@ -17,6 +17,7 @@ use Rack::Rewrite do
     rewrite '/entry/new', '/s/xhtml/entry_form.html'
     rewrite '/entry/edit', '/s/xhtml/entry_form.html'
     rewrite %r{/account/new(.*)}, '/s/xhtml/account_form.html'
+    rewrite %r{/account/edit/(.*)}, '/s/xhtml/account_form.html?id=$1'
     rewrite '/', '/s/xhtml/welcome.html'
 end
 

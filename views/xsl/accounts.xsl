@@ -28,7 +28,7 @@ xmlns="http://www.w3.org/1999/xhtml">
 <table>
 <xsl:for-each select="//account">
 <tr><td>
-<xsl:value-of select="@name"/>
+<a href="/account/edit/{@id}"><xsl:value-of select="@name"/></a>
 </td></tr>
 </xsl:for-each>
 </table>

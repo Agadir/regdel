@@ -39,17 +39,33 @@ get '/json/account/:id' do
     Account.get(params[:id]).to_json
 end
 
+
+
 post '/account/submit' do
-  @account = Account.new(:name => params[:name])
-  if @account.save
+    if params[:id]
+        @account = Account.get(params[:id])
+        @account.attributes = {
+            :name => params[:name],
+            :number => params[:number],
+            :description => params[:description]
+        }
+    else
+        @account = Account.new(
+            :name => params[:name],
+            :number => params[:number],
+            :description => params[:description]
+        )
+    end
+
+    if @account.save
       redirect '/accounts'
-  else
+    else
       myerrors = ""
       @account.errors.each do |e|
           myerrors << e.to_s
       end
       redirect '/account/new?error='+myerrors
-  end
+    end
 end
 
 post '/entry/submit' do
