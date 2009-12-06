@@ -33,5 +33,7 @@ use Rack::XSLView, :myxsl => xslt
 use Rack::NoLength
 
 
+#app = Regdel
 app = Sinatra::Application
+
 run app

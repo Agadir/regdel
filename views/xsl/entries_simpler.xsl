@@ -64,7 +64,8 @@ xmlns="http://www.w3.org/1999/xhtml">
     </xsl:for-each>
   </tbody>
 </table>
+<a href="./{//entries/@prev}">Prev</a>
+<a href="./{//entries/@next}">Next</a>
 </div>
-
 </xsl:template>
 </xsl:stylesheet>

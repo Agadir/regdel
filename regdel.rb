@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'sinatra'
+require 'sinatra/base'
 require 'builder'
 require 'bigdecimal'
 require 'bigdecimal/util'
@@ -24,10 +25,13 @@ class RdMoney < String
     end
 end
 
+#class Regdel < Sinatra::Base
+
 set :views, File.dirname(__FILE__) + '/views'
 set :public, File.dirname(__FILE__) + '/public'
 set :dump_errors, false
 set :raise_errors, true
+set :pagination, 10
 
 
 get '/accounts' do
@@ -106,7 +110,13 @@ get '/journal' do
     redirect '/journal/0'
 end
 get '/journal/:offset' do
-    @myentries = Entry.all(:limit => 10, :offset => params[:offset].to_i)
+    count = Entry.count()
+    myoffset = params[:offset].to_i
+    incr = options.pagination
+    
+    @myentries = Entry.all(:limit => options.pagination, :offset => myoffset)
+    @prev = (myoffset - incr) < 0 ? 0 : myoffset - incr
+    @next = myoffset + incr > count ? myoffset : myoffset + incr
     entries = builder :'xml/entries'
     xslview entries, '/var/www/dev/regdel/views/xsl/entries_simpler.xsl'
 end
@@ -203,5 +213,4 @@ get '/raw/test/to_xmlassoc' do
     @myentries = Entry.all
     @myentries.to_xml(:methods => [:credits,:debits])
 end
-
 
