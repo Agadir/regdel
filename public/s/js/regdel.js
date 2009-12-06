@@ -24,20 +24,7 @@ $('document').ready(function() {
     }
 
 
-    if(jQuery.url.segment(0)=='entry' && (jQuery.url.segment(1)=='new' || jQuery.url.segment(1)=='edit')) {
-        $('.account_id:first').jselect({
-            replaceAll: true,
-            loadType: "GET",
-            loadUrl: "/raw/account/select",
-            onComplete: function() {
-                $('.account_id:first option').clone().appendTo('.account_id:not(:first)');
-            }
-        });
-        if(jQuery.url.segment(1)=='edit') {
-          var myid = jQuery.url.segment(2);
-          update_journal_entry_form(myid);
-        }
-    }
+
     if(jQuery.url.segment(0)=='accounts') {
         $("tbody.accounts tr").append('<td>Close</td>');
         $("tbody.accounts tr td:last").click(function () {

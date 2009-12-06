@@ -2,6 +2,7 @@
 module Rack
   class XSLView
     def initialize(app, options={})
+      @my_path_info = String.new
       @app = app
       @options = {:myxsl => nil}.merge(options)
       if @options[:myxsl] == nil
@@ -13,10 +14,13 @@ module Rack
     end
 
     def call(env)
-        @my_path_info = env["PATH_INFO"] 
-        if ((@my_path_info.include? "/raw/") || (@my_path_info.include? "/s/js/"))
+        if ((env["PATH_INFO"].include? "/raw/") || (env["PATH_INFO"].include? "/s/js/"))
             @app.call(env)
         else
+          # This is very picky here - needs "#{var}" for param value
+            if (mp = env["PATH_INFO"])
+              @xslt.parameters = { "my_path_info" => "#{mp}" }
+            end
             status, headers, @response = @app.call(env)
             [status, headers, self]
         end
@@ -27,7 +31,6 @@ module Rack
                 yield x
             else
               @xslt.xml = x
-              @xslt.parameters = { "path_info" => @my_path_info }
               yield @xslt.serve
             end
         }
