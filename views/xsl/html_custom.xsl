@@ -43,7 +43,8 @@ xmlns="http://www.w3.org/1999/xhtml">
         <xsl:value-of select="(//h1|//h2)[1]" />
       </title>
       <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.7.0/build/reset/reset-min.css"/>
-      <script type="text/javascript" src="/s/js/regdel.js"></script> 
+      <script type="text/javascript" src="/s/js/jquery/jquery-1.3.2.js"></script>
+      <script type="text/javascript" src="/s/js/regdel.js"></script>
     </head>
   </xsl:template>
 

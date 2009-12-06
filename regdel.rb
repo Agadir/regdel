@@ -34,6 +34,10 @@ get '/accounts' do
     accounts = builder :'xml/accounts'
     xslview accounts, '/var/www/dev/regdel/views/xsl/accounts.xsl'
 end
+get '/json/account/:id' do
+    content_type :json
+    Account.get(params[:id]).to_json
+end
 
 post '/account/submit' do
   @account = Account.new(:name => params[:name])

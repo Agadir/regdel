@@ -13,7 +13,7 @@ module Rack
     end
 
     def call(env)
-        if ((env["PATH_INFO"].include? "/raw/") || (env["PATH_INFO"].include? "/s/"))
+        if ((env["PATH_INFO"].include? "/raw/") || (env["PATH_INFO"].include? "/s/js/"))
             @app.call(env)
         else
             status, headers, @response = @app.call(env)

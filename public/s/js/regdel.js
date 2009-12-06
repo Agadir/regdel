@@ -15,9 +15,16 @@ function getUrlVars()
     return vars;
 }
 
-
-var hash = getUrlVars();
-if (hash['error']) {
-    var err = unescape(hash['error']);
-    alert(err)
-}
+$('document').ready(function() {
+    var hash = getUrlVars();
+    if (hash['error']) {
+        var err = '<div id="error">' + unescape(hash['error']) + '</div>';
+        $("body").append(err);
+    }
+    /* To be used with forms */
+    $.getScript("/s/js/jquery/plugins/jquery.populate.js");
+    $.getJSON("http://dev-48-gl.savonix.com:3000/json/account/5", function(data) {
+        $('form').populate(data);
+    });
+    
+});
