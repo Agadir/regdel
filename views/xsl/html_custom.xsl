@@ -46,6 +46,9 @@ xmlns="http://www.w3.org/1999/xhtml">
     <link rel="stylesheet" type="text/css" href="/stylesheet.css"/>
     <script type="text/javascript" src="/s/js/jquery/jquery-1.3.2.js"></script>
     <script type="text/javascript" src="/s/js/regdel.js"></script>
+    <xsl:if test="$path_info='/s/xhtml/account_form.html'">
+      <script type="text/javascript" src="/s/js/account_form.js"></script>
+    </xsl:if>
     <script type="text/javascript" src="/s/js/jquery/plugins/jquery.url.js"></script>
     <script type="text/javascript" src="/s/js/jquery/plugins/jquery.jselect.js"></script>
     <script type="text/javascript" src="/s/js/relative_date.js"></script>

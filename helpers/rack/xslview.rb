@@ -13,7 +13,8 @@ module Rack
     end
 
     def call(env)
-        if ((env["PATH_INFO"].include? "/raw/") || (env["PATH_INFO"].include? "/s/js/"))
+        @my_path_info = env["PATH_INFO"] 
+        if ((@my_path_info.include? "/raw/") || (@my_path_info.include? "/s/js/"))
             @app.call(env)
         else
             status, headers, @response = @app.call(env)
@@ -26,6 +27,7 @@ module Rack
                 yield x
             else
               @xslt.xml = x
+              @xslt.parameters = { "path_info" => @my_path_info }
               yield @xslt.serve
             end
         }

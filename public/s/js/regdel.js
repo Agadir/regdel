@@ -24,27 +24,6 @@ $('document').ready(function() {
     }
 
 
-    /* To be used with forms */
-    if(jQuery.url.segment(0)=='account' && (jQuery.url.segment(1)=='new' || jQuery.url.segment(1)=='edit')) {
-        $('#type_id').jselect({
-            replaceAll: true,
-            loadType: "GET",
-            loadUrl: "/s/xml/raw/account_types_select.xml",
-        });
-        var myid = jQuery.url.segment(2);
-        $.getJSON("/json/account/"+myid, function(data) {
-            $.each(data, function(i, item) {
-                if ($('#' + i).length) {
-                    if($('#' + i).attr("type")=="checkbox") {
-                        $('#' + i).val([item]);
-                    } else {
-                        $('#' + i).val(item);
-                    }
-                }
-            });
-        });
-        $("form").append('<input type="hidden" name="id" value="' + myid +'" />');
-    }
     if(jQuery.url.segment(0)=='entry' && (jQuery.url.segment(1)=='new' || jQuery.url.segment(1)=='edit')) {
         $('.account_id:first').jselect({
             replaceAll: true,
