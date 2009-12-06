@@ -30,7 +30,7 @@ set :raise_errors, true
 
 
 get '/accounts' do
-    @accounts = Account.all
+    @accounts = Account.all(:closed_on => 0)
     accounts = builder :'xml/accounts'
     xslview accounts, '/var/www/dev/regdel/views/xsl/accounts.xsl'
 end
@@ -65,6 +65,22 @@ post '/account/submit' do
           myerrors << e.to_s
       end
       redirect '/account/new?error='+myerrors
+    end
+end
+
+post '/account/close' do
+    content_type 'application/xml', :charset => 'utf-8'
+    @account = Account.get(params[:id])
+    @account.attributes = {
+        :closed_on => Time.now.to_i
+    }
+    if @account.save
+        "<success>Success</success>"
+    else
+      myerrors = ""
+      @account.errors.each do |e|
+          myerrors << e.to_s
+      end
     end
 end
 

@@ -37,5 +37,19 @@ $('document').ready(function() {
             });
             $("form").append('<input type="hidden" name="id" value="' + myid +'" />');
         }
+        if(jQuery.url.segment(0)=='accounts') {
+            $("tbody.accounts tr").append('<td>Close</td>');
+            $("tbody.accounts tr td:last").click(function () {
+                var myid = $(this).parent().get(0).getAttribute('id');
+                $.ajax({
+                    type: "POST",
+                    url: "/account/close",
+                    data: ({id : myid}),
+                    success: function(msg){
+                        $('#'+myid).remove();
+                    }
+                    });
+            });
+        }
     });
 });

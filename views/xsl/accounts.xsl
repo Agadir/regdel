@@ -26,11 +26,14 @@ xmlns="http://www.w3.org/1999/xhtml">
 <xsl:output method="xml" omit-xml-declaration="yes" />
 <xsl:template match="/">
 <table>
+<tbody class="accounts">
 <xsl:for-each select="//account">
-<tr><td>
+<tr id="{@id}"><td>
 <a href="/account/edit/{@id}"><xsl:value-of select="@name"/></a>
-</td></tr>
+</td>
+</tr>
 </xsl:for-each>
+</tbody>
 </table>
 
 </xsl:template>

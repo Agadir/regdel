@@ -10,8 +10,8 @@ class Account
   property :name,String
   property :type_id,Integer
   property :description,Text
-  property :created_on,Integer
-  property :closed_on,Integer
+  property :created_on,Integer, :default => Time.now.to_i
+  property :closed_on,Integer, :default => 0
   property :hide,Boolean
   property :group_id,Integer
   has n, :credits
