@@ -32,7 +32,7 @@ $('document').ready(function() {
             loadUrl: "/s/xml/raw/account_types_select.xml",
         });
         var myid = jQuery.url.segment(2);
-        $.getJSON("http://dev-48-gl.savonix.com:3000/json/account/"+myid, function(data) {
+        $.getJSON("/json/account/"+myid, function(data) {
             $.each(data, function(i, item) {
                 if ($('#' + i).length) {
                     if($('#' + i).attr("type")=="checkbox") {
@@ -79,7 +79,7 @@ $('document').ready(function() {
             function () {
                 $(".entry_detail").remove();
                 var myid = $(this).get(0).getAttribute('id');
-                $.getJSON("http://dev-48-gl.savonix.com:3000/json/entry/"+myid, function(data) {
+                $.getJSON("/json/entry/"+myid, function(data) {
                     $.each(data.credits, function(i, item) {
                         var myamounts = '<tr class="entry_detail credit">';
                         myamounts += '<td>'+item.account_id+'</td>';
@@ -109,7 +109,7 @@ $('document').ready(function() {
 
 function update_journal_entry_form(myid) {
   
-  $.getJSON("http://dev-48-gl.savonix.com:3000/json/entry/"+myid, function(data) {
+  $.getJSON("/json/entry/"+myid, function(data) {
     $(".credit-row:not(:first)").remove();
     var i = 0;
     $.each(data.credits, function(i, item) {
