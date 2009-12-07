@@ -8,6 +8,10 @@ $('document').ready(function() {
           $('.account_id:first option').clone().appendTo('.account_id:not(:first)');
       }
   });
+  $(".credit-row td:last").append("Another Credit");
+  $(".debit-row td:last").append("Another Debit").click(function() {
+      $(".debit-row:first").clone().appendTo("#journal-entry-amounts tbody");
+  });
   if(jQuery.url.segment(1)=='edit') {
     var myid = jQuery.url.segment(2);
     update_journal_entry_form(myid);
