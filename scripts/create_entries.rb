@@ -24,6 +24,6 @@ end
 for i in 1..5
     @entry = Entry.new(:memorandum => "Hi",:entered_on => Time.now.to_i)
     @entry.save
-    @entry.credits.create(:amount => RdMoney.new("3.00").no_d, :account_id => 1)
-    @entry.debits.create(:amount => RdMoney.new("3.00").no_d, :account_id => 2)
+    @entry.credits.create(:amount => RdMoney.new("#{i}.00").no_d, :account_id => 1)
+    @entry.debits.create(:amount => RdMoney.new("#{i}.00").no_d, :account_id => 2)
 end

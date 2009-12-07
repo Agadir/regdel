@@ -5,6 +5,7 @@ xml._R_ {
           :transaction_id => transx.id,
           :account_id => transx.account_id,
           :memorandum => transx.memorandum,
+          :balance => transx.running_balance,
           :amount => transx.to_usd
           )
     end

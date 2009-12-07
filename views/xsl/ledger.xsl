@@ -44,7 +44,7 @@ xmlns="http://www.w3.org/1999/xhtml">
           <span class="i18n-debit">Amount</span>
         </th>
         <th>
-          <span class="i18n-id">ID</span>
+          <span class="i18n-id">Balance</span>
         </th>
       </tr>
     </thead>
@@ -64,7 +64,7 @@ xmlns="http://www.w3.org/1999/xhtml">
           <xsl:value-of select="@amount"/>
         </td>
         <td>
-          <xsl:value-of select="@id"/>
+          <xsl:value-of select="@balance"/>
         </td>
       </tr>
       </xsl:for-each>

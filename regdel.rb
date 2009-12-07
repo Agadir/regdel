@@ -12,7 +12,7 @@ require 'dm-aggregates'
 require 'dm-validations'
 require 'xml/libxml'
 require 'xml/libxslt'
-require 'json'
+#require 'json'
 require 'sass'
 
 require 'data/regdel_dm'
@@ -157,12 +157,12 @@ module Regdel
     end
     
     get '/ledger' do
-      @mytransactions = Ledger.all
+      @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
         transactions = builder :'xml/transactions'
         xslview transactions, '/var/www/dev/regdel/views/xsl/ledger.xsl'
-    end    
+    end
     get '/ledgers/account/:account_id' do
-      @mytransactions = Ledger.get(:account_id => params[:account_id])
+        @mytransactions = Ledger.all(:account_id => params[:account_id],:order => [ :posted_on.asc ])
         transactions = builder :'xml/transactions'
         xslview transactions, '/var/www/dev/regdel/views/xsl/ledger.xsl'
     end

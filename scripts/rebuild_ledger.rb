@@ -26,6 +26,7 @@ amounts = Amount.all
 
 amounts.each do |myamount|
   newtrans = Ledger.new(
+    :posted_on => myamount.entry.entered_on,
     :memorandum => myamount.entry.memorandum,
     :amount => myamount.amount,
     :account_id => myamount.account_id,
