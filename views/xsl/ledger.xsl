@@ -34,11 +34,9 @@ xmlns="http://www.w3.org/1999/xhtml">
         <th>
           <span class="i18n-date">Date</span>
         </th>
-        <th />
-        <th width="200">
+        <th>
           <span class="i18n-memo">Memorandum</span>
         </th>
-        <th width="15" />
         <th>
           <span class="i18n-accounts">Account</span>
         </th>
@@ -48,7 +46,6 @@ xmlns="http://www.w3.org/1999/xhtml">
         <th>
           <span class="i18n-id">ID</span>
         </th>
-        <th />
       </tr>
     </thead>
     <tbody>
@@ -57,21 +54,18 @@ xmlns="http://www.w3.org/1999/xhtml">
         <td class="reldate">
           <xsl:value-of select="@date"/>
         </td>
-        <td />
         <td>
           <xsl:value-of select="@memorandum"/>
         </td>
-        <td/>
         <td>
-          <xsl:value-of select="/debit/@account"/>
+          <xsl:value-of select="@account_id"/>
         </td>
         <td>
-          <xsl:value-of select="./debit/@amount"/>
+          <xsl:value-of select="@amount"/>
         </td>
         <td>
           <xsl:value-of select="@id"/>
         </td>
-        <td />
       </tr>
       </xsl:for-each>
     </tbody>

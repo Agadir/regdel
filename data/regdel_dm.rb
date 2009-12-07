@@ -95,6 +95,10 @@ class Ledger
   belongs_to :account
   belongs_to :entry
   belongs_to :entry_amount, :class_name => 'Amount', :child_key => [ :entry_amount_id ]
+  
+  def to_usd
+      return "%.2f" % (self.amount.to_r.to_d / 100)
+  end
 end
 
 class Credit < Amount; end
