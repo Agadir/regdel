@@ -68,7 +68,7 @@ module Regdel
             )
             error_target = '/account/new'
         end
-    
+
         if @account.save
           redirect '/accounts'
         else
@@ -97,7 +97,6 @@ module Regdel
     end
     
     post '/entry/submit' do
-      #puts params.inspect
         if params[:id].to_i > 0
           @entry = Entry.get(params[:id])
           @entry.attributes = {
@@ -123,7 +122,7 @@ module Regdel
         }
         redirect '/journal'
     end
-    
+
     get '/json/entry/:id' do
         content_type :json
         Entry.get(params[:id]).to_json(:methods => [:credits,:debits])

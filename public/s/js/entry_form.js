@@ -8,10 +8,27 @@ $('document').ready(function() {
           $('.account_id:first option').clone().appendTo('.account_id:not(:first)');
       }
   });
-  $(".credit-row td:last").append("Another Credit");
-  $(".debit-row td:last").append("Another Debit").click(function() {
-      $(".debit-row:first").clone().appendTo("#journal-entry-amounts tbody");
+
+  $(".credit-row td:last").append('<span class="another_credit">+</span>');
+  $(".debit-row td:last").append('<span class="another_debit">+</span>');
+
+  $(".another_credit:first").live("click",function() {
+      $(".another_debit").remove();
+      $(".credit-row:first").clone().appendTo("#journal-entry-amounts tbody");
+      $(".another_credit:last").remove();
+      $(".credit-row td:last").append('<span class="remove_credit">x</span>');
   });
+  $(".remove_credit").live("click",function() {
+      $(this).parent().parent().remove();
+      if($(".remove_credit").length) { } else {
+        $(".debit-row td:last").append('<span class="another_debit">+</span>');
+      }
+  });
+  $(".another_debit").live("click",function() {
+      $(".another_credit").remove();
+      $(".debit-row:first").clone().prependTo("#journal-entry-amounts tbody");
+  });
+
   if(jQuery.url.segment(1)=='edit') {
     var myid = jQuery.url.segment(2);
     update_journal_entry_form(myid);

@@ -64,8 +64,12 @@ xmlns="http://www.w3.org/1999/xhtml">
     </xsl:for-each>
   </tbody>
 </table>
+<span id="table_controls">
 <a href="./{//entries/@prev}">Prev</a>
+<a href="/entry/new">New</a>
 <a href="./{//entries/@next}">Next</a>
+</span>
+<span id="table_meta"></span>
 </div>
 </xsl:template>
 </xsl:stylesheet>
