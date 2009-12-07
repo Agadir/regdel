@@ -38,9 +38,6 @@ xmlns="http://www.w3.org/1999/xhtml">
           <span class="i18n-memo">Memorandum</span>
         </th>
         <th>
-          <span class="i18n-accounts">Account</span>
-        </th>
-        <th>
           <span class="i18n-debit">Amount</span>
         </th>
         <th>
@@ -56,9 +53,6 @@ xmlns="http://www.w3.org/1999/xhtml">
         </td>
         <td>
           <xsl:value-of select="@memorandum"/>
-        </td>
-        <td>
-          <xsl:value-of select="@account_id"/>
         </td>
         <td>
           <xsl:value-of select="@amount"/>
