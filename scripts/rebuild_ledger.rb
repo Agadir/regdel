@@ -20,7 +20,7 @@ class RdMoney < String
         return (self.gsub(/[^0-9\.]/,'').to_d * 100).to_i
     end
 end
-
+Ledger.all.destroy!
 amounts = Amount.all
 
 amounts.each do |myamount|
