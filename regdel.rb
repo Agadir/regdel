@@ -160,6 +160,11 @@ module Regdel
       @mytransactions = Ledger.all
         transactions = builder :'xml/transactions'
         xslview transactions, '/var/www/dev/regdel/views/xsl/ledger.xsl'
+    end    
+    get '/ledgers/account/:account_id' do
+      @mytransactions = Ledger.get(:account_id => params[:account_id])
+        transactions = builder :'xml/transactions'
+        xslview transactions, '/var/www/dev/regdel/views/xsl/ledger.xsl'
     end
     
     get '/stylesheet.css' do
