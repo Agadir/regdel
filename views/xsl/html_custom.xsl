@@ -49,6 +49,7 @@ xmlns="http://www.w3.org/1999/xhtml">
     </xsl:if>
     <xsl:if test="$my_path_info='/s/xhtml/entry_all_form.html'">
       <script type="text/javascript" src="/s/js/entry_form.js"></script>
+      <script type="text/javascript" src="/s/js/jquery/plugins/jquery.calculation.js"></script>
     </xsl:if>
     <xsl:if test="contains($my_path_info,'/accounts')">
       <script type="text/javascript" src="/s/js/accounts.js"></script>

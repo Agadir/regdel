@@ -11,10 +11,16 @@ $('document').ready(function() {
 
 
   if(jQuery.url.segment(1)=='new') {
+    var amount_total = 0;
     $("#another_credit").live("click",function() {
         $("#another_debit").css("display","none");
         $(".credit-row:first").clone().appendTo("#journal-entry-amounts tbody");
         $(".remove_credit:last").css("display","inline");
+        $(".debit-row input").attr("readonly","readonly");
+        $("#journal-entry-amounts","form").bind("click keyup keypress mouseenter mouseleave",function() {
+            amount_total = $(".credit-row input").sum();
+            $(".debit-row input").val(amount_total);
+        });
     });
   
     $(".remove_credit").live("click",function() {
@@ -28,6 +34,11 @@ $('document').ready(function() {
         $("#another_credit").css("display","none");
         $(".debit-row:first").clone().prependTo("#journal-entry-amounts tbody");
         $(".remove_debit:not(:first)").css("display","inline");
+        $(".credit-row input").attr("readonly","readonly");
+        $("#journal-entry-amounts","form").bind("click keyup keypress mouseenter mouseleave",function() {
+            amount_total = $(".debit-row input").sum();
+            $(".credit-row input").val(amount_total);
+        });
     });
 
     $(".remove_debit").live("click",function() {
