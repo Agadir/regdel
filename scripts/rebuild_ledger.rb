@@ -21,9 +21,14 @@ class RdMoney < String
     end
 end
 
-for i in 1..5
-    @entry = Entry.new(:memorandum => "Hi",:entered_on => Time.now.to_i)
-    @entry.save
-    @entry.credits.create(:amount => RdMoney.new("3.00").no_d, :account_id => 1)
-    @entry.debits.create(:amount => RdMoney.new("3.00").no_d, :account_id => 2)
+amounts = Amount.all
+
+amounts.each do |myamount|
+  newtrans = Ledger.new(
+    :memorandum => myamount.entry.memorandum,
+    :amount => myamount.amount,
+    :account_id => myamount.account_id,
+    :entry_id => myamount.entry_id,
+    :entry_amount_id => myamount.id
+    ).save
 end

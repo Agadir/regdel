@@ -23,20 +23,19 @@ map "/" do
       rewrite %r{/account/edit/(.*)}, '/s/xhtml/account_form.html?id=$1'
       rewrite '/', '/s/xhtml/welcome.html'
   end
-  
-  
-  
+
+
+
   xslt = ::XML::XSLT.new()
   xslt.xsl = REXML::Document.new File.open('/var/www/dev/regdel/views/xsl/html_main.xsl')
-  
 
 
   # These are processed in reverse order it seems
   use Rack::CommonLogger
   use Rack::FinalContentLength
   use Rack::XSLView, :myxsl => xslt
-  #use Rack::ExampleA
   use Rack::NoLength
+
   run Regdel::Main
-  #app = Sinatra::Application
+
 end

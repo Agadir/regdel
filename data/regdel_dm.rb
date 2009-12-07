@@ -23,6 +23,10 @@ class Account
   validates_length :name, :min => 2, :message => name_length_error
   validates_is_unique :name
 
+  
+  def self.open
+    all(:closed_on => 0)
+  end
   def journal_balance_usd
     credit_sum = self.credits.sum(:amount) ? self.credits.sum(:amount) : 0
     debit_sum = self.debits.sum(:amount) ? self.debits.sum(:amount) : 0
@@ -90,7 +94,7 @@ class Ledger
   property :currency_id,Integer
   belongs_to :account
   belongs_to :entry
-  belongs_to :amount
+  belongs_to :entry_amount, :class_name => 'Amount', :child_key => [ :entry_amount_id ]
 end
 
 class Credit < Amount; end

@@ -40,7 +40,7 @@ module Regdel
     
     get '/accounts' do
         @my_account_types = @@account_types
-        @accounts = Account.all(:closed_on => 0)
+        @accounts = Account.open
         accounts = builder :'xml/accounts'
         xslview accounts, '/var/www/dev/regdel/views/xsl/accounts.xsl'
     end
@@ -196,17 +196,32 @@ module Regdel
         @myentries = Entry.all
         builder :'xml/entries'
     end
+    get '/raw/transactions' do
+        content_type 'application/xml', :charset => 'utf-8'
+        @mytrans = Ledger.all
+        @mytrans.to_xml
+    end
+    get '/raw/json/transactions' do
+      content_type :json
+        @mytrans = Ledger.all
+        @mytrans.to_json
+    end
     get '/raw/account/select' do
         content_type 'application/xml', :charset => 'utf-8'
-        @accounts = Account.all(:closed_on => 0)
+        @accounts = Account.open
         builder :'xml/account_select'
     end
     get '/raw/accounts' do
-      @account_types = Array.new
-        @account_types[10000] ="Assets"
         content_type 'application/xml', :charset => 'utf-8'
-        @accounts = Account.all(:closed_on => 0)
+        @my_account_types = @@account_types
+        @accounts = Account.open
         builder :'xml/accounts'
+    end
+    get '/raw/dm-init/accounts' do
+        content_type :json
+        @my_account_types = @@account_types
+        @accounts = Account.open
+        @accounts.to_json
     end
     get '/raw/test' do
         content_type 'application/xml', :charset => 'utf-8'
