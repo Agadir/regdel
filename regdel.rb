@@ -128,7 +128,13 @@ module Regdel
 
     get '/json/entry/:id' do
         content_type :json
+        #Entry.get(params[:id]).to_json(:methods => [:credits,:debits])
         Entry.get(params[:id]).to_json(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
+    end
+    get '/raw/xml/entry/:id' do
+        content_type :xml
+        #Entry.get(params[:id]).to_xml(:methods => [:credits,:debits])
+        Entry.get(params[:id]).to_xml(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
     end
     get '/journal' do
         redirect '/journal/0'
@@ -137,7 +143,7 @@ module Regdel
         count = Entry.count()
         myoffset = params[:offset].to_i
         incr = options.pagination
-    
+
         @myentries = Entry.all(:limit => options.pagination, :offset => myoffset)
         @prev = (myoffset - incr) < 0 ? 0 : myoffset - incr
         @next = myoffset + incr > count ? myoffset : myoffset + incr
@@ -151,9 +157,9 @@ module Regdel
     end
     
     get '/ledger' do
-        @myentries = Entry.all
-        entries = builder :'xml/entries'
-        xslview entries, '/var/www/dev/regdel/views/xsl/entries.xsl'
+      @mytransactions = Ledger.all
+        transactions = builder :'xml/transactions'
+        xslview transactions, '/var/www/dev/regdel/views/xsl/ledger.xsl'
     end
     
     get '/stylesheet.css' do
