@@ -1,35 +1,45 @@
 $('document').ready(function() {
 
-  $('.account_id:first').jselect({
+  $('.account_id:first','form').jselect({
       replaceAll: true,
       loadType: "GET",
       loadUrl: "/raw/account/select",
       onComplete: function() {
-          $('.account_id:first option').clone().appendTo('.account_id:not(:first)');
+          $('.account_id:first option','form').clone().appendTo('.account_id:not(:first)','form');
       }
   });
 
-  $(".credit-row td:last").append('<span class="another_credit">+</span>');
-  $(".debit-row td:last").append('<span class="another_debit">+</span>');
 
-  $(".another_credit:first").live("click",function() {
-      $(".another_debit").remove();
-      $(".credit-row:first").clone().appendTo("#journal-entry-amounts tbody");
-      $(".another_credit:last").remove();
-      $(".credit-row td:last").append('<span class="remove_credit">x</span>');
-  });
-  $(".remove_credit").live("click",function() {
-      $(this).parent().parent().remove();
-      if($(".remove_credit").length) { } else {
-        $(".debit-row td:last").append('<span class="another_debit">+</span>');
-      }
-  });
-  $(".another_debit").live("click",function() {
-      $(".another_credit").remove();
-      $(".debit-row:first").clone().prependTo("#journal-entry-amounts tbody");
-  });
+  if(jQuery.url.segment(1)=='new') {
+    $("#another_credit").live("click",function() {
+        $("#another_debit").css("display","none");
+        $(".credit-row:first").clone().appendTo("#journal-entry-amounts tbody");
+        $(".remove_credit:last").css("display","inline");
+    });
+  
+    $(".remove_credit").live("click",function() {
+        $(this).parent().parent().remove();
+        if($(".remove_credit").length == 1) {
+          $("#another_debit").css("display","inline");
+        }
+    });
+  
+    $("#another_debit").live("click",function() {
+        $("#another_credit").css("display","none");
+        $(".debit-row:first").clone().prependTo("#journal-entry-amounts tbody");
+        $(".remove_debit:not(:first)").css("display","inline");
+    });
+
+    $(".remove_debit").live("click",function() {
+        $(this).parent().parent().remove();
+        if($(".remove_debit").length == 1) {
+          $("#another_credit").css("display","inline");
+        }
+    });
+  }
 
   if(jQuery.url.segment(1)=='edit') {
+    $(".amount_controls").hide();
     var myid = jQuery.url.segment(2);
     update_journal_entry_form(myid);
   }
