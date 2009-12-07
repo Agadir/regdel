@@ -48,7 +48,7 @@ module Regdel
     end
     
     post '/account/submit' do
-        if params[:id]
+        if params[:id].to_i > 0
             @account = Account.get(params[:id])
             @account.attributes = {
                 :name => params[:name],
@@ -97,10 +97,30 @@ module Regdel
     end
     
     post '/entry/submit' do
-        @entry = Entry.new(:memorandum => params[:memorandum])
+      #puts params.inspect
+        if params[:id].to_i > 0
+          @entry = Entry.get(params[:id])
+          @entry.attributes = {
+            :memorandum => params[:memorandum]
+          }
+        else
+          @entry = Entry.new(:memorandum => params[:memorandum])
+        end
         @entry.save
-        @entry.credits.create(:amount => RdMoney.new(params[:credit_amount]).no_d, :account_id => params[:credit_account_id])
-        @entry.debits.create(:amount => RdMoney.new(params[:debit_amount]).no_d, :account_id => params[:debit_account_id])
+        @entry.credits.destroy!
+        @entry.debits.destroy!
+        params[:credit_amount].each_index {|x|
+          @entry.credits.create(
+            :amount => RdMoney.new(params[:credit_amount][x]).no_d,
+            :account_id => params[:credit_account_id][x]
+          )
+        }
+        params[:debit_amount].each_index {|x|
+          @entry.debits.create(
+            :amount => RdMoney.new(params[:debit_amount][x]).no_d,
+            :account_id => params[:debit_account_id][x]
+          )
+        }
         redirect '/journal'
     end
     

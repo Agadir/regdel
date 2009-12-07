@@ -19,7 +19,7 @@ $('document').ready(function() {
                   myamounts += '<td>'+item.account_id+'</td>';
                   myamounts += '<td>'+item.memorandum+'</td>';
                   myamounts += '<td/>';
-                  myamounts += '<td>'+item.amount+'</td>';
+                  myamounts += '<td>'+item.amount/100+'</td>';
                   myamounts += '</tr>';
                   $("#"+myid).after(myamounts);
               });
@@ -27,7 +27,7 @@ $('document').ready(function() {
                   var myamounts = '<tr class="entry_detail debit">';
                   myamounts += '<td>'+item.account_id+'</td>';
                   myamounts += '<td>'+item.memorandum+'</td>';
-                  myamounts += '<td>'+item.amount+'</td>';
+                  myamounts += '<td>'+item.amount/100+'</td>';
                   myamounts += '<td/>';
                   myamounts += '</tr>';
                   $("#"+myid).after(myamounts);
