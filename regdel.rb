@@ -123,6 +123,8 @@ module Regdel
             :account_id => params[:debit_account_id][x]
           )
         }
+        
+        
         redirect '/journal'
     end
 

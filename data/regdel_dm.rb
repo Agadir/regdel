@@ -15,6 +15,7 @@ class Account
   property :closed_on,Integer, :default => 0
   property :hide,Boolean
   property :group_id,Integer
+  property :cached_journal_balance,Integer
   has n, :credits
   has n, :debits
   has n, :ledgers
@@ -23,7 +24,8 @@ class Account
   validates_length :name, :min => 2, :message => name_length_error
   validates_is_unique :name
 
-  
+
+    
   def self.open
     all(:closed_on => 0)
   end
@@ -32,6 +34,12 @@ class Account
     debit_sum = self.debits.sum(:amount) ? self.debits.sum(:amount) : 0
     
     return "%.2f" % ((credit_sum + debit_sum).to_r.to_d / 100)
+  end
+  def journal_balance
+    credit_sum = self.credits.sum(:amount) ? self.credits.sum(:amount) : 0
+    debit_sum = self.debits.sum(:amount) ? self.debits.sum(:amount) : 0
+
+    return (credit_sum + debit_sum)
   end
   def ledger_balance_usd
     ledger_sum = self.ledgers.sum(:amount) ? self.ledgers.sum(:amount) : 0
@@ -51,7 +59,8 @@ class Entry
   has n, :credits
   has n, :debits
   has n, :ledgers
-
+  attr_accessor :saved
+  
 end
 
 class Amount
@@ -67,6 +76,29 @@ class Amount
   has 1, :ledgers
   belongs_to :entry
   belongs_to :account
+  
+  after :save, :account_balances
+  before :save, :unsaved
+  
+  def unsaved
+    entry = self.entry
+    if entry.saved == nil
+      entry.saved = 0
+    end
+  end
+  
+  def account_balances
+    entry = self.entry
+    if entry.saved == 0
+      entry.saved = 1
+      account = Account.get(account_id)
+      puts account.id
+      mybal = account.journal_balance
+      puts mybal
+      account.cached_journal_balance = mybal
+      account.save
+    end
+  end
 
   def to_usd
       return "%.2f" % (self.amount.to_r.to_d / 100)
@@ -78,6 +110,7 @@ class Amount
       return "%.2f" % 0
     end
   end
+
 end
 
 class Ledger
