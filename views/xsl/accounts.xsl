@@ -25,11 +25,20 @@ Fifth Floor, Boston, MA 02110-1301 USA
 xmlns="http://www.w3.org/1999/xhtml">
 <xsl:output method="xml" omit-xml-declaration="yes" />
 <xsl:template match="/">
-<table>
-<tbody class="accounts">
+<table class="accounts">
+<thead>
+<tr>
+<th><span class="i18n-account_name">Account Name</span></th>
+<th><span class="i18n-account_balance">Account Balance</span></th>
+<th><span class="i18n-account_type">Account Type</span></th>
+</tr>
+</thead>
+<tbody>
 <xsl:for-each select="//account">
 <tr id="{@id}"><td>
 <a href="/account/edit/{@id}"><xsl:value-of select="@name"/></a>
+</td>
+<td>
 </td>
 <td>
 <xsl:value-of select="@type"/>

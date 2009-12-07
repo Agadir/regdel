@@ -16,6 +16,7 @@ require 'json'
 require 'sass'
 
 require 'data/regdel_dm'
+require 'data/account_types'
 require 'helpers/xslview'
 
 
@@ -27,6 +28,7 @@ end
 
 module Regdel
   class Main < Sinatra::Base
+    
     helpers Sinatra::XSLView
     set :static, true
     set :views, File.dirname(__FILE__) + '/views'
@@ -37,6 +39,7 @@ module Regdel
     
     
     get '/accounts' do
+      @my_account_types = @@account_types
         @accounts = Account.all(:closed_on => 0)
         accounts = builder :'xml/accounts'
         xslview accounts, '/var/www/dev/regdel/views/xsl/accounts.xsl'
@@ -193,6 +196,8 @@ module Regdel
         builder :'xml/account_select'
     end
     get '/raw/accounts' do
+      @account_types = Array.new
+        @account_types[10000] ="Assets"
         content_type 'application/xml', :charset => 'utf-8'
         @accounts = Account.all(:closed_on => 0)
         builder :'xml/accounts'
