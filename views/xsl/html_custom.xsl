@@ -30,7 +30,9 @@ xmlns="http://www.w3.org/1999/xhtml">
     <xsl:call-template name="head"/>
     <body>
       <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/nav_menu.html')/div"/>
+      <div id="container">
       <xsl:apply-templates />
+      </div>
     </body>
   </html>
 </xsl:template>
@@ -48,6 +50,7 @@ xmlns="http://www.w3.org/1999/xhtml">
       <script type="text/javascript" src="/s/js/account_form.js"></script>
     </xsl:if>
     <xsl:if test="$my_path_info='/s/xhtml/entry_all_form.html'">
+      <link rel="stylesheet" type="text/css" href="/journal_entry_form.css"/>
       <script type="text/javascript" src="/s/js/entry_form.js"></script>
       <script type="text/javascript" src="/s/js/jquery/plugins/jquery.calculation.js"></script>
     </xsl:if>

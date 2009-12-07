@@ -166,6 +166,10 @@ module Regdel
       content_type 'text/css', :charset => 'utf-8'
       sass :'css/regdel'
     end
+    get '/journal_entry_form.css' do
+      content_type 'text/css', :charset => 'utf-8'
+      sass :'css/journal_entry_form'
+    end
     
     error do
       'So what happened was...' + request.env['sinatra.error'].message
