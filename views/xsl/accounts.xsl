@@ -31,6 +31,9 @@ xmlns="http://www.w3.org/1999/xhtml">
 <tr id="{@id}"><td>
 <a href="/account/edit/{@id}"><xsl:value-of select="@name"/></a>
 </td>
+<td>
+<xsl:value-of select="@type"/>
+</td>
 </tr>
 </xsl:for-each>
 </tbody>
