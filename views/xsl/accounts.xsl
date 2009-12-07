@@ -39,6 +39,7 @@ xmlns="http://www.w3.org/1999/xhtml">
 <a href="/account/edit/{@id}"><xsl:value-of select="@name"/></a>
 </td>
 <td>
+<xsl:value-of select="@balance"/>
 </td>
 <td>
 <xsl:value-of select="@type"/>

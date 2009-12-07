@@ -39,7 +39,7 @@ module Regdel
     
     
     get '/accounts' do
-      @my_account_types = @@account_types
+        @my_account_types = @@account_types
         @accounts = Account.all(:closed_on => 0)
         accounts = builder :'xml/accounts'
         xslview accounts, '/var/www/dev/regdel/views/xsl/accounts.xsl'
@@ -128,7 +128,7 @@ module Regdel
 
     get '/json/entry/:id' do
         content_type :json
-        Entry.get(params[:id]).to_json(:methods => [:credits,:debits])
+        Entry.get(params[:id]).to_json(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
     end
     get '/journal' do
         redirect '/journal/0'

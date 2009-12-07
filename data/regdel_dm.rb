@@ -22,6 +22,18 @@ class Account
   validates_length :name, :max => 12, :message => name_length_error
   validates_length :name, :min => 2, :message => name_length_error
   validates_is_unique :name
+
+  def journal_balance_usd
+    credit_sum = self.credits.sum(:amount) ? self.credits.sum(:amount) : 0
+    debit_sum = self.debits.sum(:amount) ? self.debits.sum(:amount) : 0
+    
+    return "%.2f" % ((credit_sum + debit_sum).to_r.to_d / 100)
+  end
+  def ledger_balance_usd
+    ledger_sum = self.ledgers.sum(:amount) ? self.ledgers.sum(:amount) : 0
+    
+    return "%.2f" % (ledger_sum.to_r.to_d / 100)
+  end
 end
 
 class Entry
@@ -35,6 +47,7 @@ class Entry
   has n, :credits
   has n, :debits
   has n, :ledgers
+
 end
 
 class Amount
@@ -53,6 +66,13 @@ class Amount
 
   def to_usd
       return "%.2f" % (self.amount.to_r.to_d / 100)
+  end
+  def self.sum_usd
+    if self.sum(:amount)
+      return "%.2f" % (self.sum(:amount).to_r.to_d / 100)
+    else
+      return "%.2f" % 0
+    end
   end
 end
 

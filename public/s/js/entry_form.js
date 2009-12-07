@@ -69,7 +69,7 @@ function update_journal_entry_form(myid) {
         if(i>=1) {
           $(".credit-row:first").clone().appendTo("#journal-entry-amounts tbody");
         }
-        $(".credit-row:eq("+i+") input").val(item.amount / 100);
+        $(".credit-row:eq("+i+") input").val(item.to_usd);
         $(".credit-row:eq("+i+") select").val(item.account_id);
         i++;
     });
@@ -80,7 +80,7 @@ function update_journal_entry_form(myid) {
         if(i>=1) {
           $(".debit-row:first").clone().appendTo("#journal-entry-amounts tbody");
         }
-        $(".debit-row:eq("+i+") input").val(item.amount / 100);
+        $(".debit-row:eq("+i+") input").val(item.to_usd);
         $(".debit-row:eq("+i+") select").val(item.account_id);
         i++;
     });
