@@ -1,0 +1,12 @@
+@@account_types = Array.new
+@@account_types[10000] ="Assets"
+@@account_types[20000] ="Liabilities"
+@@account_types[30000] ="Stockholder's Equity"
+@@account_types[40000] ="Revenues"
+@@account_types[50000] ="Expenses"
+@@account_types[60000] ="Gain"
+@@account_types[70000] ="Loss"
+@@account_types[80000] ="Distribution from Equity"
+@@account_types[90000] ="Contribution to Equity"
+@@account_types[100000] ="Comprehensive Income"
+@@account_types[110000] ="Other"
