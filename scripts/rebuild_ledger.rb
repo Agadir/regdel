@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'sinatra'
 require 'builder'
 require 'bigdecimal'
 require 'bigdecimal/util'
@@ -22,9 +21,13 @@ Ledger.all.destroy!
 amounts = Amount.all
 
 amounts.each do |myamount|
+
+  myid = myamount.entry_id
+  myentry = Entry.get(myid)
+
   newtrans = Ledger.new(
-    :posted_on => myamount.entry.entered_on,
-    :memorandum => myamount.entry.memorandum,
+    :posted_on => myentry.entered_on,
+    :memorandum => myentry.memorandum,
     :amount => myamount.amount,
     :account_id => myamount.account_id,
     :entry_id => myamount.entry_id,

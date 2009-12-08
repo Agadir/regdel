@@ -65,7 +65,7 @@ class Entry
     # !! Unexpected error while processing request: 
     # +options[:fields]+ entry #<DataMapper::Property @model=Amount @name=:amount>
     # does not map to a property in Credit
-    return Credit.sum(:amount, :entry_id => self.id)
+    return "%.2f" % (Credit.sum(:amount, :entry_id => self.id).to_r.to_d / 100)
     
     # Works fine, but isn't it the same thing?
     #return Amount.sum(:amount, :type => 'Credit', :entry_id => self.id)
