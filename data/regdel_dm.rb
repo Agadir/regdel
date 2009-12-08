@@ -56,11 +56,19 @@ class Entry
   property :status,Integer
   property :fiscal_period_id,Integer
   property :entered_on,Integer, :default => Time.now.to_i
-  has n, :credits
-  has n, :debits
   has n, :ledgers
-  attr_accessor :saved
   
+  def credit_sum
+    # Does not work: 
+    # !! Unexpected error while processing request: 
+    # +options[:fields]+ entry #<DataMapper::Property @model=Amount @name=:amount>
+    # does not map to a property in Credit
+    return Credit.sum(:amount, :entry_id => self.id)
+    
+    # Works fine, but isn't it the same thing?
+    #return Amount.sum(:amount, :type => 'Credit', :entry_id => self.id)
+  end
+
 end
 
 class Amount
@@ -73,45 +81,22 @@ class Amount
   property :account_id,Integer
   property :memorandum,String
   property :currency_id,Integer
-  has 1, :ledger
-  belongs_to :entry
-  belongs_to :account
-  
-  after :save, :account_balances
-  before :save, :unsaved
-  
-  def unsaved
-    entry = self.entry
-    if entry.saved == nil
-      entry.saved = 0
-    end
-  end
-  
-  def account_balances
-    entry = self.entry
-    if entry.saved == 0
-      entry.saved = 1
-      account = Account.get(account_id)
-      puts account.id
-      mybal = account.journal_balance
-      puts mybal
-      account.cached_journal_balance = mybal
-      account.save
-    end
-  end
+  belongs_to :entry, :model => 'Entry', :child_key => [:entry_id, Integer]
+
 
   def to_usd
       return "%.2f" % (self.amount.to_r.to_d / 100)
   end
   def self.sum_usd
-    if self.sum(:amount)
-      return "%.2f" % (self.sum(:amount).to_r.to_d / 100)
-    else
-      return "%.2f" % 0
-    end
+    return self.entry.credits.sum(:amount)
   end
 
 end
+
+
+class Credit < Amount; end
+
+class Debit < Amount; end
 
 class Ledger
   include DataMapper::Resource
@@ -127,7 +112,7 @@ class Ledger
   property :currency_id,Integer
   belongs_to :account
   belongs_to :entry
-  belongs_to :entry_amount, :class_name => 'Amount', :child_key => [ :entry_amount_id ]
+  belongs_to :entry_amount, :model => 'Amount', :child_key => [ :entry_amount_id ]
   
   def to_usd
       return "%.2f" % (self.amount.to_r.to_d / 100)
@@ -139,8 +124,5 @@ class Ledger
   end
 end
 
-class Credit < Amount; end
-
-class Debit < Amount; end
 
 DataMapper.auto_upgrade!

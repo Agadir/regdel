@@ -33,8 +33,8 @@ module Regdel
     set :static, true
     set :views, File.dirname(__FILE__) + '/views'
     set :public, File.dirname(__FILE__) + '/public'
-    set :dump_errors, false
-    set :raise_errors, true
+    #set :dump_errors, false
+    #set :raise_errors, true
     set :pagination, 10
     
     

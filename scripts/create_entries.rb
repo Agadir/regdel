@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'sinatra'
 require 'builder'
 require 'bigdecimal'
 require 'bigdecimal/util'
@@ -18,7 +17,7 @@ class RdMoney < String
     end
 end
 
-for i in 1..50
+for i in 1..20
     mycents = rand(8)
     @entry = Entry.new(:memorandum => "Hi #{i}",:entered_on => Time.now.to_i)
     @entry.save

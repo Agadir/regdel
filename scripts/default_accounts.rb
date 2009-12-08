@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'sinatra'
 require 'builder'
 require 'bigdecimal'
 require 'bigdecimal/util'
@@ -8,9 +7,6 @@ require 'dm-validations'
 require 'dm-timestamps'
 require 'dm-serializer'
 require 'dm-aggregates'
-require 'xml/libxml'
-require 'xml/libxslt'
-require 'json'
 
 require 'data/regdel_dm'
 

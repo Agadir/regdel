@@ -6,7 +6,7 @@ xml._R_ {
         else
             newdate = ""
         end
-        xml.entry( :memorandum=>entry.memorandum, :id=>entry.id, :date=>newdate, :amount => entry.credits.sum_usd )
+        xml.entry( :memorandum=>entry.memorandum, :id=>entry.id, :date=>newdate, :amount => entry.credit_sum )
 
     end
     }
