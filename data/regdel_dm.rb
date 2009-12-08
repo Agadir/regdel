@@ -1,4 +1,4 @@
-DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/rbeans.sqlite3")
+DataMapper.setup(:default, 'sqlite3:///var/www/dev/regdel/rbeans.sqlite3')
 
 
 
@@ -73,7 +73,7 @@ class Amount
   property :account_id,Integer
   property :memorandum,String
   property :currency_id,Integer
-  has 1, :ledgers
+  has 1, :ledger
   belongs_to :entry
   belongs_to :account
   
