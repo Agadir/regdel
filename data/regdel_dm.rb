@@ -56,6 +56,8 @@ class Entry
   property :status,Integer
   property :fiscal_period_id,Integer
   property :entered_on,Integer, :default => Time.now.to_i
+  has n, :credits
+  has n, :debits
   has n, :ledgers
   
   def credit_sum
