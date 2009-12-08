@@ -45,7 +45,7 @@ xmlns="http://www.w3.org/1999/xhtml">
       </th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="journal-table-entries">
     <xsl:for-each select="//entries/entry">
     <tr class="entry_row" id="{@id}">
       <td class="reldate">
