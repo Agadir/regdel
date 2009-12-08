@@ -27,6 +27,7 @@ $('document').ready(function() {
         $(this).parent().parent().remove();
         if($(".remove_credit").length == 1) {
           $("#another_debit").css("display","inline");
+          $(".debit-row input").removeAttr("readonly");
         }
     });
   
@@ -45,6 +46,7 @@ $('document').ready(function() {
         $(this).parent().parent().remove();
         if($(".remove_debit").length == 1) {
           $("#another_credit").css("display","inline");
+          $(".credit-row input").removeAttr("readonly");
         }
     });
   }
