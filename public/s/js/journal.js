@@ -3,7 +3,8 @@
 
 $('document').ready(function() {
 
-  $(".entry_row").each(
+  $("#journal-table thead tr").append('<th>Edit</th>');
+  $(".entry_row","#journal-table").each(
     function () {
       var myid = $(this).get(0).getAttribute('id');
       $(this).append('<td class="notoggle"><a href="/entry/edit/'+myid+'">edit</a></td>');

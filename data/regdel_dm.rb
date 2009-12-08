@@ -25,7 +25,6 @@ class Account
   validates_is_unique :name
 
 
-    
   def self.open
     all(:closed_on => 0)
   end

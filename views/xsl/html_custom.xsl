@@ -24,13 +24,18 @@ Fifth Floor, Boston, MA 02110-1301 USA
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 xmlns="http://www.w3.org/1999/xhtml">
 
-<!-- HTML SHELL -->
-<xsl:template match="/">
+
+<xsl:template name="page">
   <html>
     <xsl:call-template name="head"/>
     <body>
-      <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/nav_menu.html')/div"/>
       <div id="container">
+      <div class="block tabs">
+        <div class="hd">
+        <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/nav_menu.html')/ul"/>
+        <div class="clear"></div>
+        </div>
+      </div>
       <xsl:apply-templates />
       </div>
     </body>
@@ -42,8 +47,16 @@ xmlns="http://www.w3.org/1999/xhtml">
     <title>
       <xsl:value-of select="(//h1|//h2)[1]" />
     </title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.7.0/build/reset/reset-min.css"/>
+    <!--
+    <link rel="stylesheet" type="text/css" href="/s/css/pkgs/web-app-theme/stylesheets/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/s/css/pkgs/web-app-theme/stylesheets/themes/blue/style.css"/>
+    -->
+    <link rel="stylesheet" type="text/css" href="/s/css/pkgs/yui-app-theme/css/yuiapp.css"/>
+    <link rel="stylesheet" type="text/css" href="/s/css/pkgs/yui-app-theme/css/red.css"/>
     <link rel="stylesheet" type="text/css" href="/stylesheet.css"/>
+    <script src="http://yui.yahooapis.com/3.0.0pr2/build/yui/yui-min.js" type="text/javascript"></script> 
     <script type="text/javascript" src="/s/js/jquery/jquery-1.3.2.js"></script>
     <script type="text/javascript" src="/s/js/regdel.js"></script>
     <xsl:if test="$my_path_info='/s/xhtml/account_form.html'">
@@ -66,5 +79,8 @@ xmlns="http://www.w3.org/1999/xhtml">
   </head>
 </xsl:template>
 
+<xsl:template match="span[contains(@class,'i18n')]">
+  <xsl:value-of select="."/>
+</xsl:template>
 
 </xsl:stylesheet>

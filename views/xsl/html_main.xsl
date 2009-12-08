@@ -27,6 +27,9 @@ xmlns="http://www.w3.org/1999/xhtml">
   <xsl:include href="/var/www/dev/regdel/views/xsl/html_custom.xsl"/>
 
 
+  <xsl:template match="/">
+  <xsl:call-template name="page"/>
+  </xsl:template>
 
 
 </xsl:stylesheet>

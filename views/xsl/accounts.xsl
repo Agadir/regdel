@@ -28,9 +28,9 @@ xmlns="http://www.w3.org/1999/xhtml">
 <table class="accounts">
 <thead>
 <tr>
-<th><span class="i18n-account_name">Account Name</span></th>
-<th><span class="i18n-account_balance">Account Balance</span></th>
-<th><span class="i18n-account_type">Account Type</span></th>
+<th><span class="i18n i18n-account_name">Account Name</span></th>
+<th><span class="i18n i18n-account_balance">Account Balance</span></th>
+<th><span class="i18n i18n-account_type">Account Type</span></th>
 </tr>
 </thead>
 <tbody>

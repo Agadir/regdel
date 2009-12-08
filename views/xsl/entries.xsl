@@ -28,8 +28,7 @@ xmlns="http://www.w3.org/1999/xhtml">
 
 
 <div class="tableframe">
-<form action="journal-delete" method="post">
-  <table class="journal-table">
+  <table id="journal-table">
     <thead>
       <tr>
         <th>
@@ -83,7 +82,6 @@ xmlns="http://www.w3.org/1999/xhtml">
       </xsl:for-each>
     </tbody>
 </table>
-</form>
 </div>
 
 </xsl:template>

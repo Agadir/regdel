@@ -28,7 +28,7 @@ xmlns="http://www.w3.org/1999/xhtml">
 
 
 <div class="tableframe">
-<table class="journal-table">
+<table id="journal-table">
   <thead>
     <tr>
       <th>

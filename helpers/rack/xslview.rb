@@ -14,7 +14,7 @@ module Rack
     end
 
     def call(env)
-        if ((env["PATH_INFO"].include? "/raw/") || (env["PATH_INFO"].include? "/s/js/"))
+        if ((env["PATH_INFO"].include? "/raw/") || (env["PATH_INFO"].include? "/s/js/") || (env["PATH_INFO"].include? "/s/css/"))
             @app.call(env)
         else
           # This is very picky here - needs "#{var}" for param value
