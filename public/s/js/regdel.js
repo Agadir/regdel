@@ -22,6 +22,8 @@ $('document').ready(function() {
         var err = '<div id="error">' + unescape(hash['error']) + '</div>';
         $("body").append(err);
     }
+    $(":input:not(:submit)").addClass("text");
+    //$("submit").removeClass("text");
 
 
 });

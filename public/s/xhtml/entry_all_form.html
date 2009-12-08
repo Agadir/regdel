@@ -1,62 +1,70 @@
-<form id="journal-entry-form" method="post" action="/entry/submit">
+<div class="block">
+  <div class="hd">
   <h2>
     <span id="i18n-entry">Entry</span>
   </h2>
-  <div id="journal-entry-date">
-    <label for="entry_datetime">
-      <span id="i18n-date">Date</span>
-    </label>
-    <input type="text" name="entry_datetime" id="entry_datetime" />
   </div>
-  
-  <div id="journal-entry-memo">
-    <label for="memorandum">
-      <span class="i18n-memorandum">Memorandum</span>
-    </label>
-    <textarea name="memorandum" id="memorandum" rows="3" cols="40">
-    </textarea>
+  <div class="bd">
+  <form id="journal-entry-form" method="post" action="/entry/submit">
+    <p class="journal-entry-date">
+      <label for="entry_datetime">
+        <span class="i18n-date">Date</span>
+      </label>
+      <input type="text" name="entry_datetime" id="entry_datetime" />
+    </p>
+    
+    <p id="journal-entry-memo">
+      <label for="memorandum">
+        <span class="i18n-memorandum">Memorandum</span>
+      </label>
+      <textarea name="memorandum" id="memorandum" rows="3" cols="40">
+      </textarea>
+    </p>
+    <p>
+      <table id="journal-entry-amounts">
+        <thead>
+          <tr>
+            <th>
+              <span class="i18n-accounts">Accounts</span>
+            </th>
+            <th>
+              <span class="i18n-debit">Debit</span>
+              <span id="another_debit" class="amount_controls">+</span>
+            </th>
+            <th>
+              <span class="i18n-credit">Credit</span>
+              <span id="another_credit" class="amount_controls">+</span>
+            </th>
+            <th width="20"/>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="debit-row">
+            <td>
+              <select name="debit_account_id[]" class="account_id">
+              </select>
+            </td>
+            <td>
+              <input name="debit_amount[]" type="text" size="6" />
+            </td>
+            <td/>
+            <td><span class="remove_debit" style="display:none;">x</span></td>
+          </tr>
+          <tr class="credit-row">
+            <td>
+              <select name="credit_account_id[]" class="account_id">
+              </select>
+            </td>
+            <td/>
+            <td>
+              <input name="credit_amount[]" type="text" size="6" />
+            </td>
+            <td><span class="remove_credit" style="display:none;">x</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </p>
+    <input type="submit" name="submit" id="submit" value="Submit" class="generic-button"/>
+    </form>
   </div>
-  <table id="journal-entry-amounts">
-    <thead>
-      <tr>
-        <th>
-          <span class="i18n-accounts">Accounts</span>
-        </th>
-        <th>
-          <span class="i18n-debit">Debit</span>
-          <span id="another_debit" class="amount_controls">+</span>
-        </th>
-        <th>
-          <span class="i18n-credit">Credit</span>
-          <span id="another_credit" class="amount_controls">+</span>
-        </th>
-        <th width="20"/>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="debit-row">
-        <td>
-          <select name="debit_account_id[]" class="account_id">
-          </select>
-        </td>
-        <td>
-          <input name="debit_amount[]" type="text" size="6" />
-        </td>
-        <td/>
-        <td><span class="remove_debit" style="display:none;">x</span></td>
-      </tr>
-      <tr class="credit-row">
-        <td>
-          <select name="credit_account_id[]" class="account_id">
-          </select>
-        </td>
-        <td/>
-        <td>
-          <input name="credit_amount[]" type="text" size="6" />
-        </td>
-        <td><span class="remove_credit" style="display:none;">x</span></td>
-      </tr>
-    </tbody>
-  </table>
-  <input type="submit" name="submit" id="submit" value="Submit" class="generic-button"/>
-</form>
+</div>

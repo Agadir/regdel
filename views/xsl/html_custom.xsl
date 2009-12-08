@@ -28,15 +28,23 @@ xmlns="http://www.w3.org/1999/xhtml">
 <xsl:template name="page">
   <html>
     <xsl:call-template name="head"/>
-    <body>
-      <div id="container">
-      <div class="block tabs">
-        <div class="hd">
+    <body class="rounded">
+    <div id="doc3" class="yui-t6">
+      <div id="hd">
+      <h1>Regdel</h1>
+      <div id="navigation">
         <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/nav_menu.html')/ul"/>
-        <div class="clear"></div>
-        </div>
       </div>
+      </div>
+      <div id="bd">
+      <div id="yui-main">
+      <div class="yui-b">
+      <div class="yui-g">
       <xsl:apply-templates />
+      </div>
+      </div>
+      </div>
+      </div>
       </div>
     </body>
   </html>
@@ -48,14 +56,16 @@ xmlns="http://www.w3.org/1999/xhtml">
       <xsl:value-of select="(//h1|//h2)[1]" />
     </title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.7.0/build/reset/reset-min.css"/>
     <!--
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.7.0/build/reset/reset-min.css"/>
     <link rel="stylesheet" type="text/css" href="/s/css/pkgs/web-app-theme/stylesheets/base.css"/>
     <link rel="stylesheet" type="text/css" href="/s/css/pkgs/web-app-theme/stylesheets/themes/blue/style.css"/>
     -->
     <link rel="stylesheet" type="text/css" href="/s/css/pkgs/yui-app-theme/css/yuiapp.css"/>
     <link rel="stylesheet" type="text/css" href="/s/css/pkgs/yui-app-theme/css/red.css"/>
+    <!--
     <link rel="stylesheet" type="text/css" href="/stylesheet.css"/>
+    -->
     <script src="http://yui.yahooapis.com/3.0.0pr2/build/yui/yui-min.js" type="text/javascript"></script> 
     <script type="text/javascript" src="/s/js/jquery/jquery-1.3.2.js"></script>
     <script type="text/javascript" src="/s/js/regdel.js"></script>
@@ -63,7 +73,9 @@ xmlns="http://www.w3.org/1999/xhtml">
       <script type="text/javascript" src="/s/js/account_form.js"></script>
     </xsl:if>
     <xsl:if test="$my_path_info='/s/xhtml/entry_all_form.html'">
+    <!--
       <link rel="stylesheet" type="text/css" href="/journal_entry_form.css"/>
+      -->
       <script type="text/javascript" src="/s/js/entry_form.js"></script>
       <script type="text/javascript" src="/s/js/jquery/plugins/jquery.calculation.js"></script>
     </xsl:if>
