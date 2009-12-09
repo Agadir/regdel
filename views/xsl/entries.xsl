@@ -26,8 +26,7 @@ xmlns="http://www.w3.org/1999/xhtml">
 
 <xsl:template match="/">
 
-
-<div class="tableframe">
+<div class="block"><div class="bd">
   <table id="journal-table">
     <thead>
       <tr>
@@ -82,7 +81,7 @@ xmlns="http://www.w3.org/1999/xhtml">
       </xsl:for-each>
     </tbody>
 </table>
-</div>
+</div></div>
 
 </xsl:template>
 </xsl:stylesheet>
