@@ -27,6 +27,7 @@ xmlns="http://www.w3.org/1999/xhtml">
 <xsl:template match="/">
 
 <div class="block"><div class="bd">
+  <h3>Journal Entries</h3>
   <table id="journal-table">
     <thead>
       <tr>

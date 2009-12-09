@@ -27,7 +27,8 @@ xmlns="http://www.w3.org/1999/xhtml">
 <xsl:template match="/">
 
 
-<div class="tableframe">
+<div class="block"><div class="bd">
+<h3>Journal Entries</h3>
 <table id="journal-table">
   <thead>
     <tr>
@@ -70,6 +71,6 @@ xmlns="http://www.w3.org/1999/xhtml">
 <a href="./{//entries/@next}">Next</a>
 </span>
 <span id="table_meta"></span>
-</div>
+</div></div>
 </xsl:template>
 </xsl:stylesheet>
