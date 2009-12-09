@@ -4,11 +4,11 @@
 $('document').ready(function() {
   $("#nav-journal").addClass("active");
 
-  $("#journal-table thead tr").append('<th>Edit</th>');
+  $("#journal-table thead tr").append('<th class="text-right">Edit</th>');
   $(".entry_row","#journal-table").each(
     function () {
       var myid = $(this).get(0).getAttribute('id');
-      $(this).append('<td class="notoggle"><a href="/entry/edit/'+myid+'">edit</a></td>');
+      $(this).append('<td class="notoggle text-right"><a href="/entry/edit/'+myid+'">edit</a></td>');
     }
   );
   $(".entry_row td:not(.notoggle)").toggle(
