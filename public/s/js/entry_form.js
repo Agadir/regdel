@@ -1,4 +1,5 @@
 $('document').ready(function() {
+  $("#nav-entry").addClass("active");
 
   $('.account_id:first','form').jselect({
       replaceAll: true,

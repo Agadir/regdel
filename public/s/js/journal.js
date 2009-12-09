@@ -2,6 +2,7 @@
 // Read a page's GET URL variables and return them as an associative array.
 
 $('document').ready(function() {
+  $("#nav-journal").addClass("active");
 
   $("#journal-table thead tr").append('<th>Edit</th>');
   $(".entry_row","#journal-table").each(

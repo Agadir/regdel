@@ -72,6 +72,9 @@ xmlns="http://www.w3.org/1999/xhtml">
     <xsl:if test="$my_path_info='/s/xhtml/account_form.html'">
       <script type="text/javascript" src="/s/js/account_form.js"></script>
     </xsl:if>
+    <xsl:if test="$my_path_info='/ledger'">
+      <script type="text/javascript" src="/s/js/ledger.js"></script>
+    </xsl:if>
     <xsl:if test="$my_path_info='/s/xhtml/entry_all_form.html'">
     <!--
       <link rel="stylesheet" type="text/css" href="/journal_entry_form.css"/>
