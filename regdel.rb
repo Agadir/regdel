@@ -159,14 +159,18 @@ module Regdel
     end
     
     get '/ledger' do
+      @ledger_label = "General"
+      @ledger_type = "general"
       @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
         transactions = builder :'xml/transactions'
-        xslview transactions, '/var/www/dev/regdel/views/xsl/general_ledger.xsl'
+        xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
     end
     get '/ledgers/account/:account_id' do
+      @ledger_label = Account.get(params[:account_id]).name
+      @ledger_type = "account"
         @mytransactions = Ledger.all(:account_id => params[:account_id],:order => [ :posted_on.asc ])
         transactions = builder :'xml/transactions'
-        xslview transactions, '/var/www/dev/regdel/views/xsl/account_ledger.xsl'
+        xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
     end
     
     get '/stylesheet.css' do
@@ -185,7 +189,6 @@ module Regdel
     not_found do
         'This is nowhere to be found'
     end
-        
     
     
     
@@ -202,6 +205,13 @@ module Regdel
     # TESTS
     
     
+    get '/raw/ledger' do
+        content_type 'application/xml', :charset => 'utf-8'
+      @ledger_label = "General"
+      @ledger_type = "general"
+      @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
+      builder :'xml/transactions'
+    end 
     get '/raw/entries' do
         content_type 'application/xml', :charset => 'utf-8'
         @myentries = Entry.all

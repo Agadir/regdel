@@ -25,6 +25,13 @@ Fifth Floor, Boston, MA 02110-1301 USA
 xmlns="http://www.w3.org/1999/xhtml">
 <xsl:output method="xml" omit-xml-declaration="yes" />
 <xsl:template match="/">
+<div class="block">
+  <div class="hd">
+  <h2>
+    <span id="i18n-entry">Entry</span>
+  </h2>
+  </div>
+  <div class="bd">
 <table class="accounts">
 <thead>
 <tr>
@@ -48,6 +55,7 @@ xmlns="http://www.w3.org/1999/xhtml">
 </xsl:for-each>
 </tbody>
 </table>
-
+</div>
+</div>
 </xsl:template>
 </xsl:stylesheet>

@@ -29,18 +29,30 @@
       <table id="journal-entry-amounts">
         <thead>
           <tr>
-            <th>
+            <th width="40%">
               <span class="i18n-accounts">Accounts</span>
             </th>
-            <th>
-              <span class="i18n-debit">Debit</span>
-              <span id="another_debit" class="amount_controls">+</span>
+            <th width="20%">
+              <ul class="crud">
+                <li>
+                  <span class="i18n-debit">Debit</span>
+                </li>
+                <li>
+                  <a href="#" id="another_debit" class="amount_controls">+</a>
+                </li>
+              </ul>
             </th>
-            <th>
-              <span class="i18n-credit">Credit</span>
-              <span id="another_credit" class="amount_controls">+</span>
+            <th width="20%">
+              <ul class="crud">
+                <li>
+                  <span class="i18n-credit">Credit</span>
+                </li>
+                <li>
+                  <a href="#" class="amount_controls" id="another_credit">+</a>
+                </li>
+              </ul>
             </th>
-            <th width="20"/>
+            <th width="20%"/>
           </tr>
         </thead>
         <tbody>
@@ -53,7 +65,11 @@
               <input name="debit_amount[]" type="text" size="6" />
             </td>
             <td/>
-            <td><span class="remove_debit" style="display:none;">x</span></td>
+            <td>
+              <span class="crud remove_debit" style="display:none;">
+              <ul class="crud"><li><a href="#">x</a></li></ul>
+              </span>
+            </td>
           </tr>
           <tr class="credit-row">
             <td>
@@ -64,7 +80,11 @@
             <td>
               <input name="credit_amount[]" type="text" size="6" />
             </td>
-            <td><span class="remove_credit" style="display:none;">x</span></td>
+            <td>
+              <span class="remove_credit" style="display:none;">
+                <ul class="crud"><li><a href="#">x</a></li></ul>
+              </span>
+            </td>
           </tr>
         </tbody>
       </table>
