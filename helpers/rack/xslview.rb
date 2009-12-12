@@ -1,7 +1,7 @@
 
 module Rack
   class XSLView
-    def initialize(app, options={})
+    def initialize(app, options, &xslt_block)
       @my_path_info = String.new
       @app = app
       @options = {:myxsl => nil}.merge(options)
@@ -14,16 +14,15 @@ module Rack
     end
 
     def call(env)
-        if ((env["PATH_INFO"].include? "/raw/") || (env["PATH_INFO"].include? "/s/js/") || (env["PATH_INFO"].include? "/s/css/"))
-            @app.call(env)
-        else
-          # This is very picky here - needs "#{var}" for param value
-            if (mp = env["PATH_INFO"])
-              @xslt.parameters = { "my_path_info" => "#{mp}" }
-            end
-            status, headers, @response = @app.call(env)
-            [status, headers, self]
+      if checknoxsl(env)
+        @app.call(env)
+      else
+        if (mp = env["PATH_INFO"])
+          @xslt.parameters = { "my_path_info" => "#{mp}" }
         end
+        status, headers, @response = @app.call(env)
+        [status, headers, self]
+      end
     end
     def each(&block)
         @response.each { |x|
@@ -34,6 +33,15 @@ module Rack
               yield @xslt.serve
             end
         }
+    end
+    private
+    def checknoxsl(env)
+      @options[:noxsl].each { |path|
+        if env["PATH_INFO"].include? path
+          return true
+        end
+      }
+      return false
     end
   end
 end
