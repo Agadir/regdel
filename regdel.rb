@@ -163,6 +163,7 @@ module Regdel
       transactions = builder :'xml/transactions'
       xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
     end
+
     get '/ledgers/account/:account_id' do
       @ledger_label = Account.get(params[:account_id]).name
       @ledger_type = "account"
@@ -200,11 +201,11 @@ module Regdel
     
     
     get '/raw/ledger' do
-        content_type 'application/xml', :charset => 'utf-8'
       @ledger_label = "General"
       @ledger_type = "general"
       @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
-      builder :'xml/transactions'
+      transactions = builder :'xml/transactions'
+      xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
     end 
     get '/raw/entries' do
         content_type 'application/xml', :charset => 'utf-8'
@@ -244,6 +245,14 @@ module Regdel
     
     
     # TESTS
+
+    get '/raw/ledger' do
+      @ledger_label = Account.get(params[:account_id]).name
+      @ledger_type = "account"
+      @mytransactions = Ledger.all(:account_id => params[:account_id],:order => [ :posted_on.asc ])
+      transactions = builder :'xml/transactions'
+      xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
+    end
     get '/raw/test' do
         content_type 'application/xml', :charset => 'utf-8'
         builder :'xml/test'

@@ -53,7 +53,7 @@ xmlns="http://www.w3.org/1999/xhtml">
 <xsl:template name="head">
   <head>
     <title>
-      <xsl:value-of select="(//h1|//h2)[1]" />
+      <xsl:value-of select="//h2" />
     </title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css"/>
     <!--

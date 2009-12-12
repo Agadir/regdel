@@ -1,6 +1,6 @@
 <!--
 Program: http://www.regdel.com
-Component: html_main.xsl
+Component: accounts.xsl
 Copyright: Savonix Corporation
 Author: Albert L. Lash, IV
 License: Gnu Affero Public License version 3
@@ -21,14 +21,13 @@ along with this program; if not, see http://www.gnu.org/licenses
 or write to the Free Software Foundation, Inc., 51 Franklin Street,
 Fifth Floor, Boston, MA 02110-1301 USA
 -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-xmlns="http://www.w3.org/1999/xhtml">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output method="xml" omit-xml-declaration="yes" />
 <xsl:template match="/">
 <div class="block">
   <div class="hd">
   <h2>
-    <span id="i18n-entry">Entry</span>
+    <span id="i18n-accounts">Accounts</span>
   </h2>
   </div>
   <div class="bd">
