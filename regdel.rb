@@ -185,7 +185,7 @@ module Regdel
     end
     
     not_found do
-      'This is nowhere to be found. <a href="/">Start over?</a>'
+      '<p>This is nowhere to be found. <a href="/">Start over?</a></p>'
     end
     
     
