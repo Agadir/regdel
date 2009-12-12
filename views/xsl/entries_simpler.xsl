@@ -27,7 +27,9 @@ Fifth Floor, Boston, MA 02110-1301 USA
 
 
 <div class="block"><div class="bd">
-<h3>Journal Entries</h3>
+  <h2>
+    <span class="i18n-journal_entries">Journal Entries</span>
+  </h2>
 <table id="journal-table">
   <thead>
     <tr>
@@ -46,30 +48,33 @@ Fifth Floor, Boston, MA 02110-1301 USA
     </tr>
   </thead>
   <tbody id="journal-table-entries">
-    <xsl:for-each select="//entries/entry">
-    <tr class="entry_row" id="{@id}">
-      <td class="reldate">
-        <xsl:value-of select="@date"/>
-      </td>
-      <td>
-        <xsl:value-of select="@memorandum"/>
-      </td>
-      <td>
-        <xsl:value-of select="@amount"/>
-      </td>
-      <td>
-        <xsl:value-of select="@id"/>
-      </td>
-    </tr>
-    </xsl:for-each>
+    <xsl:apply-templates />
   </tbody>
 </table>
-<span id="table_controls">
-<a href="./{//entries/@prev}">Prev</a>
-<a href="/entry/new">New</a>
-<a href="./{//entries/@next}">Next</a>
-</span>
-<span id="table_meta"></span>
+
+<ul class="pager" id="table_controls">
+  <li><a href="./{//entries/@prev}">&#171; Prev</a></li>
+  <li><a href="./{//entries/@next}">Next &#187;</a></li>
+</ul>
 </div></div>
 </xsl:template>
+
+
+<xsl:template match="//entries/entry">
+<tr class="entry_row" id="{@id}">
+  <td class="reldate">
+    <xsl:value-of select="@date"/>
+  </td>
+  <td>
+    <xsl:value-of select="@memorandum"/>
+  </td>
+  <td>
+    <xsl:value-of select="@amount"/>
+  </td>
+  <td>
+    <xsl:value-of select="@id"/>
+  </td>
+</tr>
+</xsl:template>
+
 </xsl:stylesheet>

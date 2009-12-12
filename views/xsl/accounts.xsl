@@ -40,7 +40,14 @@ Fifth Floor, Boston, MA 02110-1301 USA
 </tr>
 </thead>
 <tbody>
-<xsl:for-each select="//account">
+<xsl:apply-templates />
+</tbody>
+</table>
+</div>
+</div>
+</xsl:template>
+
+<xsl:template match="//account">
 <tr id="{@id}"><td>
 <a href="/account/edit/{@id}"><xsl:value-of select="@name"/></a>
 </td>
@@ -51,10 +58,6 @@ Fifth Floor, Boston, MA 02110-1301 USA
 <xsl:value-of select="@type"/>
 </td>
 </tr>
-</xsl:for-each>
-</tbody>
-</table>
-</div>
-</div>
 </xsl:template>
+
 </xsl:stylesheet>

@@ -66,7 +66,9 @@ xmlns="http://www.w3.org/1999/xhtml">
     <!--
     <link rel="stylesheet" type="text/css" href="/stylesheet.css"/>
     -->
-    <script src="http://yui.yahooapis.com/3.0.0pr2/build/yui/yui-min.js" type="text/javascript"></script> 
+    <!--
+    <script src="http://yui.yahooapis.com/3.0.0pr2/build/yui/yui-min.js" type="text/javascript"></script>
+    -->
     <script type="text/javascript" src="/s/js/jquery/jquery-1.3.2.js"></script>
     <script type="text/javascript" src="/s/js/regdel.js"></script>
     <xsl:if test="$my_path_info='/s/xhtml/account_form.html'">

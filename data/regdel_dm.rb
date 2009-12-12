@@ -31,7 +31,13 @@ class Account
   def journal_balance_usd
     credit_sum = self.credits.sum(:amount) ? self.credits.sum(:amount) : 0
     debit_sum = self.debits.sum(:amount) ? self.debits.sum(:amount) : 0
-    
+
+    return "%.2f" % ((credit_sum + debit_sum).to_r.to_d / 100)
+  end
+  def journal_balance_usd_test
+    credit_sum = Credit.all(:conditions => ["account_id = ?", self.id]).sum(:amount) ? Credit.all(:conditions => ["account_id = ?", self.id]).sum(:amount) : 0
+    debit_sum = Debit.all(:conditions => ["account_id = ?", self.id]).sum(:amount) ? Debit.all(:conditions => ["account_id = ?", self.id]).sum(:amount) : 0
+
     return "%.2f" % ((credit_sum + debit_sum).to_r.to_d / 100)
   end
   def journal_balance
