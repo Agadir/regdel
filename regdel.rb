@@ -130,47 +130,45 @@ module Regdel
 
     get '/json/entry/:id' do
         content_type :json
-        #Entry.get(params[:id]).to_json(:methods => [:credits,:debits])
         Entry.get(params[:id]).to_json(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
     end
     get '/raw/xml/entry/:id' do
         content_type :xml
-        #Entry.get(params[:id]).to_xml(:methods => [:credits,:debits])
         Entry.get(params[:id]).to_xml(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
     end
     get '/journal' do
         redirect '/journal/0'
     end
     get '/journal/:offset' do
-        count = Entry.count()
-        myoffset = params[:offset].to_i
-        incr = options.pagination
-
-        @myentries = Entry.all(:limit => options.pagination, :offset => myoffset)
-        @prev = (myoffset - incr) < 0 ? 0 : myoffset - incr
-        @next = myoffset + incr > count ? myoffset : myoffset + incr
-        entries = builder :'xml/entries'
-        xslview entries, '/var/www/dev/regdel/views/xsl/entries_simpler.xsl'
+      count = Entry.count()
+      myoffset = params[:offset].to_i
+      incr = options.pagination
+    
+      @myentries = Entry.all(:limit => options.pagination, :offset => myoffset)
+      @prev = (myoffset - incr) < 0 ? 0 : myoffset - incr
+      @next = myoffset + incr > count ? myoffset : myoffset + incr
+      entries = builder :'xml/entries'
+      xslview entries, '/var/www/dev/regdel/views/xsl/entries_simpler.xsl'
     end
     get '/journal/full' do
-        @myentries = Entry.all
-        entries = builder :'xml/entries'
-        xslview entries, '/var/www/dev/regdel/views/xsl/entries.xsl'
+      @myentries = Entry.all
+      entries = builder :'xml/entries'
+      xslview entries, '/var/www/dev/regdel/views/xsl/entries.xsl'
     end
-    
+
     get '/ledger' do
       @ledger_label = "General"
       @ledger_type = "general"
       @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
-        transactions = builder :'xml/transactions'
-        xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
+      transactions = builder :'xml/transactions'
+      xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
     end
     get '/ledgers/account/:account_id' do
       @ledger_label = Account.get(params[:account_id]).name
       @ledger_type = "account"
-        @mytransactions = Ledger.all(:account_id => params[:account_id],:order => [ :posted_on.asc ])
-        transactions = builder :'xml/transactions'
-        xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
+      @mytransactions = Ledger.all(:account_id => params[:account_id],:order => [ :posted_on.asc ])
+      transactions = builder :'xml/transactions'
+      xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
     end
     
     get '/stylesheet.css' do
@@ -187,7 +185,7 @@ module Regdel
     end
     
     not_found do
-        'This is nowhere to be found'
+      'This is nowhere to be found. <a href="/">Start over?</a>'
     end
     
     
@@ -199,10 +197,6 @@ module Regdel
     
     
     
-    
-    
-    
-    # TESTS
     
     
     get '/raw/ledger' do
@@ -244,12 +238,16 @@ module Regdel
         @accounts = Account.open
         @accounts.to_json
     end
+    
+    
+    
+    
+    
+    # TESTS
     get '/raw/test' do
         content_type 'application/xml', :charset => 'utf-8'
         builder :'xml/test'
     end
-    
-    
     
     get '/raw/test/entries' do
         content_type 'application/xml', :charset => 'utf-8'
