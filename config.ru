@@ -17,6 +17,7 @@ require 'helpers/rack/finalcontentlength'
 map "/" do
 
   use Rack::Rewrite do
+      rewrite '/ledger', '/s/xhtml/ledger.html'
       rewrite '/entry/new', '/s/xhtml/entry_all_form.html'
       rewrite %r{/entry/edit(.*)}, '/s/xhtml/entry_all_form.html'
       rewrite %r{/account/new(.*)}, '/s/xhtml/account_form.html'

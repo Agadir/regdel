@@ -26,10 +26,13 @@ Fifth Floor, Boston, MA 02110-1301 USA
 <xsl:template match="/">
 
 
-<div class="block"><div class="bd">
+<div class="block">
+  <div class="hd">
   <h2>
     <span class="i18n-journal_entries">Journal Entries</span>
   </h2>
+  </div>
+  <div class="bd">
 <table id="journal-table">
   <thead>
     <tr>
@@ -51,7 +54,6 @@ Fifth Floor, Boston, MA 02110-1301 USA
     <xsl:apply-templates />
   </tbody>
 </table>
-
 <ul class="pager" id="table_controls">
   <li><a href="./{//entries/@prev}">&#171; Prev</a></li>
   <li><a href="./{//entries/@next}">Next &#187;</a></li>
@@ -62,7 +64,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
 
 <xsl:template match="//entries/entry">
 <tr class="entry_row" id="{@id}">
-  <td class="reldate">
+  <td>
     <xsl:value-of select="@date"/>
   </td>
   <td>

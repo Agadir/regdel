@@ -25,10 +25,11 @@ Fifth Floor, Boston, MA 02110-1301 USA
 
 <xsl:template match="/">
 
-<div class="block"><div class="bd">
+<div class="block"><div class="hd">
   <h2>
     <span class="i18n-journal_entries">Journal Entries</span>
   </h2>
+  <div class="bd">
   <table id="journal-table">
     <thead>
       <tr>
@@ -83,6 +84,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
       </xsl:for-each>
     </tbody>
 </table>
+</div>
 </div></div>
 
 </xsl:template>

@@ -36,6 +36,7 @@ module Regdel
     #set :dump_errors, false
     #set :raise_errors, true
     set :pagination, 10
+    enable :sessions
     
     
     get '/accounts' do
@@ -143,7 +144,7 @@ module Regdel
       count = Entry.count()
       myoffset = params[:offset].to_i
       incr = options.pagination
-    
+
       @myentries = Entry.all(:limit => options.pagination, :offset => myoffset)
       @prev = (myoffset - incr) < 0 ? 0 : myoffset - incr
       @next = myoffset + incr > count ? myoffset : myoffset + incr
@@ -167,7 +168,7 @@ module Regdel
     get '/ledgers/account/:account_id' do
       @ledger_label = Account.get(params[:account_id]).name
       @ledger_type = "account"
-      @mytransactions = Ledger.all(:account_id => params[:account_id],:order => [ :posted_on.asc ])
+      @mytransactions = Ledger.all(:account_id => params[:account_id],:order => [ :posted_on.desc,:amount.desc ])
       transactions = builder :'xml/transactions'
       xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
     end
@@ -186,6 +187,19 @@ module Regdel
     end
     
     not_found do
+      headers 'Last-Modified' => Time.now.httpdate, 'Cache-Control' => 'no-store'
+      if (request.path_info == '/s/xhtml/ledger.html')
+        myfile = File.new("/var/www/dev/regdel/public/s/xhtml/ledger.html","w")
+        @ledger_label = "General"
+        @ledger_type = "general"
+        @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
+        transactions = builder :'xml/transactions'
+        xhtmltransaction = xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
+        myfile.write(xhtmltransaction)
+        myfile.close
+        #redirect request.fullpath
+        redirect request.url
+      end
       '<p>This is nowhere to be found. <a href="/">Start over?</a></p>'
     end
     
@@ -207,6 +221,12 @@ module Regdel
       transactions = builder :'xml/transactions'
       xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
     end 
+    get '/raw/xml/ledger' do
+      @ledger_label = "General"
+      @ledger_type = "general"
+      @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
+      transactions = builder :'xml/transactions'
+    end
     get '/raw/entries' do
         content_type 'application/xml', :charset => 'utf-8'
         @myentries = Entry.all
