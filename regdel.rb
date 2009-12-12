@@ -38,7 +38,12 @@ module Regdel
     set :pagination, 10
     enable :sessions
     
-    
+    before do
+      if request.env['REQUEST_METHOD'].upcase == 'POST'
+        File.delete("/var/www/dev/regdel/public/s/xhtml/ledger.html")
+        puts request
+      end
+    end
     get '/accounts' do
         @my_account_types = @@account_types
         @accounts = Account.open
