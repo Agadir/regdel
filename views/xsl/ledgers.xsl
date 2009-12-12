@@ -109,7 +109,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
 </xsl:template>
 <xsl:template match="//transactions[@ledger_type='account']/transaction">
   <tr>
-    <td class="reldate">
+    <td>
       <xsl:value-of select="@date"/>
     </td>
     <td>
