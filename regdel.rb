@@ -228,6 +228,7 @@ module Regdel
         builder :'xml/account_select'
     end
     get '/raw/accounts' do
+      Account.get(1).update_ledger_balance
         content_type 'application/xml', :charset => 'utf-8'
         @my_account_types = @@account_types
         @accounts = Account.open
@@ -301,5 +302,9 @@ module Regdel
         @myentries = Entry.all
         @myentries.to_xml(:methods => [:credits,:debits])
     end
+    
+    
+    
+    
   end
 end

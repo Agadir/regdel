@@ -15,7 +15,7 @@ class Account
   property :closed_on,Integer, :default => 0
   property :hide,Boolean
   property :group_id,Integer
-  property :cached_journal_balance,Integer
+  property :cached_ledger_balance,Integer, :default => 0
   has n, :credits
   has n, :debits
   has n, :ledgers
@@ -28,28 +28,12 @@ class Account
   def self.open
     all(:closed_on => 0)
   end
-  def journal_balance_usd
-    credit_sum = self.credits.sum(:amount) ? self.credits.sum(:amount) : 0
-    debit_sum = self.debits.sum(:amount) ? self.debits.sum(:amount) : 0
-
-    return "%.2f" % ((credit_sum + debit_sum).to_r.to_d / 100)
+  def cached_ledger_balance_usd
+    return "%.2f" % (cached_ledger_balance.to_r.to_d / 100)
   end
-  def journal_balance_usd_test
-    credit_sum = Credit.all(:conditions => ["account_id = ?", self.id]).sum(:amount) ? Credit.all(:conditions => ["account_id = ?", self.id]).sum(:amount) : 0
-    debit_sum = Debit.all(:conditions => ["account_id = ?", self.id]).sum(:amount) ? Debit.all(:conditions => ["account_id = ?", self.id]).sum(:amount) : 0
-
-    return "%.2f" % ((credit_sum + debit_sum).to_r.to_d / 100)
-  end
-  def journal_balance
-    credit_sum = self.credits.sum(:amount) ? self.credits.sum(:amount) : 0
-    debit_sum = self.debits.sum(:amount) ? self.debits.sum(:amount) : 0
-
-    return (credit_sum + debit_sum)
-  end
-  def ledger_balance_usd
-    ledger_sum = self.ledgers.sum(:amount) ? self.ledgers.sum(:amount) : 0
-    
-    return "%.2f" % (ledger_sum.to_r.to_d / 100)
+  def update_ledger_balance
+    self.cached_ledger_balance = self.ledgers.sum(:amount) ? self.ledgers.sum(:amount) : 0;
+    self.save;
   end
 end
 

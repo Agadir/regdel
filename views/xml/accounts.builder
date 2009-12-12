@@ -3,7 +3,7 @@ xml.accounts {
         xml.account(
           :id=>account.id,
           :name=>account.name,
-          :balance=>account.journal_balance_usd_test,
+          :balance=>account.cached_ledger_balance_usd,
           :type=> @my_account_types[account.type_id],
           :closed_on=>account.closed_on
         )
