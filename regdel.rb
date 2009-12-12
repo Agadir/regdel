@@ -39,9 +39,13 @@ module Regdel
     enable :sessions
     
     before do
+      headers 'Cache-Control' => 'proxy-revalidate'
       if request.env['REQUEST_METHOD'].upcase == 'POST'
-        File.delete("/var/www/dev/regdel/public/s/xhtml/ledger.html")
-        puts request
+        ledgerfile = "/var/www/dev/regdel/public/s/xhtml/ledger.html"
+        if File.exists?(ledgerfile)
+          puts File.delete(ledgerfile)
+          puts request
+        end
       end
     end
     get '/accounts' do
@@ -203,7 +207,7 @@ module Regdel
         myfile.write(xhtmltransaction)
         myfile.close
         #redirect request.fullpath
-        redirect request.url
+        redirect '/ledger'
       end
       '<p>This is nowhere to be found. <a href="/">Start over?</a></p>'
     end
