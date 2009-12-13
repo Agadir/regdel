@@ -14,14 +14,14 @@ $('document').ready(function() {
     }
   );
   $(".entry-row td:not(.notoggle)","#journal-table-entries").toggle(
-      function () {
-          $(".entry_detail").remove();
-          var myid = $(this).parent().get(0).getAttribute('id');
-          get_journal_detail(myid);
-      },
-      function () {
-          $(".entry_detail","#journal-table-entries").remove();
-      }
+    function () {
+      $(".entry_detail").remove();
+      var myid = $(this).parent().get(0).getAttribute('id');
+      get_journal_detail(myid);
+    },
+    function () {
+      $(".entry_detail","#journal-table-entries").remove();
+    }
   );
   $("#journal-table", "#page-content").tablesorter({
   });

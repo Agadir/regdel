@@ -31,12 +31,17 @@ Fifth Floor, Boston, MA 02110-1301 USA
   </h2>
   </div>
   <div class="bd">
-<table class="accounts" cellpadding="1" style="background-color: #222;border-spacing: 1px; border-collapse:separate;">
+<table class="accounts" id="accounts-table">
+<colgroup>
+<col class="cedit"></col>
+<col class="clook"></col>
+<col class="cinfo"></col>
+</colgroup>
 <thead>
 <tr>
-<th><span class="i18n i18n-account_name">Account Name</span></th>
-<th><span class="i18n i18n-account_balance">Account Balance</span></th>
-<th><span class="i18n i18n-account_type">Account Type</span></th>
+<th class="edit"><span class="i18n i18n-account_name">Account Name</span></th>
+<th class="look"><span class="i18n i18n-account_balance">Account Balance</span></th>
+<th class="info"><span class="i18n i18n-account_type">Account Type</span></th>
 </tr>
 </thead>
 <tbody>
@@ -48,28 +53,19 @@ Fifth Floor, Boston, MA 02110-1301 USA
 </xsl:template>
 
 <xsl:template match="//account">
-<tr id="{@id}" class="acctrow">
-  <td class="editacc" style="padding:0">
-    <a href="/account/edit/{@id}" style="display:none;float:right;">
-    <img src="/s/img/pkgs/docunext-webapp-icons/eclipse/write_obj.gif" alt=""/>
-    </a>
-    <a href="/account/edit/{@id}" style="display:block;" title="Edit">
+<tr id="{@id}">
+  <td>
+    <a href="/account/edit/{@id}">
       <xsl:value-of select="@name"/>
     </a>
   </td>
-  <td class="accbal" style="padding:0">
-    <a href="/ledgers/account/{@id}" style="display:none;float:right;">
-    <img src="/s/img/pkgs/docunext-webapp-icons/tango/edit-find.png" alt=""/>
-    </a>
-    <a href="/ledgers/account/{@id}" style="display:block;" title="Ledger">
+  <td>
+    <a href="/ledgers/account/{@id}">
       <xsl:value-of select="@balance"/>
     </a>
   </td>
-  <td class="acctype" style="padding:0">
-    <a href="#" style="display:none;float:right;">
-    <img src="/s/img/pkgs/docunext-webapp-icons/style/icon_info_sml.gif" alt=""/>
-    </a>
-    <a href="#" style="display:block;" title="Info">
+  <td>
+    <a href="#" title="Info">
       <xsl:value-of select="@type"/>
     </a>
   </td>
