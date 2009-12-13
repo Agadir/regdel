@@ -53,6 +53,7 @@ $('document').ready(function() {
         $("#"+myid+" .closeacc a").removeClass("focus");
       }
   );
+  /*
   $("table.accounts tbody td:last").click(function () {
     var myid = $(this).parent().get(0).getAttribute('id');
     $.ajax({
@@ -64,5 +65,6 @@ $('document').ready(function() {
       }
     });
   });
+  */
 
 });

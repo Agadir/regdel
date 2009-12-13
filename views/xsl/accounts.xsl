@@ -58,18 +58,18 @@ Fifth Floor, Boston, MA 02110-1301 USA
     </a>
   </td>
   <td class="accbal" style="padding:0">
-    <a href="/account/edit/{@id}" style="display:none;float:right;">
+    <a href="/ledgers/account/{@id}" style="display:none;float:right;">
     <img src="/s/img/pkgs/docunext-webapp-icons/tango/edit-find.png" alt=""/>
     </a>
-    <a href="/account/edit/{@id}" style="display:block;" title="Ledger">
+    <a href="/ledgers/account/{@id}" style="display:block;" title="Ledger">
       <xsl:value-of select="@balance"/>
     </a>
   </td>
   <td class="acctype" style="padding:0">
-    <a href="/account/edit/{@id}" style="display:none;float:right;">
+    <a href="#" style="display:none;float:right;">
     <img src="/s/img/pkgs/docunext-webapp-icons/style/icon_info_sml.gif" alt=""/>
     </a>
-    <a href="/account/edit/{@id}" style="display:block;" title="Info">
+    <a href="#" style="display:block;" title="Info">
       <xsl:value-of select="@type"/>
     </a>
   </td>
