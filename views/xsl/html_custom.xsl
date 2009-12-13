@@ -32,9 +32,7 @@ xmlns="http://www.w3.org/1999/xhtml">
     <div id="doc3" class="yui-t6">
       <div id="hd">
         <h1>Regdel</h1>
-        <div id="navigation">
-          <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/nav_menu.html')/ul"/>
-        </div>
+        <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/nav_menu.html')/div"/>
       </div>
       <div id="bd">
         <div id="yui-main">
@@ -88,6 +86,8 @@ xmlns="http://www.w3.org/1999/xhtml">
     </xsl:if>
     <xsl:if test="contains($my_path_info,'/accounts')">
       <script type="text/javascript" src="/s/js/accounts.js"></script>
+      <script type="text/javascript" src="/s/js/pkgs/tablesorter/jquery.tablesorter.js"></script>
+      <link rel="stylesheet" href="/s/js/pkgs/tablesorter/themes/blue/style.css" type="text/css" media="print, projection, screen" />
     </xsl:if>
     <xsl:if test="contains($my_path_info,'/journal')">
       <script type="text/javascript" src="/s/js/journal.js"></script>

@@ -57,7 +57,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
   <ul class="pager" id="table_controls">
     <li><a href="./{//entries/@prev}">&#171; Prev</a></li>
     <li><a href="./{//entries/@next}">1</a></li>
-    <li><a href="./{//entries/@next}">Next &#187;</a></li>
+    <li><a href="./{//entries/@next}">Next &#187; <img style="vertical-align:text-top;" src="/s/img/pkgs/docunext-webapp-icons/famfamfam/mini/arrow_right.gif" alt=""/></a></li>
   </ul>
 </div></div>
 </xsl:template>
