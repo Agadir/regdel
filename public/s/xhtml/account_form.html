@@ -1,81 +1,85 @@
 <form method="post" action="/account/submit">
-  <h2>
-    <span class="i18n-account_form">Account Form</span>
-  </h2>
-  <div class="tableframe">
-    <div id="account_form_notice" class="hidden_div"/>
-    <table class="form-table">
-      <tr>
-        <th>
-          <label for="number">
-            <span class="i18n-account_number">Account Number</span>
-          </label>
-        </th>
-        <td>
-          <input type="text" name="number" id="number"/>
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <label for="name">
-            <span class="i18n-account_name">Account Name</span>
-          </label>
-        </th>
-        <td>
-          <input type="text" name="name" id="name"/>
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <label for="type_id">
-            <span class="i18n-account_type">Account Type</span>
-          </label>
-        </th>
-        <td>
-          <select name="type_id" id="type_id">
-            <option>
-              <span class="i18n-select_one">Select One</span>
-            </option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <label for="description">
-            <span class="i18n-description">Description</span>
-          </label>
-        </th>
-        <td>
-          <textarea name="description" id="description"/>
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <label for="hide">
-            <span class="i18n-hide">Hide</span>
-          </label>
-        </th>
-        <td>
-          <input type="checkbox" name="hide" id="hide"/>
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <label for="group_id">
-            <span class="i18n-group">Group</span>
-          </label>
-        </th>
-        <td>
-          <select name="group_id" id="group_id">
-            <option>
-              <span class="i18n-select_one">Select One</span>
-            </option>
-          </select>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div class="table_meta">
-    <input type="submit" value="Save" name="submit"/>
+  <div class="block">
+    <div class="hd">
+      <h2>
+        <span class="i18n-account_form">Account Form</span>
+      </h2>
+    </div>
+    <div class="bd">
+      <div id="account_form_notice" class="hidden_div"/>
+      <table class="form-table">
+        <tr>
+          <th>
+            <label for="number">
+              <span class="i18n-account_number">Account Number</span>
+            </label>
+          </th>
+          <td>
+            <input type="text" name="number" id="number"/>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label for="name">
+              <span class="i18n-account_name">Account Name</span>
+            </label>
+          </th>
+          <td>
+            <input type="text" name="name" id="name"/>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label for="type_id">
+              <span class="i18n-account_type">Account Type</span>
+            </label>
+          </th>
+          <td>
+            <select name="type_id" id="type_id">
+              <option>
+                <span class="i18n-select_one">Select One</span>
+              </option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label for="description">
+              <span class="i18n-description">Description</span>
+            </label>
+          </th>
+          <td>
+            <textarea name="description" id="description"/>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label for="hide">
+              <span class="i18n-hide">Hide</span>
+            </label>
+          </th>
+          <td>
+            <input type="checkbox" name="hide" id="hide"/>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label for="group_id">
+              <span class="i18n-group">Group</span>
+            </label>
+          </th>
+          <td>
+            <select name="group_id" id="group_id">
+              <option>
+                <span class="i18n-select_one">Select One</span>
+              </option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="table_meta">
+      <input type="submit" value="Save" name="submit"/>
+    </div>
   </div>
 </form>

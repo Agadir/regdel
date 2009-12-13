@@ -26,10 +26,13 @@ Fifth Floor, Boston, MA 02110-1301 USA
 <xsl:output method="xml" omit-xml-declaration="yes" indent="yes"/>
 <xsl:template match="/">
 <form method="post" action="/account/submit">
+<div class="block">
+  <div class="hd">
   <h2>
     <span class="i18n-account_form">Account Form</span>
   </h2>
-  <div class="tableframe">
+  </div>
+  <div class="bd">
     <div id="account_form_notice" class="hidden_div" />
     <table class="form-table">
 <xsl:for-each select="//table[name='accounts']/declaration/field[@access='public']">
@@ -49,6 +52,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
   <div class="table_meta">
     <input type="submit" value="Save" name="submit" />
   </div>
+</div>
 </form>
 </xsl:template>
 
