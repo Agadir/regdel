@@ -57,3 +57,13 @@ Account.new(
 :created_on =>  1260181164,
 :closed_on =>  0
 ).save
+
+Account.new(
+:id =>  5,
+:number =>  "40011",
+:name =>  "Professional Services",
+:type_id =>  40000,
+:description =>  "",
+:created_on =>  1260181164,
+:closed_on =>  0
+).save
