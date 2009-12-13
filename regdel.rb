@@ -12,7 +12,6 @@ require 'dm-aggregates'
 require 'dm-validations'
 require 'xml/libxml'
 require 'xml/libxslt'
-#require 'json'
 require 'sass'
 
 require 'data/regdel_dm'
