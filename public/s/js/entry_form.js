@@ -23,7 +23,7 @@ $('document').ready(function() {
             $(".debit-row input").val(amount_total);
         });
     });
-  
+
     $(".remove_credit").live("click",function() {
         $(this).parent().parent().remove();
         if($(".remove_credit").length == 1) {

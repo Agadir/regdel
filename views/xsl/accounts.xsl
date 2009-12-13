@@ -48,7 +48,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
 </xsl:template>
 
 <xsl:template match="//account">
-<tr id="{@id}">
+<tr id="{@id}" class="acctrow">
   <td class="editacc" style="padding:0">
     <a href="/account/edit/{@id}" style="display:none;float:right;">
     <img src="/s/img/pkgs/docunext-webapp-icons/eclipse/write_obj.gif" alt=""/>
