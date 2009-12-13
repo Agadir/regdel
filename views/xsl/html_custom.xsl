@@ -48,6 +48,7 @@ xmlns="http://www.w3.org/1999/xhtml">
           <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/sidebar.html')/div"/>
         </div>
       </div>
+      <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/footer.html')/div"/>
     </div>
     </body>
   </html>
@@ -66,9 +67,7 @@ xmlns="http://www.w3.org/1999/xhtml">
     -->
     <link rel="stylesheet" type="text/css" href="/s/css/pkgs/yui-app-theme/css/yuiapp.css"/>
     <link rel="stylesheet" type="text/css" href="/s/css/pkgs/yui-app-theme/css/red.css"/>
-    <!--
     <link rel="stylesheet" type="text/css" href="/stylesheet.css"/>
-    -->
     <!--
     <script src="http://yui.yahooapis.com/3.0.0pr2/build/yui/yui-min.js" type="text/javascript"></script>
     -->
