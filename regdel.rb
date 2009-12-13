@@ -39,7 +39,7 @@ module Regdel
     enable :sessions
     
     before do
-      headers 'Cache-Control' => 'proxy-revalidate'
+      headers 'Cache-Control' => 'proxy-revalidate, max-age=1200'
       if request.env['REQUEST_METHOD'].upcase == 'POST'
         ledgerfile = "/var/www/dev/regdel/public/s/xhtml/ledger.html"
         if File.exists?(ledgerfile)
