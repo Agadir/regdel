@@ -74,7 +74,7 @@ xmlns="http://www.w3.org/1999/xhtml">
     <xsl:if test="$my_path_info='/s/xhtml/account_form.html'">
       <script type="text/javascript" src="/s/js/account_form.js"></script>
     </xsl:if>
-    <xsl:if test="$my_path_info='/ledger'">
+    <xsl:if test="$my_path_info='/ledger' or $my_path_info='/s/xhtml/ledger.html'">
       <script type="text/javascript" src="/s/js/ledger.js"></script>
     </xsl:if>
     <xsl:if test="$my_path_info='/s/xhtml/entry_all_form.html'">
@@ -89,6 +89,8 @@ xmlns="http://www.w3.org/1999/xhtml">
     </xsl:if>
     <xsl:if test="contains($my_path_info,'/journal')">
       <script type="text/javascript" src="/s/js/journal.js"></script>
+      <script type="text/javascript" src="/s/js/pkgs/tablesorter/jquery.tablesorter.js"></script>
+      <link rel="stylesheet" href="/s/js/pkgs/tablesorter/themes/blue/style.css" type="text/css" media="print, projection, screen" /> 
     </xsl:if>
     <script type="text/javascript" src="/s/js/jquery/plugins/jquery.url.js"></script>
     <script type="text/javascript" src="/s/js/jquery/plugins/jquery.jselect.js"></script>

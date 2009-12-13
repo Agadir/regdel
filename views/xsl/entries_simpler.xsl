@@ -33,37 +33,38 @@ Fifth Floor, Boston, MA 02110-1301 USA
   </h2>
   </div>
   <div class="bd">
-<table id="journal-table">
-  <thead>
-    <tr>
-      <th>
-        <span class="i18n-date">Date</span>
-      </th>
-      <th width="200">
-        <span class="i18n-memo">Memorandum</span>
-      </th>
-      <th>
-        <span class="i18n-amount">Amount</span>
-      </th>
-      <th>
-        <span class="i18n-id">ID</span>
-      </th>
-    </tr>
-  </thead>
-  <tbody id="journal-table-entries">
-    <xsl:apply-templates />
-  </tbody>
-</table>
-<ul class="pager" id="table_controls">
-  <li><a href="./{//entries/@prev}">&#171; Prev</a></li>
-  <li><a href="./{//entries/@next}">Next &#187;</a></li>
-</ul>
+  <table id="journal-table">
+    <thead>
+      <tr>
+        <th>
+          <span class="i18n-date">Date</span>
+        </th>
+        <th>
+          <span class="i18n-memo">Memorandum</span>
+        </th>
+        <th>
+          <span class="i18n-amount">Amount</span>
+        </th>
+        <th>
+          <span class="i18n-id">ID</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody id="journal-table-entries">
+      <xsl:apply-templates />
+    </tbody>
+  </table>
+  <ul class="pager" id="table_controls">
+    <li><a href="./{//entries/@prev}">&#171; Prev</a></li>
+    <li><a href="./{//entries/@next}">1</a></li>
+    <li><a href="./{//entries/@next}">Next &#187;</a></li>
+  </ul>
 </div></div>
 </xsl:template>
 
 
 <xsl:template match="//entries/entry">
-<tr class="entry_row" id="{@id}">
+<tr id="{@id}">
   <td>
     <xsl:value-of select="@date"/>
   </td>

@@ -2,16 +2,18 @@
 // Read a page's GET URL variables and return them as an associative array.
 
 $('document').ready(function() {
-  $("#nav-journal").addClass("active");
+  $("tr","#journal-table-entries").addClass("entry-row");
+  $("#nav-journal","#journal-table").addClass("active");
 
   $("#journal-table thead tr").append('<th class="text-right">Edit</th>');
-  $(".entry_row","#journal-table").each(
+  $(".entry-row td:first-child", "#journal-table-entries").addClass("reldate");
+  $(".entry-row", "#journal-table-entries").each(
     function () {
       var myid = $(this).get(0).getAttribute('id');
       $(this).append('<td class="notoggle text-right"><a href="/entry/edit/'+myid+'">edit</a></td>');
     }
   );
-  $(".entry_row td:not(.notoggle)").toggle(
+  $(".entry-row td:not(.notoggle)").toggle(
       function () {
           $(".entry_detail").remove();
           var myid = $(this).parent().get(0).getAttribute('id');
@@ -40,5 +42,6 @@ $('document').ready(function() {
           $(".entry_detail").remove();
       }
   );
-  
+  $("#journal-table").tablesorter({
+  });
 });
