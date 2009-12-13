@@ -5,7 +5,7 @@ $('document').ready(function() {
   $("tr","#journal-table-entries").addClass("entry-row");
   $("#nav-journal","#navigation").addClass("active");
 
-  $("#journal-table thead tr").append('<th class="text-right">Edit</th>');
+  $("thead tr", "#journal-table").append('<th class="text-right">Edit</th>');
   $(".entry-row td:first-child", "#journal-table-entries").addClass("reldate");
   $(".entry-row", "#journal-table-entries").each(
     function () {
@@ -13,7 +13,7 @@ $('document').ready(function() {
       $(this).append('<td class="notoggle text-right"><a href="/entry/edit/'+myid+'">edit</a></td>');
     }
   );
-  $(".entry-row td:not(.notoggle)").toggle(
+  $(".entry-row td:not(.notoggle)","#journal-table-entries").toggle(
       function () {
           $(".entry_detail").remove();
           var myid = $(this).parent().get(0).getAttribute('id');
@@ -41,9 +41,9 @@ $('document').ready(function() {
           });
       },
       function () {
-          $(".entry_detail").remove();
+          $(".entry_detail","#journal-table-entries").remove();
       }
   );
-  $("#journal-table").tablesorter({
+  $("#journal-table", "#page-content").tablesorter({
   });
 });

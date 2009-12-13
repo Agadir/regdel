@@ -40,7 +40,9 @@ xmlns="http://www.w3.org/1999/xhtml">
       <div id="yui-main">
       <div class="yui-b">
       <div class="yui-g">
+      <div id="page-content">
       <xsl:apply-templates />
+      </div>
       </div>
       </div>
       </div>
