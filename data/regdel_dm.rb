@@ -72,7 +72,8 @@ class Amount
   property :account_id,Integer
   property :memorandum,String
   property :currency_id,Integer
-  belongs_to :entry, :model => 'Entry', :child_key => [:entry_id, Integer]
+  belongs_to :entry
+  #belongs_to :entry, :model => 'Entry', :child_key => [:entry_id, Integer]
 
 
   def to_usd

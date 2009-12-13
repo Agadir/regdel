@@ -122,18 +122,20 @@ module Regdel
         @entry.credits.destroy!
         @entry.debits.destroy!
         params[:credit_amount].each_index {|x|
-          @entry.credits.create(
+          #puts x
+          @myamt = @entry.credits.create(
             :amount => RdMoney.new(params[:credit_amount][x]).no_d,
             :account_id => params[:credit_account_id][x]
           )
+          @myamt.save
         }
         params[:debit_amount].each_index {|x|
-          @entry.debits.create(
+          @myamt = @entry.debits.create(
             :amount => RdMoney.new(params[:debit_amount][x]).no_d,
             :account_id => params[:debit_account_id][x]
           )
+          @myamt.save
         }
-        
         
         redirect '/journal'
     end
@@ -223,6 +225,10 @@ module Regdel
     
     
     
+    get '/raw/journal' do
+        @myentries = Entry.all
+        builder :'xml/journal_complete'
+    end
     get '/raw/ledger' do
       @ledger_label = "General"
       @ledger_type = "general"
