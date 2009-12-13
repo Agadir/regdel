@@ -50,26 +50,26 @@ Fifth Floor, Boston, MA 02110-1301 USA
 <xsl:template match="//account">
 <tr id="{@id}">
   <td class="editacc" style="padding:0">
-    <a href="/account/edit/{@id}" style="display:none;float:right;padding:5px;">
+    <a href="/account/edit/{@id}" style="display:none;float:right;">
     <img src="/s/img/pkgs/docunext-webapp-icons/eclipse/write_obj.gif" alt=""/>
     </a>
-    <a href="/account/edit/{@id}" style="padding:5px;display:block;" title="Edit">
+    <a href="/account/edit/{@id}" style="display:block;" title="Edit">
       <xsl:value-of select="@name"/>
     </a>
   </td>
   <td class="accbal" style="padding:0">
-    <a href="/account/edit/{@id}" style="display:none;float:right;padding:5px;">
+    <a href="/account/edit/{@id}" style="display:none;float:right;">
     <img src="/s/img/pkgs/docunext-webapp-icons/tango/edit-find.png" alt=""/>
     </a>
-    <a href="/account/edit/{@id}" style="padding:5px;display:block;" title="Ledger">
+    <a href="/account/edit/{@id}" style="display:block;" title="Ledger">
       <xsl:value-of select="@balance"/>
     </a>
   </td>
   <td class="acctype" style="padding:0">
-    <a href="/account/edit/{@id}" style="display:none;float:right;padding:5px;">
+    <a href="/account/edit/{@id}" style="display:none;float:right;">
     <img src="/s/img/pkgs/docunext-webapp-icons/style/icon_info_sml.gif" alt=""/>
     </a>
-    <a href="/account/edit/{@id}" style="padding:5px;display:block;" title="Info">
+    <a href="/account/edit/{@id}" style="display:block;" title="Info">
       <xsl:value-of select="@type"/>
     </a>
   </td>
