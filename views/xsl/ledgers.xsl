@@ -38,7 +38,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
 </xsl:template>
 
 <xsl:template match="//transactions[@ledger_type='general']">
-  <table class="ledger-table">
+  <table class="ledger-table zebra">
   <thead>
     <tr>
       <th>
@@ -84,7 +84,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
 
 
 <xsl:template match="//transactions[@ledger_type='account']">
-<table class="ledger-table">
+<table class="ledger-table zebra">
   <thead>
     <tr>
       <th>
