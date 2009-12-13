@@ -16,7 +16,7 @@ $(document).ready(function() {
     var mytime = "";
     var rltime = "";
     $(".reldate").each(function () {
-        mytime = new Date($(this).text());
+        mytime = new Date($(this).text()*1000);
         rltime = relativeDate(mytime);
         $(this).attr("title",mytime);
         $(this).text(rltime);

@@ -31,23 +31,24 @@ xmlns="http://www.w3.org/1999/xhtml">
     <body class="rounded">
     <div id="doc3" class="yui-t6">
       <div id="hd">
-      <h1>Regdel</h1>
-      <div id="navigation">
-        <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/nav_menu.html')/ul"/>
-      </div>
+        <h1>Regdel</h1>
+        <div id="navigation">
+          <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/nav_menu.html')/ul"/>
+        </div>
       </div>
       <div id="bd">
-      <div id="yui-main">
-      <div class="yui-b">
-      <div class="yui-g">
-      <div id="page-content">
-      <xsl:apply-templates />
+        <div id="yui-main">
+          <div class="yui-b"><div class="yui-g">
+            <div id="page-content">
+            <xsl:apply-templates />
+            </div>
+          </div></div>
+        </div>
+        <div id="sidebar" class="yui-b">
+          <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/sidebar.html')/div"/>
+        </div>
       </div>
-      </div>
-      </div>
-      </div>
-      </div>
-      </div>
+    </div>
     </body>
   </html>
 </xsl:template>
