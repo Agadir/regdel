@@ -87,7 +87,6 @@ xmlns="http://www.w3.org/1999/xhtml">
     <xsl:if test="contains($my_path_info,'/accounts')">
       <script type="text/javascript" src="/s/js/accounts.js"></script>
       <script type="text/javascript" src="/s/js/pkgs/tablesorter/jquery.tablesorter.js"></script>
-      <link rel="stylesheet" href="/s/js/pkgs/tablesorter/themes/blue/style.css" type="text/css" media="print, projection, screen" />
     </xsl:if>
     <xsl:if test="contains($my_path_info,'/journal')">
       <script type="text/javascript" src="/s/js/journal.js"></script>

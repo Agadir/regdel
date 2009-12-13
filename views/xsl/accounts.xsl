@@ -31,7 +31,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
   </h2>
   </div>
   <div class="bd">
-<table class="accounts tablesorter">
+<table class="accounts" cellpadding="1" style="background-color: #222;border-spacing: 1px; border-collapse:separate;">
 <thead>
 <tr>
 <th><span class="i18n i18n-account_name">Account Name</span></th>
@@ -57,11 +57,21 @@ Fifth Floor, Boston, MA 02110-1301 USA
       <xsl:value-of select="@name"/>
     </a>
   </td>
-  <td>
-  <xsl:value-of select="@balance"/>
+  <td class="accbal" style="padding:0">
+    <a href="/account/edit/{@id}" style="display:none;float:right;padding:5px;">
+    <img src="/s/img/pkgs/docunext-webapp-icons/tango/edit-find.png" alt=""/>
+    </a>
+    <a href="/account/edit/{@id}" style="padding:5px;display:block;" title="Ledger">
+      <xsl:value-of select="@balance"/>
+    </a>
   </td>
-  <td>
-  <xsl:value-of select="@type"/>
+  <td class="acctype" style="padding:0">
+    <a href="/account/edit/{@id}" style="display:none;float:right;padding:5px;">
+    <img src="/s/img/pkgs/docunext-webapp-icons/style/icon_info_sml.gif" alt=""/>
+    </a>
+    <a href="/account/edit/{@id}" style="padding:5px;display:block;" title="Info">
+      <xsl:value-of select="@type"/>
+    </a>
   </td>
 </tr>
 </xsl:template>
