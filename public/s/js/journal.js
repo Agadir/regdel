@@ -17,28 +17,7 @@ $('document').ready(function() {
       function () {
           $(".entry_detail").remove();
           var myid = $(this).parent().get(0).getAttribute('id');
-          $.getJSON("/json/entry/"+myid, function(data) {
-              $.each(data.credits, function(i, item) {
-                  var myamounts = '<tr class="entry_detail credit">';
-                  myamounts += '<td>'+item.account_id+'</td>';
-                  myamounts += '<td>'+item.memorandum+'</td>';
-                  myamounts += '<td/>';
-                  myamounts += '<td>'+item.to_usd+'</td>';
-                  myamounts += '<td></td>';
-                  myamounts += '</tr>';
-                  $("#"+myid).after(myamounts);
-              });
-              $.each(data.debits, function(i, item) {
-                  var myamounts = '<tr class="entry_detail debit">';
-                  myamounts += '<td>'+item.account_id+'</td>';
-                  myamounts += '<td>'+item.memorandum+'</td>';
-                  myamounts += '<td>'+item.to_usd+'</td>';
-                  myamounts += '<td></td>';
-                  myamounts += '<td></td>';
-                  myamounts += '</tr>';
-                  $("#"+myid).after(myamounts);
-              });
-          });
+          get_journal_detail(myid);
       },
       function () {
           $(".entry_detail","#journal-table-entries").remove();
@@ -47,3 +26,29 @@ $('document').ready(function() {
   $("#journal-table", "#page-content").tablesorter({
   });
 });
+
+function get_journal_detail(myid) {
+  $(".entry_detail").remove();
+  $.getJSON("/json/entry/"+myid, function(data) {
+    $.each(data.credits, function(i, item) {
+        var myamounts = '<tr class="entry_detail credit">';
+        myamounts += '<td>'+item.account_id+'</td>';
+        myamounts += '<td>'+item.memorandum+'</td>';
+        myamounts += '<td/>';
+        myamounts += '<td>'+item.to_usd+'</td>';
+        myamounts += '<td></td>';
+        myamounts += '</tr>';
+        $("#"+myid).after(myamounts);
+    });
+    $.each(data.debits, function(i, item) {
+        var myamounts = '<tr class="entry_detail debit">';
+        myamounts += '<td>'+item.account_id+'</td>';
+        myamounts += '<td>'+item.memorandum+'</td>';
+        myamounts += '<td>'+item.to_usd+'</td>';
+        myamounts += '<td></td>';
+        myamounts += '<td></td>';
+        myamounts += '</tr>';
+        $("#"+myid).after(myamounts);
+    });
+  });
+}
