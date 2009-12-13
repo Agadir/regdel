@@ -23,7 +23,9 @@ $('document').ready(function() {
         $("body").append(err);
     }
     $(":input:not(:submit)").addClass("text");
-    //$("submit").removeClass("text");
 
+  if(jQuery.url.segment(0)=='ledger' || jQuery.url.segment(0)=='ledgers' ) {
+    $("#nav-ledger","#navigation").addClass("active");
+  }
 
 });

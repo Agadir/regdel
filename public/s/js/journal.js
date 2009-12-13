@@ -3,7 +3,7 @@
 
 $('document').ready(function() {
   $("tr","#journal-table-entries").addClass("entry-row");
-  $("#nav-journal","#journal-table").addClass("active");
+  $("#nav-journal","#navigation").addClass("active");
 
   $("#journal-table thead tr").append('<th class="text-right">Edit</th>');
   $(".entry-row td:first-child", "#journal-table-entries").addClass("reldate");
@@ -24,6 +24,7 @@ $('document').ready(function() {
                   myamounts += '<td>'+item.memorandum+'</td>';
                   myamounts += '<td/>';
                   myamounts += '<td>'+item.to_usd+'</td>';
+                  myamounts += '<td></td>';
                   myamounts += '</tr>';
                   $("#"+myid).after(myamounts);
               });
@@ -32,7 +33,8 @@ $('document').ready(function() {
                   myamounts += '<td>'+item.account_id+'</td>';
                   myamounts += '<td>'+item.memorandum+'</td>';
                   myamounts += '<td>'+item.to_usd+'</td>';
-                  myamounts += '<td/>';
+                  myamounts += '<td></td>';
+                  myamounts += '<td></td>';
                   myamounts += '</tr>';
                   $("#"+myid).after(myamounts);
               });
