@@ -34,7 +34,7 @@ map "/" do
   # These are processed in reverse order it seems
   use Rack::CommonLogger
   use Rack::FinalContentLength
-  omitxsl = ['/raw/', '/s/js/', '/s/css/']
+  omitxsl = ['/raw/', '/s/js/', '/s/css/', '/s/img/']
   use Rack::XSLView, :myxsl => xslt, :noxsl => omitxsl do
     xslview '/path/alskjddf', 'test.xsl'
   end
