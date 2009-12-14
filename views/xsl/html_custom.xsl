@@ -76,6 +76,8 @@ xmlns="http://www.w3.org/1999/xhtml">
     </xsl:if>
     <xsl:if test="$my_path_info='/ledger' or $my_path_info='/s/xhtml/ledger.html'">
       <script type="text/javascript" src="/s/js/ledger.js"></script>
+      <script type="text/javascript" src="/s/js/pkgs/tablesorter/jquery.tablesorter.js"></script>
+      <link rel="stylesheet" href="/s/js/pkgs/tablesorter/themes/blue/style.css" type="text/css" media="print, projection, screen" />
     </xsl:if>
     <xsl:if test="$my_path_info='/s/xhtml/entry_all_form.html'">
     <!--

@@ -32,13 +32,14 @@ Fifth Floor, Boston, MA 02110-1301 USA
   </h2>
   </div>
   <div class="bd">
+  <table class="tablesorter zebra" id="ledger-table">
   <xsl:apply-templates />
+  </table>
   </div>
 </div>
 </xsl:template>
 
 <xsl:template match="//transactions[@ledger_type='general']">
-  <table class="ledger-table zebra">
   <thead>
     <tr>
       <th>
@@ -57,8 +58,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
   </thead>
   <tbody>
     <xsl:apply-templates />
-    </tbody>
-  </table>
+  </tbody>
 
 </xsl:template>
 
@@ -84,7 +84,6 @@ Fifth Floor, Boston, MA 02110-1301 USA
 
 
 <xsl:template match="//transactions[@ledger_type='account']">
-<table class="ledger-table zebra">
   <thead>
     <tr>
       <th>
@@ -104,8 +103,6 @@ Fifth Floor, Boston, MA 02110-1301 USA
   <tbody>
     <xsl:apply-templates />
   </tbody>
-</table>
-
 </xsl:template>
 <xsl:template match="//transactions[@ledger_type='account']/transaction">
   <tr>

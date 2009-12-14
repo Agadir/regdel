@@ -3,4 +3,7 @@
 
 $('document').ready(function() {
 
+  $("#ledger-table", $("#page-content")).tablesorter({
+  });
+
 });
