@@ -32,16 +32,11 @@ Fifth Floor, Boston, MA 02110-1301 USA
   </div>
   <div class="bd">
 <table class="accounts" id="accounts-table">
-<colgroup>
-<col class="cedit"></col>
-<col class="clook"></col>
-<col class="cinfo"></col>
-</colgroup>
 <thead>
 <tr>
+<th class="info"><span class="i18n i18n-account_type">Account Type</span></th>
 <th class="edit"><span class="i18n i18n-account_name">Account Name</span></th>
 <th class="look"><span class="i18n i18n-account_balance">Account Balance</span></th>
-<th class="info"><span class="i18n i18n-account_type">Account Type</span></th>
 </tr>
 </thead>
 <tbody>
@@ -55,18 +50,18 @@ Fifth Floor, Boston, MA 02110-1301 USA
 <xsl:template match="//account">
 <tr id="{@id}">
   <td>
-    <a href="/account/edit/{@id}">
+    <a href="#" title="Info">
+      <xsl:value-of select="@type"/>
+    </a>
+  </td>
+  <td>
+    <a href="/account/edit/{@id}" title="{@number}">
       <xsl:value-of select="@name"/>
     </a>
   </td>
   <td>
     <a href="/ledgers/account/{@id}">
       <xsl:value-of select="@balance"/>
-    </a>
-  </td>
-  <td>
-    <a href="#" title="Info">
-      <xsl:value-of select="@type"/>
     </a>
   </td>
 </tr>
