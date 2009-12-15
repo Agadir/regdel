@@ -1,6 +1,21 @@
+require 'rubygems'
+require 'bigdecimal'
+require 'bigdecimal/util'
+require 'dm-core'
+require 'dm-validations'
+require 'dm-timestamps'
+require 'dm-serializer'
+require 'dm-aggregates'
+require 'dm-validations'
+
 DataMapper.setup(:default, 'sqlite3:///var/www/dev/regdel/rbeans.sqlite3')
 
 
+class RdMoney < String
+    def no_d
+        return (self.gsub(/[^0-9\.]/,'').to_d * 100).to_i
+    end
+end
 
 class Account
   include DataMapper::Resource

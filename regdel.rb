@@ -2,14 +2,6 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/base'
 require 'builder'
-require 'bigdecimal'
-require 'bigdecimal/util'
-require 'dm-core'
-require 'dm-validations'
-require 'dm-timestamps'
-require 'dm-serializer'
-require 'dm-aggregates'
-require 'dm-validations'
 require 'xml/libxml'
 require 'xml/libxslt'
 require 'sass'
@@ -19,11 +11,6 @@ require 'data/account_types'
 require 'helpers/xslview'
 
 
-class RdMoney < String
-    def no_d
-        return (self.gsub(/[^0-9\.]/,'').to_d * 100).to_i
-    end
-end
 
 module Regdel
   class Main < Sinatra::Base
