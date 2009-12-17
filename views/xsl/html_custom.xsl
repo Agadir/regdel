@@ -57,18 +57,6 @@ xmlns="http://www.w3.org/1999/xhtml">
     <title>
       <xsl:value-of select="//h2" />
     </title>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css"/>
-    <!--
-    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.7.0/build/reset/reset-min.css"/>
-    <link rel="stylesheet" type="text/css" href="/s/css/pkgs/web-app-theme/stylesheets/base.css"/>
-    <link rel="stylesheet" type="text/css" href="/s/css/pkgs/web-app-theme/stylesheets/themes/blue/style.css"/>
-    -->
-    <link rel="stylesheet" type="text/css" href="/s/css/pkgs/yui-app-theme/css/yuiapp.css"/>
-    <link rel="stylesheet" type="text/css" href="/s/css/pkgs/yui-app-theme/css/red.css"/>
-    <link rel="stylesheet" type="text/css" href="/stylesheet.css"/>
-    <!--
-    <script src="http://yui.yahooapis.com/3.0.0pr2/build/yui/yui-min.js" type="text/javascript"></script>
-    -->
     <script type="text/javascript" src="/s/js/jquery/jquery-1.3.2.js"></script>
     <script type="text/javascript" src="/s/js/regdel.js"></script>
     <xsl:if test="$my_path_info='/s/xhtml/account_form.html'">
@@ -98,6 +86,10 @@ xmlns="http://www.w3.org/1999/xhtml">
     <script type="text/javascript" src="/s/js/jquery/plugins/jquery.url.js"></script>
     <script type="text/javascript" src="/s/js/jquery/plugins/jquery.jselect.js"></script>
     <script type="text/javascript" src="/s/js/relative_date.js"></script>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="/s/css/pkgs/yui-app-theme/css/yuiapp.css"/>
+    <link rel="stylesheet" type="text/css" href="/s/css/pkgs/yui-app-theme/css/red.css"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css"/>
   </head>
 </xsl:template>
 
