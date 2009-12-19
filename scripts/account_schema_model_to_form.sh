@@ -1,1 +1,0 @@
-xsltproc views/xsl/account_model_to_xhtml_form.xsl data/accounting_data_model.xml
