@@ -1,0 +1,18 @@
+URIs
+====
+
+Should Regdel (and Sinatra apps that I build) use a sitemap to generate URI
+references for form actions, menu links, and rack-rewrite configuration?
+
+For example, for new accounts, the URI for the form resource is specified in
+at least the following places:
+
+* config.ru
+* regdel.rb
+* public/s/xhtml/nav_menu.xsl
+
+The problem here is that if the URI is updated, the value must be changed in all
+three places.
+
+One idea would be to build the html files via Rakefile. I'm trying this now and
+it appears to be a good idea.
