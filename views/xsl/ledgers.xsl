@@ -21,7 +21,8 @@ along with this program; if not, see http://www.gnu.org/licenses
 or write to the Free Software Foundation, Inc., 51 Franklin Street,
 Fifth Floor, Boston, MA 02110-1301 USA
 -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+xmlns="http://www.w3.org/1999/xhtml">
 
 
 <xsl:template match="/">
@@ -32,7 +33,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
   </h2>
   </div>
   <div class="bd">
-  <table class="tablesorter zebra" id="ledger-table">
+  <table class="zebra" id="ledger-table">
   <xsl:apply-templates />
   </table>
   </div>

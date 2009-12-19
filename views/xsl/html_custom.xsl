@@ -88,6 +88,7 @@ xmlns="http://www.w3.org/1999/xhtml">
     <script type="text/javascript" src="/s/js/relative_date.js"></script>
     <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="/s/css/pkgs/yui-app-theme/css/yuiapp.css"/>
+    <link rel="stylesheet" type="text/css" href="/s/css/pkgs/yui-app-theme/css/yuiapp-layouts.css"/>
     <link rel="stylesheet" type="text/css" href="/s/css/pkgs/yui-app-theme/css/red.css"/>
     <link rel="stylesheet" type="text/css" href="/stylesheet.css"/>
   </head>
