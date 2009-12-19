@@ -1,3 +1,5 @@
+require 'xml/libxslt'
+    
 task :default do
     puts "hi"
 end
@@ -5,14 +7,18 @@ end
 task :publish_account_form => 'public/s/xhtml/account_form.html'
 
 file 'public/s/xhtml/account_form.html' => ['data/accounting_data_model.xml', 'views/xsl/account_model_to_xhtml_form.xsl'] do
-    puts "publishing file"
-    require 'xml/libxslt'
     xslt = ::XML::XSLT.new()
     xslt.xml = 'data/accounting_data_model.xml'
     xslt.xsl = 'views/xsl/account_model_to_xhtml_form.xsl'
+    xslt.parameters = { 'account_submit' => '/account/submit' }
     html = xslt.serve
     File.open('public/s/xhtml/account_form.html', 'w') {|f| f.write(html) }
 end
+
+
+
+
+
 
 task :create_dummy_accounts do
   load('scripts/default_accounts.rb')

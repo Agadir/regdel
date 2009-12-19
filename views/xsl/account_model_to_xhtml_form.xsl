@@ -25,7 +25,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
 >
 <xsl:output method="xml" omit-xml-declaration="yes" indent="yes"/>
 <xsl:template match="/">
-<form method="post" action="/account/submit">
+<form method="post" action="{$account_submit}">
 <div class="block">
   <div class="hd">
   <h2>
