@@ -6,13 +6,15 @@ module Rack
 
     def call(env)
         status, headers, response = @app.call(env)
-        response_body = ""
-        response.each { |part| response_body += part }
-        unless status == 304
+        headers.delete('Content-Length')
+        if status == 304
+          [status, headers, response]
+        else
+          response_body = ""
+          response.each { |part| response_body += part }
           headers["Content-Length"] = response_body.length.to_s
+          [status, headers, response_body]
         end
-        #puts response_body.length.to_s
-        [status, headers, response_body]
     end
   end
 end
