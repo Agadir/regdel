@@ -1,4 +1,8 @@
+require 'rubygems'
 require 'xml/libxslt'
+require 'rake'
+require 'spec/rake/spectask'
+
     
 task :default do
     puts "hi"
@@ -19,6 +23,10 @@ end
 
 
 
+task :test do
+  
+end
+
 
 task :create_dummy_accounts do
   load('scripts/default_accounts.rb')
@@ -35,3 +43,14 @@ task :create_dummy_entries do
       @entry.debits.create(:amount => RdMoney.new("#{i}.0#{mycents}").no_d, :account_id => 2)
   end
 end
+
+
+
+
+Spec::Rake::SpecTask.new(:spec) do |t|
+  t.spec_files = Dir.glob('spec/*_spec.rb')
+  t.spec_opts << '--format specdoc'
+  t.rcov = true
+end
+
+task :default => :spec
