@@ -40,8 +40,6 @@ module Regdel
     xslt.xsl = REXML::Document.new File.open('/var/www/dev/regdel/views/xsl/html_main.xsl')
     
     
-    # These are processed in reverse order it seems
-    #use Rack::CommonLogger
     use Rack::FinalContentLength
     omitxsl = ['/raw/', '/s/js/', '/s/css/', '/s/img/']
     use Rack::XSLView, :myxsl => xslt, :noxsl => omitxsl do
