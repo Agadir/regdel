@@ -21,6 +21,20 @@ end
 
 
 
+task :account_types => 'data/account_types.rb'
+
+file 'data/account_types.rb' => ['public/s/xml/raw/account_types.xml', 'views/xsl/account_types2many.xsl'] do
+    xslt = ::XML::XSLT.new()
+    xslt.xml = 'public/s/xml/raw/account_types.xml'
+    xslt.xsl = 'views/xsl/account_types2many.xsl'
+    xslt.parameters = { 'format' => 'ruby' }
+    html = xslt.serve
+    File.open('data/account_types.rb', 'w') {|f| f.write(html) }
+end
+# do the same with json:
+# xsltproc --stringparam format json views/xsl/account_types2many.xsl 
+# public/s/xml/raw/account_types.xml > public/s/js/account_types.json
+
 
 
 task :test do
