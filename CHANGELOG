@@ -1,6 +1,6 @@
 2009-12-20  Albert Lash  <albert.lash@docunext.com>
 
-* Refactoring
+* Refactoring - moved Rack middleware from config.ru to regdel.rb
 
 
 2009-11-25  Albert Lash  <albert.lash@docunext.com>
