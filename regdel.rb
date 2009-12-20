@@ -5,6 +5,13 @@ require 'builder'
 require 'xml/libxml'
 require 'xml/libxslt'
 require 'sass'
+require 'rack/utils'
+require 'rack-rewrite'
+require 'rexml/document'
+
+require 'helpers/rack/xslview'
+require 'helpers/rack/nolength'
+require 'helpers/rack/finalcontentlength'
 
 require 'data/regdel_dm'
 require 'data/account_types'
@@ -12,22 +19,50 @@ require 'helpers/xslview'
 
 
 
+
+
+
 module Regdel
+
+
   class Main < Sinatra::Base
 
+    use Rack::Rewrite do
+        rewrite '/ledger', '/s/xhtml/ledger.html'
+        rewrite '/entry/new', '/s/xhtml/entry_all_form.html'
+        rewrite %r{/entry/edit(.*)}, '/s/xhtml/entry_all_form.html'
+        rewrite %r{/account/new(.*)}, '/s/xhtml/account_form.html'
+        rewrite %r{/account/edit/(.*)}, '/s/xhtml/account_form.html?id=$1'
+        rewrite '/', '/s/xhtml/welcome.html'
+    end
+  
+    xslt = ::XML::XSLT.new()
+    xslt.xsl = REXML::Document.new File.open('/var/www/dev/regdel/views/xsl/html_main.xsl')
+    
+    
+    # These are processed in reverse order it seems
+    #use Rack::CommonLogger
+    use Rack::FinalContentLength
+    omitxsl = ['/raw/', '/s/js/', '/s/css/', '/s/img/']
+    use Rack::XSLView, :myxsl => xslt, :noxsl => omitxsl do
+      xslview '/path/alskjddf', 'test.xsl'
+    end
+    use Rack::NoLength
+    
     helpers Sinatra::XSLView
     set :static, true
     set :views, File.dirname(__FILE__) + '/views'
     set :public, File.dirname(__FILE__) + '/public'
     set :pagination, 10
     enable :sessions
-
+  
     before do
       headers 'Cache-Control' => 'proxy-revalidate, max-age=300'
       if request.env['REQUEST_METHOD'].upcase == 'POST'
         ledgerfile = "/var/www/dev/regdel/public/s/xhtml/ledger.html"
         if File.exists?(ledgerfile)
           File.delete(ledgerfile)
+          #rebuild_ledger
           #puts request
         end
       end
@@ -65,7 +100,7 @@ module Regdel
             )
             error_target = '/account/new'
         end
-
+  
         if @account.save
           redirect '/accounts'
         else
@@ -123,7 +158,7 @@ module Regdel
         
         redirect '/journal'
     end
-
+  
     get '/json/entry/:id' do
         content_type :json
         Entry.get(params[:id]).to_json(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
@@ -139,7 +174,7 @@ module Regdel
       count = Entry.count()
       myoffset = params[:offset].to_i
       incr = options.pagination
-
+  
       @myentries = Entry.all(:limit => options.pagination, :offset => myoffset)
       @prev = (myoffset - incr) < 0 ? 0 : myoffset - incr
       @next = myoffset + incr > count ? myoffset : myoffset + incr
@@ -151,7 +186,7 @@ module Regdel
       entries = builder :'xml/entries'
       xslview entries, '/var/www/dev/regdel/views/xsl/entries.xsl'
     end
-
+  
     get '/ledger' do
       @ledger_label = "General"
       @ledger_type = "general"
@@ -159,7 +194,7 @@ module Regdel
       transactions = builder :'xml/transactions'
       xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
     end
-
+  
     get '/ledgers/account/:account_id' do
       @ledger_label = Account.get(params[:account_id]).name
       @ledger_type = "account"
@@ -265,7 +300,7 @@ module Regdel
     
     
     # TESTS
-
+  
     get '/raw/ledger' do
       @ledger_label = Account.get(params[:account_id]).name
       @ledger_type = "account"
@@ -323,7 +358,27 @@ module Regdel
     end
     
     
-    
+    private
+    # This rebuild the ledger useing data from the journal
+    def rebuild_ledger
+      Ledger.all.destroy!
+      amounts = Amount.all
+      
+      amounts.each do |myamount|
+      
+        myid = myamount.entry_id
+        myentry = Entry.get(myid)
+      
+        newtrans = Ledger.new(
+          :posted_on => myentry.entered_on,
+          :memorandum => myentry.memorandum,
+          :amount => myamount.amount,
+          :account_id => myamount.account_id,
+          :entry_id => myamount.entry_id,
+          :entry_amount_id => myamount.id
+          ).save
+      end
+    end
     
   end
 end
