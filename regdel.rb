@@ -7,9 +7,9 @@ require 'xml/libxslt'
 require 'sass'
 require 'rack/utils'
 require 'rack-rewrite'
+require 'rack-xsltview'
 require 'rexml/document'
 
-require 'helpers/rack/xslview'
 require 'helpers/rack/nolength'
 require 'helpers/rack/finalcontentlength'
 
