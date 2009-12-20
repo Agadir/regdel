@@ -14,23 +14,21 @@ require 'helpers/xslview'
 
 module Regdel
   class Main < Sinatra::Base
-    
+
     helpers Sinatra::XSLView
     set :static, true
     set :views, File.dirname(__FILE__) + '/views'
     set :public, File.dirname(__FILE__) + '/public'
-    #set :dump_errors, false
-    #set :raise_errors, true
     set :pagination, 10
     enable :sessions
-    
+
     before do
-      headers 'Cache-Control' => 'proxy-revalidate, max-age=1200'
+      headers 'Cache-Control' => 'proxy-revalidate, max-age=300'
       if request.env['REQUEST_METHOD'].upcase == 'POST'
         ledgerfile = "/var/www/dev/regdel/public/s/xhtml/ledger.html"
         if File.exists?(ledgerfile)
-          puts File.delete(ledgerfile)
-          puts request
+          File.delete(ledgerfile)
+          #puts request
         end
       end
     end
