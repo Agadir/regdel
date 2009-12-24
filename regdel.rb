@@ -248,19 +248,25 @@ module Regdel
     
     not_found do
       headers 'Last-Modified' => Time.now.httpdate, 'Cache-Control' => 'no-store'
+
       if (request.path_info == '/s/xhtml/ledger.html')
-        @ledger_label = "General"
-        @ledger_type = "general"
-        @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
-        transactions = builder :'xml/transactions'
-        xhtmltransaction = xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
-        
-        myfile = File.new("/var/www/dev/regdel/public/s/xhtml/ledger.html","w")
-        myfile.write(xhtmltransaction)
-        myfile.close
-        #redirect request.fullpath
-        redirect '/ledger'
+        begin
+          @ledger_label = "General"
+          @ledger_type = "general"
+          @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
+          transactions = builder :'xml/transactions'
+          xhtmltransaction = xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
+          myfile = File.new("/var/www/dev/regdel/public/s/xhtml/ledger.html","w")
+          myfile.write(xhtmltransaction)
+          myfile.close
+          redirect '/ledger'
+        rescue StandardError
+          myfile.close
+          File.delete(myfile)
+          halt '<p> <a href="/">Error, start over?</a></p>'
+        end
       end
+
       '<p>This is nowhere to be found. <a href="/">Start over?</a></p>'
     end
     
