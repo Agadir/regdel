@@ -51,3 +51,9 @@ Notes
 <pre>
 INSERT INTO accounts (name) VALUES ('test');
 </pre>
+
+
+License
+-------
+
+Affero GPL
