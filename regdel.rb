@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'sinatra'
 require 'sinatra/base'
 require 'builder'
 require 'xml/libxml'
@@ -16,8 +15,6 @@ require 'helpers/rack/finalcontentlength'
 require 'data/regdel_dm'
 require 'data/account_types'
 require 'helpers/xslview'
-
-
 
 
 
@@ -379,4 +376,10 @@ module Regdel
     end
     
   end
+end
+
+
+
+if __FILE__ == $0
+  Regdel::Main.run!
 end
