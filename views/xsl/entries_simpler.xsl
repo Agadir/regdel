@@ -1,6 +1,6 @@
 <!--
 Program: http://www.regdel.com
-Component: html_main.xsl
+Component: entries_simpler.xsl
 Copyright: Savonix Corporation
 Author: Albert L. Lash, IV
 License: Gnu Affero Public License version 3

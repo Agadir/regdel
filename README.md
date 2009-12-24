@@ -1,5 +1,5 @@
 [REGDEL](http://www.regdel.com/)
-======
+========
 
 Summary
 -------
@@ -23,7 +23,7 @@ ruby regdel.rb
 Status
 ------
 
-* November 2009: Alpha
+* January 2010: Alpha
 
 Requirements
 ------------
@@ -32,7 +32,7 @@ Requirements
 * Sinatra
 * DataMapper
 * SQLite / MySQL
-* Builder
+* Builder, Sass, Yui-App-Theme
 * Nokogiri
 
 
