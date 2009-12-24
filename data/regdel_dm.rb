@@ -34,10 +34,13 @@ require 'dm-validations'
 DataMapper.setup(:default, 'sqlite3:///var/www/dev/regdel/rbeans.sqlite3')
 
 
-class RdMoney < String
-    def no_d
-        return (self.gsub(/[^0-9\.]/,'').to_d * 100).to_i
-    end
+module HasAmounts
+  def to_usd
+      return "%.2f" % (self.amount.to_r.to_d / 100)
+  end
+  def convert_to_usd(attr)
+    return "%.2f" % (instance_variable_get(attr).to_r.to_d / 100)
+  end
 end
 
 class Account
@@ -75,8 +78,19 @@ class Account
   end
 end
 
+class Asset < Account; end
+class Liability < Account; end
+class Equity < Account; end
+class Revenue < Account; end
+class Expense < Account; end
+
+class BankAccount < Asset; end
+
+
+
 class Entry
   include DataMapper::Resource
+  include HasAmounts
 
   property :id,Serial
   property :memorandum,String
@@ -102,6 +116,7 @@ end
 
 class Amount
   include DataMapper::Resource
+  include HasAmounts
 
   property :id,Serial
   property :entry_id,Integer
@@ -111,15 +126,7 @@ class Amount
   property :memorandum,String
   property :currency_id,Integer
   belongs_to :entry
-  #belongs_to :entry, :model => 'Entry', :child_key => [:entry_id, Integer]
 
-
-  def to_usd
-      return "%.2f" % (self.amount.to_r.to_d / 100)
-  end
-  def self.sum_usd
-    return self.entry.credits.sum(:amount)
-  end
 
 end
 
@@ -130,6 +137,7 @@ class Debit < Amount; end
 
 class Ledger
   include DataMapper::Resource
+  include HasAmounts
 
   property :id,Serial
   property :posted_on,Integer
@@ -143,15 +151,6 @@ class Ledger
   belongs_to :account
   belongs_to :entry
   belongs_to :entry_amount, :model => 'Amount', :child_key => [ :entry_amount_id ]
-  
-  def to_usd
-      return "%.2f" % (self.amount.to_r.to_d / 100)
-  end
-  # Called from a Ledger instance object, returns the ledger balance for that entry
-  def running_balance
-    return "%.2f" % ( (Ledger.all(
-      :conditions => ["account_id = ? AND ( posted_on < ? OR (( posted_on = ? AND amount < ? ) OR ( posted_on = ? AND amount = ? AND id < ?)))", self.account_id,  self.posted_on, self.posted_on, self.amount, self.posted_on, self.amount, self.id] ).sum(:amount).to_i.to_r.to_d + self.amount) / 100)
-  end
 
 end
 
