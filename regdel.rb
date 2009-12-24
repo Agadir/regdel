@@ -40,10 +40,22 @@ require 'data/account_types'
 require 'helpers/xslview'
 
 
+class Ledger
+  # Called from a Ledger instance object, returns the ledger balance for that entry
+  def running_balance
+    return "%.2f" % ( (Ledger.all(
+      :conditions => ["account_id = ? AND ( posted_on < ? OR (( posted_on = ? AND amount < ? ) OR ( posted_on = ? AND amount = ? AND id < ?)))", self.account_id,  self.posted_on, self.posted_on, self.amount, self.posted_on, self.amount, self.id] ).sum(:amount).to_i.to_r.to_d + self.amount) / 100)
+  end
+end
 
 
 module Regdel
 
+  class RdMoney < String
+    def no_d
+        return (self.gsub(/[^0-9\.]/,'').to_d * 100).to_i
+    end
+  end
 
   class Main < Sinatra::Base
 
@@ -80,8 +92,8 @@ module Regdel
         ledgerfile = "/var/www/dev/regdel/public/s/xhtml/ledger.html"
         if File.exists?(ledgerfile)
           File.delete(ledgerfile)
-          #rebuild_ledger
-          #puts request
+          rebuild_ledger
+          puts request
         end
       end
     end
@@ -237,12 +249,13 @@ module Regdel
     not_found do
       headers 'Last-Modified' => Time.now.httpdate, 'Cache-Control' => 'no-store'
       if (request.path_info == '/s/xhtml/ledger.html')
-        myfile = File.new("/var/www/dev/regdel/public/s/xhtml/ledger.html","w")
         @ledger_label = "General"
         @ledger_type = "general"
         @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
         transactions = builder :'xml/transactions'
         xhtmltransaction = xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
+        
+        myfile = File.new("/var/www/dev/regdel/public/s/xhtml/ledger.html","w")
         myfile.write(xhtmltransaction)
         myfile.close
         #redirect request.fullpath
