@@ -22,6 +22,7 @@
 # Fifth Floor, Boston, MA 02110-1301 USA
 # -->
 module HasAmounts
+  # Functions to convert base amount or balance for display.
   def to_usd
       return "%.2f" % (self.amount.to_r.to_d / 100)
   end
