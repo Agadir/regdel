@@ -25,6 +25,10 @@ class RegdelTest < Test::Unit::TestCase
 
   def test_it_works
     visit "/ledger"
-    assert_contain("Savonix")
+    assert_have_selector("#ft")
+  end
+  def test_new_account
+    visit "/account/new"
+    assert_have_selector("#ft")
   end
 end

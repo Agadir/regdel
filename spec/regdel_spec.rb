@@ -34,6 +34,10 @@ describe "Regdel" do
     get '/accounts'
     last_response.should be_ok
   end
+  it "should respond to /journal/0" do
+    get '/journal/0'
+    last_response.should be_ok
+  end
 
   it "should respond to /json/account/1" do
     get '/json/account/1'
