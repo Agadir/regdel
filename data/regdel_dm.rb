@@ -34,14 +34,7 @@ require 'dm-validations'
 DataMapper.setup(:default, 'sqlite3:///var/www/dev/regdel/rbeans.sqlite3')
 
 
-module HasAmounts
-  def to_usd
-      return "%.2f" % (self.amount.to_r.to_d / 100)
-  end
-  def convert_to_usd(attr)
-    return "%.2f" % (instance_variable_get(attr).to_r.to_d / 100)
-  end
-end
+
 
 class Account
   include DataMapper::Resource

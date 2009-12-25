@@ -35,6 +35,8 @@ require 'rexml/document'
 require 'helpers/rack/nolength'
 require 'helpers/rack/finalcontentlength'
 
+
+require 'data/regdel-dm-modules'
 require 'data/regdel_dm'
 require 'data/account_types'
 require 'helpers/xslview'
