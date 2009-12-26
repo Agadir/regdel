@@ -25,7 +25,6 @@ require File.join(File.dirname(__FILE__), '..', 'regdel.rb')
 
 
 require 'rubygems'
-require 'sinatra'
 require 'rack/test'
 require 'spec'
 require 'spec/autorun'
@@ -43,15 +42,36 @@ class RegdelTest < Test::Unit::TestCase
   include Webrat::Matchers
 
   def app
-    Regdel.new('')
+    @app ||= Regdel.new('')
   end
 
   def test_it_works
+    visit "/"
+    assert_have_selector("#ft")
+  end
+
+  def test_the_app
     visit "/ledger"
     assert_have_selector("#ft")
   end
+
+
   def test_new_account
     visit "/account/new"
+    assert_have_selector(".form-table")
     assert_have_selector("#ft")
   end
+
+  def test_new_account_public
+    visit "/s/xhtml/account_form.html"
+    assert_have_selector(".form-table")
+    assert_have_selector("#ft")
+  end
+  
+  def test_new_entry
+    visit "/s/xhtml/entry_all_form.html"
+    assert_have_selector("#memorandum")
+    assert_have_selector("#ft")
+  end
+
 end

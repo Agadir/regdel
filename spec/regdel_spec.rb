@@ -27,7 +27,7 @@ describe "Regdel" do
   include Rack::Test::Methods
 
   def app
-    @app ||= Regdel.new('')
+    @app ||= Regdel.new('/z')
   end
 
   it "should respond to /accounts" do
@@ -46,6 +46,10 @@ describe "Regdel" do
   it "should respond to /ledger" do
     get '/ledger'
     last_response.body.should include("</html>")
+  end
+  it "should respond to /account/new" do
+    get '/ledger'
+    last_response.body.should include("</form>")
   end
   it "should respond to /stylesheet.css" do
     get '/stylesheet.css'
