@@ -30,6 +30,10 @@ describe "Regdel" do
     @app ||= Regdel.new('')
   end
 
+  it "should respond to /" do
+    get '/'
+    last_response.should be_ok
+  end
   it "should respond to /accounts" do
     get '/accounts'
     last_response.should be_ok
@@ -54,6 +58,14 @@ describe "Regdel" do
   end
   it "should respond to /raw/accounts" do
     get '/raw/accounts'
+    last_response.should be_ok
+  end
+  it "should respond to /raw/xml/ledger" do
+    get '/raw/xml/ledger'
+    last_response.should be_ok
+  end
+  it "should respond to /raw/transactions" do
+    get '/raw/transactions'
     last_response.should be_ok
   end
 
