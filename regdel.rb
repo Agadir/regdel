@@ -57,7 +57,7 @@ module Regdel
   class << self
     attr_accessor :uripfx
   end
-  def self.new(uripfx)
+  def self.new(uripfx='')
     self.uripfx = uripfx
     Main
   end
@@ -85,9 +85,11 @@ module Regdel
       rewrite Regdel.uripfx+'/ledger', '/s/xhtml/ledger.html'
       rewrite Regdel.uripfx+'/entry/new', '/s/xhtml/entry_all_form.html'
       rewrite %r{/entry/edit(.*)}, '/s/xhtml/entry_all_form.html'
-      rewrite %r{/account/new(.*)}, '/s/xhtml/account_form.html'
+      rewrite Regdel.uripfx+'/account/new', '/s/xhtml/account_form.html'
+      rewrite %r{\.?/account/new(.*)}, '/s/xhtml/account_form.html'
       rewrite %r{/account/edit/(.*)}, '/s/xhtml/account_form.html?id=$1'
       rewrite Regdel.uripfx+'/', '/s/xhtml/welcome.html'
+      rewrite Regdel.uripfx+'/account/new', '/s/xhtml/account_form.html'
     end
 
     use Rack::FinalContentLength
@@ -104,6 +106,12 @@ module Regdel
     enable :sessions
 
     before do
+      if 1==2
+        puts "\n"
+        puts request.env['PATH_INFO']
+        puts "\n"
+        puts request.env['REQUEST_URI']
+      end
       headers 'Cache-Control' => 'proxy-revalidate, max-age=300'
       if request.env['REQUEST_METHOD'].upcase == 'POST'
         ledgerfile = "/var/www/dev/regdel/public/s/xhtml/ledger.html"
@@ -433,6 +441,6 @@ module Regdel
 end
 
 if __FILE__ == $0
-  Regdel::Main.run!
+  Regdel.new('').run!
 end
 
