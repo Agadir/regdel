@@ -30,6 +30,7 @@ Requirements
 
 * Ruby
 * Sinatra
+* Rack-XSLView
 * DataMapper
 * SQLite / MySQL
 * Builder, Sass, Yui-App-Theme
