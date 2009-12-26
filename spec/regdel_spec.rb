@@ -102,6 +102,18 @@ describe "Regdel" do
     follow_redirect!
     last_response.body.should include("</html>")
   end
+  it "should be able to edit this account" do
+    @account = Account.first(:name => "Testing")
+    post '/account/submit', params={
+      "id" => @account.id,
+      "name" => "Testing OK",
+      "type_id" => 50000,
+      "number" => 50013,
+      "description" => "Test account"
+    }
+    follow_redirect!
+    last_response.body.should include("</html>")
+  end
   it "should be able to delete that account" do
     post '/account/delete', params={
       "number" => 50013,
@@ -152,5 +164,10 @@ describe "Regdel" do
   it "should respond to /stylesheet.css" do
     get '/stylesheet.css'
     last_response.headers["Content-Type"].should == "text/css;charset=utf-8"
+  end
+  
+  it "should respond with not found to /sldkjhf94hg" do
+    get "/skdfh43fh9hg"
+    last_response.body.should include("This is nowhere to be found")
   end
 end

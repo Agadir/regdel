@@ -117,7 +117,7 @@ module Regdel
       @my_account_types = @@account_types
       @accounts = Account.open
       accounts = builder :'xml/accounts'
-      xslview accounts, '/var/www/dev/regdel/views/xsl/accounts.xsl'
+      xslview accounts, @@dirpfx + '/views/xsl/accounts.xsl'
     end
 
     get '/json/account/:id' do
@@ -249,12 +249,12 @@ module Regdel
       @prev = (myoffset - incr) < 0 ? 0 : myoffset - incr
       @next = myoffset + incr > count ? myoffset : myoffset + incr
       entries = builder :'xml/entries'
-      xslview entries, '/var/www/dev/regdel/views/xsl/entries_simpler.xsl'
+      xslview entries, @@dirpfx + '/views/xsl/entries_simpler.xsl'
     end
     get '/journal/full' do
       @myentries = Entry.all
       entries = builder :'xml/entries'
-      xslview entries, '/var/www/dev/regdel/views/xsl/entries.xsl'
+      xslview entries, @@dirpfx + '/views/xsl/entries.xsl'
     end
 
   
@@ -263,7 +263,7 @@ module Regdel
       @ledger_type = "account"
       @mytransactions = Ledger.all(:account_id => params[:account_id],:order => [ :posted_on.desc,:amount.desc ])
       transactions = builder :'xml/transactions'
-      xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
+      xslview transactions, @@dirpfx + '/views/xsl/ledgers.xsl'
     end
     
     get '/stylesheet.css' do
@@ -291,13 +291,6 @@ module Regdel
         @myentries = Entry.all
         builder :'xml/journal_complete'
     end
-    get '/raw/ledger' do
-      @ledger_label = "General"
-      @ledger_type = "general"
-      @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
-      transactions = builder :'xml/transactions'
-      xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
-    end 
     get '/raw/xml/ledger' do
       @ledger_label = "General"
       @ledger_type = "general"
@@ -327,11 +320,11 @@ module Regdel
       builder :'xml/accounts'
     end
     get '/raw/ledger' do
-      @ledger_label = Account.get(params[:account_id]).name
-      @ledger_type = "account"
-      @mytransactions = Ledger.all(:account_id => params[:account_id],:order => [ :posted_on.asc ])
+      @ledger_label = "General"
+      @ledger_type = "general"
+      @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
       transactions = builder :'xml/transactions'
-      xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
+      xslview transactions, @@dirpfx + '/views/xsl/ledgers.xsl'
     end
 
     delete '/delete/ledger' do
@@ -371,7 +364,7 @@ module Regdel
         @ledger_type = "general"
         @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
         transactions = builder :'xml/transactions'
-        xhtmltransaction = xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
+        xhtmltransaction = xslview transactions, @@dirpfx + '/views/xsl/ledgers.xsl'
         myfile = File.new("#{@@dirpfx}/public/s/xhtml/ledger.html","w")
         myfile.write(xhtmltransaction)
         myfile.close
