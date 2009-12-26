@@ -100,6 +100,7 @@ module Regdel
     use Rack::Config do |env|
       env['RACK_MOUNT_PATH'] = '/regdel'
     end
+
     use Rack::Rewrite do
       rewrite Regdel.uripfx+'/ledger', '/s/xhtml/ledger.html'
       rewrite Regdel.uripfx+'/entry/new', '/s/xhtml/entry_all_form.html'
@@ -149,7 +150,7 @@ module Regdel
         end
   
         if @account.save
-          redirect '/accounts'
+          redirect Regdel.uripfx+'/accounts'
         else
           myerrors = ""
           @account.errors.each do |e|
@@ -203,7 +204,7 @@ module Regdel
           @myamt.save
         }
         
-        redirect '/journal'
+        redirect Regdel.uripfx+'/journal'
     end
   
     get '/json/entry/:id' do
@@ -215,7 +216,7 @@ module Regdel
         Entry.get(params[:id]).to_xml(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
     end
     get '/journal' do
-        redirect '/journal/0'
+        redirect Regdel.uripfx+'/journal/0'
     end
     get '/journal/:offset' do
       count = Entry.count()
@@ -233,14 +234,7 @@ module Regdel
       entries = builder :'xml/entries'
       xslview entries, '/var/www/dev/regdel/views/xsl/entries.xsl'
     end
-  
-    #get '/ledger' do
-    #  @ledger_label = "General"
-    #  @ledger_type = "general"
-    #  @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
-    #  transactions = builder :'xml/transactions'
-    #  xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
-    #end
+
   
     get '/ledgers/account/:account_id' do
       @ledger_label = Account.get(params[:account_id]).name
