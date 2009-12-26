@@ -7,11 +7,11 @@ $('document').ready(function() {
   $('#type_id').jselect({
       replaceAll: true,
       loadType: "GET",
-      loadUrl: "/s/xml/raw/account_types_select.xml",
+      loadUrl: app_prefix+"/s/xml/raw/account_types_select.xml",
   });
   var myid = jQuery.url.segment(2);
   if (myid > 0) {
-    $.getJSON("/json/account/"+myid, function(data) {
+    $.getJSON(app_prefix+"/json/account/"+myid, function(data) {
         $.each(data, function(i, item) {
             if ($('#' + i).length) {
                 if($('#' + i).attr("type")=="checkbox") {

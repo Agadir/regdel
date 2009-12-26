@@ -4,7 +4,7 @@ $('document').ready(function() {
   $('.account_id:first','form').jselect({
       replaceAll: true,
       loadType: "GET",
-      loadUrl: "/raw/account/select",
+      loadUrl: app_prefix+"/raw/account/select",
       onComplete: function() {
           $('.account_id:first option','form').clone().appendTo('.account_id:not(:first)','form');
       }
@@ -63,7 +63,7 @@ $('document').ready(function() {
 
 function update_journal_entry_form(myid) {
   $("#journal-entry-form").append('<input type="hidden" name="id" value="'+myid+'"/>');
-  $.getJSON("/json/entry/"+myid, function(data) {
+  $.getJSON(app_prefix+"/json/entry/"+myid, function(data) {
     $("#memorandum").val(data.memorandum);
     $("#entry_datetime").val(data.entered_on);
     $(".credit-row:not(:first)").remove();
