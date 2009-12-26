@@ -43,7 +43,7 @@ class RegdelTest < Test::Unit::TestCase
   include Webrat::Matchers
 
   def app
-    Regdel::Main
+    Regdel.new('')
   end
 
   def test_it_works
