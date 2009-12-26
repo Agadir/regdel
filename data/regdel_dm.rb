@@ -66,8 +66,9 @@ class Account
     return "%.2f" % (cached_ledger_balance.to_r.to_d / 100)
   end
   def update_ledger_balance
-    self.cached_ledger_balance = self.ledgers.sum(:amount) ? self.ledgers.sum(:amount) : 0;
-    self.save;
+    mybal = Ledger.sum(:amount, :account_id => self.id)
+    self.cached_ledger_balance = mybal ? mybal : 0
+    self.save
   end
 end
 
@@ -141,7 +142,7 @@ class Ledger
   property :entry_amount_id,Integer
   property :fiscal_period_id,Integer
   property :currency_id,Integer
-  belongs_to :account
+  belongs_to :account, :model => 'Account', :child_key => [ :account_id ]
   belongs_to :entry
   belongs_to :entry_amount, :model => 'Amount', :child_key => [ :entry_amount_id ]
 

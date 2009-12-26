@@ -111,11 +111,9 @@ module Regdel
       end
       headers 'Cache-Control' => 'proxy-revalidate, max-age=300'
       if request.env['REQUEST_METHOD'].upcase == 'POST'
-        ledgerfile = "/var/www/dev/regdel/public/s/xhtml/ledger.html"
-        if File.exists?(ledgerfile)
-          File.delete(ledgerfile)
-          rebuild_ledger
-          puts request
+        rebuild_ledger
+        Account.all.each do |myaccount|
+          myaccount.update_ledger_balance
         end
       end
     end
@@ -321,32 +319,32 @@ module Regdel
         builder :'xml/entries'
     end
     get '/raw/transactions' do
-        content_type 'application/xml', :charset => 'utf-8'
-        @mytrans = Ledger.all
-        @mytrans.to_xml
+      content_type 'application/xml', :charset => 'utf-8'
+      @mytrans = Ledger.all
+      @mytrans.to_xml
     end
     get '/raw/json/transactions' do
       content_type :json
-        @mytrans = Ledger.all
-        @mytrans.to_json
+      @mytrans = Ledger.all
+      @mytrans.to_json
     end
     get '/raw/account/select' do
-        content_type 'application/xml', :charset => 'utf-8'
-        @accounts = Account.open
-        builder :'xml/account_select'
+      content_type 'application/xml', :charset => 'utf-8'
+      @accounts = Account.open
+      builder :'xml/account_select'
     end
     get '/raw/accounts' do
       Account.get(1).update_ledger_balance
-        content_type 'application/xml', :charset => 'utf-8'
-        @my_account_types = @@account_types
-        @accounts = Account.open
-        builder :'xml/accounts'
+      content_type 'application/xml', :charset => 'utf-8'
+      @my_account_types = @@account_types
+      @accounts = Account.open
+      builder :'xml/accounts'
     end
     get '/raw/dm-init/accounts' do
-        content_type :json
-        @my_account_types = @@account_types
-        @accounts = Account.open
-        @accounts.to_json
+      content_type :json
+      @my_account_types = @@account_types
+      @accounts = Account.open
+      @accounts.to_json
     end
     
     
@@ -415,6 +413,12 @@ module Regdel
     private
     # This rebuild the ledger useing data from the journal
     def rebuild_ledger
+
+      ledgerfile = "#{@@dirpfx}s/xhtml/ledger.html"
+      if File.exists?(ledgerfile)
+        File.delete(ledgerfile)
+      end
+      
       Ledger.all.destroy!
       amounts = Amount.all
       
