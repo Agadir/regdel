@@ -9,7 +9,7 @@ $('document').ready(function() {
   $("tr", $("#journal-table-entries")).addClass("entry-row")
   .each(function () {
       var myid = $(this).get(0).getAttribute('id');
-      $(this).append('<td class="text-right"><a href="/entry/edit/'+myid+'">edit</a></td>');
+      $(this).append('<td class="text-right"><a href="'+app_prefix+'/entry/edit/'+myid+'">edit</a></td>');
   })
   .find("td:first-child").addClass("reldate")
   .parent().find("td:not(:last)").toggle(
@@ -29,7 +29,7 @@ $('document').ready(function() {
 
 function get_journal_detail(myid,journal_table_entries) {
   $(".entry_detail",journal_table_entries).remove();
-  $.getJSON("/json/entry/"+myid, function(data) {
+  $.getJSON(app_prefix+"/json/entry/"+myid, function(data) {
     $.each(data.credits, function(i, item) {
         var myamounts = '<tr class="entry_detail credit">';
         myamounts += '<td>'+item.account_id+'</td>';
