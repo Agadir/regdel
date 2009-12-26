@@ -69,9 +69,6 @@ xmlns="http://www.w3.org/1999/xhtml">
       <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/tablesorter/themes/jquery-tablesorter-app-theme/style.css" type="text/css" media="print, projection, screen" /> 
     </xsl:if>
     <xsl:if test="$PATH_INFO='/s/xhtml/entry_all_form.html'">
-    <!--
-      <link rel="stylesheet" type="text/css" href="/journal_entry_form.css"/>
-      -->
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/entry_form.js"></script>
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.calculation.js"></script>
     </xsl:if>

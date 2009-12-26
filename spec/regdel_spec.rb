@@ -121,7 +121,7 @@ describe "Regdel" do
 
 
 
-
+  # LEDGER TESTS
   it "should respond to /ledger" do
     get '/ledger'
     last_response.body.should include("</html>")

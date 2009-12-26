@@ -270,11 +270,7 @@ module Regdel
       content_type 'text/css', :charset => 'utf-8'
       sass :'css/regdel'
     end
-    get '/journal_entry_form.css' do
-      content_type 'text/css', :charset => 'utf-8'
-      sass :'css/journal_entry_form'
-    end
-
+    
     not_found do
       headers 'Last-Modified' => Time.now.httpdate, 'Cache-Control' => 'no-store'
       '<p>This is nowhere to be found. <a href="/">Start over?</a></p>'
