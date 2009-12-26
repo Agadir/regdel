@@ -80,8 +80,6 @@ class Expense < Account; end
 
 class BankAccount < Asset; end
 
-
-
 class Entry
   include DataMapper::Resource
   include HasAmounts
@@ -97,9 +95,10 @@ class Entry
   
   def credit_sum
     # Does not work: 
-    # !! Unexpected error while processing request: 
+    # !! Unexpected error while processing request:
     # +options[:fields]+ entry #<DataMapper::Property @model=Amount @name=:amount>
     # does not map to a property in Credit
+    # UPDATE: I hacked dm-aggregates to make it work
     return "%.2f" % (Credit.sum(:amount, :entry_id => self.id).to_r.to_d / 100)
     
     # Works fine, but isn't it the same thing?
