@@ -34,14 +34,14 @@ describe "Regdel" do
     get '/'
     last_response.should be_ok
   end
-  it "should respond to /accounts" do
-    get '/accounts'
-    last_response.should be_ok
-  end
+
+
+  # JOURNAL TESTS
   it "should respond to /journal/0" do
     get '/journal/0'
     last_response.should be_ok
   end
+
   it "should respond to /journal/full" do
     get '/journal/full'
     last_response.should be_ok
@@ -52,14 +52,6 @@ describe "Regdel" do
     last_response.should be_ok
   end
 
-  it "should respond to /raw/account/select" do
-    get '/raw/account/select'
-    last_response.should be_ok
-  end
-  it "should respond to /raw/accounts" do
-    get '/raw/accounts'
-    last_response.should be_ok
-  end
   it "should respond to /raw/xml/ledger" do
     get '/raw/xml/ledger'
     last_response.should be_ok
@@ -69,20 +61,51 @@ describe "Regdel" do
     last_response.should be_ok
   end
 
-  it "should respond to /json/account/1" do
-    get '/json/account/1'
-    last_response.should be_ok
-  end
   it "should respond to /json/entry/1" do
     get '/json/entry/1'
+    last_response.should be_ok
+  end
+  it "should respond to /entry/edit/1" do
+    get '/entry/edit/1'
     last_response.should be_ok
   end
   it "should respond to /raw/xml/entry/1" do
     get '/raw/xml/entry/1'
     last_response.should be_ok
   end
-  it "should be able to delete ledger" do
-    delete '/delete/ledger'
+  
+  
+  # ACCOUNT TESTS
+  it "should respond to /raw/account/select" do
+    get '/raw/account/select'
+    last_response.should be_ok
+  end
+  it "should respond to /json/account/1" do
+    get '/json/account/1'
+    last_response.should be_ok
+  end
+  it "should respond to /accounts" do
+    get '/accounts'
+    last_response.should be_ok
+  end
+  it "should respond to /raw/accounts" do
+    get '/raw/accounts'
+    last_response.should be_ok
+  end
+  it "should be able to create new account" do
+    post '/account/submit', params={
+      "name" => "Testing",
+      "type_id" => 50000,
+      "number" => 50013,
+      "description" => "Test account"
+    }
+    follow_redirect!
+    last_response.body.should include("</html>")
+  end
+  it "should be able to delete that account" do
+    post '/account/delete', params={
+      "number" => 50013,
+    }
     follow_redirect!
     last_response.body.should include("</html>")
   end
@@ -94,6 +117,11 @@ describe "Regdel" do
     post '/account/reopen', params={"id" => 1}
     last_response.body.should include("</success>")
   end
+
+
+
+
+
   it "should respond to /ledger" do
     get '/ledger'
     last_response.body.should include("</html>")
@@ -110,6 +138,17 @@ describe "Regdel" do
     post '/'
     last_response.body.should include("</html>")
   end
+  it "should be able to delete ledger" do
+    delete '/delete/ledger'
+    follow_redirect!
+    last_response.body.should include("</html>")
+  end
+  
+  
+  
+  
+  
+  
   it "should respond to /stylesheet.css" do
     get '/stylesheet.css'
     last_response.headers["Content-Type"].should == "text/css;charset=utf-8"

@@ -188,7 +188,18 @@ module Regdel
           end
         end
     end
-
+    post '/account/delete' do
+        content_type 'application/xml', :charset => 'utf-8'
+        @account = Account.first(:number => params[:number])
+        if @account.destroy!
+          redirect Regdel.uripfx+'/accounts'
+        else
+          myerrors = ""
+          @account.errors.each do |e|
+              myerrors << e.to_s
+          end
+        end
+    end
     post '/entry/submit' do
         if params[:id].to_i > 0
           @entry = Entry.get(params[:id])
@@ -202,7 +213,6 @@ module Regdel
         @entry.credits.destroy!
         @entry.debits.destroy!
         params[:credit_amount].each_index {|x|
-          #puts x
           @myamt = @entry.credits.create(
             :amount => RdMoney.new(params[:credit_amount][x]).no_d,
             :account_id => params[:credit_account_id][x]
