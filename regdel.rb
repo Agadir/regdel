@@ -33,8 +33,7 @@ require 'rack-rewrite'
 require 'rack-xslview'
 require 'rexml/document'
 
-require 'helpers/rack/nolength'
-require 'helpers/rack/finalcontentlength'
+require 'rack-docunext-content-length'
 
 
 require 'data/regdel-dm-modules'
@@ -92,11 +91,10 @@ module Regdel
       rewrite Regdel.uripfx+'/account/new', '/s/xhtml/account_form.html'
     end
 
-    use Rack::FinalContentLength
+    use Rack::DocunextContentLength
     omitxsl = ['/raw/', '/s/js/', '/s/css/', '/s/img/']
     passenv = ['PATH_INFO', 'RACK_MOUNT_PATH']
     use Rack::XSLView, :myxsl => @@xslt, :noxsl => omitxsl, :passenv => passenv
-    use Rack::NoLength
 
     helpers Sinatra::XSLView
     set :static, true
