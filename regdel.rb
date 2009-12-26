@@ -30,7 +30,7 @@ require 'sass'
 require 'rack/utils'
 require 'rack/contrib'
 require 'rack-rewrite'
-require 'rack-xsltview'
+require 'rack-xslview'
 require 'rexml/document'
 
 require 'helpers/rack/nolength'
