@@ -1,11 +1,14 @@
+
+mountpath = '/regdel'
+
 require 'regdel'
-require 'sinatra'
+
+
+Regdel::Main.set :run, false
+Regdel::Main.set :environment, :development
 
 
 
-
-
-
-
-run Regdel::Main
-
+map mountpath do
+	run Regdel.new(mountpath)
+end
