@@ -73,6 +73,14 @@ describe "Regdel" do
     get '/json/account/1'
     last_response.should be_ok
   end
+  it "should respond to /json/entry/1" do
+    get '/json/entry/1'
+    last_response.should be_ok
+  end
+  it "should respond to /raw/xml/entry/1" do
+    get '/raw/xml/entry/1'
+    last_response.should be_ok
+  end
   it "should be able to delete ledger" do
     delete '/delete/ledger'
     follow_redirect!

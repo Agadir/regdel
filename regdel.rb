@@ -318,13 +318,6 @@ module Regdel
       @accounts = Account.open
       @accounts.to_json
     end
-    
-    
-    
-    
-    
-    # TESTS
-  
     get '/raw/ledger' do
       @ledger_label = Account.get(params[:account_id]).name
       @ledger_type = "account"
@@ -332,55 +325,7 @@ module Regdel
       transactions = builder :'xml/transactions'
       xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
     end
-    get '/raw/test' do
-        content_type 'application/xml', :charset => 'utf-8'
-        builder :'xml/test'
-    end
-    
-    get '/raw/test/entries' do
-        content_type 'application/xml', :charset => 'utf-8'
-        @myentries = Entry.all(:limit => 4, :offset => 0)
-        builder :'xml/entries_test_sum'
-    end
-    get '/raw/test/entries/:offset' do
-        content_type 'application/xml', :charset => 'utf-8'
-        @myentries = Entry.all(:limit => 4, :offset => params[:offset].to_i)
-        builder :'xml/entries_test_sum'
-    end
-    get '/raw/test/entries2' do
-        content_type 'application/xml', :charset => 'utf-8'
-        @myentries = Entry.all
-        @mycredits = Credit.all
-        @mydebits = Debit.all
-        builder :'xml/entries_test_big'
-    end
-    get '/raw/test/entries3' do
-        content_type 'application/xml', :charset => 'utf-8'
-        @myentries = Entry.all
-        builder :'xml/entries_test_sum'
-    end
-    
-    get '/raw/test/to_json' do
-        content_type :json
-        @myentries = Entry.all
-        @myentries.to_json()
-    end
-    get '/raw/test/to_jsonassoc' do
-        content_type :json
-        @myentries = Entry.all
-        @myentries.to_json(:methods => [:credits,:debits])
-    end
-    get '/raw/test/to_xml' do
-        content_type 'application/xml'
-        @myentries = Entry.all
-        @myentries.to_xml()
-    end
-    get '/raw/test/to_xmlassoc' do
-        content_type 'application/xml'
-        @myentries = Entry.all
-        @myentries.to_xml(:methods => [:credits,:debits])
-    end
-    
+
     delete '/delete/ledger' do
       rebuild_ledger
       redirect '/ledger'
