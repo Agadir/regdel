@@ -28,6 +28,7 @@ require 'xml/libxml'
 require 'xml/libxslt'
 require 'sass'
 require 'rack/utils'
+require 'rack/contrib'
 require 'rack-rewrite'
 require 'rack-xsltview'
 require 'rexml/document'
@@ -52,6 +53,15 @@ end
 
 
 module Regdel
+  
+  class << self
+    attr_accessor :uripfx
+  end
+  def self.new(uripfx)
+    self.uripfx = uripfx
+
+    Main
+  end
 
   class RdMoney < String
     def no_d
@@ -61,30 +71,17 @@ module Regdel
 
   class Main < Sinatra::Base
 
-    use Rack::Rewrite do
-        rewrite '/ledger', '/s/xhtml/ledger.html'
-        rewrite '/entry/new', '/s/xhtml/entry_all_form.html'
-        rewrite %r{/entry/edit(.*)}, '/s/xhtml/entry_all_form.html'
-        rewrite %r{/account/new(.*)}, '/s/xhtml/account_form.html'
-        rewrite %r{/account/edit/(.*)}, '/s/xhtml/account_form.html?id=$1'
-        rewrite '/', '/s/xhtml/welcome.html'
+    configure do
+      # Prefixes for URI and Regdel directory
+      @@dirpfx = File.dirname(__FILE__)
+      @@xslt = ::XML::XSLT.new()
+      @@xslt.xsl = REXML::Document.new File.open("#{@@dirpfx}/views/xsl/html_main.xsl")
     end
-  
-    xslt = ::XML::XSLT.new()
-    xslt.xsl = REXML::Document.new File.open('/var/www/dev/regdel/views/xsl/html_main.xsl')
-    
-    
-    use Rack::FinalContentLength
-    omitxsl = ['/raw/', '/s/js/', '/s/css/', '/s/img/']
-    use Rack::XSLView, :myxsl => xslt, :noxsl => omitxsl do
-      xslview '/path/alskjddf', 'test.xsl'
-    end
-    use Rack::NoLength
-    
+
     helpers Sinatra::XSLView
     set :static, true
-    set :views, File.dirname(__FILE__) + '/views'
-    set :public, File.dirname(__FILE__) + '/public'
+    set :views, @@dirpfx + '/views'
+    set :public, @@dirpfx + '/public'
     set :pagination, 10
     enable :sessions
   
@@ -99,6 +96,24 @@ module Regdel
         end
       end
     end
+
+    use Rack::Config do |env|
+      env['RACK_MOUNT_PATH'] = '/regdel'
+    end
+    use Rack::Rewrite do
+      rewrite Regdel.uripfx+'/ledger', '/s/xhtml/ledger.html'
+      rewrite Regdel.uripfx+'/entry/new', '/s/xhtml/entry_all_form.html'
+      rewrite %r{/entry/edit(.*)}, '/s/xhtml/entry_all_form.html'
+      rewrite %r{/account/new(.*)}, '/s/xhtml/account_form.html'
+      rewrite %r{/account/edit/(.*)}, '/s/xhtml/account_form.html?id=$1'
+      rewrite Regdel.uripfx+'/', '/s/xhtml/welcome.html'
+    end
+
+    use Rack::FinalContentLength
+    omitxsl = ['/raw/', '/s/js/', '/s/css/', '/s/img/']
+    passenv = ['PATH_INFO', 'RACK_MOUNT_PATH']
+    use Rack::XSLView, :myxsl => @@xslt, :noxsl => omitxsl, :passenv => passenv
+    use Rack::NoLength
     get '/accounts' do
         @my_account_types = @@account_types
         @accounts = Account.open
@@ -219,13 +234,13 @@ module Regdel
       xslview entries, '/var/www/dev/regdel/views/xsl/entries.xsl'
     end
   
-    get '/ledger' do
-      @ledger_label = "General"
-      @ledger_type = "general"
-      @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
-      transactions = builder :'xml/transactions'
-      xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
-    end
+    #get '/ledger' do
+    #  @ledger_label = "General"
+    #  @ledger_type = "general"
+    #  @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
+    #  transactions = builder :'xml/transactions'
+    #  xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
+    #end
   
     get '/ledgers/account/:account_id' do
       @ledger_label = Account.get(params[:account_id]).name
@@ -422,8 +437,7 @@ module Regdel
   end
 end
 
-
-
 if __FILE__ == $0
   Regdel::Main.run!
 end
+
