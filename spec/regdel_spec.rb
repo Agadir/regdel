@@ -115,8 +115,9 @@ describe "Regdel" do
     last_response.body.should include("</html>")
   end
   it "should be able to delete that account" do
+    @account = Account.first(:name => "Testing OK")
     post '/account/delete', params={
-      "number" => 50013,
+      "id" => @account.id
     }
     follow_redirect!
     last_response.body.should include("</html>")

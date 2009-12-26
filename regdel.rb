@@ -190,7 +190,7 @@ module Regdel
     end
     post '/account/delete' do
         content_type 'application/xml', :charset => 'utf-8'
-        @account = Account.first(:number => params[:number])
+        @account = Account.get(params[:id])
         if @account.destroy!
           redirect Regdel.uripfx+'/accounts'
         else
