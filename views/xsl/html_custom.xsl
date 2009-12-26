@@ -57,45 +57,48 @@ xmlns="http://www.w3.org/1999/xhtml">
     <title>
       <xsl:value-of select="//h2" />
     </title>
-    <script type="text/javascript" src="/s/js/jquery/jquery-1.3.2.js"></script>
-    <script type="text/javascript" src="/s/js/regdel.js"></script>
-    <xsl:if test="$my_path_info='/s/xhtml/account_form.html'">
-      <script type="text/javascript" src="/s/js/account_form.js"></script>
+    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/jquery-1.3.2.js"></script>
+    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/regdel.js"></script>
+    <xsl:if test="$PATH_INFO='/s/xhtml/account_form.html'">
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/account_form.js"></script>
     </xsl:if>
-    <xsl:if test="$my_path_info='/ledger' or $my_path_info='/s/xhtml/ledger.html'">
-      <script type="text/javascript" src="/s/js/ledger.js"></script>
-      <script type="text/javascript" src="/s/js/pkgs/tablesorter/jquery.tablesorter.js"></script>
-      <link rel="stylesheet" href="/s/js/pkgs/tablesorter/themes/jquery-tablesorter-app-theme/style.css" type="text/css" media="print, projection, screen" /> 
+    <xsl:if test="$PATH_INFO='/ledger' or $PATH_INFO='/s/xhtml/ledger.html'">
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/ledger.js"></script>
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/tablesorter/jquery.tablesorter.js"></script>
+      <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/tablesorter/themes/jquery-tablesorter-app-theme/style.css" type="text/css" media="print, projection, screen" /> 
     </xsl:if>
-    <xsl:if test="$my_path_info='/s/xhtml/entry_all_form.html'">
+    <xsl:if test="$PATH_INFO='/s/xhtml/entry_all_form.html'">
     <!--
       <link rel="stylesheet" type="text/css" href="/journal_entry_form.css"/>
       -->
-      <script type="text/javascript" src="/s/js/entry_form.js"></script>
-      <script type="text/javascript" src="/s/js/jquery/plugins/jquery.calculation.js"></script>
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/entry_form.js"></script>
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.calculation.js"></script>
     </xsl:if>
-    <xsl:if test="contains($my_path_info,'/accounts')">
-      <script type="text/javascript" src="/s/js/accounts.js"></script>
-      <script type="text/javascript" src="/s/js/pkgs/tablesorter/jquery.tablesorter.js"></script>
+    <xsl:if test="contains($PATH_INFO,'/accounts')">
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/accounts.js"></script>
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/tablesorter/jquery.tablesorter.js"></script>
     </xsl:if>
-    <xsl:if test="contains($my_path_info,'/journal')">
-      <script type="text/javascript" src="/s/js/journal.js"></script>
-      <script type="text/javascript" src="/s/js/pkgs/tablesorter/jquery.tablesorter.js"></script>
-      <link rel="stylesheet" href="/s/js/pkgs/tablesorter/themes/jquery-tablesorter-app-theme/style.css" type="text/css" media="print, projection, screen" />
+    <xsl:if test="contains($PATH_INFO,'/journal')">
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/journal.js"></script>
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/tablesorter/jquery.tablesorter.js"></script>
+      <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/tablesorter/themes/jquery-tablesorter-app-theme/style.css" type="text/css" media="print, projection, screen" />
     </xsl:if>
-    <script type="text/javascript" src="/s/js/jquery/plugins/jquery.url.js"></script>
-    <script type="text/javascript" src="/s/js/jquery/plugins/jquery.jselect.js"></script>
-    <script type="text/javascript" src="/s/js/relative_date.js"></script>
+    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.url.js"></script>
+    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.jselect.js"></script>
+    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/relative_date.js"></script>
     <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="/s/css/pkgs/yui-app-theme/css/yuiapp.css"/>
-    <link rel="stylesheet" type="text/css" href="/s/css/pkgs/yui-app-theme/css/yuiapp-layouts.css"/>
-    <link rel="stylesheet" type="text/css" href="/s/css/pkgs/yui-app-theme/css/red.css"/>
-    <link rel="stylesheet" type="text/css" href="/stylesheet.css"/>
+    <link rel="stylesheet" type="text/css" href="{$RACK_MOUNT_PATH}/s/css/pkgs/yui-app-theme/css/yuiapp.css"/>
+    <link rel="stylesheet" type="text/css" href="{$RACK_MOUNT_PATH}/s/css/pkgs/yui-app-theme/css/yuiapp-layouts.css"/>
+    <link rel="stylesheet" type="text/css" href="{$RACK_MOUNT_PATH}/s/css/pkgs/yui-app-theme/css/red.css"/>
+    <link rel="stylesheet" type="text/css" href="{$RACK_MOUNT_PATH}/stylesheet.css"/>
   </head>
 </xsl:template>
 
 <xsl:template match="span[contains(@class,'i18n')]">
   <xsl:value-of select="."/>
+</xsl:template>
+<xsl:template match="a[contains(@class,'regdel-link')]/@href">
+  <xsl:attribute name="href"><xsl:value-of select="$RACK_MOUNT_PATH"/><xsl:value-of select="."/></xsl:attribute>
 </xsl:template>
 
 </xsl:stylesheet>
