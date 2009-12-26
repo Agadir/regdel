@@ -47,6 +47,15 @@ class RegdelTest < Test::Unit::TestCase
 
   def test_it_works
     visit "/"
+    click_link("Home")
+    assert_have_selector("#ft")
+    click_link("Ledger")
+    assert_have_selector("#ft")
+    click_link("New Entry")
+    assert_have_selector("#ft")
+    click_link("New Account")
+    assert_have_selector("#ft")
+    click_link("Accounts")
     assert_have_selector("#ft")
   end
 

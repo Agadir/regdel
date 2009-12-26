@@ -103,12 +103,6 @@ module Regdel
     enable :sessions
 
     before do
-      if 1==2
-        puts "\n"
-        puts request.env['PATH_INFO']
-        puts "\n"
-        puts request.env['REQUEST_URI']
-      end
       headers 'Cache-Control' => 'proxy-revalidate, max-age=300'
       if request.env['REQUEST_METHOD'].upcase == 'POST'
         rebuild_ledger
@@ -256,32 +250,10 @@ module Regdel
       content_type 'text/css', :charset => 'utf-8'
       sass :'css/journal_entry_form'
     end
-    
-    error do
-      'So what happened was...' + request.env['sinatra.error'].message
-    end
-    
+
+
     not_found do
       headers 'Last-Modified' => Time.now.httpdate, 'Cache-Control' => 'no-store'
-
-      if (request.path_info == '/s/xhtml/ledger.html')
-        begin
-          @ledger_label = "General"
-          @ledger_type = "general"
-          @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
-          transactions = builder :'xml/transactions'
-          xhtmltransaction = xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
-          myfile = File.new("/var/www/dev/regdel/public/s/xhtml/ledger.html","w")
-          myfile.write(xhtmltransaction)
-          myfile.close
-          redirect '/ledger'
-        rescue StandardError
-          myfile.close
-          File.delete(myfile)
-          halt '<p> <a href="/">Error, start over?</a></p>'
-        end
-      end
-
       '<p>This is nowhere to be found. <a href="/">Start over?</a></p>'
     end
     
@@ -409,12 +381,17 @@ module Regdel
         @myentries.to_xml(:methods => [:credits,:debits])
     end
     
+    delete '/delete/ledger' do
+      rebuild_ledger
+      redirect '/ledger'
+    end
+    
     
     private
     # This rebuild the ledger useing data from the journal
     def rebuild_ledger
 
-      ledgerfile = "#{@@dirpfx}s/xhtml/ledger.html"
+      ledgerfile = "#{@@dirpfx}/public/s/xhtml/ledger.html"
       if File.exists?(ledgerfile)
         File.delete(ledgerfile)
       end
@@ -435,6 +412,20 @@ module Regdel
           :entry_id => myamount.entry_id,
           :entry_amount_id => myamount.id
           ).save
+      end
+      begin
+        @ledger_label = "General"
+        @ledger_type = "general"
+        @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
+        transactions = builder :'xml/transactions'
+        xhtmltransaction = xslview transactions, '/var/www/dev/regdel/views/xsl/ledgers.xsl'
+        myfile = File.new("#{@@dirpfx}/public/s/xhtml/ledger.html","w")
+        myfile.write(xhtmltransaction)
+        myfile.close
+      rescue StandardError
+        myfile.close
+        File.delete(myfile)
+        halt '<p> <a href="/">Error, start over?</a></p>'
       end
     end
     

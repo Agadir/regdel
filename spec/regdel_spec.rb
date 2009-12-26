@@ -27,7 +27,7 @@ describe "Regdel" do
   include Rack::Test::Methods
 
   def app
-    @app ||= Regdel.new('/z')
+    @app ||= Regdel.new('')
   end
 
   it "should respond to /accounts" do
@@ -38,18 +38,49 @@ describe "Regdel" do
     get '/journal/0'
     last_response.should be_ok
   end
+  it "should respond to /journal/full" do
+    get '/journal/full'
+    last_response.should be_ok
+  end
+
+  it "should respond to /raw/journal" do
+    get '/raw/journal'
+    last_response.should be_ok
+  end
+
+  it "should respond to /raw/account/select" do
+    get '/raw/account/select'
+    last_response.should be_ok
+  end
+  it "should respond to /raw/accounts" do
+    get '/raw/accounts'
+    last_response.should be_ok
+  end
 
   it "should respond to /json/account/1" do
     get '/json/account/1'
     last_response.should be_ok
   end
+  it "should be able to delete ledger" do
+    delete '/delete/ledger'
+    follow_redirect!
+    last_response.body.should include("</html>")
+  end
   it "should respond to /ledger" do
     get '/ledger'
     last_response.body.should include("</html>")
   end
+  it "should respond to /ledgers/account/1" do
+    get '/ledgers/account/1'
+    last_response.body.should include("</html>")
+  end
   it "should respond to /account/new" do
-    get '/ledger'
+    get '/account/new'
     last_response.body.should include("</form>")
+  end
+  it "should rebuild ledger on post" do
+    post '/'
+    last_response.body.should include("</html>")
   end
   it "should respond to /stylesheet.css" do
     get '/stylesheet.css'
