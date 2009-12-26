@@ -173,7 +173,22 @@ module Regdel
           end
         end
     end
-    
+    post '/account/reopen' do
+        content_type 'application/xml', :charset => 'utf-8'
+        @account = Account.get(params[:id])
+        @account.attributes = {
+            :closed_on => 0
+        }
+        if @account.save
+            "<success>Success</success>"
+        else
+          myerrors = ""
+          @account.errors.each do |e|
+              myerrors << e.to_s
+          end
+        end
+    end
+
     post '/entry/submit' do
         if params[:id].to_i > 0
           @entry = Entry.get(params[:id])
@@ -201,10 +216,9 @@ module Regdel
           )
           @myamt.save
         }
-        
         redirect Regdel.uripfx+'/journal'
     end
-  
+
     get '/json/entry/:id' do
         content_type :json
         Entry.get(params[:id]).to_json(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
@@ -220,7 +234,7 @@ module Regdel
       count = Entry.count()
       myoffset = params[:offset].to_i
       incr = options.pagination
-  
+
       @myentries = Entry.all(:limit => options.pagination, :offset => myoffset)
       @prev = (myoffset - incr) < 0 ? 0 : myoffset - incr
       @next = myoffset + incr > count ? myoffset : myoffset + incr
@@ -250,7 +264,6 @@ module Regdel
       content_type 'text/css', :charset => 'utf-8'
       sass :'css/journal_entry_form'
     end
-
 
     not_found do
       headers 'Last-Modified' => Time.now.httpdate, 'Cache-Control' => 'no-store'
@@ -295,11 +308,6 @@ module Regdel
       @mytrans = Ledger.all
       @mytrans.to_xml
     end
-    get '/raw/json/transactions' do
-      content_type :json
-      @mytrans = Ledger.all
-      @mytrans.to_json
-    end
     get '/raw/account/select' do
       content_type 'application/xml', :charset => 'utf-8'
       @accounts = Account.open
@@ -311,12 +319,6 @@ module Regdel
       @my_account_types = @@account_types
       @accounts = Account.open
       builder :'xml/accounts'
-    end
-    get '/raw/dm-init/accounts' do
-      content_type :json
-      @my_account_types = @@account_types
-      @accounts = Account.open
-      @accounts.to_json
     end
     get '/raw/ledger' do
       @ledger_label = Account.get(params[:account_id]).name

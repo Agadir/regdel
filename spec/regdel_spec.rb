@@ -86,6 +86,14 @@ describe "Regdel" do
     follow_redirect!
     last_response.body.should include("</html>")
   end
+  it "should be able to close account" do
+    post '/account/close', params={"id" => 1}
+    last_response.body.should include("</success>")
+  end
+  it "should be able to reopen account" do
+    post '/account/reopen', params={"id" => 1}
+    last_response.body.should include("</success>")
+  end
   it "should respond to /ledger" do
     get '/ledger'
     last_response.body.should include("</html>")
