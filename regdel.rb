@@ -59,7 +59,6 @@ module Regdel
   end
   def self.new(uripfx)
     self.uripfx = uripfx
-
     Main
   end
 
@@ -78,27 +77,8 @@ module Regdel
       @@xslt.xsl = REXML::Document.new File.open("#{@@dirpfx}/views/xsl/html_main.xsl")
     end
 
-    helpers Sinatra::XSLView
-    set :static, true
-    set :views, @@dirpfx + '/views'
-    set :public, @@dirpfx + '/public'
-    set :pagination, 10
-    enable :sessions
-  
-    before do
-      headers 'Cache-Control' => 'proxy-revalidate, max-age=300'
-      if request.env['REQUEST_METHOD'].upcase == 'POST'
-        ledgerfile = "/var/www/dev/regdel/public/s/xhtml/ledger.html"
-        if File.exists?(ledgerfile)
-          File.delete(ledgerfile)
-          rebuild_ledger
-          puts request
-        end
-      end
-    end
-
     use Rack::Config do |env|
-      env['RACK_MOUNT_PATH'] = '/regdel'
+      env['RACK_MOUNT_PATH'] = Regdel.uripfx
     end
 
     use Rack::Rewrite do
@@ -115,18 +95,39 @@ module Regdel
     passenv = ['PATH_INFO', 'RACK_MOUNT_PATH']
     use Rack::XSLView, :myxsl => @@xslt, :noxsl => omitxsl, :passenv => passenv
     use Rack::NoLength
+
+    helpers Sinatra::XSLView
+    set :static, true
+    set :views, @@dirpfx + '/views'
+    set :public, @@dirpfx + '/public'
+    set :pagination, 10
+    enable :sessions
+
+    before do
+      headers 'Cache-Control' => 'proxy-revalidate, max-age=300'
+      if request.env['REQUEST_METHOD'].upcase == 'POST'
+        ledgerfile = "/var/www/dev/regdel/public/s/xhtml/ledger.html"
+        if File.exists?(ledgerfile)
+          File.delete(ledgerfile)
+          rebuild_ledger
+          puts request
+        end
+      end
+    end
+
+
     get '/accounts' do
-        @my_account_types = @@account_types
-        @accounts = Account.open
-        accounts = builder :'xml/accounts'
-        xslview accounts, '/var/www/dev/regdel/views/xsl/accounts.xsl'
+      @my_account_types = @@account_types
+      @accounts = Account.open
+      accounts = builder :'xml/accounts'
+      xslview accounts, '/var/www/dev/regdel/views/xsl/accounts.xsl'
     end
-    
+
     get '/json/account/:id' do
-        content_type :json
-        Account.get(params[:id]).to_json
+      content_type :json
+      Account.get(params[:id]).to_json
     end
-    
+
     post '/account/submit' do
         if params[:id].to_i > 0
             @account = Account.get(params[:id])

@@ -1,5 +1,5 @@
 
-mountpath = '/regdel'
+mountpath = '/'
 
 require 'regdel'
 
@@ -10,5 +10,6 @@ Regdel::Main.set :environment, :development
 
 
 map mountpath do
-	run Regdel.new(mountpath)
+  # Remove leading slash if there is no path
+	run Regdel.new(mountpath.gsub(/^\/$/,''))
 end
