@@ -32,7 +32,7 @@ xmlns="http://www.w3.org/1999/xhtml">
     <div id="doc3" class="yui-t6">
       <div id="hd">
         <h1>Regdel</h1>
-        <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/nav_menu.html')/div"/>
+        <xsl:apply-templates select="document('../../public/s/xhtml/nav_menu.html')/div"/>
       </div>
       <div id="bd">
         <div id="yui-main">
@@ -43,10 +43,10 @@ xmlns="http://www.w3.org/1999/xhtml">
           </div></div>
         </div>
         <div id="sidebar" class="yui-b">
-          <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/sidebar.html')/div"/>
+          <xsl:apply-templates select="document('../../public/s/xhtml/sidebar.html')/div"/>
         </div>
       </div>
-      <xsl:apply-templates select="document('/var/www/dev/regdel/public/s/xhtml/footer.html')/div"/>
+      <xsl:apply-templates select="document('../../public/s/xhtml/footer.html')/div"/>
     </div>
     </body>
   </html>
