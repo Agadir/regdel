@@ -1,9 +1,9 @@
-# <!--
-# Program: http://www.regdel.com
-# Component: regdel.rb
-# Copyright: Savonix Corporation
-# Author: Albert L. Lash, IV
-# License: Gnu Affero Public License version 3
+###
+# Program:: http://www.regdel.com
+# Component:: regdel.rb
+# Copyright:: Savonix Corporation
+# Author:: Albert L. Lash, IV
+# License:: Gnu Affero Public License version 3
 # http://www.gnu.org/licenses
 # 
 # This program is free software; you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 # along with this program; if not, see http://www.gnu.org/licenses
 # or write to the Free Software Foundation, Inc., 51 Franklin Street,
 # Fifth Floor, Boston, MA 02110-1301 USA
-# -->
+##
 require 'rubygems'
 require 'sinatra/base'
 require 'builder'
@@ -59,23 +59,27 @@ class Ledger
   end
 end
 
-
+# The container for the Regdel application
 module Regdel
   
   class << self
     attr_accessor :uripfx
   end
+  # Set the uriprefix
   def self.new(uripfx='')
     self.uripfx = uripfx
     Main
   end
 
+  # Regdel money object inherits string
   class RdMoney < String
+    # Converts string representation of USD to amounts in cents
     def no_d
         return (self.gsub(/[^0-9\.]/,'').to_d * 100).to_i
     end
   end
 
+  # The Regdel Sinatra application
   class Main < Sinatra::Base
 
     configure do

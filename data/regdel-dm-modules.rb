@@ -1,9 +1,9 @@
-# <!--
-# Program: http://www.regdel.com
-# Component: regdel_dm_modules.rb
-# Copyright: Savonix Corporation
-# Author: Albert L. Lash, IV
-# License: Gnu Affero Public License version 3
+###
+# Program:: http://www.regdel.com
+# Component:: regdel-dm-modules.rb
+# Copyright:: Savonix Corporation
+# Author:: Albert L. Lash, IV
+# License:: Gnu Affero Public License version 3
 # http://www.gnu.org/licenses
 # 
 # This program is free software; you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 # along with this program; if not, see http://www.gnu.org/licenses
 # or write to the Free Software Foundation, Inc., 51 Franklin Street,
 # Fifth Floor, Boston, MA 02110-1301 USA
-# -->
+##
 module HasAmounts
   # Functions to convert base amount or balance for display.
   def to_usd

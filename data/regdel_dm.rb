@@ -1,9 +1,9 @@
-# <!--
-# Program: http://www.regdel.com
-# Component: regdel_dm.rb
-# Copyright: Savonix Corporation
-# Author: Albert L. Lash, IV
-# License: Gnu Affero Public License version 3
+###
+# Program:: http://www.regdel.com
+# Component:: regdel_dm.rb
+# Copyright:: Savonix Corporation
+# Author:: Albert L. Lash, IV
+# License:: Gnu Affero Public License version 3
 # http://www.gnu.org/licenses
 # 
 # This program is free software; you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 # along with this program; if not, see http://www.gnu.org/licenses
 # or write to the Free Software Foundation, Inc., 51 Franklin Street,
 # Fifth Floor, Boston, MA 02110-1301 USA
-# -->
+##
 require 'rubygems'
 require 'bigdecimal'
 require 'bigdecimal/util'
@@ -34,8 +34,8 @@ require 'dm-validations'
 DataMapper.setup(:default, 'sqlite3:///var/www/dev/regdel/rbeans.sqlite3')
 
 
-
-
+# The Account class includes all the accounts held by the business,
+# organization, or other entity with numerous financial accounts
 class Account
   include DataMapper::Resource
 
@@ -80,7 +80,11 @@ class Expense < Account; end
 
 class BankAccount < Asset; end
 
+  
+# Entries comprise the journal. Each entry must have one or more debit or
+# credit amount.
 class Entry
+  
   include DataMapper::Resource
   include HasAmounts
 
@@ -107,7 +111,9 @@ class Entry
 
 end
 
+# Amounts are directly related to entries.
 class Amount
+  
   include DataMapper::Resource
   include HasAmounts
 
@@ -128,6 +134,7 @@ class Credit < Amount; end
 
 class Debit < Amount; end
 
+# Ledgers are all the transactions which take place within each account.
 class Ledger
   include DataMapper::Resource
   include HasAmounts

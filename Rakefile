@@ -25,7 +25,6 @@ require 'rubygems'
 require 'xml/libxslt'
 require 'rake'
 require 'spec/rake/spectask'
-
     
 task :default do
     puts "hi"
@@ -95,3 +94,22 @@ end
 
 
 task :default => :spec
+
+
+require 'rdoc'
+require 'rdoc/rdoc'
+require 'rdoc/generator'
+require 'rdoc/generator/darkfish'
+require 'rake/rdoctask'
+Rake::RDocTask.new do |rdoc|
+    rdoc.title    = "Regdel - Ruby Powered Bookkeeping Software"
+    #rdoc.rdoc_files.include 'README.md'
+    rdoc.rdoc_files.include 'regdel.rb'
+    rdoc.rdoc_files.include 'data/*.rb'
+
+    rdoc.options += [
+        '-SHNU',
+        '-f', 'darkfish',  # This is the important bit
+      ]
+end
+
