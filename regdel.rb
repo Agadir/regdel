@@ -82,13 +82,16 @@ module Regdel
       # Prefixes for URI and Regdel directory
       @@dirpfx = File.dirname(__FILE__)
       @@xslt = ::XML::XSLT.new()
-      @@xslt.xsl = REXML::Document.new File.open("#{@@dirpfx}/views/xsl/html_main.xsl")
+      xslfile = File.open("#{@@dirpfx}/views/xsl/html_main.xsl")
+      @@xslt.xsl = REXML::Document.new xslfile
     end
 
+    # Set request.env with application mount path
     use Rack::Config do |env|
       env['RACK_MOUNT_PATH'] = Regdel.uripfx
     end
 
+    # Rewrite app url patterns to static files
     use Rack::Rewrite do
       rewrite Regdel.uripfx+'/ledger', '/s/xhtml/ledger.html'
       rewrite Regdel.uripfx+'/entry/new', '/s/xhtml/entry_all_form.html'
@@ -100,7 +103,10 @@ module Regdel
       rewrite Regdel.uripfx+'/account/new', '/s/xhtml/account_form.html'
     end
 
+    # Recalculate Content-Length
     use Rack::DocunextContentLength
+
+    # Setup Rack::XSLView
     omitxsl = ['/raw/', '/s/js/', '/s/css/', '/s/img/']
     passenv = ['PATH_INFO', 'RACK_MOUNT_PATH']
     use Rack::XSLView, :myxsl => @@xslt, :noxsl => omitxsl, :passenv => passenv
@@ -115,6 +121,8 @@ module Regdel
     before do
       headers 'Cache-Control' => 'proxy-revalidate, max-age=300'
       if request.env['REQUEST_METHOD'].upcase == 'POST'
+        # POST requests indicate data alterations
+        # trigger cache rebuild and update balances
         rebuild_ledger
         Account.all.each do |myaccount|
           myaccount.update_ledger_balance
@@ -331,7 +339,7 @@ module Regdel
     
     
     private
-    # This rebuild the ledger useing data from the journal
+    # This rebuilds the ledger useing data from the journal
     def rebuild_ledger
 
       ledgerfile = "#{@@dirpfx}/public/s/xhtml/ledger.html"
@@ -385,4 +393,3 @@ end
 if __FILE__ == $0
   Regdel.new('').run!
 end
-
