@@ -38,7 +38,7 @@ require 'data/regdel-dm-modules'
 require 'data/regdel_dm'
 require 'data/account_types'
 require 'helpers/xslview'
-
+require 'helpers/nolength'
 
 class Ledger
   # Called from a Ledger instance object, returns the ledger balance
@@ -95,6 +95,8 @@ module Regdel
       @@xslt.xsl = REXML::Document.new xslfile
     end
 
+    use Rack::Lint
+    use Rack::CommonLogger
     # Set request.env with application mount path
     use Rack::Config do |env|
       env['RACK_MOUNT_PATH'] = Regdel.uripfx
@@ -120,7 +122,9 @@ module Regdel
     passenv = ['PATH_INFO', 'RACK_MOUNT_PATH']
     use Rack::XSLView, :myxsl => @@xslt, :noxsl => omitxsl, :passenv => passenv
 
+
     helpers Sinatra::XSLView
+    set :environment, :production
     set :static, true
     set :views, @@dirpfx + '/views'
     set :public, @@dirpfx + '/public'
