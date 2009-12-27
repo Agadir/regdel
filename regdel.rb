@@ -24,8 +24,7 @@
 require 'rubygems'
 require 'sinatra/base'
 require 'builder'
-require 'xml/libxml'
-require 'xml/libxslt'
+require 'xml/xslt'
 require 'sass'
 require 'rack/utils'
 require 'rack/contrib'
@@ -91,7 +90,7 @@ module Regdel
     configure do
       # Prefixes for URI and Regdel directory
       @@dirpfx = File.dirname(__FILE__)
-      @@xslt = ::XML::XSLT.new()
+      @@xslt = XML::XSLT.new()
       xslfile = File.open("#{@@dirpfx}/views/xsl/html_main.xsl")
       @@xslt.xsl = REXML::Document.new xslfile
     end
