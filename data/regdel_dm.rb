@@ -58,13 +58,17 @@ class Account
   validates_length :name, :min => 2, :message => name_length_error
   validates_is_unique :name
 
-
+  # Return only accounts that have not been closed yet.
   def self.open
     all(:closed_on => 0)
   end
+
+  # The most recent ledger balance for each account
   def cached_ledger_balance_usd
     return "%.2f" % (cached_ledger_balance.to_r.to_d / 100)
   end
+
+  # Update the account balance with the calculated balance from the ledger
   def update_ledger_balance
     mybal = Ledger.sum(:amount, :account_id => self.id)
     self.cached_ledger_balance = mybal ? mybal : 0
@@ -97,6 +101,8 @@ class Entry
   has n, :debits
   has n, :ledgers
   
+  # This could be either credit or debit, whatever the balanced amount of the
+  # entry is. Perhaps a better name would be amount_sum
   def credit_sum
     # Does not work: 
     # !! Unexpected error while processing request:
@@ -129,9 +135,10 @@ class Amount
 
 end
 
-
+# The Credit amount(s) of the Entry.
 class Credit < Amount; end
 
+# The Debit amount(s) of the Entry.
 class Debit < Amount; end
 
 # Ledgers are all the transactions which take place within each account.

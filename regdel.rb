@@ -63,6 +63,7 @@ end
 module Regdel
   
   class << self
+    # The uri prefix of the application, if any
     attr_accessor :uripfx
   end
   # Set the uriprefix
