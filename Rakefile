@@ -113,3 +113,6 @@ Rake::RDocTask.new do |rdoc|
       ]
 end
 
+if File.exists?('myrake')
+    load('myrake')
+end
