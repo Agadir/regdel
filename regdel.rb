@@ -42,10 +42,19 @@ require 'helpers/xslview'
 
 
 class Ledger
-  # Called from a Ledger instance object, returns the ledger balance for that entry
+  # Called from a Ledger instance object, returns the ledger balance
+  # for the account after the transaction
   def running_balance
-    thesql = "account_id = ? AND (posted_on < ? OR ( posted_on = ? AND ( amount < ?  OR ( amount = ? AND id < ?))))"
-    presum = Ledger.all(:conditions => [thesql, self.account_id,  self.posted_on, self.posted_on, self.amount, self.amount, self.id] ).sum(:amount)
+    thesql = "
+      account_id = ? AND ( posted_on < ? OR (
+        posted_on = ? AND ( amount < ? OR ( amount = ? AND id < ? ))
+      ))"
+    presum = Ledger.all(
+      :conditions => [
+        thesql, self.account_id, self.posted_on, self.posted_on, self.amount,
+        self.amount, self.id
+      ]
+    ).sum(:amount)
     return "%.2f" % ( (presum.to_i.to_r.to_d + self.amount) / 100)
   end
 end
