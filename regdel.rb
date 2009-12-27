@@ -150,11 +150,7 @@ module Regdel
         if @account.save
           redirect Regdel.uripfx+'/accounts'
         else
-          myerrors = ""
-          @account.errors.each do |e|
-              myerrors << e.to_s
-          end
-          redirect error_target + '?error=' + myerrors
+          redirect error_target + '?error=' + handle_errors(@account.errors)
         end
     end
     
@@ -167,10 +163,7 @@ module Regdel
         if @account.save
             "<success>Success</success>"
         else
-          myerrors = ""
-          @account.errors.each do |e|
-              myerrors << e.to_s
-          end
+          handle_errors(@account.errors)
         end
     end
     post '/account/reopen' do
@@ -182,10 +175,7 @@ module Regdel
         if @account.save
             "<success>Success</success>"
         else
-          myerrors = ""
-          @account.errors.each do |e|
-              myerrors << e.to_s
-          end
+          handle_errors(@account.errors)
         end
     end
     post '/account/delete' do
@@ -194,10 +184,7 @@ module Regdel
         if @account.destroy!
           redirect Regdel.uripfx+'/accounts'
         else
-          myerrors = ""
-          @account.errors.each do |e|
-              myerrors << e.to_s
-          end
+          handle_errors(@account.errors)
         end
     end
     post '/entry/submit' do
@@ -375,6 +362,13 @@ module Regdel
       end
     end
     
+    def handle_error(errors)
+      myerrors = ""
+      errors.each do |e|
+        myerrors << e.to_s
+      end
+      return myerrors
+    end
   end
 end
 
