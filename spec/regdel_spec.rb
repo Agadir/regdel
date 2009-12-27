@@ -47,11 +47,6 @@ describe "Regdel" do
     last_response.should be_ok
   end
 
-  it "should respond to /journal/full" do
-    get '/journal/full'
-    last_response.should be_ok
-  end
-
   it "should respond to /raw/journal" do
     get '/raw/journal'
     last_response.should be_ok

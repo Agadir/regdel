@@ -260,11 +260,6 @@ module Regdel
       entries = builder :'xml/entries'
       xslview entries, @@dirpfx + '/views/xsl/entries_simpler.xsl'
     end
-    get '/journal/full' do
-      @myentries = Entry.all
-      entries = builder :'xml/entries'
-      xslview entries, @@dirpfx + '/views/xsl/entries.xsl'
-    end
 
   
     get '/ledgers/account/:account_id' do
