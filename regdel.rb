@@ -44,8 +44,9 @@ require 'helpers/xslview'
 class Ledger
   # Called from a Ledger instance object, returns the ledger balance for that entry
   def running_balance
-    return "%.2f" % ( (Ledger.all(
-      :conditions => ["account_id = ? AND ( posted_on < ? OR (( posted_on = ? AND amount < ? ) OR ( posted_on = ? AND amount = ? AND id < ?)))", self.account_id,  self.posted_on, self.posted_on, self.amount, self.posted_on, self.amount, self.id] ).sum(:amount).to_i.to_r.to_d + self.amount) / 100)
+    thesql = "account_id = ? AND (posted_on < ? OR ( posted_on = ? AND ( amount < ?  OR ( amount = ? AND id < ?))))"
+    presum = Ledger.all(:conditions => [thesql, self.account_id,  self.posted_on, self.posted_on, self.amount, self.amount, self.id] ).sum(:amount)
+    return "%.2f" % ( (presum.to_i.to_r.to_d + self.amount) / 100)
   end
 end
 
@@ -150,7 +151,7 @@ module Regdel
         if @account.save
           redirect Regdel.uripfx+'/accounts'
         else
-          redirect error_target + '?error=' + handle_errors(@account.errors)
+          redirect error_target + '?error=' + handle_error(@account.errors)
         end
     end
     
@@ -163,7 +164,7 @@ module Regdel
         if @account.save
             "<success>Success</success>"
         else
-          handle_errors(@account.errors)
+          handle_error(@account.errors)
         end
     end
     post '/account/reopen' do
@@ -175,7 +176,7 @@ module Regdel
         if @account.save
             "<success>Success</success>"
         else
-          handle_errors(@account.errors)
+          handle_error(@account.errors)
         end
     end
     post '/account/delete' do
@@ -184,7 +185,7 @@ module Regdel
         if @account.destroy!
           redirect Regdel.uripfx+'/accounts'
         else
-          handle_errors(@account.errors)
+          handle_error(@account.errors)
         end
     end
     post '/entry/submit' do
