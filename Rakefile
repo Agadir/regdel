@@ -83,6 +83,12 @@ task :create_dummy_entries do
 end
 
 
+begin
+  require "vlad"
+  Vlad.load(:app => nil, :scm => "git")
+rescue LoadError
+  # do nothing
+end
 
 
 Spec::Rake::SpecTask.new(:spec) do |t|
