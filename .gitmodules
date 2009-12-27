@@ -4,3 +4,6 @@
 [submodule "public/s/img/pkgs/docunext-webapp-icons"]
 	path = public/s/img/pkgs/docunext-webapp-icons
 	url = git://github.com/docunext/docunext-webapp-icons.git
+[submodule "public/s/js/pkgs/tablesorter"]
+	path = public/s/js/pkgs/tablesorter
+	url = git://github.com/docunext/tablesorter.git
