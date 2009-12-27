@@ -74,6 +74,20 @@ describe "Regdel" do
     last_response.should be_ok
   end
   
+  # ENTRY TESTS
+  it "should be able to create a new entry" do
+    post '/entry/submit', params={
+      "memorandum" => "Testing a new entry",
+      "credit_account_id[]" => 1,
+      "credit_amount[]" => "1.22",
+      "debit_account_id[]" => 3,
+      "debit_amount[]" => "1.22"
+    }
+    follow_redirect!
+    follow_redirect!
+    last_response.should be_ok
+  end
+  
   
   # ACCOUNT TESTS
   it "should respond to /raw/account/select" do
@@ -124,11 +138,15 @@ describe "Regdel" do
   end
   it "should be able to close account" do
     post '/account/close', params={"id" => 1}
-    last_response.body.should include("</success>")
+    last_response.body.should include("Success")
   end
   it "should be able to reopen account" do
     post '/account/reopen', params={"id" => 1}
-    last_response.body.should include("</success>")
+    last_response.body.should include("Success")
+  end
+  it "should not be able to close this nonexistant account" do
+    post '/account/close', params={"id" => 'adkfjf'}
+    last_response.body.should include("No account")
   end
   it "should respond to /account/new" do
     get '/account/new'
