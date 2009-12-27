@@ -22,7 +22,7 @@
 # Fifth Floor, Boston, MA 02110-1301 USA
 # -->
 require 'rubygems'
-require 'xml/libxslt'
+require 'xml/xslt'
 require 'rake'
 require 'spec/rake/spectask'
     
