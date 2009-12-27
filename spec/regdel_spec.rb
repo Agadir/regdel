@@ -1,4 +1,4 @@
-# <!--
+###
 # Program: http://www.regdel.com
 # Component: regdel_spec.rb
 # Copyright: Savonix Corporation
@@ -20,7 +20,7 @@
 # along with this program; if not, see http://www.gnu.org/licenses
 # or write to the Free Software Foundation, Inc., 51 Franklin Street,
 # Fifth Floor, Boston, MA 02110-1301 USA
-# -->
+##
 require File.dirname(__FILE__) + '/spec_helper'
 
 describe "Regdel" do
@@ -37,6 +37,11 @@ describe "Regdel" do
 
 
   # JOURNAL TESTS
+  it "should redirect from /journal" do
+    get '/journal'
+    follow_redirect!
+    last_response.should be_ok
+  end
   it "should respond to /journal/0" do
     get '/journal/0'
     last_response.should be_ok
@@ -130,6 +135,10 @@ describe "Regdel" do
     post '/account/reopen', params={"id" => 1}
     last_response.body.should include("</success>")
   end
+  it "should respond to /account/new" do
+    get '/account/new'
+    last_response.body.should include("</form>")
+  end
 
 
 
@@ -143,10 +152,6 @@ describe "Regdel" do
     get '/ledgers/account/1'
     last_response.body.should include("</html>")
   end
-  it "should respond to /account/new" do
-    get '/account/new'
-    last_response.body.should include("</form>")
-  end
   it "should rebuild ledger on post" do
     post '/'
     last_response.body.should include("</html>")
@@ -155,6 +160,10 @@ describe "Regdel" do
     delete '/delete/ledger'
     follow_redirect!
     last_response.body.should include("</html>")
+  end
+  it "should respond to /raw/ledger" do
+    get '/raw/ledger'
+    last_response.body.should include("General Ledger")
   end
   
   
