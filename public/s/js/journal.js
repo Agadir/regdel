@@ -2,6 +2,8 @@
 // Read a page's GET URL variables and return them as an associative array.
 
 $('document').ready(function() {
+  $("#journal-table", $("#page-content")).addClass("tablesorter").tablesorter({
+  });
   $("#nav-journal","#navigation").addClass("active");
 
   $("thead tr", $("#journal-table")).append('<th class="text-right">Edit</th>');
