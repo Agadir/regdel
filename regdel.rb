@@ -45,16 +45,21 @@ class Ledger
   # Called from a Ledger instance object, returns the ledger balance
   # for the account after the transaction
   def running_balance
-    thesql = "
+
+    # The SQL part of the prepared statment
+    # Selects all transactions posted on or before the reference transaction
+    # that have the same account_id, excludes the reference transaction itself
+    thesql = %{
       account_id = ? AND ( posted_on < ? OR (
         posted_on = ? AND ( amount < ? OR ( amount = ? AND id < ? ))
-      ))"
-    presum = Ledger.all(
-      :conditions => [
-        thesql, self.account_id, self.posted_on, self.posted_on, self.amount,
-        self.amount, self.id
-      ]
-    ).sum(:amount)
+      ))
+    }
+
+    # Datamapper conditional query
+    presum = Ledger.all( :conditions => [thesql, self.account_id,
+              self.posted_on, self.posted_on, self.amount,
+              self.amount, self.id ]).sum(:amount)
+
     return "%.2f" % ( (presum.to_i.to_r.to_d + self.amount) / 100)
   end
 end
@@ -167,7 +172,7 @@ module Regdel
                 :description => params[:description],
                 :hide => params[:hide]
             )
-            error_target = '/account/new'
+            error_target = Regdel.uripfx+'/account/new'
         end
   
         if @account.save
@@ -179,26 +184,32 @@ module Regdel
     
     post '/account/close' do
         content_type 'application/xml', :charset => 'utf-8'
-        @account = Account.get(params[:id])
-        @account.attributes = {
+        if @account = Account.get(params[:id])
+          @account.attributes = {
             :closed_on => Time.now.to_i
-        }
-        if @account.save
-            "<success>Success</success>"
+          }
+          if @account.save
+            "<result>Success</result>"
+          else
+            handle_error(@account.errors)
+          end
         else
-          handle_error(@account.errors)
+          "<result>No account found</result>"
         end
     end
     post '/account/reopen' do
         content_type 'application/xml', :charset => 'utf-8'
-        @account = Account.get(params[:id])
-        @account.attributes = {
+        if @account = Account.get(params[:id])
+          @account.attributes = {
             :closed_on => 0
-        }
-        if @account.save
-            "<success>Success</success>"
+          }
+          if @account.save
+            "<result>Success</result>"
+          else
+            handle_error(@account.errors)
+          end
         else
-          handle_error(@account.errors)
+          "<result>No account found</result>"
         end
     end
     post '/account/delete' do
