@@ -109,7 +109,7 @@ Rake::RDocTask.new do |rdoc|
 
     rdoc.options += [
         '-SHNU',
-        '-f', 'darkfish',  # This is the important bit
+        '-f', 'darkfish',
       ]
 end
 
