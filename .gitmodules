@@ -1,3 +1,6 @@
 [submodule "public/s/css/pkgs/yui-app-theme"]
 	path = public/s/css/pkgs/yui-app-theme
 	url = git@github.com:docunext/yui-app-theme.git
+[submodule "public/s/img/pkgs/docunext-webapp-icons"]
+	path = public/s/img/pkgs/docunext-webapp-icons
+	url = git://github.com/docunext/docunext-webapp-icons.git
