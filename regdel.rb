@@ -343,7 +343,7 @@ module Regdel
     
     
     private
-    # This rebuilds the ledger useing data from the journal
+    # This rebuilds the ledger using data from the journal
     def rebuild_ledger
 
       ledgerfile = "#{@@dirpfx}/public/s/xhtml/ledger.html"
