@@ -38,7 +38,6 @@ require 'data/regdel-dm-modules'
 require 'data/regdel_dm'
 require 'data/account_types'
 require 'helpers/xslview'
-require 'helpers/nolength'
 
 class Ledger
   # Called from a Ledger instance object, returns the ledger balance
