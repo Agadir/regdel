@@ -33,7 +33,7 @@ end
 task :publish_account_form => 'public/s/xhtml/account_form.html'
 
 file 'public/s/xhtml/account_form.html' => ['data/accounting_data_model.xml', 'views/xsl/account_model_to_xhtml_form.xsl'] do
-    xslt = ::XML::XSLT.new()
+    xslt = XML::XSLT.new()
     xslt.xml = 'data/accounting_data_model.xml'
     xslt.xsl = 'views/xsl/account_model_to_xhtml_form.xsl'
     xslt.parameters = { 'account_submit' => './submit' }
@@ -46,7 +46,7 @@ end
 task :account_types => 'data/account_types.rb'
 
 file 'data/account_types.rb' => ['public/s/xml/raw/account_types.xml', 'views/xsl/account_types2many.xsl'] do
-    xslt = ::XML::XSLT.new()
+    xslt = XML::XSLT.new()
     xslt.xml = 'public/s/xml/raw/account_types.xml'
     xslt.xsl = 'views/xsl/account_types2many.xsl'
     xslt.parameters = { 'format' => 'ruby' }
