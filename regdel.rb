@@ -286,6 +286,7 @@ module Regdel
     
     get '/stylesheet.css' do
       content_type 'text/css', :charset => 'utf-8'
+      @myprefix = Regdel.uripfx
       sass :'css/regdel'
     end
     
