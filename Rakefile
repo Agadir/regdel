@@ -36,7 +36,7 @@ file 'public/s/xhtml/account_form.html' => ['data/accounting_data_model.xml', 'v
     xslt = ::XML::XSLT.new()
     xslt.xml = 'data/accounting_data_model.xml'
     xslt.xsl = 'views/xsl/account_model_to_xhtml_form.xsl'
-    xslt.parameters = { 'account_submit' => '../../account/submit' }
+    xslt.parameters = { 'account_submit' => './submit' }
     html = xslt.serve
     File.open('public/s/xhtml/account_form.html', 'w') {|f| f.write(html) }
 end
