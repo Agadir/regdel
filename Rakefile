@@ -1,4 +1,4 @@
-# <!--
+###
 # Program: http://www.regdel.com
 # Component: Rakefile
 # Copyright: Savonix Corporation
@@ -20,12 +20,12 @@
 # along with this program; if not, see http://www.gnu.org/licenses
 # or write to the Free Software Foundation, Inc., 51 Franklin Street,
 # Fifth Floor, Boston, MA 02110-1301 USA
-# -->
+##
 require 'rubygems'
 require 'xml/xslt'
 require 'rake'
 require 'spec/rake/spectask'
-    
+
 task :default do
     puts "hi"
 end
@@ -59,9 +59,7 @@ end
 
 
 
-task :test do
-  
-end
+task :test => :spec
 
 
 task :create_dummy_accounts do
@@ -91,9 +89,9 @@ rescue LoadError
 end
 
 namespace :vlad do
-  remote_task :start do
-    run "sudo /etc/init.d/apache2 stop"
-    run "sudo /etc/init.d/apache2 start"
+  remote_task :restart do
+    run "sudo svc -d /service/regdel"
+    run "sudo svc -u /service/regdel"
   end
 end
 

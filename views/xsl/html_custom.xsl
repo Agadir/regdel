@@ -43,6 +43,7 @@ xmlns="http://www.w3.org/1999/xhtml">
           </div></div>
         </div>
         <div id="sidebar" class="yui-b">
+          <xsl:apply-templates select="document('../../public/s/xhtml/ads.html')/div"/>
           <xsl:apply-templates select="document('../../public/s/xhtml/sidebar.html')/div"/>
         </div>
       </div>
