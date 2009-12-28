@@ -1,13 +1,14 @@
-mountpath = '/'
+if ENV['RACK_ENV'] == "demo"
+  mountpath = '/demo/regdel'
+else
+  mountpath = '/'
+end
 
 require 'regdel'
 
-# Unicorn sets up Rack::Lint, but that causes problems with 304 responses
-# for some reason
-ENV['RACK_ENV'] = 'none'
 
 Regdel::Main.set :run, false
-Regdel::Main.set :environment, :production
+Regdel::Main.set :environment, ENV['RACK_ENV']
 
 
 
