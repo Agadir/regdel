@@ -7,3 +7,6 @@
 [submodule "public/s/js/pkgs/tablesorter"]
 	path = public/s/js/pkgs/tablesorter
 	url = git://github.com/docunext/tablesorter.git
+[submodule "public/s/js/pkgs/jquery-tablesorter-app-theme"]
+	path = public/s/js/pkgs/jquery-tablesorter-app-theme
+	url = http://github.com/docunext/jquery-tablesorter-app-theme.git
