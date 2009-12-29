@@ -11,7 +11,7 @@ $('document').ready(function() {
   });
 
 
-  if(jQuery.url.segment(1)=='new') {
+  if(jQuery.url.segment(1)=='new' || jQuery.url.segment(2)=='new' || jQuery.url.segment(3)=='new') {
     var amount_total = 0;
     $("#another_credit").live("click",function() {
         $("#another_debit").css("display","none");
@@ -52,7 +52,7 @@ $('document').ready(function() {
     });
   }
 
-  if(jQuery.url.segment(1)=='edit') {
+  if(jQuery.url.segment(1)=='edit' || jQuery.url.segment(2)=='edit' || jQuery.url.segment(3)=='edit') {
     $(".amount_controls").hide();
     var myid = jQuery.url.segment(2);
     update_journal_entry_form(myid);
