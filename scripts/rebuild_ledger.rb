@@ -1,4 +1,4 @@
-# <!--
+###
 # Program: http://www.regdel.com
 # Component: rebuild_ledger.rb
 # Copyright: Savonix Corporation
@@ -20,25 +20,8 @@
 # along with this program; if not, see http://www.gnu.org/licenses
 # or write to the Free Software Foundation, Inc., 51 Franklin Street,
 # Fifth Floor, Boston, MA 02110-1301 USA
-# -->
-require 'rubygems'
-require 'builder'
-require 'bigdecimal'
-require 'bigdecimal/util'
-require 'dm-core'
-require 'dm-validations'
-require 'dm-timestamps'
-require 'dm-serializer'
-require 'dm-aggregates'
-
-require 'data/regdel_dm'
-
-
-class RdMoney < String
-    def no_d
-        return (self.gsub(/[^0-9\.]/,'').to_d * 100).to_i
-    end
-end
+##
+require File.join(File.dirname(__FILE__), '..', 'regdel.rb')
 
 Ledger.all.destroy!
 amounts = Amount.all
