@@ -26,19 +26,15 @@ require 'xml/xslt'
 require 'rake'
 require 'spec/rake/spectask'
 
-task :default do
-    puts "hi"
-end
-
 task :publish_account_form => 'public/s/xhtml/account_form.html'
 
 file 'public/s/xhtml/account_form.html' => ['data/accounting_data_model.xml', 'views/xsl/account_model_to_xhtml_form.xsl'] do
-    xslt = XML::XSLT.new()
-    xslt.xml = 'data/accounting_data_model.xml'
-    xslt.xsl = 'views/xsl/account_model_to_xhtml_form.xsl'
-    xslt.parameters = { 'account_submit' => './submit' }
-    html = xslt.serve
-    File.open('public/s/xhtml/account_form.html', 'w') {|f| f.write(html) }
+  xslt = XML::XSLT.new()
+  xslt.xml = 'data/accounting_data_model.xml'
+  xslt.xsl = 'views/xsl/account_model_to_xhtml_form.xsl'
+  xslt.parameters = { 'account_submit' => './submit' }
+  html = xslt.serve
+  File.open('public/s/xhtml/account_form.html', 'w') {|f| f.write(html) }
 end
 
 
@@ -46,17 +42,32 @@ end
 task :account_types => 'data/account_types.rb'
 
 file 'data/account_types.rb' => ['public/s/xml/raw/account_types.xml', 'views/xsl/account_types2many.xsl'] do
-    xslt = XML::XSLT.new()
-    xslt.xml = 'public/s/xml/raw/account_types.xml'
-    xslt.xsl = 'views/xsl/account_types2many.xsl'
-    xslt.parameters = { 'format' => 'ruby' }
-    html = xslt.serve
-    File.open('data/account_types.rb', 'w') {|f| f.write(html) }
+  xslt = XML::XSLT.new()
+  xslt.xml = 'public/s/xml/raw/account_types.xml'
+  xslt.xsl = 'views/xsl/account_types2many.xsl'
+  xslt.parameters = { 'format' => 'ruby' }
+  html = xslt.serve
+  File.open('data/account_types.rb', 'w') {|f| f.write(html) }
 end
 # do the same with json:
 # xsltproc --stringparam format json views/xsl/account_types2many.xsl 
 # public/s/xml/raw/account_types.xml > public/s/js/account_types.json
 
+
+
+file '/tmp/schema2dm.xsl' do
+  require 'open-uri'
+  filecontent = open('http://github.com/docunext/0945a8a54c/raw/master/xsl/schema2dm.xsl').read
+  File.open('/tmp/schema2dm.xsl', 'w') {|f| f.write(filecontent) }
+end
+
+file 'data/regdel_dm_tmp.rb' => ['/tmp/schema2dm.xsl'] do
+  xslt = XML::XSLT.new()
+  xslt.xml = 'data/accounting_data_model.xml'
+  xslt.xsl = '/tmp/schema2dm.xsl'
+  model = xslt.serve
+  puts model
+end
 
 
 task :test => :spec
