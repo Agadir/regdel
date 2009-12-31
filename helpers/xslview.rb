@@ -1,4 +1,4 @@
-# <!--
+###
 # Program: http://www.regdel.com
 # Component: xslview.rb
 # Copyright: Savonix Corporation
@@ -20,13 +20,13 @@
 # along with this program; if not, see http://www.gnu.org/licenses
 # or write to the Free Software Foundation, Inc., 51 Franklin Street,
 # Fifth Floor, Boston, MA 02110-1301 USA
-# -->
+##
 require 'sinatra/base'
 
 module Sinatra
   module XSLView
     def xslview(myxml,myxsl)
-      xslt = ::XML::XSLT.new()
+      xslt = XML::XSLT.new()
       xslt.xml = myxml
       xslt.xsl = myxsl
       xslt.serve
