@@ -128,7 +128,6 @@ module Regdel
     set :views, @@dirpfx + '/views'
     set :public, @@dirpfx + '/public'
     set :pagination, 10
-    enable :sessions
 
     before do
       headers 'Cache-Control' => 'proxy-revalidate, max-age=300'
