@@ -72,6 +72,8 @@ xmlns="http://www.w3.org/1999/xhtml">
     <xsl:if test="$PATH_INFO='/s/xhtml/entry_all_form.html'">
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/entry_form.js"></script>
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.calculation.js"></script>
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery.autocomplete/jquery.autocomplete.js"></script>
+      <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery.autocomplete/jquery.autocomplete.css" type="text/css" />
     </xsl:if>
     <xsl:if test="contains($PATH_INFO,'/accounts')">
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/accounts.js"></script>

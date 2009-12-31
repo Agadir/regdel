@@ -10,3 +10,6 @@
 [submodule "public/s/js/pkgs/jquery-tablesorter-app-theme"]
 	path = public/s/js/pkgs/jquery-tablesorter-app-theme
 	url = http://github.com/docunext/jquery-tablesorter-app-theme.git
+[submodule "public/s/js/pkgs/jquery.autocomplete"]
+	path = public/s/js/pkgs/jquery.autocomplete
+	url = http://github.com/docunext/jquery.autocomplete.bassistance.git

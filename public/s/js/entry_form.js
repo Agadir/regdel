@@ -1,6 +1,8 @@
 $('document').ready(function() {
+
   $("#nav-entry").addClass("active");
 
+  // Setup drop-down lists with accounts to choose from
   $('.account_id:first','form').jselect({
       replaceAll: true,
       loadType: "GET",
@@ -10,11 +12,17 @@ $('document').ready(function() {
       }
   });
 
+  // Or make text fields with autocomplete
+  // var accounts = ["Taxes", "Bank Account"];
+  // $(".account_name").focus().autocomplete(accounts);
+
+  $("#another-credit img",$("#journal-entry-amounts")).attr("src", app_prefix+"/s/img/pkgs/docunext-webapp-icons/tango/list-add.png");
+  $("#another-debit img",$("#journal-entry-amounts")).attr("src", app_prefix+"/s/img/pkgs/docunext-webapp-icons/tango/list-add.png");
 
   if(jQuery.url.segment(1)=='new' || jQuery.url.segment(2)=='new' || jQuery.url.segment(3)=='new') {
     var amount_total = 0;
-    $("#another_credit").live("click",function() {
-        $("#another_debit").css("display","none");
+    $("#another-credit").live("click",function() {
+        $("#another-debit").css("display","none");
         $(".credit-row:first").clone().appendTo("#journal-entry-amounts tbody");
         $(".remove_credit:last").css("display","inline");
         $(".debit-row input").attr("readonly","readonly");
@@ -27,13 +35,13 @@ $('document').ready(function() {
     $(".remove_credit").live("click",function() {
         $(this).parent().parent().remove();
         if($(".remove_credit").length == 1) {
-          $("#another_debit").css("display","inline");
+          $("#another-debit").css("display","inline");
           $(".debit-row input").removeAttr("readonly");
         }
     });
   
-    $("#another_debit").live("click",function() {
-        $("#another_credit").css("display","none");
+    $("#another-debit").live("click",function() {
+        $("#another-credit").css("display","none");
         $(".debit-row:first").clone().prependTo("#journal-entry-amounts tbody");
         $(".remove_debit:not(:first)").css("display","inline");
         $(".credit-row input").attr("readonly","readonly");
@@ -46,7 +54,7 @@ $('document').ready(function() {
     $(".remove_debit").live("click",function() {
         $(this).parent().parent().remove();
         if($(".remove_debit").length == 1) {
-          $("#another_credit").css("display","inline");
+          $("#another-credit").css("display","inline");
           $(".credit-row input").removeAttr("readonly");
         }
     });
