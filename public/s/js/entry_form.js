@@ -18,13 +18,15 @@ $('document').ready(function() {
 
   $("#another-credit img",$("#journal-entry-amounts")).attr("src", app_prefix+"/s/img/pkgs/docunext-webapp-icons/tango/list-add.png");
   $("#another-debit img",$("#journal-entry-amounts")).attr("src", app_prefix+"/s/img/pkgs/docunext-webapp-icons/tango/list-add.png");
-
+  $(".remove-debit img",$("#journal-entry-amounts")).attr("src", app_prefix+"/s/img/pkgs/docunext-webapp-icons/tango/list-remove.png");
+  $(".remove-credit img",$("#journal-entry-amounts")).attr("src", app_prefix+"/s/img/pkgs/docunext-webapp-icons/tango/list-remove.png");
+  
   if(jQuery.url.segment(1)=='new' || jQuery.url.segment(2)=='new' || jQuery.url.segment(3)=='new') {
     var amount_total = 0;
     $("#another-credit").live("click",function() {
         $("#another-debit").css("display","none");
         $(".credit-row:first").clone().appendTo("#journal-entry-amounts tbody");
-        $(".remove_credit:last").css("display","inline");
+        $(".remove-credit:last").css("display","inline");
         $(".debit-row input").attr("readonly","readonly");
         $("#journal-entry-amounts","form").bind("click keyup keypress mouseenter mouseleave",function() {
             amount_total = $(".credit-row input").sum();
@@ -32,9 +34,9 @@ $('document').ready(function() {
         });
     });
 
-    $(".remove_credit").live("click",function() {
+    $(".remove-credit").live("click",function() {
         $(this).parent().parent().remove();
-        if($(".remove_credit").length == 1) {
+        if($(".remove-credit").length == 1) {
           $("#another-debit").css("display","inline");
           $(".debit-row input").removeAttr("readonly");
         }
@@ -43,7 +45,7 @@ $('document').ready(function() {
     $("#another-debit").live("click",function() {
         $("#another-credit").css("display","none");
         $(".debit-row:first").clone().prependTo("#journal-entry-amounts tbody");
-        $(".remove_debit:not(:first)").css("display","inline");
+        $(".remove-debit:not(:first)").css("display","inline");
         $(".credit-row input").attr("readonly","readonly");
         $("#journal-entry-amounts","form").bind("click keyup keypress mouseenter mouseleave",function() {
             amount_total = $(".debit-row input").sum();
@@ -51,9 +53,9 @@ $('document').ready(function() {
         });
     });
 
-    $(".remove_debit").live("click",function() {
+    $(".remove-debit").live("click",function() {
         $(this).parent().parent().remove();
-        if($(".remove_debit").length == 1) {
+        if($(".remove-debit").length == 1) {
           $("#another-credit").css("display","inline");
           $(".credit-row input").removeAttr("readonly");
         }
@@ -61,7 +63,7 @@ $('document').ready(function() {
   }
 
   if(jQuery.url.segment(1)=='edit' || jQuery.url.segment(2)=='edit' || jQuery.url.segment(3)=='edit') {
-    $(".amount_controls").hide();
+    $(".amount-controls").hide();
     var myid = jQuery.url.segment(2);
     update_journal_entry_form(myid);
   }
