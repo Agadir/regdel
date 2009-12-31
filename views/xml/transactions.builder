@@ -1,4 +1,4 @@
-# <!--
+###
 # Program: http://www.regdel.com
 # Component: transaction.buider
 # Copyright: Savonix Corporation
@@ -20,17 +20,17 @@
 # along with this program; if not, see http://www.gnu.org/licenses
 # or write to the Free Software Foundation, Inc., 51 Franklin Street,
 # Fifth Floor, Boston, MA 02110-1301 USA
-# -->
+##
 xml.transactions( :ledger_label => @ledger_label, :ledger_type => @ledger_type  ) {
-@mytransactions.each do |transx|
-    xml.transaction(
+  @mytransactions.each do |transx|
+    xml.transaction (
       :transaction_id => transx.id,
-      :account_name => transx.account.name,
-      :date => transx.posted_on,
-      :account_id => transx.account_id,
-      :memorandum => transx.memorandum,
-      :balance => transx.running_balance,
-      :amount => transx.convert_to_usd("@amount")
-      )
-end
+      :account_name   => transx.account.name,
+      :date           => transx.posted_on,
+      :account_id     => transx.account_id,
+      :memorandum     => transx.memorandum,
+      :balance        => transx.running_balance,
+      :amount         => transx.convert_to_usd("@amount")
+    )
+  end
 }

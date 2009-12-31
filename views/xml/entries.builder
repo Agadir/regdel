@@ -1,4 +1,4 @@
-# <!--
+###
 # Program: http://www.regdel.com
 # Component: entries.builder
 # Copyright: Savonix Corporation
@@ -20,7 +20,7 @@
 # along with this program; if not, see http://www.gnu.org/licenses
 # or write to the Free Software Foundation, Inc., 51 Franklin Street,
 # Fifth Floor, Boston, MA 02110-1301 USA
-# -->
+##
 xml._R_ {
   xml.entries(:prev => @prev, :next => @next) {
     @myentries.each do |entry|

@@ -1,4 +1,4 @@
-# <!--
+###
 # Program: http://www.regdel.com
 # Component: accounts_select.builder
 # Copyright: Savonix Corporation
@@ -20,9 +20,9 @@
 # along with this program; if not, see http://www.gnu.org/licenses
 # or write to the Free Software Foundation, Inc., 51 Franklin Street,
 # Fifth Floor, Boston, MA 02110-1301 USA
-# -->
+##
 xml.select {
-    @accounts.each do |account|
-        xml.option( :value=>account.id, :text=>account.name )
-    end
+  @accounts.each do |account|
+    xml.option( :value => account.id, :text => account.name )
+  end
 }

@@ -1,4 +1,4 @@
-# <!--
+###
 # Program: http://www.regdel.com
 # Component: accounts.builder
 # Copyright: Savonix Corporation
@@ -20,16 +20,16 @@
 # along with this program; if not, see http://www.gnu.org/licenses
 # or write to the Free Software Foundation, Inc., 51 Franklin Street,
 # Fifth Floor, Boston, MA 02110-1301 USA
-# -->
+##
 xml.accounts {
-    @accounts.each do |account|
-        xml.account(
-          :id=>account.id,
-          :name=>account.name,
-          :number=>account.number,
-          :balance=>account.cached_ledger_balance_usd,
-          :type=> @my_account_types[account.type_id],
-          :closed_on=>account.closed_on
-        )
-    end
+  @accounts.each do |account|
+    xml.account(
+      :id        => account.id,
+      :name      => account.name,
+      :number    => account.number,
+      :balance   => account.cached_ledger_balance_usd,
+      :type      => @my_account_types[account.type_id],
+      :closed_on => account.closed_on
+    )
+  end
 }

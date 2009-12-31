@@ -1,4 +1,4 @@
-# <!--
+###
 # Program: http://www.regdel.com
 # Component: journal_complete.builder
 # Copyright: Savonix Corporation
@@ -20,11 +20,14 @@
 # along with this program; if not, see http://www.gnu.org/licenses
 # or write to the Free Software Foundation, Inc., 51 Franklin Street,
 # Fifth Floor, Boston, MA 02110-1301 USA
-# -->
+##
 xml.entries() {
   @myentries.each do |entry|
+
     newdate = Time.at(entry.entered_on) ? Time.at(entry.entered_on) : ""
+
     xml.entry( :memorandum=>entry.memorandum, :id=>entry.id, :date=>newdate ) {
+
       entry.credits.each do |credit|
           xml.credit(:id=>credit.id,:amount=>credit.to_usd,:account=>credit.account_id)
       end
