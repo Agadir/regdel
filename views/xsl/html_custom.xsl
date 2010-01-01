@@ -74,6 +74,9 @@ xmlns="http://www.w3.org/1999/xhtml">
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.calculation.js"></script>
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery.autocomplete/jquery.autocomplete.js"></script>
       <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery.autocomplete/jquery.autocomplete.css" type="text/css" />
+      <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/datepicker/datePicker.css" type="text/css" media="screen" /> 
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.date.js"></script>
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/datepicker/jquery.datePicker.js"></script>
     </xsl:if>
     <xsl:if test="contains($PATH_INFO,'/accounts')">
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/accounts.js"></script>

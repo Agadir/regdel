@@ -2,6 +2,10 @@ $('document').ready(function() {
 
   $("#nav-entry").addClass("active");
 
+  // Date picker
+  $("#entry_datetime").datePicker();
+
+
   // Setup drop-down lists with accounts to choose from
   $('.account_id:first','form').jselect({
       replaceAll: true,
@@ -20,7 +24,7 @@ $('document').ready(function() {
   $("#another-debit img",$("#journal-entry-amounts")).attr("src", app_prefix+"/s/img/pkgs/docunext-webapp-icons/tango/list-add.png");
   $(".remove-debit img",$("#journal-entry-amounts")).attr("src", app_prefix+"/s/img/pkgs/docunext-webapp-icons/tango/list-remove.png");
   $(".remove-credit img",$("#journal-entry-amounts")).attr("src", app_prefix+"/s/img/pkgs/docunext-webapp-icons/tango/list-remove.png");
-  
+
   if(jQuery.url.segment(1)=='new' || jQuery.url.segment(2)=='new' || jQuery.url.segment(3)=='new') {
     var amount_total = 0;
     $("#another-credit").live("click",function() {
