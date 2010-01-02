@@ -99,6 +99,7 @@ module Regdel
     # Set request.env with application mount path
     use Rack::Config do |env|
       env['RACK_MOUNT_PATH'] = Regdel.uripfx
+      env['RACK_ENV'] = ENV['RACK_ENV']
     end
 
     # Rewrite app url patterns to static files
@@ -118,12 +119,11 @@ module Regdel
 
     # Setup Rack::XSLView
     omitxsl = ['/raw/', '/s/js/', '/s/css/', '/s/img/']
-    passenv = ['PATH_INFO', 'RACK_MOUNT_PATH']
+    passenv = ['PATH_INFO', 'RACK_MOUNT_PATH', 'RACK_ENV']
     use Rack::XSLView, :myxsl => @@xslt, :noxsl => omitxsl, :passenv => passenv
 
 
     helpers Sinatra::XSLView
-    set :environment, :production
     set :static, true
     set :views, @@dirpfx + '/views'
     set :public, @@dirpfx + '/public'

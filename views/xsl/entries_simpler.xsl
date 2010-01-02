@@ -55,9 +55,11 @@ Fifth Floor, Boston, MA 02110-1301 USA
     </tbody>
   </table>
   <ul class="pager" id="table_controls">
-    <li><a href="./{//entries/@prev}">&#171; Prev</a></li>
+    <li><a href="./0">&#171;</a></li>
+    <li><a href="./{//entries/@prev}">&#8249;</a></li>
     <li><a href="./{//entries/@next}">1</a></li>
-    <li><a id="pager-next" href="./{//entries/@next}">Next &#187;</a></li>
+    <li><a id="pager-next" href="./{//entries/@next}">&#8250;</a></li>
+    <li><a id="pager-next" href="./{//entries/@next}">&#187;</a></li>
   </ul>
 </div></div>
 </xsl:template>
