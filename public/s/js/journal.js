@@ -1,13 +1,11 @@
-/* Regdel Javascript */
-// Read a page's GET URL variables and return them as an associative array.
-
 $('document').ready(function() {
-  $("#journal-table", $("#page-content")).addClass("tablesorter").tablesorter({
-  });
+
   $("#nav-journal","#navigation").addClass("active");
 
+  // Add edit column
   $("thead tr", $("#journal-table")).append('<th class="text-right">Edit</th>');
 
+  // Add edit links for each row
   $("tr", $("#journal-table-entries")).addClass("entry-row")
   .each(function () {
       var myid = $(this).get(0).getAttribute('id');
@@ -15,20 +13,24 @@ $('document').ready(function() {
   })
   .find("td:first-child").addClass("reldate")
   .parent().find("td:not(:last)").toggle(
+    // Show journal entry details
     function () {
       var myid = $(this).parent().get(0).getAttribute('id');
       get_journal_detail(myid);
     },
+    // Remove journal entry details
     function () {
       $(".entry_detail",$("#journal-table-entries")).remove();
     }
   );
 
-  $("#journal-table", $("#page-content")).tablesorter({
+  // Setup tablesorter
+  $("#journal-table", $("#page-content")).addClass("tablesorter").tablesorter({
   });
 
 });
 
+// Function to update DOM with accounts and amounts of journal entry
 function get_journal_detail(myid,journal_table_entries) {
   $(".entry_detail",journal_table_entries).remove();
   $.getJSON(app_prefix+"/json/entry/"+myid, function(data) {

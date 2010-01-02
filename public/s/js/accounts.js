@@ -1,4 +1,3 @@
-
 $('document').ready(function() {
 
   $("#nav-accounts","#navigation").addClass("active");

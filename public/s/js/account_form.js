@@ -1,6 +1,3 @@
-/* Regdel Javascript */
-// Read a page's GET URL variables and return them as an associative array.
-
 $('document').ready(function() {
   $("#nav-account").addClass("active");
 
@@ -11,7 +8,6 @@ $('document').ready(function() {
       name: "required"
     }
   });
-  //$.validator.messages.required = "";
 
   $('#type_id').jselect({
       replaceAll: true,

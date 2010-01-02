@@ -12,17 +12,6 @@ timeUnits['year'] = timeUnits['day'] * 364;
 var timeUnitOrder = ['year', 'month', 'day', 'hour', 'minute'];
 
 
-$(document).ready(function() {
-    var mytime = "";
-    var rltime = "";
-    $(".reldate").each(function () {
-        mytime = new Date($(this).text()*1000);
-        rltime = relativeDate(mytime);
-        $(this).attr("title",mytime);
-        $(this).text(rltime);
-    });
-});
-
 function relativeDate(date) {
     var now = new Date();
     var offset = date.getTime() - now.getTime();
