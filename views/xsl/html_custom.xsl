@@ -90,6 +90,7 @@ xmlns="http://www.w3.org/1999/xhtml">
     <xsl:if test="contains($PATH_INFO,'/accounts')">
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/accounts.js"></script>
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/tablesorter/jquery.tablesorter.js"></script>
+      <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery-tablesorter-app-theme/style.css" type="text/css" media="print, projection, screen" />
     </xsl:if>
     <xsl:if test="contains($PATH_INFO,'/journal')">
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/journal.js"></script>
