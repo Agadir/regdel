@@ -65,6 +65,7 @@ xmlns="http://www.w3.org/1999/xhtml">
     <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/regdel.js"></script>
     <xsl:if test="$PATH_INFO='/s/xhtml/account_form.html'">
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/account_form.js"></script>
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery-validate/jquery.validate.min.js"></script>
     </xsl:if>
     <xsl:if test="$PATH_INFO='/ledger' or $PATH_INFO='/s/xhtml/ledger.html'">
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/ledger.js"></script>
@@ -81,6 +82,7 @@ xmlns="http://www.w3.org/1999/xhtml">
       <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/datepicker/datePicker.css" type="text/css" media="screen" /> 
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.date.js"></script>
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/datepicker/jquery.datePicker.js"></script>
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery-validate/jquery.validate.min.js"></script>
     </xsl:if>
     <xsl:if test="contains($PATH_INFO,'/accounts')">
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/accounts.js"></script>

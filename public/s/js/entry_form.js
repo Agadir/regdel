@@ -3,7 +3,9 @@ $('document').ready(function() {
   $("#nav-entry").addClass("active");
 
   // Date picker
-  $("#entry_datetime").datePicker();
+  Date.firstDayOfWeek = 0;
+  Date.format = 'yyyy-mm-dd';
+  $("#entry_datetime").datePicker({startDate:'1996-01-01'});
 
 
   // Setup drop-down lists with accounts to choose from
@@ -14,6 +16,13 @@ $('document').ready(function() {
       onComplete: function() {
           $('.account_id:first option','form').clone().appendTo('.account_id:not(:first)','form');
       }
+  });
+
+  // Setup validation
+  $("#journal-entry-form").validate({
+    rules: {
+      memorandum: "required"
+    }
   });
 
   // Or make text fields with autocomplete

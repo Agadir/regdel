@@ -4,6 +4,15 @@
 $('document').ready(function() {
   $("#nav-account").addClass("active");
 
+  // Setup validation
+  $("#account-form").validate({
+    errorPlacement: function(error, element) { },
+    rules: {
+      name: "required"
+    }
+  });
+  $.validator.messages.required = "";
+
   $('#type_id').jselect({
       replaceAll: true,
       loadType: "GET",
