@@ -11,7 +11,7 @@ $('document').ready(function() {
       name: "required"
     }
   });
-  $.validator.messages.required = "";
+  //$.validator.messages.required = "";
 
   $('#type_id').jselect({
       replaceAll: true,

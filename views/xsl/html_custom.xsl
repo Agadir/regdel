@@ -47,6 +47,9 @@ xmlns="http://www.w3.org/1999/xhtml">
             <xsl:apply-templates select="document('../../public/s/xhtml/ads.html')/div"/>
           </xsl:if>
           <xsl:apply-templates select="document('../../public/s/xhtml/sidebar.html')/div"/>
+          <xsl:if test="$PATH_INFO='/ledger' or $PATH_INFO='/s/xhtml/ledger.html'">
+            <xsl:apply-templates select="document('../../public/s/xhtml/pager.html')/div"/>
+          </xsl:if>
         </div>
       </div>
       <xsl:apply-templates select="document('../../public/s/xhtml/footer.html')/div"/>
