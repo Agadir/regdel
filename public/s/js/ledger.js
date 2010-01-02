@@ -14,7 +14,11 @@ $('document').ready(function() {
   // Number of rows in ledger
   var numrows = 16;
 
-  // Setup the tablesorter and pager
+  // Set the pager number of rows value.
+  // This must be set before tablesorter is called
+  $(".pagesize", $("#table-pager")).val(numrows);
+
+  // Call tablesorter and pager
   $("#ledger-table", $("#page-content")).addClass("tablesorter").tablesorter({
     widthFixed: true
   }).tablesorterPager({
@@ -22,8 +26,5 @@ $('document').ready(function() {
     size: numrows,
     positionFixed: false
   });
-
-  // Set the pager number of rows value
-  $(".pagesize", $("#table-pager")).val(numrows);
 
 });

@@ -66,16 +66,19 @@ xmlns="http://www.w3.org/1999/xhtml">
     <script type="text/javascript">var app_prefix = '<xsl:value-of select="$RACK_MOUNT_PATH"/>';</script>
     <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/jquery-1.3.2.js"></script>
     <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/regdel.js"></script>
+    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.url.js"></script>
+    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.jselect.js"></script>
+    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/relative_date.js"></script>
     <xsl:if test="$PATH_INFO='/s/xhtml/account_form.html'">
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/account_form.js"></script>
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery-validate/jquery.validate.min.js"></script>
     </xsl:if>
     <xsl:if test="$PATH_INFO='/ledger' or $PATH_INFO='/s/xhtml/ledger.html'">
-      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/ledger.js"></script>
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/tablesorter/jquery.tablesorter.js"></script>
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
       <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery-tablesorter-app-theme/style.css" type="text/css" media="print, projection, screen" /> 
-      <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/tablesorter/addons/pager/jquery.tablesorter.pager.css" type="text/css" media="print, projection, screen" /> 
+      <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/tablesorter/addons/pager/jquery.tablesorter.pager.css" type="text/css" media="print, projection, screen" />
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/ledger.js"></script> 
     </xsl:if>
     <xsl:if test="$PATH_INFO='/s/xhtml/entry_all_form.html'">
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/entry_form.js"></script>
@@ -97,9 +100,6 @@ xmlns="http://www.w3.org/1999/xhtml">
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/tablesorter/jquery.tablesorter.js"></script>
       <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery-tablesorter-app-theme/style.css" type="text/css" media="print, projection, screen" />
     </xsl:if>
-    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.url.js"></script>
-    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.jselect.js"></script>
-    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/relative_date.js"></script>
     <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="{$RACK_MOUNT_PATH}/s/css/pkgs/yui-app-theme/css/yuiapp.css"/>
     <link rel="stylesheet" type="text/css" href="{$RACK_MOUNT_PATH}/s/css/pkgs/yui-app-theme/css/yuiapp-layouts.css"/>

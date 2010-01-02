@@ -130,7 +130,7 @@ module Regdel
     set :pagination, 10
 
     before do
-      headers 'Cache-Control' => 'proxy-revalidate, max-age=300'
+      headers 'Cache-Control' => 'proxy-revalidate, max-age=30'
       if request.env['REQUEST_METHOD'].upcase == 'POST'
         # POST requests indicate data alterations
         # trigger cache rebuild and update balances
@@ -155,63 +155,63 @@ module Regdel
     end
 
     post '/account/submit' do
-        if params[:id].to_i > 0
-            @account = Account.get(params[:id])
-            @account.attributes = {
-                :name => params[:name],
-                :type_id => params[:type_id],
-                :number => params[:number],
-                :description => params[:description],
-                :hide => params[:hide]
-            }
-            error_target = '/account/edit/' + params[:id]
-        else
-            @account = Account.new(
-                :name => params[:name],
-                :type_id => params[:type_id],
-                :number => params[:number],
-                :description => params[:description],
-                :hide => params[:hide]
-            )
-            error_target = Regdel.uripfx+'/account/new'
-        end
-  
-        if @account.save
-          redirect Regdel.uripfx+'/accounts'
-        else
-          redirect error_target + '?error=' + handle_error(@account.errors)
-        end
+      if params[:id].to_i > 0
+        @account = Account.get(params[:id])
+        @account.attributes = {
+          :name => params[:name],
+          :type_id => params[:type_id],
+          :number => params[:number],
+          :description => params[:description],
+          :hide => params[:hide]
+        }
+        error_target = '/account/edit/' + params[:id]
+      else
+        @account = Account.new(
+          :name => params[:name],
+          :type_id => params[:type_id],
+          :number => params[:number],
+          :description => params[:description],
+          :hide => params[:hide]
+        )
+        error_target = Regdel.uripfx+'/account/new'
+      end
+
+      if @account.save
+        redirect Regdel.uripfx+'/accounts'
+      else
+        redirect error_target + '?error=' + handle_error(@account.errors)
+      end
     end
     
     post '/account/close' do
-        content_type 'application/xml', :charset => 'utf-8'
-        if @account = Account.get(params[:id])
-          @account.attributes = {
-            :closed_on => Time.now.to_i
-          }
-          if @account.save
-            "<result>Success</result>"
-          else
-            handle_error(@account.errors)
-          end
+      content_type 'application/xml', :charset => 'utf-8'
+      if @account = Account.get(params[:id])
+        @account.attributes = {
+          :closed_on => Time.now.to_i
+        }
+        if @account.save
+          "<result>Success</result>"
         else
-          "<result>No account found</result>"
+          handle_error(@account.errors)
         end
+      else
+        "<result>No account found</result>"
+      end
     end
     post '/account/reopen' do
-        content_type 'application/xml', :charset => 'utf-8'
-        if @account = Account.get(params[:id])
-          @account.attributes = {
-            :closed_on => 0
-          }
-          if @account.save
-            "<result>Success</result>"
-          else
-            handle_error(@account.errors)
-          end
+      content_type 'application/xml', :charset => 'utf-8'
+      if @account = Account.get(params[:id])
+        @account.attributes = {
+          :closed_on => 0
+        }
+        if @account.save
+          "<result>Success</result>"
         else
-          "<result>No account found</result>"
+          handle_error(@account.errors)
         end
+      else
+        "<result>No account found</result>"
+      end
     end
     post '/account/delete' do
         content_type 'application/xml', :charset => 'utf-8'
@@ -293,18 +293,14 @@ module Regdel
       headers 'Last-Modified' => Time.now.httpdate, 'Cache-Control' => 'no-store'
       '<p>This is nowhere to be found. <a href="/">Start over?</a></p>'
     end
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
     get '/raw/journal' do
         @myentries = Entry.all
         builder :'xml/journal_complete'
@@ -359,15 +355,15 @@ module Regdel
       if File.exists?(ledgerfile)
         File.delete(ledgerfile)
       end
-      
+
       Ledger.all.destroy!
       amounts = Amount.all
-      
+
       amounts.each do |myamount|
-      
+
         myid = myamount.entry_id
         myentry = Entry.get(myid)
-      
+
         newtrans = Ledger.new(
           :posted_on => myentry.entered_on,
           :memorandum => myentry.memorandum,
