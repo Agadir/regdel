@@ -21,7 +21,8 @@ $('document').ready(function() {
       var err = '<div id="error">' + unescape(hash['error']) + '</div>';
       $("body").append(err);
   }
-  $(":input:not(:submit,:checkbox)").addClass("text");
+  $(":input:not(:button,:submit,:checkbox)").addClass("text");
+  $(":button,:submit").addClass("button");
 
   if(jQuery.url.segment(0)=='ledger' || jQuery.url.segment(0)=='ledgers' ) {
     $("#nav-ledger","#navigation").addClass("active");
