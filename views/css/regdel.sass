@@ -113,6 +113,13 @@ dd
 .form-controls
   :margin 0
   :text-align center
+
+.form-meta-controls
+  :margin 0
+  :float right
+
+.form-meta-controls .button
+  :font-weight normal !important
   
 #account-form
   :width 80%
@@ -125,5 +132,29 @@ dd
 #account-form input[type=text]
   :width 50%
 
-#account-form th label
-  :display block
+form td div, form li
+  :line-height 1.5
+  :margin-bottom 1.5em
+  :position relative
+  :border 0 !important
+
+form td div
+  :padding 0
+  :display inline
+
+form label.overlayed
+  :white-space nowrap
+  :position absolute
+  :top .05em
+  :left .5em
+  :color #999
+  :font-weight normal
+
+form li label.overlayed
+  :top .15em
+
+.hint
+  :color #999
+
+option.realoption
+  :color #000

@@ -10,10 +10,18 @@ $('document').ready(function() {
   });
 
   $('#type_id').jselect({
-      replaceAll: true,
+      replaceAll: false,
       loadType: "GET",
       loadUrl: app_prefix+"/s/xml/raw/account_types_select.xml",
+      onComplete: function(){
+          var label = $('label[for=type_id]');
+          
+          $('#type_id').find("option[value!=0]").addClass("realoption");
+      //    $('#type_id').prepend($("<option></option>").text(label.html()));
+      }
   });
+
+  // TODO - this will not work with a mount point!
   var myid = jQuery.url.segment(2);
   if (myid > 0) {
     $.getJSON(app_prefix+"/json/account/"+myid, function(data) {
@@ -28,5 +36,43 @@ $('document').ready(function() {
         });
     });
   }
-  $("form").append('<input type="hidden" name="id" value="' + myid +'" />');
+
+  $("#account-form").append('<input type="hidden" name="id" value="' + myid +'" />');
+
+  $(':text, textarea',$("#account-form")).each(function(){
+    var label = $('label[for=' + $(this).attr('id') + ']');
+    //$(this).parent().wrapInner(document.createElement("div"));
+    if (!$(this).val() == '') {
+      label.hide();
+    }
+    $(this).before(label);
+    label.addClass('overlayed');
+    $(this)
+      .focus(function(e){
+        $('label[for=' + $(e.target).attr('id') + ']').hide();
+      })
+      .blur(function(e){
+        if ($(e.target).val() == '') {
+          $('label[for=' + $(e.target).attr('id') + ']').show();
+        }
+      });
+  });
+
+  $('select',$("#account-form")).each(function(){
+    var label = $('label[for=' + $(this).attr('id') + ']');
+    label.hide();
+    $(this).prepend($("<option></option>").attr("value","0").attr("class","hint").html("Select "+label.text()));
+    $(this).addClass("hint");
+    $(this)
+      .change(function(e){
+        if ($(e.target).val() !== '0') {
+          $(e.target).removeClass("hint");
+        }
+      })
+      .blur(function(e){
+        if ($(e.target).val() == '0') {
+          $(e.target).addClass("hint");
+        }
+      });
+  });
 });

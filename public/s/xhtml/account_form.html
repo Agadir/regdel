@@ -7,78 +7,49 @@
     </div>
     <div class="bd">
       <form method="post" id="account-form" action="./submit">
-      <div id="account_form_notice" class="hidden_div"/>
-      <fieldset>
-      <legend>Account Details</legend>
-      <table class="form-table gridiron">
-        <tr>
-          <th>
-            <label for="number">
-              <span class="i18n-account_number">Account Number</span>
-            </label>
-          </th>
-          <td>
-            <input type="text" name="number" id="number"/>
-          </td>
-        </tr>
-        <tr>
-          <th>
-            <label for="name">
-              <span class="i18n-account_name">Account Name</span>
-            </label>
-          </th>
-          <td>
-            <input type="text" name="name" id="name"/>
-          </td>
-        </tr>
-        <tr>
-          <th>
-            <label for="type_id">
-              <span class="i18n-account_type">Account Type</span>
-            </label>
-          </th>
-          <td>
-            <select name="type_id" id="type_id">
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <th>
-            <label for="description">
-              <span class="i18n-description">Description</span>
-            </label>
-          </th>
-          <td>
-            <textarea name="description" id="description"/>
-          </td>
-        </tr>
-        <tr>
-          <th>
-            <label for="hide">
-              <span class="i18n-hide">Hide</span>
-            </label>
-          </th>
-          <td>
-            <input type="checkbox" name="hide" id="hide"/>
-          </td>
-        </tr>
-        <tr>
-          <th>
-            <label for="group_id">
-              <span class="i18n-group">Group</span>
-            </label>
-          </th>
-          <td>
-            <select name="group_id" id="group_id">
-            </select>
-          </td>
-        </tr>
-      </table>
-      </fieldset>
+        <div id="account_form_notice" class="hidden_div"/>
+        <div class="form-meta-controls">
+          <input type="button" value="Hide"/>
+          <input type="button" value="Delete"/>
+        </div>
+        <fieldset>
+          <legend>Account Details</legend>
+          <ul class="biglist">
+            <li>
+              <label for="name">
+                <span class="i18n-account_name">Account Name</span>
+              </label>
+              <input type="text" name="name" id="name"/>
+            </li>
+            <li>
+              <label for="number">
+                <span class="i18n-account_number">Account Number</span>
+              </label>
+              <input type="text" name="number" id="number"/>
+            </li>
+            <li>
+              <label for="type_id">
+                <span class="i18n-account_type">Account Type</span>
+              </label>
+              <select name="type_id" id="type_id"/>
+            </li>
+            <li>
+              <label for="description">
+                <span class="i18n-description">Description</span>
+              </label>
+              <textarea name="description" id="description"/>
+            </li>
+            <li>
+              <label for="group_id">
+                <span class="i18n-group">Group</span>
+              </label>
+              <select name="group_id" id="group_id"/>
+            </li>
+          </ul>
+        </fieldset>
         <div class="form-controls">
           <input type="submit" value="Save" name="submit"/>
-          <input type="button" value="Hide" />
-          <input type="button" value="Delete" />
+          <input type="button" value="Cancel"/>
         </div>
       </form>
     </div>
