@@ -58,10 +58,10 @@ table
 
 #sb-new-entry
   +sidebar-item("./s/img/pkgs/docunext-webapp-icons/tango/text-x-generic.png")
-  
+
 #sb-new-account
   +sidebar-item("./s/img/pkgs/docunext-webapp-icons/tango/system-file-manager.png")
-  
+
 #pager-next
   :padding-right 20px
   :background
@@ -75,23 +75,28 @@ table
 .remove-credit
   :display none
 
-  
 #table-pager table
   :margin-left auto
   :margin-right auto
 
 .pager table
-  :width 210px
+  :width 20%
   :text-align center
-  
-.pager img
+
+.pager span
   :cursor pointer
-  :font-size 250%
-  
+  :font-size 160%
+  :border 1px solid #000
+  :padding .1em .2em .2em .2em
+
+.pager span:hover
+  :background-color #000
+  :color #fff
+
 .pager td
-  :padding .2em 1em
+  :padding .25em
   :text-align center
-  
+
 .pager input
   :margin-top .21em
   :display block
@@ -120,7 +125,14 @@ dd
 
 .form-meta-controls .button
   :font-weight normal !important
-  
+
+.button
+  :background url(./s/img/sc-theme-repeat-x.png) repeat-x 0% -765px
+
+.button:hover
+  :color #7A1818 !important
+  :background url(./s/img/sc-theme-repeat-x.png) repeat-x 0% -1393px
+
 #account-form
   :width 80%
   :margin-left auto
@@ -158,3 +170,17 @@ form li label.overlayed
 
 option.realoption
   :color #000
+
+.rd-amt
+  :text-align right
+
+#bd
+  :background #ccc
+
+
+#navigation
+  :background url(./s/img/sc-theme-repeat-x.png) repeat-x 0% -573px
+
+#primary-navigation .active a
+  :background url(./s/img/sc-theme-repeat-x.png) repeat-x 0% -64px
+
