@@ -71,7 +71,6 @@ xmlns="http://www.w3.org/1999/xhtml">
     <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/relative_date.js"></script>
     <xsl:if test="$PATH_INFO='/s/xhtml/account_form.html'">
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery-validate/jquery.validate.min.js"></script>
-      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.infieldlabel.min.js"></script>
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/account_form.js"></script>
     </xsl:if>
     <xsl:if test="$PATH_INFO='/ledger' or $PATH_INFO='/s/xhtml/ledger.html'">
