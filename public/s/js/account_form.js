@@ -42,7 +42,7 @@ $('document').ready(function() {
   $(':text, textarea',$("#account-form")).each(function(){
     var label = $('label[for=' + $(this).attr('id') + ']');
     //$(this).parent().wrapInner(document.createElement("div"));
-    if (!$(this).val() == '') {
+    if (!$(this).val() == '' || $(this).val() == 'undefined') {
       label.hide();
     }
     $(this).before(label);
