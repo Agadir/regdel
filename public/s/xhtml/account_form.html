@@ -8,6 +8,8 @@
     <div class="bd">
       <form method="post" id="account-form" action="./submit">
       <div id="account_form_notice" class="hidden_div"/>
+      <fieldset>
+      <legend>Account Details</legend>
       <table class="form-table gridiron">
         <tr>
           <th>
@@ -37,9 +39,6 @@
           </th>
           <td>
             <select name="type_id" id="type_id">
-              <option>
-                <span class="i18n-select_one">Select One</span>
-              </option>
             </select>
           </td>
         </tr>
@@ -71,15 +70,14 @@
           </th>
           <td>
             <select name="group_id" id="group_id">
-              <option>
-                <span class="i18n-select_one">Select One</span>
-              </option>
             </select>
           </td>
         </tr>
       </table>
+      </fieldset>
         <div class="form-controls">
           <input type="submit" value="Save" name="submit"/>
+          <input type="button" value="Hide" />
           <input type="button" value="Delete" />
         </div>
       </form>
