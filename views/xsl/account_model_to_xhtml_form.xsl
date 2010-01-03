@@ -36,8 +36,8 @@ Fifth Floor, Boston, MA 02110-1301 USA
     <form method="post" id="account-form" action="{$account_submit}">
     <div id="account_form_notice" class="hidden_div" />
     <div class="form-meta-controls">
-      <input type="button" value="Display" />
-      <input type="button" value="Delete" />
+      <input type="button" id="display-toggle" value="Display" />
+      <input type="button" id="delete-button" value="Delete" />
     </div>
     <fieldset>
     <legend>Account Details</legend>
