@@ -57,4 +57,9 @@ INSERT INTO accounts (name) VALUES ('test');
 License
 -------
 
-Affero GPL
+Affero GPLv3
+
+
+<dl>
+  <dt>Regdel</dt><dd>Rocks</dd>
+</dl>

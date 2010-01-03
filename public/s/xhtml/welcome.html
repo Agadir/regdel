@@ -1,19 +1,63 @@
 <div class="block">
   <div class="hd">
-  <h2>
-    <span id="i18n-welcome_to_regdel">Welcome to Regdel</span>
-  </h2>
+    <h2>Welcome to Regdel</h2>
   </div>
   <div class="bd">
-  <p>Regdel is a double-entry accounting system written in Ruby, complete with
-  accounts, a general journal, general ledger, and account ledgers. It is mostly
-  based off of my experience writing PBooks, a double-entry system written in PHP.
-  </p>
-  <p>
-  <dl>
-    <dt>Regdel</dt><dd>Rocks</dd>
-  </dl>
-  </p>
-  <div class="clear"></div>
-</div>
+    <div xmlns="http://www.w3.org/1999/xhtml">
+      <h1>
+        <a href="http://www.regdel.com/">REGDEL</a>
+      </h1>
+      <hr xmlns=""/>
+      <h2 xmlns="">Summary</h2>
+      <p>Regdel is a double-entry accounting system written in Ruby, complete with
+accounts, a general journal, general ledger, and account ledgers. It is mostly
+based off of my experience writing PBooks, a double-entry system written in PHP.</p>
+      <hr xmlns=""/>
+      <h2 xmlns="">Quick Start</h2>
+      <pre>
+git clone git://github.com/docunext/regdel.git
+cd regdel
+git submodule init
+git submodule update
+ruby regdel.rb
+</pre>
+      <hr xmlns=""/>
+      <h2 xmlns="">Status</h2>
+      <ul>
+        <li>January 2010: Alpha</li>
+      </ul>
+      <hr xmlns=""/>
+      <h2 xmlns="">Requirements</h2>
+      <ul>
+        <li>Ruby</li>
+        <li>Sinatra</li>
+        <li>Rack-XSLView</li>
+        <li>DataMapper</li>
+        <li>SQLite / MySQL</li>
+        <li>Builder, Sass, Yui-App-Theme</li>
+        <li>Nokogiri</li>
+      </ul>
+      <hr xmlns=""/>
+      <h2 xmlns="">Components</h2>
+      <ul>
+        <li>Data model is specified in XML, transformed into classes for use by DataMapper
+by XSL</li>
+        <li>Views are XML-based and built Ruby Builder</li>
+        <li>User interface is rendered via XHTML and XSL by Nokogiri or NGINX</li>
+      </ul>
+      <hr xmlns=""/>
+      <h2 xmlns="">Notes</h2>
+      <pre>
+INSERT INTO accounts (name) VALUES ('test');
+</pre>
+      <hr xmlns=""/>
+      <h2 xmlns="">License</h2>
+      <p>Affero GPLv3</p>
+      <dl>
+        <dt>Regdel</dt>
+        <dd>Rocks</dd>
+      </dl>
+    </div>
+    <div class="clear"/>
+  </div>
 </div>

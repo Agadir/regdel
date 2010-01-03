@@ -38,6 +38,20 @@ file 'public/s/xhtml/account_form.html' => ['data/accounting_data_model.xml', 'v
 end
 
 
+task :welcome_html => 'public/s/xhtml/welcome.html'
+
+file 'public/s/xhtml/welcome.html' => ['README.md', 'views/xsl/xhtml_to_xhtml_blocks.xsl']  do
+  require 'rdiscount'
+  text = open('README.md').read
+  markdown = RDiscount.new(text)
+  xslt = XML::XSLT.new()
+  xslt.xml = '<div>' + markdown.to_html + '</div>'
+  xslt.xsl = 'views/xsl/xhtml_to_xhtml_blocks.xsl'
+  xslt.parameters = { 'h2_title' => 'Welcome to Regdel' }
+  html = xslt.serve
+  File.open('public/s/xhtml/welcome.html', 'w') {|f| f.write(html) }
+end
+
 
 task :account_types => 'data/account_types.rb'
 
