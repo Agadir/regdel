@@ -55,12 +55,12 @@ Fifth Floor, Boston, MA 02110-1301 USA
     </a>
   </td>
   <td>
-    <a href="/account/edit/{@id}" title="{@number}">
+    <a href="./account/edit/{@id}" title="{@number}">
       <xsl:value-of select="@name"/>
     </a>
   </td>
   <td>
-    <a href="/ledgers/account/{@id}">
+    <a href="./ledgers/account/{@id}">
       <xsl:value-of select="@balance"/>
     </a>
   </td>
