@@ -23,7 +23,7 @@
 ##
 xml.transactions( :ledger_label => @ledger_label, :ledger_type => @ledger_type  ) {
   @mytransactions.each do |transx|
-    xml.transaction (
+    xml.transaction(
       :transaction_id => transx.id,
       :account_name   => transx.account.name,
       :date           => transx.posted_on,

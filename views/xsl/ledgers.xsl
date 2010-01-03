@@ -65,14 +65,14 @@ xmlns="http://www.w3.org/1999/xhtml">
 
 <xsl:template match="//transactions[@ledger_type='general']/transaction">
   <tr>
-    <td class="reldate">
+    <td>
       <xsl:value-of select="@date"/>
     </td>
     <td>
       <xsl:value-of select="@memorandum"/>
     </td>
     <td>
-      <a href="/ledgers/account/{@account_id}">
+      <a href="./ledgers/account/{@account_id}">
         <xsl:value-of select="@account_name"/>
       </a>
     </td>

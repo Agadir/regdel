@@ -1,5 +1,7 @@
 $('document').ready(function() {
 
+  // Add reldate for timestamps
+  $("tr", $("#ledger-table")).find("td:first-child").addClass("reldate");
   // Relative date must be triggered before tablesorter so that all rows are
   // updated
   var mytime = "";
