@@ -4,7 +4,7 @@ $('document').ready(function() {
   // updated
   var mytime = "";
   var rltime = "";
-  $(".reldate", $("#page-content")).each(function () {
+  $(".reldate", $("#ledger-table")).each(function () {
       mytime = new Date($(this).text()*1000);
       rltime = relativeDate(mytime);
       $(this).attr("title",mytime);

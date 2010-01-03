@@ -24,6 +24,7 @@ $('document').ready(function() {
   // TODO - this will not work with a mount point!
   var myid = jQuery.url.segment(2);
   if (myid > 0) {
+    var hide = "";
     $.getJSON(app_prefix+"/json/account/"+myid, function(data) {
         $.each(data, function(i, item) {
             if ($('#' + i).length) {
@@ -33,18 +34,29 @@ $('document').ready(function() {
                     $('#' + i).val(item);
                 }
             }
+            // Set hidden status
+            if(i=='hide') {
+              hide = item;
+            }
         });
         setup_labels();
     });
+    // Set account id
+    $("#account-form").append('<input type="hidden" name="id" value="' + myid +'" />');
+    // Show or hide the account
+    if(hide=='null') {
+      $("#display-toggle",$("#account-form")).val("Hide Account");
+    } else {
+      $("#display-toggle",$("#account-form")).val("Show Account");
+    }
   } else {
+    $("div.form-meta-controls",$("#account-form")).hide();
     setup_labels();
   }
 
-  $("#account-form").append('<input type="hidden" name="id" value="' + myid +'" />');
 
 
 
-  
   $(":input[value='Cancel']",$("#account-form")).bind("click", function() {
       history.go(-1);
   });

@@ -1,5 +1,21 @@
 $('document').ready(function() {
 
+  // Add reldate for timestamps
+  $("tr", $("#journal-table-entries")).find("td:first-child").addClass("reldate");
+
+  // Relative date must be triggered before tablesorter so that all rows are
+  // updated
+  var mytime = "";
+  var rltime = "";
+  $(".reldate", $("#journal-table")).each(function () {
+      mytime = new Date($(this).text()*1000);
+      rltime = relativeDate(mytime);
+      $(this).attr("title",mytime);
+      $(this).text(rltime);
+  });
+
+
+  // Set navigation tab as active
   $("#nav-journal","#navigation").addClass("active");
 
   // Add edit column
@@ -11,7 +27,6 @@ $('document').ready(function() {
       var myid = $(this).get(0).getAttribute('id');
       $(this).append('<td class="text-right"><a href="'+app_prefix+'/entry/edit/'+myid+'">edit</a></td>');
   })
-  .find("td:first-child").addClass("reldate")
   .parent().find("td:not(:last)").toggle(
     // Show journal entry details
     function () {
