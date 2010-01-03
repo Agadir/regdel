@@ -35,27 +35,26 @@ Fifth Floor, Boston, MA 02110-1301 USA
   <div class="bd">
     <form method="post" id="account-form" action="{$account_submit}">
     <div id="account_form_notice" class="hidden_div" />
+    <div class="form-meta-controls">
+      <input type="button" value="Hide" />
+      <input type="button" value="Delete" />
+    </div>
     <fieldset>
     <legend>Account Details</legend>
-    <table class="form-table gridiron">
+    <ul class="biglist">
 <xsl:for-each select="//table[name='accounts']/declaration/field[@access='public']">
-<tr>
-  <th>
+<li>
     <label for="{@name}">
       <span class="i18n-{@i18n}"><xsl:value-of select="@label"/></span>
     </label>
-  </th>
-  <td>
     <xsl:apply-templates select="."/>
-  </td>
-</tr>
+</li>
 </xsl:for-each>
-  </table>
+  </ul>
   </fieldset>
   <div class="form-controls">
     <input type="submit" value="Save" name="submit"/>
-    <input type="button" value="Hide" />
-    <input type="button" value="Delete" />
+    <input type="button" value="Cancel" />
   </div>
   </form>
   </div>
