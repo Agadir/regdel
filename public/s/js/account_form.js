@@ -34,11 +34,24 @@ $('document').ready(function() {
                 }
             }
         });
+        setup_labels();
     });
+  } else {
+    setup_labels();
   }
 
   $("#account-form").append('<input type="hidden" name="id" value="' + myid +'" />');
 
+
+
+  
+  $(":input[value='Cancel']",$("#account-form")).bind("click", function() {
+      history.go(-1);
+  });
+  $("#account-form ul").css("padding-top","1em");
+});
+
+function setup_labels() {
   $(':text, textarea',$("#account-form")).each(function(){
     var label = $('label[for=' + $(this).attr('id') + ']');
     //$(this).parent().wrapInner(document.createElement("div"));
@@ -62,17 +75,15 @@ $('document').ready(function() {
     var label = $('label[for=' + $(this).attr('id') + ']');
     label.hide();
     $(this).prepend($("<option></option>").attr("value","0").attr("class","hint").html("Select "+label.text()));
-    $(this).addClass("hint");
+    if($(this).val() == 0 || $(this).val() == 'undefined') {
+      $(this).addClass("hint");
+    }
     $(this)
       .change(function(e){
         if ($(e.target).val() !== '0') {
           $(e.target).removeClass("hint");
-        }
-      })
-      .blur(function(e){
-        if ($(e.target).val() == '0') {
-          $(e.target).addClass("hint");
+          $("option[value='0']",$(e.target)).remove();
         }
       });
   });
-});
+}

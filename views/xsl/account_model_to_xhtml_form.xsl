@@ -36,7 +36,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
     <form method="post" id="account-form" action="{$account_submit}">
     <div id="account_form_notice" class="hidden_div" />
     <div class="form-meta-controls">
-      <input type="button" value="Hide" />
+      <input type="button" value="Display" />
       <input type="button" value="Delete" />
     </div>
     <fieldset>
@@ -63,7 +63,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
 </xsl:template>
 
 <xsl:template match="field[@type='string']">
-  <input type="text" name="{@name}" id="{@name}" />
+  <input type="text" name="{@name}" id="{@name}" value="" />
 </xsl:template>
 <xsl:template match="field[@type='text']">
   <textarea name="{@name}" id="{@name}"></textarea>
