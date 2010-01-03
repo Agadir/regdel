@@ -25,7 +25,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
 >
 <xsl:output method="xml" omit-xml-declaration="yes" indent="yes"/>
 <xsl:template match="/">
-<form method="post" action="{$account_submit}">
+<div>
 <div class="block">
   <div class="hd">
   <h2>
@@ -33,8 +33,11 @@ Fifth Floor, Boston, MA 02110-1301 USA
   </h2>
   </div>
   <div class="bd">
+    <form method="post" id="account-form" action="{$account_submit}">
     <div id="account_form_notice" class="hidden_div" />
-    <table class="form-table">
+    <fieldset>
+    <legend>Account Details</legend>
+    <table class="form-table gridiron">
 <xsl:for-each select="//table[name='accounts']/declaration/field[@access='public']">
 <tr>
   <th>
@@ -48,12 +51,16 @@ Fifth Floor, Boston, MA 02110-1301 USA
 </tr>
 </xsl:for-each>
   </table>
+  </fieldset>
+  <div class="form-controls">
+    <input type="submit" value="Save" name="submit"/>
+    <input type="button" value="Hide" />
+    <input type="button" value="Delete" />
   </div>
-  <div class="table_meta">
-    <input type="submit" value="Save" name="submit" />
+  </form>
   </div>
 </div>
-</form>
+</div>
 </xsl:template>
 
 <xsl:template match="field[@type='string']">
@@ -67,9 +74,6 @@ Fifth Floor, Boston, MA 02110-1301 USA
 </xsl:template>
 <xsl:template match="field[@type='integer']">
   <select name="{@name}" id="{@name}" >
-    <option>
-      <span class="i18n-select_one">Select One</span>
-    </option>
   </select>
 </xsl:template>
 
