@@ -34,6 +34,8 @@ $('document').ready(function() {
   $(".remove-debit img",$("#journal-entry-amounts")).attr("src", app_prefix+"/s/img/pkgs/docunext-webapp-icons/tango/list-remove.png");
   $(".remove-credit img",$("#journal-entry-amounts")).attr("src", app_prefix+"/s/img/pkgs/docunext-webapp-icons/tango/list-remove.png");
 
+  $(".rd-amt",$("#journal-entry-amounts")).attr("autocomplete","off");
+
   if(jQuery.url.segment(1)=='new' || jQuery.url.segment(2)=='new' || jQuery.url.segment(3)=='new') {
     var amount_total = 0;
     $("#another-credit").live("click",function() {
@@ -80,7 +82,10 @@ $('document').ready(function() {
     var myid = jQuery.url.segment(2);
     update_journal_entry_form(myid);
   }
-
+  // Cancel button goes back
+  $(":input[value='Cancel']",$("#account-form")).bind("click", function() {
+      history.go(-1);
+  });
 });
 
 
