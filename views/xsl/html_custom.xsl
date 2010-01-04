@@ -80,8 +80,12 @@ xmlns="http://www.w3.org/1999/xhtml">
       <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/tablesorter/addons/pager/jquery.tablesorter.pager.css" type="text/css" media="print, projection, screen" />
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/ledger.js"></script> 
     </xsl:if>
+    <xsl:if test="$PATH_INFO='/s/xhtml/welcome.html' or $PATH_INFO='/'">
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/welcome.js"></script>
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/shjs/shjs-0.6/sh_main.min.js"></script>
+      <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/shjs/shjs-0.6/css/sh_vim-dark.min.css" />
+    </xsl:if>
     <xsl:if test="$PATH_INFO='/s/xhtml/entry_all_form.html'">
-      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/entry_form.js"></script>
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.calculation.js"></script>
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery.autocomplete/jquery.autocomplete.js"></script>
       <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery.autocomplete/jquery.autocomplete.css" type="text/css" />
@@ -89,16 +93,17 @@ xmlns="http://www.w3.org/1999/xhtml">
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.date.js"></script>
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/datepicker/jquery.datePicker.js"></script>
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery-validate/jquery.validate.min.js"></script>
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/entry_form.js"></script>
     </xsl:if>
     <xsl:if test="contains($PATH_INFO,'/accounts')">
-      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/accounts.js"></script>
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/tablesorter/jquery.tablesorter.js"></script>
       <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery-tablesorter-app-theme/style.css" type="text/css" media="print, projection, screen" />
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/accounts.js"></script>
     </xsl:if>
     <xsl:if test="contains($PATH_INFO,'/journal')">
-      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/journal.js"></script>
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/tablesorter/jquery.tablesorter.js"></script>
       <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery-tablesorter-app-theme/style.css" type="text/css" media="print, projection, screen" />
+      <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/journal.js"></script>
     </xsl:if>
     <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="{$RACK_MOUNT_PATH}/s/css/pkgs/yui-app-theme/css/yuiapp.css"/>

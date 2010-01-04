@@ -6,12 +6,15 @@ Summary
 
 Regdel is a double-entry accounting system written in Ruby, complete with
 accounts, a general journal, general ledger, and account ledgers. It is mostly
-based off of my experience writing PBooks, a double-entry system written in PHP.
+based off of my experience writing [PBooks](http://www.pbooks.org), a double-entry system written in PHP.
+
+
+
 
 Quick Start
 -----------
 
-<pre>
+<pre class="sh_sh">
 git clone git://github.com/docunext/regdel.git
 cd regdel
 git submodule init
@@ -23,12 +26,13 @@ ruby regdel.rb
 Status
 ------
 
-* January 2010: Alpha
+* 2010-01 Alpha
+* 2009-12 Project Started
+
 
 Requirements
 ------------
 
-* Ruby
 * Sinatra
 * Rack-XSLView
 * DataMapper
@@ -46,20 +50,10 @@ by XSL
 * User interface is rendered via XHTML and XSL by Nokogiri or NGINX
 
 
-Notes
------
-
-<pre>
-INSERT INTO accounts (name) VALUES ('test');
-</pre>
-
-
 License
 -------
 
-Affero GPLv3
+Regdel is licensed under the [Affero GPLv3](http://www.fsf.org/licensing/licenses/agpl-3.0.html).
 
-
-<dl>
-  <dt>Regdel</dt><dd>Rocks</dd>
-</dl>
+The Regdel source includes components from several other open source projects
+of varyious licenses.

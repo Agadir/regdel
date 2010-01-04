@@ -40,8 +40,10 @@ Fifth Floor, Boston, MA 02110-1301 USA
 </xsl:template>
 
 <xsl:template match="h2">
-<hr />
-<h2><xsl:apply-templates /></h2>
+<xsl:element name="hr" />
+<xsl:element name="h2">
+<xsl:apply-templates />
+</xsl:element>
 </xsl:template>
 
 </xsl:stylesheet>
