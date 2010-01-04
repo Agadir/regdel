@@ -118,6 +118,7 @@ namespace :vlad do
     run "sudo svc -d /service/regdel"
     run "sudo svc -u /service/regdel"
   end
+  task :deploy => [:update, :restart]
 end
 
 
