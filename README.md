@@ -38,7 +38,6 @@ Requirements
 * DataMapper
 * SQLite / MySQL
 * Builder, Sass, Yui-App-Theme
-* Nokogiri
 
 
 Components
@@ -47,7 +46,7 @@ Components
 * Data model is specified in XML, transformed into classes for use by DataMapper
 by XSL
 * Views are XML-based and built Ruby Builder
-* User interface is rendered via XHTML and XSL by Nokogiri or NGINX
+* User interface is rendered via XHTML and XSL by Rack-XSLView (maybe NGINX?)
 
 
 License
