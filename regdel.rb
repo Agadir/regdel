@@ -90,7 +90,7 @@ module Regdel
       # Prefixes for URI and Regdel directory
       @@dirpfx = File.dirname(__FILE__)
       @@xslt = XML::XSLT.new()
-      xslfile = File.open("#{@@dirpfx}/views/xsl/html_main.xsl")
+      xslfile = File.open(@@dirpfx + '/views/xsl/html_main.xsl')
       @@xslt.xsl = REXML::Document.new xslfile
     end
 
@@ -164,7 +164,7 @@ module Regdel
           :description => params[:description],
           :hide => params[:hide]
         }
-        error_target = '/account/edit/' + params[:id]
+        error_target = Regdel.uripfx+'/account/edit/' + params[:id]
       else
         @account = Account.new(
           :name => params[:name],
@@ -274,7 +274,6 @@ module Regdel
       xslview entries, @@dirpfx + '/views/xsl/entries_simpler.xsl'
     end
 
-  
     get '/ledgers/account/:account_id' do
       @ledger_label = Account.get(params[:account_id]).name
       @ledger_type = "account"
@@ -282,21 +281,17 @@ module Regdel
       transactions = builder :'xml/transactions'
       xslview transactions, @@dirpfx + '/views/xsl/ledgers.xsl'
     end
-    
+
     get '/stylesheet.css' do
       content_type 'text/css', :charset => 'utf-8'
       @myprefix = Regdel.uripfx
       sass :'css/regdel'
     end
-    
+
     not_found do
       headers 'Last-Modified' => Time.now.httpdate, 'Cache-Control' => 'no-store'
-      '<p>This is nowhere to be found. <a href="/">Start over?</a></p>'
+      %(<p>This is nowhere to be found. <a href="#{Regdel.uripfx}/">Start over?</a></p>)
     end
-
-
-
-
 
 
 
@@ -343,15 +338,15 @@ module Regdel
 
     delete '/delete/ledger' do
       rebuild_ledger
-      redirect '/ledger'
+      redirect "#{Regdel.uripfx}/ledger"
     end
-    
-    
+
+
     private
     # This rebuilds the ledger using data from the journal
     def rebuild_ledger
 
-      ledgerfile = "#{@@dirpfx}/public/s/xhtml/ledger.html"
+      ledgerfile = @@dirpfx + '/public/s/xhtml/ledger.html'
       if File.exists?(ledgerfile)
         File.delete(ledgerfile)
       end
@@ -379,13 +374,13 @@ module Regdel
         @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
         transactions = builder :'xml/transactions'
         xhtmltransaction = xslview transactions, @@dirpfx + '/views/xsl/ledgers.xsl'
-        myfile = File.new("#{@@dirpfx}/public/s/xhtml/ledger.html","w")
+        myfile = File.new(ledgerfile,"w")
         myfile.write(xhtmltransaction)
         myfile.close
       rescue StandardError
         myfile.close
         File.delete(myfile)
-        halt '<p> <a href="/">Error, start over?</a></p>'
+        halt %(<p> <a href="#{Regdel.uripfx}/">Error, start over?</a></p>)
       end
     end
     
