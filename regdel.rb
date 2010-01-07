@@ -99,7 +99,7 @@ module Regdel
     # Set request.env with application mount path
     use Rack::Config do |env|
       env['RACK_MOUNT_PATH'] = Regdel.uripfx
-      env['RACK_ENV'] = ENV['RACK_ENV']
+      env['RACK_ENV'] = ENV['RACK_ENV'] ? ENV['RACK_ENV'] : "none"
     end
 
     # Rewrite app url patterns to static files
