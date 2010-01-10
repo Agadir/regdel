@@ -24,6 +24,10 @@
 require 'sinatra/base'
 
 module Sinatra
+  # Renders output based upon XML and XSL
+  # In practice, I use Builder to create the XML to be transformed
+  # As such, I do no plan on adding support for parameters, like Rack-XSLView
+  # TODO: cache stylesheets
   module XSLView
     def xslview(myxml,myxsl)
       xslt = XML::XSLT.new()

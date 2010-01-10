@@ -29,7 +29,11 @@ xmlns="http://www.w3.org/1999/xhtml">
 
 <dl>
 <dt>Environment</dt>
-<dd><xsl:value-of select="/runtime/@environment"/></dd>
+<dd><xsl:value-of select="/regdel/@environment"/></dd>
+<dt>Uptime</dt>
+<dd><xsl:value-of select="/regdel/runtime/@uptime"/></dd>
+<dt>Version</dt>
+<dd><xsl:value-of select="/regdel/runtime/@version"/></dd>
 </dl>
 
 </xsl:template>

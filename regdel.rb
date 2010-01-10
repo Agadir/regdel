@@ -64,11 +64,12 @@ end
 
 # The container for the Regdel application
 module Regdel
-  
+
   class << self
     # The uri prefix of the application, if any
     attr_accessor :uripfx
   end
+
   # Set the uriprefix
   def self.new(uripfx='')
     self.uripfx = uripfx
@@ -85,22 +86,26 @@ module Regdel
 
   # The Regdel Sinatra application
   class Main < Sinatra::Base
-
     configure do
       # Prefixes for URI and Regdel directory
       @@dirpfx = File.dirname(__FILE__)
       @@xslt = XML::XSLT.new()
       xslfile = File.open(@@dirpfx + '/views/xsl/html_main.xsl')
       @@xslt.xsl = REXML::Document.new xslfile
+      # Set request.env with application mount path
+      use Rack::Config do |env|
+        env['RACK_MOUNT_PATH'] = Regdel.uripfx
+        env['RACK_ENV'] = ENV['RACK_ENV'] ? ENV['RACK_ENV'] : "none"
+      end
+      @@started_at = Time.now.to_i
+    end
+    configure :development do
+      Sinatra::Application.reset!
+      use Rack::Lint
+      use Rack::CommonLogger
+      use Rack::Reloader
     end
 
-    use Rack::Lint
-    use Rack::CommonLogger
-    # Set request.env with application mount path
-    use Rack::Config do |env|
-      env['RACK_MOUNT_PATH'] = Regdel.uripfx
-      env['RACK_ENV'] = ENV['RACK_ENV'] ? ENV['RACK_ENV'] : "none"
-    end
 
     # Rewrite app url patterns to static files
     use Rack::Rewrite do
@@ -263,6 +268,7 @@ module Regdel
         redirect Regdel.uripfx+'/journal/0'
     end
     get '/journal/:offset' do
+      # How many journal entries are there?
       count = Entry.count()
       myoffset = params[:offset].to_i
       incr = options.pagination
@@ -341,6 +347,23 @@ module Regdel
       redirect "#{Regdel.uripfx}/ledger"
     end
 
+
+    get '/regdel/runtime/info' do
+      @rack_env = ENV['RACK_ENV']
+      @uptime   = 0 #0 + Time.now.to_i - @@started_at
+      runtime = builder :'xml/runtime'
+      xslview runtime, @@dirpfx + '/views/xsl/runtime.xsl'
+    end
+
+
+    get '/regdel/wayoverlyverbosedebug' do
+      content_type 'text/plain', :charset => 'utf-8'
+      mycontent = ""
+      ObjectSpace.each_object { |x|
+        mycontent << x.to_s
+      }
+      mycontent
+    end
 
     private
     # This rebuilds the ledger using data from the journal
