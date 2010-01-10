@@ -31,7 +31,7 @@ require 'dm-serializer'
 require 'dm-aggregates'
 require 'dm-validations'
 
-DataMapper.setup(:default, ENV['DATABASE_URL'])
+DataMapper.setup(:default, ENV['DATABASE_URL'] || 'sqlite3:///var/www/dev/regdel/rbeans.sqlite3')
 
 
 # The Account class includes all the accounts held by the business,

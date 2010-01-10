@@ -26,6 +26,9 @@ require 'rake'
 require 'spec/rake/spectask'
 
 
+task :test => :spec
+task :default => :spec
+
 namespace :files do
   @nomsg = 'src or data file(s) updated, rebuilding target'
 
@@ -118,7 +121,6 @@ namespace :files do
 
 end
 
-task :test => :spec
 
 
 task :create_dummy_accounts do
@@ -164,7 +166,6 @@ end
 
 
 
-task :default => :spec
 
 
 require 'rdoc'
