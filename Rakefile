@@ -26,63 +26,62 @@ require 'xml/xslt'
 require 'rake'
 require 'spec/rake/spectask'
 
-task :publish_account_form => 'public/s/xhtml/account_form.html'
 
-file 'public/s/xhtml/account_form.html' => ['data/accounting_data_model.xml', 'views/xsl/account_model_to_xhtml_form.xsl'] do
+namespace :files do
   xslt = XML::XSLT.new()
-  xslt.xml = 'data/accounting_data_model.xml'
-  xslt.xsl = 'views/xsl/account_model_to_xhtml_form.xsl'
-  xslt.parameters = { 'account_submit' => './submit' }
-  html = xslt.serve
-  File.open('public/s/xhtml/account_form.html', 'w') {|f| f.write(html) }
+
+  desc "Account form is built from data model"
+  task :publish_account_form => 'public/s/xhtml/account_form.html'
+  file 'public/s/xhtml/account_form.html' => ['data/accounting_data_model.xml', 'lib/xsl/account_model_to_xhtml_form.xsl'] do
+    xslt = XML::XSLT.new()
+    xslt.xml = 'data/accounting_data_model.xml'
+    xslt.xsl = 'lib/xsl/account_model_to_xhtml_form.xsl'
+    xslt.parameters = { 'account_submit' => './submit' }
+    html = xslt.serve
+    File.open('public/s/xhtml/account_form.html', 'w') {|f| f.write(html) }
+  end
+
+  desc "Build welcome.html from README.rd"
+  task :welcome_html => 'public/s/xhtml/welcome.html'
+  file 'public/s/xhtml/welcome.html' => ['README.md', 'views/xsl/xhtml_to_xhtml_blocks.xsl']  do
+    require 'rdiscount'
+    text = open('README.md').read
+    markdown = RDiscount.new(text)
+    xslt.xml = '<div>' + markdown.to_html + '</div>'
+    xslt.xsl = 'lib/xsl/xhtml_to_xhtml_blocks.xsl'
+    xslt.parameters = { 'h2_title' => 'Welcome to Regdel' }
+    html = xslt.serve
+    File.open('public/s/xhtml/welcome.html', 'w') {|f| f.write(html) }
+  end
+
+  desc "Build ruby array of account types"
+  task :account_types => 'data/account_types.rb'
+  file 'data/account_types.rb' => ['public/s/xml/raw/account_types.xml', 'lib/xsl/account_types2many.xsl'] do
+    xslt.xml = 'public/s/xml/raw/account_types.xml'
+    xslt.xsl = 'views/xsl/account_types2many.xsl'
+    xslt.parameters = { 'format' => 'ruby' }
+    html = xslt.serve
+    File.open('data/account_types.rb', 'w') {|f| f.write(html) }
+  end
+  # do the same with json:
+  # xsltproc --stringparam format json views/xsl/account_types2many.xsl 
+  # public/s/xml/raw/account_types.xml > public/s/js/account_types.json
+  
+  
+  
+  file '/tmp/schema2dm.xsl' do
+    require 'open-uri'
+    filecontent = open('http://github.com/docunext/0945a8a54c/raw/master/xsl/schema2dm.xsl').read
+    File.open('/tmp/schema2dm.xsl', 'w') {|f| f.write(filecontent) }
+  end
+  
+  file 'data/regdel_dm_tmp.rb' => ['/tmp/schema2dm.xsl'] do
+    xslt.xml = 'data/accounting_data_model.xml'
+    xslt.xsl = '/tmp/schema2dm.xsl'
+    model = xslt.serve
+    puts model
+  end
 end
-
-
-task :welcome_html => 'public/s/xhtml/welcome.html'
-
-file 'public/s/xhtml/welcome.html' => ['README.md', 'views/xsl/xhtml_to_xhtml_blocks.xsl']  do
-  require 'rdiscount'
-  text = open('README.md').read
-  markdown = RDiscount.new(text)
-  xslt = XML::XSLT.new()
-  xslt.xml = '<div>' + markdown.to_html + '</div>'
-  xslt.xsl = 'views/xsl/xhtml_to_xhtml_blocks.xsl'
-  xslt.parameters = { 'h2_title' => 'Welcome to Regdel' }
-  html = xslt.serve
-  File.open('public/s/xhtml/welcome.html', 'w') {|f| f.write(html) }
-end
-
-
-task :account_types => 'data/account_types.rb'
-
-file 'data/account_types.rb' => ['public/s/xml/raw/account_types.xml', 'views/xsl/account_types2many.xsl'] do
-  xslt = XML::XSLT.new()
-  xslt.xml = 'public/s/xml/raw/account_types.xml'
-  xslt.xsl = 'views/xsl/account_types2many.xsl'
-  xslt.parameters = { 'format' => 'ruby' }
-  html = xslt.serve
-  File.open('data/account_types.rb', 'w') {|f| f.write(html) }
-end
-# do the same with json:
-# xsltproc --stringparam format json views/xsl/account_types2many.xsl 
-# public/s/xml/raw/account_types.xml > public/s/js/account_types.json
-
-
-
-file '/tmp/schema2dm.xsl' do
-  require 'open-uri'
-  filecontent = open('http://github.com/docunext/0945a8a54c/raw/master/xsl/schema2dm.xsl').read
-  File.open('/tmp/schema2dm.xsl', 'w') {|f| f.write(filecontent) }
-end
-
-file 'data/regdel_dm_tmp.rb' => ['/tmp/schema2dm.xsl'] do
-  xslt = XML::XSLT.new()
-  xslt.xml = 'data/accounting_data_model.xml'
-  xslt.xsl = '/tmp/schema2dm.xsl'
-  model = xslt.serve
-  puts model
-end
-
 
 task :test => :spec
 
