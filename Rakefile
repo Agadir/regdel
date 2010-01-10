@@ -22,7 +22,6 @@
 # Fifth Floor, Boston, MA 02110-1301 USA
 ##
 require 'rubygems'
-require 'xml/xslt'
 require 'rake'
 require 'spec/rake/spectask'
 
@@ -30,34 +29,31 @@ require 'spec/rake/spectask'
 namespace :files do
   @nomsg = 'src or data file(s) updated, rebuilding target'
 
-
-  desc "Build welcome.html from README.rd"
-  task :welcome_html => 'public/s/xhtml/welcome.html'
-  file 'public/s/xhtml/welcome.html' => ['README.md', 'views/xsl/xhtml_to_xhtml_blocks.xsl']  do
-    puts rebuild_msg
-    require 'rdiscount'
-    text = open('README.md').read
-    markdown = RDiscount.new(text)
-    xslt.xml = '<div>' + markdown.to_html + '</div>'
-    xslt.xsl = 'views/xsl/xhtml_to_xhtml_blocks.xsl'
-    xslt.parameters = { 'h2_title' => 'Welcome to Regdel' }
-    html = xslt.serve
-    File.open('public/s/xhtml/welcome.html', 'w') {|f| f.write(html) }
-  end
-
   def with(value)
     yield(value)
   end
 
-  task :account_form => 'public/s/xhtml/account_form.html'
-  file 'public/s/xhtml/account_form.html' => [] do
-    puts rebuild_msg
-    xslt.xml = 'data/accounting_data_model.xml'
-    xslt.xsl = 'lib/xsl/account_model_to_xhtml_form.xsl'
-    html = xslt.serve
-    File.open('public/s/xhtml/account_form.html', 'w') {|f| f.write(html) }
+  def render_markdown(src,target)
+    require 'rdiscount'
+    text = open(src).read
+    markdown = RDiscount.new(text)
+    thehtml = '<div>' + markdown.to_html + '</div>'
+    File.open(target, 'w') {|f| f.write(thehtml) }
   end
 
+  with('public/s/xhtml/welcome.html') do |target|
+    thesrc = 'README.md'
+    thexml = '/tmp/tmp.xml'
+    thexsl = 'views/xsl/xhtml_to_xhtml_blocks.xsl'
+    render_markdown(thesrc,thexml)
+
+    file target => [thexml, thexsl] do
+      params = { 'h2_title' => 'Welcome to Regdel' }
+      transform(thexml,thexsl,params,target)
+    end
+    desc "Build welcome.html from README.rd"
+    task :welcome_html => target
+  end
 
   with('public/s/xhtml/account_form.html') do |target|
     thexml = 'data/accounting_data_model.xml'
@@ -94,6 +90,7 @@ namespace :files do
 
 
   def transform(xml,xsl,params,target,msg=@nomsg)
+    require 'xml/xslt'
     xslt = XML::XSLT.new()
     puts msg
     xslt.xml = xml
@@ -109,12 +106,16 @@ namespace :files do
     File.open('/tmp/schema2dm.xsl', 'w') {|f| f.write(filecontent) }
   end
 
-  file 'data/regdel_dm_tmp.rb' => ['/tmp/schema2dm.xsl'] do
-    xslt.xml = 'data/accounting_data_model.xml'
-    xslt.xsl = '/tmp/schema2dm.xsl'
-    model = xslt.serve
-    puts model
+  with('data/regdel_dm_tmp.rb') do |target|
+    thexml = 'data/accounting_data_model.xml'
+    thexsl = '/tmp/schema2dm.xsl'
+    file target => [thexml, thexsl] do
+      transform(thexml,thexsl,params,target)
+    end
+    desc "Build DataMapper model"
+    task :datamapper_model_tmp => target
   end
+
 end
 
 task :test => :spec
@@ -122,7 +123,6 @@ task :test => :spec
 
 task :create_dummy_accounts do
   load('scripts/default_accounts.rb')
-
 end
 
 task :create_dummy_entries do
