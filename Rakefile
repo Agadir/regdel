@@ -29,11 +29,11 @@ require 'spec/rake/spectask'
 
 namespace :files do
   xslt = XML::XSLT.new()
-
+  rebuild_msg = "file(s) updated, rebuilding target"
   desc "Account form is built from data model"
-  task :publish_account_form => 'public/s/xhtml/account_form.html'
+  task :account_form => 'public/s/xhtml/account_form.html'
   file 'public/s/xhtml/account_form.html' => ['data/accounting_data_model.xml', 'lib/xsl/account_model_to_xhtml_form.xsl'] do
-    xslt = XML::XSLT.new()
+    puts rebuild_msg
     xslt.xml = 'data/accounting_data_model.xml'
     xslt.xsl = 'lib/xsl/account_model_to_xhtml_form.xsl'
     xslt.parameters = { 'account_submit' => './submit' }
@@ -44,11 +44,12 @@ namespace :files do
   desc "Build welcome.html from README.rd"
   task :welcome_html => 'public/s/xhtml/welcome.html'
   file 'public/s/xhtml/welcome.html' => ['README.md', 'views/xsl/xhtml_to_xhtml_blocks.xsl']  do
+    puts rebuild_msg
     require 'rdiscount'
     text = open('README.md').read
     markdown = RDiscount.new(text)
     xslt.xml = '<div>' + markdown.to_html + '</div>'
-    xslt.xsl = 'lib/xsl/xhtml_to_xhtml_blocks.xsl'
+    xslt.xsl = 'views/xsl/xhtml_to_xhtml_blocks.xsl'
     xslt.parameters = { 'h2_title' => 'Welcome to Regdel' }
     html = xslt.serve
     File.open('public/s/xhtml/welcome.html', 'w') {|f| f.write(html) }
@@ -58,7 +59,7 @@ namespace :files do
   task :account_types => 'data/account_types.rb'
   file 'data/account_types.rb' => ['public/s/xml/raw/account_types.xml', 'lib/xsl/account_types2many.xsl'] do
     xslt.xml = 'public/s/xml/raw/account_types.xml'
-    xslt.xsl = 'views/xsl/account_types2many.xsl'
+    xslt.xsl = 'lib/xsl/account_types2many.xsl'
     xslt.parameters = { 'format' => 'ruby' }
     html = xslt.serve
     File.open('data/account_types.rb', 'w') {|f| f.write(html) }

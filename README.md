@@ -8,7 +8,13 @@ Regdel is a double-entry accounting system written in Ruby, complete with
 accounts, a general journal, general ledger, and account ledgers. It is mostly
 based off of my experience writing [PBooks](http://www.pbooks.org), a double-entry system written in PHP.
 
+There is a demonstration of Regdel available here:
+
 [Regdel Demonstration](http://www.regdel.com/demo/regdel/)
+
+The Regdel source code available here:
+
+[Github.com/docunext/regdel](http://github.com/docunext/regdel)
 
 
 Quick Start

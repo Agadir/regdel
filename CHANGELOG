@@ -1,3 +1,8 @@
+2010-01-10  Albert Lash  <albert.lash@docunext.com>
+
+* Planning - regdel is working well in alpha, what comes next?
+
+
 2009-12-20  Albert Lash  <albert.lash@docunext.com>
 
 * Refactoring - moved Rack middleware from config.ru to regdel.rb
