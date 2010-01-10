@@ -28,18 +28,8 @@ require 'spec/rake/spectask'
 
 
 namespace :files do
-  xslt = XML::XSLT.new()
-  rebuild_msg = "file(s) updated, rebuilding target"
-  desc "Account form is built from data model"
-  task :account_form => 'public/s/xhtml/account_form.html'
-  file 'public/s/xhtml/account_form.html' => ['data/accounting_data_model.xml', 'lib/xsl/account_model_to_xhtml_form.xsl'] do
-    puts rebuild_msg
-    xslt.xml = 'data/accounting_data_model.xml'
-    xslt.xsl = 'lib/xsl/account_model_to_xhtml_form.xsl'
-    xslt.parameters = { 'account_submit' => './submit' }
-    html = xslt.serve
-    File.open('public/s/xhtml/account_form.html', 'w') {|f| f.write(html) }
-  end
+  @nomsg = 'src or data file(s) updated, rebuilding target'
+
 
   desc "Build welcome.html from README.rd"
   task :welcome_html => 'public/s/xhtml/welcome.html'
@@ -55,20 +45,63 @@ namespace :files do
     File.open('public/s/xhtml/welcome.html', 'w') {|f| f.write(html) }
   end
 
-  desc "Build ruby array of account types"
-  task :account_types => 'data/account_types.rb'
-  file 'data/account_types.rb' => ['public/s/xml/raw/account_types.xml', 'lib/xsl/account_types2many.xsl'] do
-    xslt.xml = 'public/s/xml/raw/account_types.xml'
-    xslt.xsl = 'lib/xsl/account_types2many.xsl'
-    xslt.parameters = { 'format' => 'ruby' }
-    html = xslt.serve
-    File.open('data/account_types.rb', 'w') {|f| f.write(html) }
+  def with(value)
+    yield(value)
   end
-  # do the same with json:
-  # xsltproc --stringparam format json views/xsl/account_types2many.xsl 
-  # public/s/xml/raw/account_types.xml > public/s/js/account_types.json
+
+  task :account_form => 'public/s/xhtml/account_form.html'
+  file 'public/s/xhtml/account_form.html' => [] do
+    puts rebuild_msg
+    xslt.xml = 'data/accounting_data_model.xml'
+    xslt.xsl = 'lib/xsl/account_model_to_xhtml_form.xsl'
+    html = xslt.serve
+    File.open('public/s/xhtml/account_form.html', 'w') {|f| f.write(html) }
+  end
 
 
+  with('public/s/xhtml/account_form.html') do |target|
+    thexml = 'data/accounting_data_model.xml'
+    thexsl = 'lib/xsl/account_model_to_xhtml_form.xsl'
+    file target => [thexml, thexsl] do
+      xslt.parameters = { 'account_submit' => './submit' }
+      transform(thexml,thexsl,params,target)
+    end
+    desc "Account form is built from data model"
+    task :account_form => target
+  end
+
+  with('data/account_types.rb') do |target|
+    thexml = 'public/s/xml/raw/account_types.xml'
+    thexsl = 'lib/xsl/account_types2many.xsl'
+    file target => [thexml, thexsl] do
+      params = { 'format' => 'ruby' }
+      transform(thexml,thexsl,params,target)
+    end
+    desc "Build ruby array of account types"
+    task :account_types => target
+  end
+
+  with('public/s/js/account_types.js') do |target|
+    thexml = 'public/s/xml/raw/account_types.xml'
+    thexsl = 'lib/xsl/account_types2many.xsl'
+    file target => [thexml, thexsl] do
+      params = { 'format' => 'json' }
+      transform(thexml,thexsl,params,target)
+    end
+    desc "Build json array of account types"
+    task :account_types_json => target
+  end
+
+
+  def transform(xml,xsl,params,target,msg=@nomsg)
+    xslt = XML::XSLT.new()
+    puts msg
+    xslt.xml = xml
+    xslt.xsl = xsl
+    xslt.parameters = params
+    html = xslt.serve
+    File.open(target, 'w') {|f| f.write(html) }
+  end
 
   file '/tmp/schema2dm.xsl' do
     require 'open-uri'

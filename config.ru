@@ -1,5 +1,9 @@
 if ENV['RACK_ENV'] == "demo"
   mountpath = '/demo/regdel'
+  ENV['DATABASE_URL'] = 'sqlite3:///var/www/dev/regdel/rbeans.sqlite3'
+elsif ENV['RACK_ENV'] == "development"
+  mountpath = '/'
+  ENV['DATABASE_URL'] = 'sqlite3:///var/www/dev/regdel/rbeans.sqlite3'
 else
   mountpath = '/'
 end

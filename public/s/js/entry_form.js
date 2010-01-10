@@ -10,12 +10,12 @@ $('document').ready(function() {
 
   // Setup drop-down lists with accounts to choose from
   $('.account_id:first','form').jselect({
-      replaceAll: true,
-      loadType: "GET",
-      loadUrl: app_prefix+"/raw/account/select",
-      onComplete: function() {
-          $('.account_id:first option','form').clone().appendTo('.account_id:not(:first)','form');
-      }
+    replaceAll: true,
+    loadType: "GET",
+    loadUrl: app_prefix+"/raw/account/select",
+    onComplete: function() {
+        $('.account_id:first option','form').clone().appendTo('.account_id:not(:first)','form');
+    }
   });
 
   // Setup validation

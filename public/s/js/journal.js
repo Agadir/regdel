@@ -8,10 +8,10 @@ $('document').ready(function() {
   var mytime = "";
   var rltime = "";
   $(".reldate", $("#journal-table")).each(function () {
-      mytime = new Date($(this).text()*1000);
-      rltime = relativeDate(mytime);
-      $(this).attr("title",mytime);
-      $(this).text(rltime);
+    mytime = new Date($(this).text()*1000);
+    rltime = relativeDate(mytime);
+    $(this).attr("title",mytime);
+    $(this).text(rltime);
   });
 
 
@@ -21,13 +21,14 @@ $('document').ready(function() {
   // Add edit column
   $("thead tr", $("#journal-table")).append('<th class="text-right">Edit</th>');
 
-  // Add edit links for each row
+  // Modify journal rows
   $("tr", $("#journal-table-entries")).addClass("entry-row")
   .each(function () {
-      var myid = $(this).get(0).getAttribute('id');
-      $(this).append('<td class="text-right"><a href="'+app_prefix+'/entry/edit/'+myid+'">edit</a></td>');
+    // Add editlinks
+    var myid = $(this).get(0).getAttribute('id');
+    $(this).append('<td class="text-right notog"><a href="'+app_prefix+'/entry/edit/'+myid+'">edit</a></td>');
   })
-  .parent().find("td:not(:last)").toggle(
+  .parent().find("td:not(.notog)").toggle(
     // Show journal entry details
     function () {
       var myid = $(this).parent().get(0).getAttribute('id');
