@@ -22,5 +22,5 @@
 # Fifth Floor, Boston, MA 02110-1301 USA
 ##
 xml.regdel( :environment => @rack_env ) {
-  xml.runtime( :uptime => @uptime )
+  xml.runtime(:uptime => @uptime )
 }

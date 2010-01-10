@@ -66,15 +66,15 @@ namespace :files do
   # do the same with json:
   # xsltproc --stringparam format json views/xsl/account_types2many.xsl 
   # public/s/xml/raw/account_types.xml > public/s/js/account_types.json
-  
-  
-  
+
+
+
   file '/tmp/schema2dm.xsl' do
     require 'open-uri'
     filecontent = open('http://github.com/docunext/0945a8a54c/raw/master/xsl/schema2dm.xsl').read
     File.open('/tmp/schema2dm.xsl', 'w') {|f| f.write(filecontent) }
   end
-  
+
   file 'data/regdel_dm_tmp.rb' => ['/tmp/schema2dm.xsl'] do
     xslt.xml = 'data/accounting_data_model.xml'
     xslt.xsl = '/tmp/schema2dm.xsl'

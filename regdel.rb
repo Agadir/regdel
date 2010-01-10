@@ -277,7 +277,7 @@ module Regdel
       @prev = (myoffset - incr) < 0 ? 0 : myoffset - incr
       @next = myoffset + incr > count ? myoffset : myoffset + incr
       entries = builder :'xml/entries'
-      xslview entries, @@dirpfx + '/views/xsl/entries_simpler.xsl'
+      xslview entries, @@dirpfx + '/views/xsl/journal.xsl'
     end
 
     get '/ledgers/account/:account_id' do
