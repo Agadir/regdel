@@ -183,7 +183,12 @@ describe "Regdel" do
   
   
   
-  
+  # MISC TESTS
+  it "should respond to /regdel/runtime/info" do
+    get '/regdel/runtime/info'
+    last_response.body.should include("</html>")
+  end
+
   it "should respond to /stylesheet.css" do
     get '/stylesheet.css'
     last_response.headers["Content-Type"].should == "text/css;charset=utf-8"

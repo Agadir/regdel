@@ -78,6 +78,7 @@ module Regdel
 
   # Regdel money object inherits string
   class RdMoney < String
+
     # Converts string representation of USD to amounts in cents
     def no_d
         return (self.gsub(/[^0-9\.]/,'').to_d * 100).to_i
@@ -136,18 +137,35 @@ module Regdel
 
     before do
       headers 'Cache-Control' => 'proxy-revalidate, max-age=30'
+
+      # POSTs indicate data alterations, rebuild cache and balances
       if request.env['REQUEST_METHOD'].upcase == 'POST'
-        # POST requests indicate data alterations
-        # trigger cache rebuild and update balances
-        rebuild_ledger
+        rebuild_ledger(@@dirpfx + '/public/s/xhtml/ledger.html')
         Account.all.each do |myaccount|
           myaccount.update_ledger_balance
         end
       end
     end
 
+###
+#
+#    # Example gates as written in Regdel:
+#
+#    get '/path' do
+#      # DataMapper to get some data
+#      @resultset = Stuff.open
+#
+#      # Builder to output data to XML
+#      example = builder :'xml/example'
+#
+#      # XSLview Sinatra helper to transform XML to XML, HTML, or Text
+#      xslview accounts, @@dirpfx + '/views/xsl/accounts.xsl'
+#    end
+#
+##
 
     get '/accounts' do
+      # Set scoped account types - FIXME
       @my_account_types = @@account_types
       @accounts = Account.open
       accounts = builder :'xml/accounts'
@@ -160,6 +178,7 @@ module Regdel
     end
 
     post '/account/submit' do
+      # Check if this is an existing record. If so, update it.
       if params[:id].to_i > 0
         @account = Account.get(params[:id])
         @account.attributes = {
@@ -170,6 +189,8 @@ module Regdel
           :hide => params[:hide]
         }
         error_target = Regdel.uripfx+'/account/edit/' + params[:id]
+
+      # If this is not an existing record, create a new one
       else
         @account = Account.new(
           :name => params[:name],
@@ -343,7 +364,7 @@ module Regdel
     end
 
     delete '/delete/ledger' do
-      rebuild_ledger
+      rebuild_ledger(@@dirpfx + '/public/s/xhtml/ledger.html')
       redirect "#{Regdel.uripfx}/ledger"
     end
 
@@ -356,22 +377,12 @@ module Regdel
     end
 
 
-    get '/regdel/wayoverlyverbosedebug' do
-      content_type 'text/plain', :charset => 'utf-8'
-      mycontent = ""
-      ObjectSpace.each_object { |x|
-        mycontent << x.to_s
-      }
-      mycontent
-    end
-
     private
-    # This rebuilds the ledger using data from the journal
-    def rebuild_ledger
+    # This rebuilds a static file from DataMapper result sets
+    def rebuild_ledger(targetfile)
 
-      ledgerfile = @@dirpfx + '/public/s/xhtml/ledger.html'
-      if File.exists?(ledgerfile)
-        File.delete(ledgerfile)
+      if File.exists?(targetfile)
+        File.delete(targetfile)
       end
 
       Ledger.all.destroy!
@@ -397,16 +408,17 @@ module Regdel
         @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
         transactions = builder :'xml/transactions'
         xhtmltransaction = xslview transactions, @@dirpfx + '/views/xsl/ledgers.xsl'
-        myfile = File.new(ledgerfile,"w")
+        myfile = File.new(targetfile,"w")
         myfile.write(xhtmltransaction)
         myfile.close
       rescue StandardError
+        # Close file handle and then delete
         myfile.close
         File.delete(myfile)
         halt %(<p> <a href="#{Regdel.uripfx}/">Error, start over?</a></p>)
       end
     end
-    
+
     def handle_error(errors)
       myerrors = ""
       errors.each do |e|
