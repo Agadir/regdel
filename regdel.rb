@@ -93,12 +93,16 @@ module Regdel
       @@xslt = XML::XSLT.new()
       xslfile = File.open(@@dirpfx + '/views/xsl/html_main.xsl')
       @@xslt.xsl = REXML::Document.new xslfile
+
       # Set request.env with application mount path
       use Rack::Config do |env|
         env['RACK_MOUNT_PATH'] = Regdel.uripfx
         env['RACK_ENV'] = ENV['RACK_ENV'] ? ENV['RACK_ENV'] : "none"
       end
       @@started_at = Time.now.to_i
+
+      # Setup paths to remove from Rack::XSLView
+      omitxsl = ['/raw/', '/s/js/', '/s/css/', '/s/img/']
     end
     configure :development do
       Sinatra::Application.reset!
@@ -123,8 +127,7 @@ module Regdel
     # Recalculate Content-Length
     use Rack::DocunextContentLength
 
-    # Setup Rack::XSLView
-    omitxsl = ['/raw/', '/s/js/', '/s/css/', '/s/img/']
+    # Use Rack-XSLView
     passenv = ['PATH_INFO', 'RACK_MOUNT_PATH', 'RACK_ENV']
     use Rack::XSLView, :myxsl => @@xslt, :noxsl => omitxsl, :passenv => passenv
 
@@ -240,72 +243,73 @@ module Regdel
       end
     end
     post '/account/delete' do
-        content_type 'application/xml', :charset => 'utf-8'
-        @account = Account.get(params[:id])
-        if @account.destroy!
-          redirect Regdel.uripfx+'/accounts'
-        else
-          handle_error(@account.errors)
-        end
+      content_type 'application/xml', :charset => 'utf-8'
+      @account = Account.get(params[:id])
+      if @account.destroy!
+        redirect Regdel.uripfx+'/accounts'
+      else
+        handle_error(@account.errors)
+      end
     end
     post '/entry/submit' do
-        if params[:id].to_i > 0
-          @entry = Entry.get(params[:id])
-          @entry.attributes = {
-            :memorandum => params[:memorandum]
-          }
-        else
-          @entry = Entry.new(:memorandum => params[:memorandum])
-        end
-        @entry.save
-        @entry.credits.destroy!
-        @entry.debits.destroy!
-        params[:credit_amount].each_index {|x|
-          @myamt = @entry.credits.create(
-            :amount => RdMoney.new(params[:credit_amount][x]).no_d,
-            :account_id => params[:credit_account_id][x]
-          )
-          @myamt.save
+      if params[:id].to_i > 0
+        @entry = Entry.get(params[:id])
+        @entry.attributes = {
+          :memorandum => params[:memorandum]
         }
-        params[:debit_amount].each_index {|x|
-          @myamt = @entry.debits.create(
-            :amount => RdMoney.new(params[:debit_amount][x]).no_d,
-            :account_id => params[:debit_account_id][x]
-          )
-          @myamt.save
-        }
-        redirect Regdel.uripfx+'/journal'
+      else
+        @entry = Entry.new(:memorandum => params[:memorandum])
+      end
+      @entry.save
+      @entry.credits.destroy!
+      @entry.debits.destroy!
+      params[:credit_amount].each_index {|x|
+        @myamt = @entry.credits.create(
+          :amount => RdMoney.new(params[:credit_amount][x]).no_d,
+          :account_id => params[:credit_account_id][x]
+        )
+        @myamt.save
+      }
+      params[:debit_amount].each_index {|x|
+        @myamt = @entry.debits.create(
+          :amount => RdMoney.new(params[:debit_amount][x]).no_d,
+          :account_id => params[:debit_account_id][x]
+        )
+        @myamt.save
+      }
+      redirect Regdel.uripfx+'/journal'
     end
 
     get '/json/entry/:id' do
-        content_type :json
-        Entry.get(params[:id]).to_json(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
+      content_type :json
+      Entry.get(params[:id]).to_json(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
     end
     get '/raw/xml/entry/:id' do
-        content_type :xml
-        Entry.get(params[:id]).to_xml(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
+      content_type :xml
+      Entry.get(params[:id]).to_xml(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
     end
     get '/journal' do
-        redirect Regdel.uripfx+'/journal/0'
+      redirect Regdel.uripfx+'/journal/0'
     end
     get '/journal/:offset' do
       # How many journal entries are there?
       count = Entry.count()
+
       myoffset = params[:offset].to_i
       incr = options.pagination
 
       @myentries = Entry.all(:limit => options.pagination, :offset => myoffset)
-      @prev = (myoffset - incr) < 0 ? 0 : myoffset - incr
-      @next = myoffset + incr > count ? myoffset : myoffset + incr
+      @prev   = (myoffset - incr) < 0 ? 0 : myoffset - incr
+      @next   = myoffset + incr > count ? myoffset : myoffset + incr
       entries = builder :'xml/entries'
       xslview entries, @@dirpfx + '/views/xsl/journal.xsl'
     end
 
     get '/ledgers/account/:account_id' do
       @ledger_label = Account.get(params[:account_id]).name
-      @ledger_type = "account"
-      @mytransactions = Ledger.all(:account_id => params[:account_id],:order => [ :posted_on.desc,:amount.desc ])
-      transactions = builder :'xml/transactions'
+      @ledger_type  = "account"
+      @mytransacts  = Ledger.all(:account_id => params[:account_id],:order => [ :posted_on.desc,:amount.desc ])
+      transactions  = builder :'xml/transactions'
       xslview transactions, @@dirpfx + '/views/xsl/ledgers.xsl'
     end
 
