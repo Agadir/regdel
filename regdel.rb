@@ -33,7 +33,6 @@ require 'rack-xslview'
 require 'rexml/document'
 require 'rack-docunext-content-length'
 
-
 require 'data/regdel-dm-modules'
 require 'data/regdel_dm'
 require 'data/account_types'
@@ -87,6 +86,8 @@ module Regdel
 
   # The Regdel Sinatra application
   class Main < Sinatra::Base
+
+    # Configuration Regdel and Rack middleware usage
     configure do
       # Prefixes for URI and Regdel directory
       @@dirpfx = File.dirname(__FILE__)
@@ -112,7 +113,6 @@ module Regdel
       use Rack::Reloader
     end
 
-
     # Rewrite app url patterns to static files
     use Rack::Rewrite do
       rewrite Regdel.uripfx+'/ledger', '/s/xhtml/ledger.html'
@@ -131,7 +131,7 @@ module Regdel
     # Use Rack-XSLView
     use Rack::XSLView, :myxsl => @@xslt, :noxsl => Regdel.omitxsl, :passenv => Regdel.passenv
 
-
+    # Helpers and regdel configuration
     helpers Sinatra::XSLView
     set :static, true
     set :views, @@dirpfx + '/views'
@@ -211,7 +211,7 @@ module Regdel
         redirect error_target + '?error=' + handle_error(@account.errors)
       end
     end
-    
+
     post '/account/close' do
       content_type 'application/xml', :charset => 'utf-8'
       if @account = Account.get(params[:id])
@@ -328,8 +328,8 @@ module Regdel
 
 
     get '/raw/journal' do
-        @myentries = Entry.all
-        builder :'xml/journal_complete'
+      @myentries = Entry.all
+      builder :'xml/journal_complete'
     end
     get '/raw/xml/ledger' do
       @ledger_label = "General"
