@@ -67,7 +67,7 @@ module Regdel
 
   class << self
     # The uri prefix of the application, if any
-    attr_accessor :uripfx
+    attr_accessor (:uripfx, :omitxsl, :passenv)
   end
 
   # Set the uriprefix
@@ -102,7 +102,8 @@ module Regdel
       @@started_at = Time.now.to_i
 
       # Setup paths to remove from Rack::XSLView
-      omitxsl = ['/raw/', '/s/js/', '/s/css/', '/s/img/']
+      Regdel.omitxsl = ['/raw/', '/s/js/', '/s/css/', '/s/img/']
+      Regdel.passenv = ['PATH_INFO', 'RACK_MOUNT_PATH', 'RACK_ENV']
     end
     configure :development do
       Sinatra::Application.reset!
@@ -128,8 +129,7 @@ module Regdel
     use Rack::DocunextContentLength
 
     # Use Rack-XSLView
-    passenv = ['PATH_INFO', 'RACK_MOUNT_PATH', 'RACK_ENV']
-    use Rack::XSLView, :myxsl => @@xslt, :noxsl => omitxsl, :passenv => passenv
+    use Rack::XSLView, :myxsl => @@xslt, :noxsl => Regdel.omitxsl, :passenv => Regdel.passenv
 
 
     helpers Sinatra::XSLView
