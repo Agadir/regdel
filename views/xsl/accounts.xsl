@@ -31,6 +31,9 @@ Fifth Floor, Boston, MA 02110-1301 USA
   </h2>
   </div>
   <div class="bd">
+  <xsl:if test="$RACK_ENV='demo'">
+    <xsl:apply-templates select="document('../../public/s/xhtml/inline_ads.html')/div"/>
+  </xsl:if>
 <table class="accounts zebra" id="accounts-table">
 <thead>
 <tr>

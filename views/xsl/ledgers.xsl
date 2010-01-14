@@ -33,6 +33,9 @@ xmlns="http://www.w3.org/1999/xhtml">
   </h2>
   </div>
   <div class="bd">
+  <xsl:if test="$RACK_ENV='demo'">
+    <xsl:apply-templates select="document('../../public/s/xhtml/inline_ads.html')/div"/>
+  </xsl:if>
   <table class="zebra" id="ledger-table">
   <xsl:apply-templates />
   </table>
