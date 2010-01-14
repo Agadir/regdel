@@ -66,7 +66,7 @@ module Regdel
 
   class << self
     # The uri prefix of the application, if any
-    attr_accessor (:uripfx, :omitxsl, :passenv)
+    attr_accessor(:uripfx, :omitxsl, :passenv)
   end
 
   # Set the uriprefix
@@ -87,7 +87,7 @@ module Regdel
   # The Regdel Sinatra application
   class Main < Sinatra::Base
 
-    # Configuration Regdel and Rack middleware usage
+    # Regdel Configuration and Rack middleware usage
     configure do
       # Prefixes for URI and Regdel directory
       @@dirpfx = File.dirname(__FILE__)

@@ -59,7 +59,7 @@ class Posting
   property :type,Discriminator
   property :xact_id,Integer
   property :commodity,String
-  property :quantity,BigDecimal
+  property :quantity,BigDecimal, :scale => 2, :precision => 5
 
   belongs_to :xact
 end
@@ -79,9 +79,14 @@ DataMapper.auto_upgrade!
 
 @ok.save
 
+sum = BigDecimal.new("1.23")
+bd = BigDecimal.new("#{sum.round(2).to_s}")
+
 @ok1 = @ok.banks.create(
-    :quantity => 12,
+    :quantity => bd,
     :commodity => '$'
     )
 
-@ok1.save
+unless @ok1.save
+  puts "error"
+end
