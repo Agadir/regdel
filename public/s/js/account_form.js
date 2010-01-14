@@ -22,7 +22,9 @@ $('document').ready(function() {
   });
 
   // TODO - this will not work with a mount point!
-  var myid = jQuery.url.segment(2);
+  var thisurl = jQuery.url.attr("source");
+  var fixturl = thisurl.replace(app_prefix,'');
+  var myid = jQuery.url.setUrl(fixturl).segment(2);
   if (myid > 0) {
     var hide = "";
     $.getJSON(app_prefix+"/json/account/"+myid, function(data) {
