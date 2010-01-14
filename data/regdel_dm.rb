@@ -77,11 +77,10 @@ class Account
 end
 
 
-
 # Entries comprise the journal. Each entry must have one or more debit or
 # credit amount.
 class Entry
-  
+
   include DataMapper::Resource
   include HasAmounts
 
