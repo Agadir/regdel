@@ -38,6 +38,9 @@ xmlns="http://www.w3.org/1999/xhtml">
         <div id="yui-main">
           <div class="yui-b"><div class="yui-g">
             <div id="page-content">
+            <xsl:if test="$RACK_ENV='demo'">
+              <xsl:apply-templates select="document('../../public/s/xhtml/inline_ads.html')/div"/>
+            </xsl:if>
             <xsl:apply-templates />
             </div>
           </div></div>
