@@ -66,11 +66,16 @@ xmlns="http://www.w3.org/1999/xhtml">
     <title>
       <xsl:value-of select="//h2" />
     </title>
-    <script type="text/javascript">var app_prefix = '<xsl:value-of select="$RACK_MOUNT_PATH"/>';</script>
     <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/jquery-1.3.2.js"></script>
-    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/regdel.js"></script>
     <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.url.js"></script>
     <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.jselect.js"></script>
+    <script type="text/javascript">
+    var app_prefix = '<xsl:value-of select="$RACK_MOUNT_PATH"/>';
+    // These global variables are also used in account_form.js and entry_form.js
+    var thisurl = jQuery.url.attr("source");
+    var fixturl = thisurl.replace(app_prefix,'');
+    </script>
+    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/regdel.js"></script>
     <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/relative_date.js"></script>
     <xsl:if test="$PATH_INFO='/s/xhtml/account_form.html'">
       <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/pkgs/jquery-validate/jquery.validate.min.js"></script>
