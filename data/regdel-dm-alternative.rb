@@ -41,6 +41,12 @@ class Xact
   property :id,Serial
   property :posted_on,Integer
   property :memorandum,String
+  has n, :assets
+  has n, :liabilities
+  has n, :equities
+  has n, :expenses
+  has n, :revenues
+  has n, :banks
 
 end
 
@@ -48,7 +54,14 @@ end
 # Postings are the individual account changes
 class Posting
   include DataMapper::Resource
-  
+
+  property :id,Serial
+  property :type,Discriminator
+  property :xact_id,Integer
+  property :commodity,String
+  property :quantity,BigDecimal
+
+  belongs_to :xact
 end
 
 # Single table inheritance for every account
@@ -57,9 +70,18 @@ class Liability < Posting; end
 class Equity < Posting; end
 class Revenue < Posting; end
 class Expense < Posting; end
-
-class BankAccount < Asset; end
-
-
+class Bank < Asset; end
 
 DataMapper.auto_upgrade!
+
+@ok = Xact.new(
+  :memorandum => '1222')
+
+@ok.save
+
+@ok1 = @ok.banks.create(
+    :quantity => 12,
+    :commodity => '$'
+    )
+
+@ok1.save
