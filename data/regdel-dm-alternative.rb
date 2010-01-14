@@ -46,7 +46,6 @@ class Xact
   has n, :equities
   has n, :expenses
   has n, :revenues
-  has n, :banks
 
 end
 
@@ -70,7 +69,21 @@ class Liability < Posting; end
 class Equity < Posting; end
 class Revenue < Posting; end
 class Expense < Posting; end
-class Bank < Asset; end
+
+# This will only work for trees with two generations
+inh = ""
+{"Bank" => "Asset", "Trust" => "Bank", "Operating" => "Bank"}.each_pair { |k,v|
+    acc = Extlib::Inflection.pluralize(k).downcase
+    Xact.class_eval("has n, :"+acc)
+    eval "defined?(#{v})"
+    unless eval("defined?(#{v})") == 'constant'
+      inh = inh + "class #{k} < #{v}; end\n"
+    else
+      eval("class #{k} < #{v}; end\n")
+    end
+}
+eval(inh)
+
 
 DataMapper.auto_upgrade!
 
@@ -82,11 +95,23 @@ DataMapper.auto_upgrade!
 sum = BigDecimal.new("1.23")
 bd = BigDecimal.new("#{sum.round(2).to_s}")
 
-@ok1 = @ok.banks.create(
+@ok1 = @ok.trusts.create(
     :quantity => bd,
     :commodity => '$'
     )
-
 unless @ok1.save
   puts "error"
 end
+
+@ok2 = @ok.operatings.create(
+    :quantity => bd,
+    :commodity => '$'
+    )
+unless @ok2.save
+  puts "error"
+end
+
+puts Trust.sum(:quantity).to_s('F')
+puts Bank.sum(:quantity).to_s('F')
+puts Asset.sum(:quantity).to_s('F')
+
