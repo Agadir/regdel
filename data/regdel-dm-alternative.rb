@@ -1,6 +1,6 @@
 ###
 # Program:: http://www.regdel.com
-# Component:: regdel_dm.rb
+# Component:: regdel-dm-alternative.rb
 # Copyright:: Savonix Corporation
 # Author:: Albert L. Lash, IV
 # License:: Gnu Affero Public License version 3
@@ -30,6 +30,7 @@ require 'dm-timestamps'
 require 'dm-serializer'
 require 'dm-aggregates'
 require 'dm-validations'
+require 'data/regdel-dm-alt-acc'
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] || 'sqlite3:///var/www/dev/regdel/rbeans-alternate.sqlite3')
 
@@ -72,15 +73,18 @@ class Expense < Posting; end
 
 # This will only work for trees with two generations
 inh = ""
-{"Bank" => "Asset", "Trust" => "Bank", "Operating" => "Bank"}.each_pair { |k,v|
-    acc = Extlib::Inflection.pluralize(k).downcase
-    Xact.class_eval("has n, :"+acc)
-    eval "defined?(#{v})"
-    unless eval("defined?(#{v})") == 'constant'
-      inh = inh + "class #{k} < #{v}; end\n"
-    else
-      eval("class #{k} < #{v}; end\n")
-    end
+@accounts.each_pair { |k,v|
+  # In-class relationships
+  acc = Extlib::Inflection.pluralize(k).downcase
+  Xact.class_eval("has n, :"+acc)
+
+  # Class inheritance
+  eval "defined?(#{v})"
+  unless eval("defined?(#{v})") == 'constant'
+    inh = inh + "class #{k} < #{v}; end\n"
+  else
+    eval("class #{k} < #{v}; end\n")
+  end
 }
 eval(inh)
 

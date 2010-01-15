@@ -1,3 +1,7 @@
+2010-01-14  Albert Lash  <albert.lash@docunext.com>
+
+* Considering alternative data model based on ideas from ledger-cli
+
 2010-01-10  Albert Lash  <albert.lash@docunext.com>
 
 * Refactoring has gone well, a little more left to do.
