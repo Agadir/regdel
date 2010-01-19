@@ -23,7 +23,7 @@
 ##
 
 @accounts = {
-  "Bank" => "Asset", 
+  "Bank" => "Asset",
   "Trust" => "Bank",
   "Operating" => "Bank",
   "Loan" => "Liability",
