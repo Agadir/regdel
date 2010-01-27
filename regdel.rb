@@ -26,6 +26,8 @@ require 'sinatra/base'
 require 'builder'
 require 'xml/xslt'
 require 'sass'
+require 'grit'
+include Grit
 require 'rack/utils'
 require 'rack/contrib'
 require 'rack-rewrite'
@@ -379,15 +381,20 @@ module Regdel
 
 
     get '/regdel/runtime/info' do
+      repo = Repo.new(".git")
       @rack_env = ENV['RACK_ENV']
-      @uptime   = 0 #0 + Time.now.to_i - @@started_at
-      runtime = builder :'xml/runtime'
+      @uptime   = (0 + Time.now.to_i - @@started_at).to_s
+      this_ver  = repo.commits.first
+      @version  = this_ver.id
+      @authored = this_ver.authored_date.to_s
+      @message  = this_ver.message
+      runtime   = builder :'xml/runtime'
       xslview runtime, @@dirpfx + '/views/xsl/runtime.xsl'
     end
 
 
     private
-    # This rebuilds a static file from DataMapper result sets
+    # This rebuilds a static file from updated dynamic data sets
     def rebuild_ledger(targetfile)
 
       if File.exists?(targetfile)
@@ -395,6 +402,7 @@ module Regdel
       end
 
       Ledger.all.destroy!
+      # Data set from DataMapper
       amounts = Amount.all
 
       amounts.each do |myamount|
