@@ -91,6 +91,7 @@ module Regdel
 
     # Regdel Configuration and Rack middleware usage
     configure do
+
       # Prefixes for URI and Regdel directory
       @@dirpfx = File.dirname(__FILE__)
       @@xslt = XML::XSLT.new()
@@ -102,12 +103,15 @@ module Regdel
         env['RACK_MOUNT_PATH'] = Regdel.uripfx
         env['RACK_ENV'] = ENV['RACK_ENV'] ? ENV['RACK_ENV'] : "none"
       end
+
+      # Used in runtime/info
       @@started_at = Time.now.to_i
 
-      # Setup paths to remove from Rack::XSLView
+      # Setup paths to remove from Rack::XSLView, and params to include
       Regdel.omitxsl = ['/raw/', '/s/js/', '/s/css/', '/s/img/']
       Regdel.passenv = ['PATH_INFO', 'RACK_MOUNT_PATH', 'RACK_ENV']
     end
+
     configure :development do
       Sinatra::Application.reset!
       use Rack::Lint
@@ -119,10 +123,10 @@ module Regdel
     use Rack::Rewrite do
       rewrite Regdel.uripfx+'/ledger', '/s/xhtml/ledger.html'
       rewrite Regdel.uripfx+'/entry/new', '/s/xhtml/entry_all_form.html'
-      rewrite %r{/entry/edit(.*)}, '/s/xhtml/entry_all_form.html'
+      rewrite %r{#{Regdel.uripfx}/entry/edit(.*)}, '/s/xhtml/entry_all_form.html'
       rewrite Regdel.uripfx+'/account/new', '/s/xhtml/account_form.html'
-      rewrite %r{\.?/account/new(.*)}, '/s/xhtml/account_form.html'
-      rewrite %r{/account/edit/(.*)}, '/s/xhtml/account_form.html?id=$1'
+      rewrite %r{#{Regdel.uripfx}/account/new(.*)}, '/s/xhtml/account_form.html'
+      rewrite %r{#{Regdel.uripfx}/account/edit/(.*)}, '/s/xhtml/account_form.html?id=$1'
       rewrite Regdel.uripfx+'/', '/s/xhtml/welcome.html'
       rewrite Regdel.uripfx+'/account/new', '/s/xhtml/account_form.html'
     end
