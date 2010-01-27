@@ -385,13 +385,20 @@ module Regdel
 
 
     get '/regdel/runtime/info' do
-      repo = Repo.new(".git")
+      if ENV['RACK_ENV'] == 'demo'
+        @version  = 0
+        @authored = 0
+        @message  = 0
+      else
+        repo = Repo.new(".git")
+        this_ver  = repo.commits.first
+        @version  = this_ver.id
+        @authored = this_ver.authored_date.to_s
+        @message  = this_ver.message
+      end
+
       @rack_env = ENV['RACK_ENV']
       @uptime   = (0 + Time.now.to_i - @@started_at).to_s
-      this_ver  = repo.commits.first
-      @version  = this_ver.id
-      @authored = this_ver.authored_date.to_s
-      @message  = this_ver.message
       runtime   = builder :'xml/runtime'
       xslview runtime, @@dirpfx + '/views/xsl/runtime.xsl'
     end
