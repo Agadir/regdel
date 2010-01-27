@@ -4,3 +4,6 @@ coverage
 public/s/xhtml/ledger.html
 myrake
 html
+config/deploy.rb
+config/database.rb
+
