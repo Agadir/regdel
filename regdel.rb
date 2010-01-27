@@ -139,7 +139,12 @@ module Regdel
     set :pagination, 10
 
     before do
-      headers 'Cache-Control' => 'proxy-revalidate, max-age=30'
+      # More aggressive cache settings for static files
+      if request.env['REQUEST_URI'].include? '/s/'
+        headers 'Cache-Control' => 'proxy-revalidate, max-age=600'
+      else
+        headers 'Cache-Control' => 'proxy-revalidate, max-age=0'
+      end
 
       # POSTs indicate data alterations, rebuild cache and balances
       if request.env['REQUEST_METHOD'].upcase == 'POST'
