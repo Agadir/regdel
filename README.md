@@ -45,6 +45,8 @@ Requirements
 * DataMapper
 * SQLite / MySQL
 * Builder, Sass, Yui-App-Theme
+* Grit
+* Git
 
 
 Components
