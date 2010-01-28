@@ -114,11 +114,10 @@ module Regdel
     end
 
     configure :development do
-      #
-      #Sinatra::Application.reset!
+      Sinatra::Application.reset!
       use Rack::Lint
       use Rack::CommonLogger
-      #use Rack::Reloader
+      use Rack::Reloader
     end
 
     configure :demo do
