@@ -68,22 +68,13 @@ module Regdel
 
   class << self
     # The uri prefix of the application, if any
-    attr_accessor(:uripfx, :omitxsl, :passenv, :dirpfx, :xslt, :started_at)
+    attr_accessor(:uripfx, :omitxsl, :passenv, :dirpfx, :xslt, :xslfile, :started_at)
   end
 
   # Set the uriprefix
-  def self.new(uripfx='',dirpfx)
+  def self.new(uripfx='', dirpfx='')
     self.uripfx = uripfx
     self.dirpfx = dirpfx
-
-    # Setup XSL
-    self.xslt = XML::XSLT.new()
-    xslfile = File.open(Regdel.dirpfx + '/views/xsl/html_main.xsl')
-    self.xslt.xsl = REXML::Document.new xslfile
-
-    # Used in runtime/info
-    Regdel.started_at = Time.now.to_i
-
     Main
   end
 
@@ -101,6 +92,7 @@ module Regdel
 
     # Regdel Configuration and Rack middleware usage
     configure do
+      Regdel.dirpfx = File.dirname(__FILE__)
 
       # Set request.env with application mount path
       use Rack::Config do |env|
@@ -108,16 +100,25 @@ module Regdel
         env['RACK_ENV'] = ENV['RACK_ENV'] ? ENV['RACK_ENV'] : "none"
       end
 
+      # Setup XSL
+      Regdel.xslt = XML::XSLT.new()
+      Regdel.xslfile = File.open(Regdel.dirpfx + '/views/xsl/html_main.xsl')
+      Regdel.xslt.xsl = REXML::Document.new Regdel.xslfile
+
+      # Used in runtime/info
+      Regdel.started_at = Time.now.to_i
+
       # Setup paths to remove from Rack::XSLView, and params to include
       Regdel.omitxsl = ['/raw/', '/s/js/', '/s/css/', '/s/img/']
       Regdel.passenv = ['PATH_INFO', 'RACK_MOUNT_PATH', 'RACK_ENV']
     end
 
     configure :development do
-      Sinatra::Application.reset!
+      #
+      #Sinatra::Application.reset!
       use Rack::Lint
       use Rack::CommonLogger
-      use Rack::Reloader
+      #use Rack::Reloader
     end
 
     configure :demo do
@@ -139,16 +140,16 @@ module Regdel
 
     # Recalculate Content-Length
     use Rack::DocunextContentLength
-    
+
     # Use Rack-XSLView
     use Rack::XSLView, :myxsl => Regdel.xslt, :noxsl => Regdel.omitxsl, :passenv => Regdel.passenv
 
     # Helpers and regdel configuration
     helpers Sinatra::XSLView
     set :static, true
+    set :pagination, 10
     set :views, Regdel.dirpfx + '/views'
     set :public, Regdel.dirpfx + '/public'
-    set :pagination, 10
 
     before do
       # More aggressive cache settings for static files
