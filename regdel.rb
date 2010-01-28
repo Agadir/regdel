@@ -74,6 +74,16 @@ module Regdel
   # Set the uriprefix
   def self.new(uripfx='')
     self.uripfx = uripfx
+    self.dirpfx = File.dirname(__FILE__)
+
+    # Setup XSL
+    self.xslt = XML::XSLT.new()
+    xslfile = File.open(Regdel.dirpfx + '/views/xsl/html_main.xsl')
+    self.xslt.xsl = REXML::Document.new xslfile
+
+    # Used in runtime/info
+    Regdel.started_at = Time.now.to_i
+
     Main
   end
 
@@ -92,20 +102,11 @@ module Regdel
     # Regdel Configuration and Rack middleware usage
     configure do
 
-      # Prefixes for URI and Regdel directory
-      @@dirpfx = File.dirname(__FILE__)
-      @@xslt = XML::XSLT.new()
-      xslfile = File.open(@@dirpfx + '/views/xsl/html_main.xsl')
-      @@xslt.xsl = REXML::Document.new xslfile
-
       # Set request.env with application mount path
       use Rack::Config do |env|
         env['RACK_MOUNT_PATH'] = Regdel.uripfx
         env['RACK_ENV'] = ENV['RACK_ENV'] ? ENV['RACK_ENV'] : "none"
       end
-
-      # Used in runtime/info
-      @@started_at = Time.now.to_i
 
       # Setup paths to remove from Rack::XSLView, and params to include
       Regdel.omitxsl = ['/raw/', '/s/js/', '/s/css/', '/s/img/']
@@ -140,13 +141,13 @@ module Regdel
     use Rack::DocunextContentLength
     
     # Use Rack-XSLView
-    use Rack::XSLView, :myxsl => @@xslt, :noxsl => Regdel.omitxsl, :passenv => Regdel.passenv
+    use Rack::XSLView, :myxsl => Regdel.xslt, :noxsl => Regdel.omitxsl, :passenv => Regdel.passenv
 
     # Helpers and regdel configuration
     helpers Sinatra::XSLView
     set :static, true
-    set :views, @@dirpfx + '/views'
-    set :public, @@dirpfx + '/public'
+    set :views, Regdel.dirpfx + '/views'
+    set :public, Regdel.dirpfx + '/public'
     set :pagination, 10
 
     before do
@@ -159,7 +160,7 @@ module Regdel
 
       # POSTs indicate data alterations, rebuild cache and balances
       if request.env['REQUEST_METHOD'].upcase == 'POST'
-        rebuild_ledger(@@dirpfx + '/public/s/xhtml/ledger.html')
+        rebuild_ledger(Regdel.dirpfx + '/public/s/xhtml/ledger.html')
         Account.all.each do |myaccount|
           myaccount.update_ledger_balance
         end
@@ -178,7 +179,7 @@ module Regdel
 #      example = builder :'xml/example'
 #
 #      # XSLview Sinatra helper to transform XML to XML, HTML, or Text
-#      xslview accounts, @@dirpfx + '/views/xsl/accounts.xsl'
+#      xslview accounts, Regdel.dirpfx + '/views/xsl/accounts.xsl'
 #    end
 #
 ##
@@ -188,7 +189,7 @@ module Regdel
       @my_account_types = @@account_types
       @accounts = Account.open
       accounts = builder :'xml/accounts'
-      xslview accounts, @@dirpfx + '/views/xsl/accounts.xsl'
+      xslview accounts, Regdel.dirpfx + '/views/xsl/accounts.xsl'
     end
 
     get '/json/account/:id' do
@@ -318,7 +319,7 @@ module Regdel
       @prev   = (myoffset - incr) < 0 ? 0 : myoffset - incr
       @next   = myoffset + incr > count ? myoffset : myoffset + incr
       entries = builder :'xml/entries'
-      xslview entries, @@dirpfx + '/views/xsl/journal.xsl'
+      xslview entries, Regdel.dirpfx + '/views/xsl/journal.xsl'
     end
 
     get '/ledgers/account/:account_id' do
@@ -326,7 +327,7 @@ module Regdel
       @ledger_type  = "account"
       @mytransacts  = Ledger.all(:account_id => params[:account_id],:order => [ :posted_on.desc,:amount.desc ])
       transactions  = builder :'xml/transactions'
-      xslview transactions, @@dirpfx + '/views/xsl/ledgers.xsl'
+      xslview transactions, Regdel.dirpfx + '/views/xsl/ledgers.xsl'
     end
 
     get '/stylesheet.css' do
@@ -380,11 +381,11 @@ module Regdel
       @ledger_type = "general"
       @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
       transactions = builder :'xml/transactions'
-      xslview transactions, @@dirpfx + '/views/xsl/ledgers.xsl'
+      xslview transactions, Regdel.dirpfx + '/views/xsl/ledgers.xsl'
     end
 
     delete '/delete/ledger' do
-      rebuild_ledger(@@dirpfx + '/public/s/xhtml/ledger.html')
+      rebuild_ledger(Regdel.dirpfx + '/public/s/xhtml/ledger.html')
       redirect "#{Regdel.uripfx}/ledger"
     end
 
@@ -403,9 +404,9 @@ module Regdel
       end
 
       @rack_env = ENV['RACK_ENV']
-      @uptime   = (0 + Time.now.to_i - @@started_at).to_s
+      @uptime   = (0 + Time.now.to_i - Regdel.started_at).to_s
       runtime   = builder :'xml/runtime'
-      xslview runtime, @@dirpfx + '/views/xsl/runtime.xsl'
+      xslview runtime, Regdel.dirpfx + '/views/xsl/runtime.xsl'
     end
 
 
@@ -440,7 +441,7 @@ module Regdel
         @ledger_type = "general"
         @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
         transactions = builder :'xml/transactions'
-        xhtmltransaction = xslview transactions, @@dirpfx + '/views/xsl/ledgers.xsl'
+        xhtmltransaction = xslview transactions, Regdel.dirpfx + '/views/xsl/ledgers.xsl'
         myfile = File.new(targetfile,"w")
         myfile.write(xhtmltransaction)
         myfile.close
