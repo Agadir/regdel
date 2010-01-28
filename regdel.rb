@@ -119,6 +119,10 @@ module Regdel
       use Rack::Reloader
     end
 
+    configure :demo do
+      use Rack::CommonLogger, Logger.new('/tmp/regdel_demo.log') 
+    end
+
     # Rewrite app url patterns to static files
     use Rack::Rewrite do
       rewrite Regdel.uripfx+'/ledger', '/s/xhtml/ledger.html'
