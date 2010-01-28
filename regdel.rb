@@ -72,9 +72,9 @@ module Regdel
   end
 
   # Set the uriprefix
-  def self.new(uripfx='')
+  def self.new(uripfx='',dirpfx)
     self.uripfx = uripfx
-    self.dirpfx = File.dirname(__FILE__)
+    self.dirpfx = dirpfx
 
     # Setup XSL
     self.xslt = XML::XSLT.new()
