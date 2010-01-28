@@ -120,7 +120,6 @@ module Regdel
     end
 
     configure :demo do
-      use Rack::CommonLogger, Logger.new('/tmp/regdel_demo.log')
       set :logging, true
     end
 
