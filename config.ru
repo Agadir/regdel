@@ -33,17 +33,15 @@
 
 if ENV['RACK_ENV'] == "demo"
   mountpath = '/demo/regdel'
+  dirpfx = '/var/www/dev/regdel/current'
   ENV['DATABASE_URL'] = 'sqlite3:///var/www/dev/regdel/rbeans.sqlite3'
 elsif ENV['RACK_ENV'] == "development"
   mountpath = '/'
+  dirpfx = '/var/www/dev/regdel'
   ENV['DATABASE_URL'] = 'sqlite3:///var/www/dev/regdel/rbeans.sqlite3'
 else
   mountpath = '/'
 end
-
-#dirpfx = "/var/www/dev/regdel" 
-dirpfx = File.dirname(__FILE__)
-
 
 require 'regdel'
 
