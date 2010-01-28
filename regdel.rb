@@ -121,6 +121,7 @@ module Regdel
 
     configure :demo do
       use Rack::CommonLogger, Logger.new('/tmp/regdel_demo.log')
+      set :logging, true
     end
 
     # Rewrite app url patterns to static files
@@ -138,11 +139,6 @@ module Regdel
     # Recalculate Content-Length
     use Rack::DocunextContentLength
     
-    if ENV['RACK_ENV']=='demo'
-      use Rack::CommonLogger, Logger.new('/tmp/regdel_demo.log')
-    end
-      
-
     # Use Rack-XSLView
     use Rack::XSLView, :myxsl => @@xslt, :noxsl => Regdel.omitxsl, :passenv => Regdel.passenv
 
