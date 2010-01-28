@@ -120,6 +120,7 @@ module Regdel
     end
 
     configure :demo do
+      use Rack::CommonLogger
       set :logging, true
     end
 
