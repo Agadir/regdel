@@ -68,7 +68,7 @@ module Regdel
 
   class << self
     # The uri prefix of the application, if any
-    attr_accessor(:uripfx, :omitxsl, :passenv)
+    attr_accessor(:uripfx, :omitxsl, :passenv, :dirpfx, :xslt, :started_at)
   end
 
   # Set the uriprefix
