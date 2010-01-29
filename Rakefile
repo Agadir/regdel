@@ -91,6 +91,12 @@ namespace :files do
     task :account_types_json => target
   end
 
+  with('public/d/css/style.css') do |target|
+    thesass = 'views/css/regdel.sass'
+
+    desc "Publish style.css"
+    task :stylesheet => target
+  end
 
   def transform(xml,xsl,params,target,msg=@nomsg)
     require 'xml/xslt'

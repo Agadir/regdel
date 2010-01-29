@@ -21,11 +21,8 @@
 # or write to the Free Software Foundation, Inc., 51 Franklin Street,
 # Fifth Floor, Boston, MA 02110-1301 USA
 ##
-xml.regdel( :environment => @rack_env ) {
+xml.regdel( :environment => ENV['RACK_ENV'] ) {
   xml.runtime(
-    :uptime => @uptime,
-    :version => @version,
-    :authored => @authored,
-    :message => @message
-    )
+    :uptime => @uptime
+  )
 }

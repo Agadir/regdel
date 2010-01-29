@@ -32,12 +32,6 @@ xmlns="http://www.w3.org/1999/xhtml">
 <dd><xsl:value-of select="/regdel/@environment"/></dd>
 <dt>Uptime</dt>
 <dd><xsl:value-of select="/regdel/runtime/@uptime"/></dd>
-<dt>Version</dt>
-<dd><xsl:value-of select="/regdel/runtime/@version"/></dd>
-<dt>Last Update</dt>
-<dd><xsl:value-of select="/regdel/runtime/@authored"/></dd>
-<dt>Message</dt>
-<dd><xsl:value-of select="/regdel/runtime/@message"/></dd>
 </dl>
 
 </xsl:template>
