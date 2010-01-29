@@ -67,7 +67,13 @@ end
 module Regdel
 
   class << self
-    # The uri prefix of the application, if any
+    # uripfx     the prefix before Regdel's paths
+    # omitxsl    paths which should not be transformed by rack-xslview
+    # passenv    env vars to pass to rack-xslview
+    # dirpfx     directory where regdel is located
+    # xslt       xslt object
+    # xslfile    xsl file
+    # started_at the time when regdel was started
     attr_accessor(:uripfx, :omitxsl, :passenv, :dirpfx, :xslt, :xslfile, :started_at)
   end
 
