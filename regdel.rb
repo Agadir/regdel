@@ -38,6 +38,7 @@ require 'rack-docunext-content-length'
 require 'data/regdel-dm-modules'
 require 'data/regdel_dm'
 require 'data/account_types'
+require 'data/development'
 require 'helpers/xslview'
 
 class Ledger
@@ -96,9 +97,13 @@ module Regdel
   # The Regdel Sinatra application
   class Main < Sinatra::Base
 
-    # Regdel Configuration and Rack middleware usage
+    # BEGIN Regdel Configuration and Rack middleware usage
     configure do
       Regdel.dirpfx = File.dirname(__FILE__)
+      set :static, true
+      set :pagination, 10
+      set :views, Regdel.dirpfx + '/views'
+      set :public, Regdel.dirpfx + '/public'
 
       # Set request.env with application mount path
       use Rack::Config do |env|
@@ -119,21 +124,28 @@ module Regdel
       Regdel.passenv = ['PATH_INFO', 'RACK_MOUNT_PATH', 'RACK_ENV']
     end
 
+    configure :production do
+      set :cachem, 3
+    end
+
     configure :development do
       Sinatra::Application.reset!
       use Rack::Lint
-      use Rack::CommonLogger
       use Rack::Reloader
+      set :logging, false
+      set :cachem, 1
     end
 
     configure :demo do
       use Rack::CommonLogger
       set :logging, true
+      set :cachem, 6
     end
+    # CLOSE Regdel Configuration
 
     # Rewrite app url patterns to static files
     use Rack::Rewrite do
-      rewrite Regdel.uripfx+'/ledger', '/s/xhtml/ledger.html'
+      rewrite Regdel.uripfx+'/ledger', '/d/xhtml/ledger.html'
       rewrite Regdel.uripfx+'/entry/new', '/s/xhtml/entry_all_form.html'
       rewrite %r{#{Regdel.uripfx}/entry/edit(.*)}, '/s/xhtml/entry_all_form.html'
       rewrite Regdel.uripfx+'/account/new', '/s/xhtml/account_form.html'
@@ -141,6 +153,7 @@ module Regdel
       rewrite %r{#{Regdel.uripfx}/account/edit/(.*)}, '/s/xhtml/account_form.html?id=$1'
       rewrite Regdel.uripfx+'/', '/s/xhtml/welcome.html'
       rewrite Regdel.uripfx+'/account/new', '/s/xhtml/account_form.html'
+      r301 Regdel.uripfx+'/journal', '/journal/0'
     end
 
     # Recalculate Content-Length
@@ -149,24 +162,26 @@ module Regdel
     # Use Rack-XSLView
     use Rack::XSLView, :myxsl => Regdel.xslt, :noxsl => Regdel.omitxsl, :passenv => Regdel.passenv
 
-    # Helpers and regdel configuration
+    # Sinatra Helpers
     helpers Sinatra::XSLView
-    set :static, true
-    set :pagination, 10
-    set :views, Regdel.dirpfx + '/views'
-    set :public, Regdel.dirpfx + '/public'
 
     before do
       # More aggressive cache settings for static files
       if request.env['REQUEST_URI'].include? '/s/'
-        headers 'Cache-Control' => 'proxy-revalidate, max-age=600'
+        if request.env['HTTP_IF_MODIFIED_SINCE']
+          headers 'Cache-Control' => "public, max-age=#{options.cachem*80}"
+        else
+          headers 'Cache-Control' => "public, max-age=#{options.cachem*40}"
+        end
+      elsif request.env['REQUEST_URI'].include? '/d/'
+        headers 'Cache-Control' => "must-revalidate, max-age=#{options.cachem*10}"
       else
-        headers 'Cache-Control' => 'proxy-revalidate, max-age=0'
+        headers 'Cache-Control' => "max-age=#{options.cachem}"
       end
 
-      # POSTs indicate data alterations, rebuild cache and balances
+      # POSTs indicate data alterations, rebuild cache and semi-dynamic database entries
       if request.env['REQUEST_METHOD'].upcase == 'POST'
-        rebuild_ledger(Regdel.dirpfx + '/public/s/xhtml/ledger.html')
+        rebuild_ledger(Regdel.dirpfx + '/public/d/xhtml/ledger.html')
         Account.all.each do |myaccount|
           myaccount.update_ledger_balance
         end
@@ -311,9 +326,6 @@ module Regdel
       content_type :xml
       Entry.get(params[:id]).to_xml(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
     end
-    get '/journal' do
-      redirect Regdel.uripfx+'/journal/0'
-    end
     get '/journal/:offset' do
       # How many journal entries are there?
       count = Entry.count()
@@ -338,7 +350,6 @@ module Regdel
 
     get '/stylesheet.css' do
       content_type 'text/css', :charset => 'utf-8'
-      @myprefix = Regdel.uripfx
       sass :'css/regdel'
     end
 
@@ -391,25 +402,12 @@ module Regdel
     end
 
     delete '/delete/ledger' do
-      rebuild_ledger(Regdel.dirpfx + '/public/s/xhtml/ledger.html')
+      rebuild_ledger(Regdel.dirpfx + '/public/d/xhtml/ledger.html')
       redirect "#{Regdel.uripfx}/ledger"
     end
 
 
     get '/regdel/runtime/info' do
-      if ENV['RACK_ENV'] == 'demo'
-        @version  = 0
-        @authored = 0
-        @message  = 0
-      else
-        repo = Repo.new(".git")
-        this_ver  = repo.commits.first
-        @version  = this_ver.id
-        @authored = this_ver.authored_date.to_s
-        @message  = this_ver.message
-      end
-
-      @rack_env = ENV['RACK_ENV']
       @uptime   = (0 + Time.now.to_i - Regdel.started_at).to_s
       runtime   = builder :'xml/runtime'
       xslview runtime, Regdel.dirpfx + '/views/xsl/runtime.xsl'
