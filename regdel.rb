@@ -153,7 +153,7 @@ module Regdel
       rewrite %r{#{Regdel.uripfx}/account/edit/(.*)}, '/s/xhtml/account_form.html?id=$1'
       rewrite Regdel.uripfx+'/', '/s/xhtml/welcome.html'
       rewrite Regdel.uripfx+'/account/new', '/s/xhtml/account_form.html'
-      r301 Regdel.uripfx+'/journal', '/journal/0'
+      r301 Regdel.uripfx+'/journal', Regdel.uripfx+'/journal/0'
     end
 
     # Recalculate Content-Length
