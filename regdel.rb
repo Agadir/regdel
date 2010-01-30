@@ -79,7 +79,7 @@ module Regdel
   end
 
   # Set the uriprefix
-  def self.new(uripfx='', dirpfx='')
+  def self.new(uripfx='', dirpfx='/var/www/dev/regdel')
     self.uripfx = uripfx
     self.dirpfx = dirpfx
     Main
@@ -167,16 +167,18 @@ module Regdel
 
     before do
       # More aggressive cache settings for static files
-      if request.env['REQUEST_URI'].include? '/s/'
-        if request.env['HTTP_IF_MODIFIED_SINCE']
-          headers 'Cache-Control' => "public, max-age=#{options.cachem*80}"
+      if request.env['REQUEST_URI']
+        if request.env['REQUEST_URI'].include? '/s/'
+          if request.env['HTTP_IF_MODIFIED_SINCE']
+            headers 'Cache-Control' => "public, max-age=#{options.cachem*80}"
+          else
+            headers 'Cache-Control' => "public, max-age=#{options.cachem*40}"
+          end
+        elsif request.env['REQUEST_URI'].include? '/d/'
+          headers 'Cache-Control' => "must-revalidate, max-age=#{options.cachem*10}"
         else
-          headers 'Cache-Control' => "public, max-age=#{options.cachem*40}"
+          headers 'Cache-Control' => "max-age=#{options.cachem}"
         end
-      elsif request.env['REQUEST_URI'].include? '/d/'
-        headers 'Cache-Control' => "must-revalidate, max-age=#{options.cachem*10}"
-      else
-        headers 'Cache-Control' => "max-age=#{options.cachem}"
       end
 
       # POSTs indicate data alterations, rebuild cache and semi-dynamic database entries
@@ -341,9 +343,9 @@ module Regdel
     end
 
     get '/ledgers/account/:account_id' do
-      @ledger_label = Account.get(params[:account_id]).name
-      @ledger_type  = "account"
-      @mytransacts  = Ledger.all(:account_id => params[:account_id],:order => [ :posted_on.desc,:amount.desc ])
+      @ledger_label    = Account.get(params[:account_id]).name
+      @ledger_type     = "account"
+      @mytransactions  = Ledger.all(:account_id => params[:account_id],:order => [ :posted_on.desc,:amount.desc ])
       transactions  = builder :'xml/transactions'
       xslview transactions, Regdel.dirpfx + '/views/xsl/ledgers.xsl'
     end
