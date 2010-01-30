@@ -455,7 +455,7 @@ module Regdel
         # Close file handle and then delete
         myfile.close
         File.delete(myfile)
-        halt %(<p> <a href="#{Regdel.uripfx}/">Error, start over?</a></p>)
+        halt %(<p><a href="#{Regdel.uripfx}/">Error, start over?</a></p>)
       end
     end
 
@@ -470,5 +470,5 @@ module Regdel
 end
 
 if __FILE__ == $0
-  Regdel.new('').run!
+  Regdel.new('','.').run!
 end
