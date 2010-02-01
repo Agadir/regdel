@@ -32,7 +32,7 @@ module Sinatra
     def xslview(myxml,myxsl)
       xslt = XML::XSLT.new()
       xslt.xml = myxml
-      xslt.xsl = myxsl
+      xslt.xsl = options.xslviews + myxsl
       xslt.serve
     end
   end
