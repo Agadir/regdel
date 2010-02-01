@@ -103,6 +103,7 @@ module Regdel
       set :static, true
       set :pagination, 10
       set :views, Regdel.dirpfx + '/views'
+      set :xslviews, Regdel.dirpfx + '/views/xsl/'
       set :public, Regdel.dirpfx + '/public'
 
       # Set request.env with application mount path
@@ -190,6 +191,18 @@ module Regdel
       end
     end
 
+    helpers do
+      # Just the usual Sinatra redirect with App prefix
+      def mredirect(uri)
+        redirect Regdel.uripfx+uri
+      end
+      def xresult(message)
+        "<result>#{message}</result>"
+      end
+      def json_entry(entry_id)
+        Entry.get(entry_id).to_json(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
+      end
+    end
 ###
 #
 #    # Example gates as written in Regdel:
@@ -212,7 +225,7 @@ module Regdel
       @my_account_types = @@account_types
       @accounts = Account.open
       accounts = builder :'xml/accounts'
-      xslview accounts, Regdel.dirpfx + '/views/xsl/accounts.xsl'
+      xslview accounts, 'accounts.xsl'
     end
 
     get '/json/account/:id' do
@@ -224,13 +237,14 @@ module Regdel
       # Check if this is an existing record. If so, update it.
       if params[:id].to_i > 0
         @account = Account.get(params[:id])
-        error_target = Regdel.uripfx+'/account/edit/' + params[:id]
+        error_target = '/account/edit/' + params[:id]
 
       # If this is not an existing record, create a new one
       else
         @account = Account.new
-        error_target = Regdel.uripfx+'/account/new'
+        error_target = '/account/new'
       end
+
       @account.attributes = {
         :name => params[:name],
         :type_id => params[:type_id],
@@ -239,9 +253,9 @@ module Regdel
         :hide => params[:hide]
       }
       if @account.save
-        redirect Regdel.uripfx+'/accounts'
+        mredirect '/accounts'
       else
-        redirect error_target + '?error=' + handle_error(@account.errors)
+        mredirect error_target + '?error=' + handle_error(@account.errors)
       end
     end
 
@@ -250,12 +264,12 @@ module Regdel
       if @account = Account.get(params[:id])
         @account.attributes = { :closed_on => Time.now.to_i }
         if @account.save
-          "<result>Success</result>"
+          xresult 'Success'
         else
           handle_error(@account.errors)
         end
       else
-        "<result>No account found</result>"
+        xresult 'No account found'
       end
     end
     post '/account/reopen' do
@@ -263,23 +277,26 @@ module Regdel
       if @account = Account.get(params[:id])
         @account.attributes = { :closed_on => 0 }
         if @account.save
-          "<result>Success</result>"
+          xresult 'Success'
         else
           handle_error(@account.errors)
         end
       else
-        "<result>No account found</result>"
+        xresult 'No account found'
       end
     end
+    
     post '/account/delete' do
+      # TODO Called via AJAX or real browser request?
       content_type 'application/xml', :charset => 'utf-8'
       @account = Account.get(params[:id])
       if @account.destroy!
-        redirect Regdel.uripfx+'/accounts'
+        mredirect '/accounts'
       else
         handle_error(@account.errors)
       end
     end
+    
     post '/entry/submit' do
       # Existing or new entry?
       if params[:id].to_i > 0
@@ -305,17 +322,14 @@ module Regdel
         )
         @myamt.save
       }
-      redirect Regdel.uripfx+'/journal'
+      mredirect '/journal'
     end
 
     get '/json/entry/:id' do
       content_type :json
-      Entry.get(params[:id]).to_json(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
+      json_entry params[:id]
     end
-    get '/raw/xml/entry/:id' do
-      content_type :xml
-      Entry.get(params[:id]).to_xml(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
-    end
+
     get '/journal/:offset' do
       # How many journal entries are there?
       count = Entry.count()
@@ -327,7 +341,7 @@ module Regdel
       @prev   = (myoffset - incr) < 0 ? 0 : myoffset - incr
       @next   = myoffset + incr > count ? myoffset : myoffset + incr
       entries = builder :'xml/entries'
-      xslview entries, Regdel.dirpfx + '/views/xsl/journal.xsl'
+      xslview entries, 'journal.xsl'
     end
 
     get '/ledgers/account/:account_id' do
@@ -335,7 +349,7 @@ module Regdel
       @ledger_type     = "account"
       @mytransactions  = Ledger.all(:account_id => params[:account_id],:order => [ :posted_on.desc,:amount.desc ])
       transactions  = builder :'xml/transactions'
-      xslview transactions, Regdel.dirpfx + '/views/xsl/ledgers.xsl'
+      xslview transactions, 'ledgers.xsl'
     end
 
     get '/stylesheet.css' do
@@ -388,19 +402,19 @@ module Regdel
       @ledger_type = "general"
       @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
       transactions = builder :'xml/transactions'
-      xslview transactions, Regdel.dirpfx + '/views/xsl/ledgers.xsl'
+      xslview transactions, 'ledgers.xsl'
     end
 
     delete '/delete/ledger' do
       rebuild_ledger(Regdel.dirpfx + '/public/d/xhtml/ledger.html')
-      redirect "#{Regdel.uripfx}/ledger"
+      mredirect '/ledger'
     end
 
 
     get '/regdel/runtime/info' do
       @uptime   = (0 + Time.now.to_i - Regdel.started_at).to_s
       runtime   = builder :'xml/runtime'
-      xslview runtime, Regdel.dirpfx + '/views/xsl/runtime.xsl'
+      xslview runtime, 'runtime.xsl'
     end
 
 
@@ -435,7 +449,7 @@ module Regdel
         @ledger_type = "general"
         @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
         transactions = builder :'xml/transactions'
-        xhtmltransaction = xslview transactions, Regdel.dirpfx + '/views/xsl/ledgers.xsl'
+        xhtmltransaction = xslview transactions, 'ledgers.xsl'
         myfile = File.new(targetfile,"w")
         myfile.write(xhtmltransaction)
         myfile.close
