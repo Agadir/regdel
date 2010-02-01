@@ -224,27 +224,20 @@ module Regdel
       # Check if this is an existing record. If so, update it.
       if params[:id].to_i > 0
         @account = Account.get(params[:id])
-        @account.attributes = {
-          :name => params[:name],
-          :type_id => params[:type_id],
-          :number => params[:number],
-          :description => params[:description],
-          :hide => params[:hide]
-        }
         error_target = Regdel.uripfx+'/account/edit/' + params[:id]
 
       # If this is not an existing record, create a new one
       else
-        @account = Account.new(
-          :name => params[:name],
-          :type_id => params[:type_id],
-          :number => params[:number],
-          :description => params[:description],
-          :hide => params[:hide]
-        )
+        @account = Account.new
         error_target = Regdel.uripfx+'/account/new'
       end
-
+      @account.attributes = {
+        :name => params[:name],
+        :type_id => params[:type_id],
+        :number => params[:number],
+        :description => params[:description],
+        :hide => params[:hide]
+      }
       if @account.save
         redirect Regdel.uripfx+'/accounts'
       else
@@ -255,9 +248,7 @@ module Regdel
     post '/account/close' do
       content_type 'application/xml', :charset => 'utf-8'
       if @account = Account.get(params[:id])
-        @account.attributes = {
-          :closed_on => Time.now.to_i
-        }
+        @account.attributes = { :closed_on => Time.now.to_i }
         if @account.save
           "<result>Success</result>"
         else
@@ -270,9 +261,7 @@ module Regdel
     post '/account/reopen' do
       content_type 'application/xml', :charset => 'utf-8'
       if @account = Account.get(params[:id])
-        @account.attributes = {
-          :closed_on => 0
-        }
+        @account.attributes = { :closed_on => 0 }
         if @account.save
           "<result>Success</result>"
         else
@@ -292,14 +281,13 @@ module Regdel
       end
     end
     post '/entry/submit' do
+      # Existing or new entry?
       if params[:id].to_i > 0
         @entry = Entry.get(params[:id])
-        @entry.attributes = {
-          :memorandum => params[:memorandum]
-        }
       else
-        @entry = Entry.new(:memorandum => params[:memorandum])
+        @entry = Entry.new
       end
+      @entry.attributes = { :memorandum => params[:memorandum] }
       @entry.save
       @entry.credits.destroy!
       @entry.debits.destroy!
@@ -352,7 +340,7 @@ module Regdel
 
     get '/stylesheet.css' do
       content_type 'text/css', :charset => 'utf-8'
-      sass :'css/regdel'
+      sass 'css/regdel'.to_sym
     end
 
     not_found do
@@ -370,7 +358,7 @@ module Regdel
     get '/raw/xml/ledger' do
       @ledger_label = "General"
       @ledger_type = "general"
-      @mytransactions = Ledger.all( :order => [ :posted_on.desc ])
+      @mytransactions = Ledger.all( :order => [ :posted_on.desc ] )
       transactions = builder :'xml/transactions'
     end
     get '/raw/entries' do
