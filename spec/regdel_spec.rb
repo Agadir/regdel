@@ -69,11 +69,7 @@ describe "Regdel" do
     get '/entry/edit/1'
     last_response.should be_ok
   end
-  it "should respond to /raw/xml/entry/1" do
-    get '/raw/xml/entry/1'
-    last_response.should be_ok
-  end
-  
+
   # ENTRY TESTS
   it "should be able to create a new entry" do
     post '/entry/submit', params={
