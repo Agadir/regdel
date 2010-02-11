@@ -58,6 +58,17 @@ by XSL
 * User interface is rendered via XHTML and XSL by Rack-XSLView (maybe NGINX?)
 
 
+Terminology
+-----------
+
+Like ledger-cli, regdel uses "x" as "trans";
+
+<dl>
+<dt>"xform"</dt>
+<dd>transform</dd>
+<dt>"xact"</dt>
+<dd>transaction</dd>
+</dl>
 License
 -------
 
