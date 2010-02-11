@@ -199,6 +199,17 @@ module Regdel
       def xresult(message)
         "<result>#{message}</result>"
       end
+      # Create a new hash based upon an array of keys and the params hash
+      def p2a(keys,params)
+        a = Hash.new
+        keys.each {|key|
+          a[key] = params[key]
+        }
+        return a
+      end
+      def amt_decentify(amt)
+        return (amt.gsub(/[^0-9\.]/,'').to_d * 100).to_i
+      end
       def json_entry(entry_id)
         Entry.get(entry_id).to_json(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
       end
@@ -265,7 +276,7 @@ module Regdel
 
     post '/account/submit' do
 
-      # If this is an existing record, update it; otherwise, create a new one
+      # If this is an existing record, retrieve it; otherwise, create a new one
       if params[:id].to_i > 0
         @account = Account.get(params[:id])
         error_target = '/account/edit/' + params[:id]
@@ -274,6 +285,10 @@ module Regdel
         error_target = '/account/new'
       end
 
+      myatts = [:name,:type_id,:number,:description,:hide]
+      @account.attributes = p2a(myatts,params)
+
+      if 1==2
       @account.attributes = {
         :name => params[:name],
         :type_id => params[:type_id],
@@ -281,6 +296,7 @@ module Regdel
         :description => params[:description],
         :hide => params[:hide]
       }
+      end
       if @account.save
         mredirect '/accounts'
       else
