@@ -39,7 +39,9 @@ DataMapper.setup(:default, ENV['DATABASE_URL'] || 'sqlite3:///var/www/dev/regdel
 class Account
   include DataMapper::Resource
 
+  PUB_ATTR = [:name,:type_id,:number,:description,:hide]
   name_length_error = 'Name is too long or too short.'
+
   property :id,Serial
   property :number,String
   property :name,String
