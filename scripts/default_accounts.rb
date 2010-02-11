@@ -21,6 +21,7 @@
 # or write to the Free Software Foundation, Inc., 51 Franklin Street,
 # Fifth Floor, Boston, MA 02110-1301 USA
 ##
+require 'data/regdel-dm-modules'
 require 'data/regdel_dm'
 
 Account.new(
