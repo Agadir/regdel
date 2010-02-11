@@ -2,6 +2,9 @@ $('document').ready(function() {
 
   $("#nav-entry").addClass("active");
 
+  // Set form action
+  $("#journal-entry-form").attr("action",app_prefix+"/entry/submit");
+
   // Date picker
   Date.firstDayOfWeek = 0;
   Date.format = 'yyyy-mm-dd';
@@ -29,10 +32,9 @@ $('document').ready(function() {
   // var accounts = ["Taxes", "Bank Account"];
   // $(".account_name").focus().autocomplete(accounts);
 
-  $("#another-credit img",$("#journal-entry-amounts")).attr("src", app_prefix+"/s/img/pkgs/docunext-webapp-icons/tango/list-add.png");
-  $("#another-debit img",$("#journal-entry-amounts")).attr("src", app_prefix+"/s/img/pkgs/docunext-webapp-icons/tango/list-add.png");
-  $(".remove-debit img",$("#journal-entry-amounts")).attr("src", app_prefix+"/s/img/pkgs/docunext-webapp-icons/tango/list-remove.png");
-  $(".remove-credit img",$("#journal-entry-amounts")).attr("src", app_prefix+"/s/img/pkgs/docunext-webapp-icons/tango/list-remove.png");
+  var themepath = app_prefix+"/s/img/pkgs/docunext-webapp-icons/tango/";
+  $("#another-credit img,#another-debit img",$("#journal-entry-amounts")).attr("src", themepath+"list-add.png");
+  $(".remove-debit img,.remove-credit img",$("#journal-entry-amounts")).attr("src", themepath+"list-remove.png");
 
   $(".rd-amt",$("#journal-entry-amounts")).attr("autocomplete","off");
 
