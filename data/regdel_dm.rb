@@ -39,7 +39,7 @@ DataMapper.setup(:default, ENV['DATABASE_URL'] || 'sqlite3:///var/www/dev/regdel
 class Account
   include DataMapper::Resource
 
-  name_length_error = "Name is too long or too short."
+  name_length_error = 'Name is too long or too short.'
   property :id,Serial
   property :number,String
   property :name,String
@@ -101,10 +101,11 @@ class Entry
     # +options[:fields]+ entry #<DataMapper::Property @model=Amount @name=:amount>
     # does not map to a property in Credit
     # UPDATE: I hacked dm-aggregates to make it work
-    return "%.2f" % (Credit.sum(:amount, :entry_id => self.id).to_r.to_d / 100)
+    mysum = Credit.sum(:amount, :entry_id => self.id)
+    return "%.2f" % (mysum.to_r.to_d / 100)
 
     # Works fine, but isn't it the same thing?
-    #return Amount.sum(:amount, :type => 'Credit', :entry_id => self.id)
+    #return "%.2f" % (Amount.sum(:amount, :type => 'Credit', :entry_id => self.id).to_r.to_d / 100)
   end
 
 end
