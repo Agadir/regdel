@@ -40,6 +40,7 @@ class Account
   include DataMapper::Resource
 
   PUB_ATTR = [:name,:type_id,:number,:description,:hide]
+  ACC_TYPE = ["Assets","Liabilities","Equity","Revenues","Expenses","Gain","Loss","Distribution from Equity","Contribution to Equity","Comprehensive Income","Other"]
   name_length_error = 'Name is too long or too short.'
 
   property :id,Serial

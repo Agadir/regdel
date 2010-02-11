@@ -33,6 +33,9 @@ xmlns="http://www.w3.org/1999/xhtml">
   <xsl:if test="$format='json'">
     <xsl:call-template name="json"/>
   </xsl:if>
+  <xsl:if test="$format='select'">
+    <xsl:call-template name="select"/>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template name="ruby">
@@ -49,6 +52,14 @@ xmlns="http://www.w3.org/1999/xhtml">
 { "Value": "<xsl:value-of select="account_type_id"/>", "Text": "<xsl:value-of select="name"/>"},
 </xsl:for-each>
 ] }
+</xsl:template>
+
+<xsl:template name="select">
+<select>
+<xsl:for-each select="//account_type">
+<option value="{account_type_id}" text="{name}" />
+</xsl:for-each>
+</select>
 </xsl:template>
 
 

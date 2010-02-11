@@ -36,7 +36,9 @@ $('document').ready(function() {
 
   $(".rd-amt",$("#journal-entry-amounts")).attr("autocomplete","off");
 
-  if(jQuery.url.setUrl(fixturl).segment(2) == 'new') {
+  // Edit type
+  var edit_type = jQuery.url.setUrl(fixturl).segment(1);
+  if(edit_type == 'new') {
     var amount_total = 0;
     $("#another-credit").live("click",function() {
         $("#another-debit").css("display","none");
@@ -77,7 +79,7 @@ $('document').ready(function() {
     });
   }
 
-  if(jQuery.url.setUrl(fixturl).segment(2) == 'edit') {
+  if(edit_type == 'edit') {
     $(".amount-controls").hide();
     var myid = jQuery.url.setUrl(fixturl).segment(2);
     update_journal_entry_form(myid);

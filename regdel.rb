@@ -37,7 +37,6 @@ require 'rack-docunext-content-length'
 
 require 'data/regdel-dm-modules'
 require 'data/regdel_dm'
-require 'data/account_types'
 require 'data/development'
 require 'helpers/xslview'
 
@@ -263,7 +262,7 @@ module Regdel
 
     get '/accounts' do
       # Set scoped account types - FIXME
-      @my_account_types = @@account_types
+      @my_account_types = Account::ACC_TYPE
       @accounts = Account.open
       accounts = builder :'xml/accounts'
       xslview accounts, 'accounts.xsl'
@@ -285,7 +284,6 @@ module Regdel
         error_target = '/account/new'
       end
 
-      #myatts = [:name,:type_id,:number,:description,:hide]
       myatts = Account::PUB_ATTR
       @account.attributes = p2a(myatts,params)
 
@@ -427,7 +425,7 @@ module Regdel
     get '/raw/accounts' do
       content_type :xml
       Account.get(1).update_ledger_balance
-      @my_account_types = @@account_types
+      @my_account_types = Account::ACC_TYPE
       @accounts = Account.open
       builder :'xml/accounts'
     end

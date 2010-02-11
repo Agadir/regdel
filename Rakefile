@@ -91,6 +91,17 @@ namespace :files do
     task :account_types_json => target
   end
 
+  with('public/s/xml/raw/account_types_select.xml') do |target|
+    thexml = 'public/s/xml/raw/account_types.xml'
+    thexsl = 'lib/xsl/account_types_to_xml.xsl'
+    file target => [thexml, thexsl] do
+      params = { 'format' => 'select' }
+      transform(thexml,thexsl,params,target)
+    end
+    desc "Build select array of account types"
+    task :account_types_select => target
+  end
+
   with('public/d/css/style.css') do |target|
     thesass = 'views/css/regdel.sass'
 
@@ -128,6 +139,10 @@ namespace :files do
 end
 
 
+
+task :create_dummy_db do
+  load('scripts/default_accounts.rb')
+end
 
 task :create_dummy_accounts do
   load('scripts/default_accounts.rb')
