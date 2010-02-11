@@ -40,7 +40,8 @@ class Account
   include DataMapper::Resource
 
   PUB_ATTR = [:name,:type_id,:number,:description,:hide]
-  ACC_TYPE = ['Assets','Liabilities','Equity','Revenues','Expenses','Gain','Loss','Distribution from Equity','Contribution to Equity','Comprehensive Income','Other']
+  ACCTYPES = ['Assets','Liabilities','Equity','Revenues','Expenses','Gain','Loss','Distribution from Equity','Contribution to Equity','Comprehensive Income','Other']
+  NOTFOUND = 'No account found'
   name_length_error = 'Name is too long or too short.'
 
   property :id,Serial
@@ -79,9 +80,11 @@ class Account
   end
   def reopen
     self.attributes = { :closed_on => 0 }
+    self.save
   end
   def close
     self.attributes = { :closed_on => Time.now.to_i }
+    self.save
   end
 end
 
@@ -149,6 +152,11 @@ class Debit < Amount; end
 class Ledger
   include DataMapper::Resource
   include HasAmounts
+  
+  GENERAL = 'General'
+  GENTYPE = 'general'
+
+  ACCTYPE = 'account'
 
   property :id,Serial
   property :posted_on,Integer
