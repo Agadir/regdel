@@ -285,18 +285,10 @@ module Regdel
         error_target = '/account/new'
       end
 
-      myatts = [:name,:type_id,:number,:description,:hide]
+      #myatts = [:name,:type_id,:number,:description,:hide]
+      myatts = Account::PUB_ATTR
       @account.attributes = p2a(myatts,params)
 
-      if 1==2
-      @account.attributes = {
-        :name => params[:name],
-        :type_id => params[:type_id],
-        :number => params[:number],
-        :description => params[:description],
-        :hide => params[:hide]
-      }
-      end
       if @account.save
         mredirect '/accounts'
       else
