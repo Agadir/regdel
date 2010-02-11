@@ -40,7 +40,7 @@ class Account
   include DataMapper::Resource
 
   PUB_ATTR = [:name,:type_id,:number,:description,:hide]
-  ACC_TYPE = ["Assets","Liabilities","Equity","Revenues","Expenses","Gain","Loss","Distribution from Equity","Contribution to Equity","Comprehensive Income","Other"]
+  ACC_TYPE = ['Assets','Liabilities','Equity','Revenues','Expenses','Gain','Loss','Distribution from Equity','Contribution to Equity','Comprehensive Income','Other']
   name_length_error = 'Name is too long or too short.'
 
   property :id,Serial
@@ -68,7 +68,7 @@ class Account
 
   # The most recent ledger balance for each account
   def cached_ledger_balance_usd
-    return "%.2f" % (cached_ledger_balance.to_r.to_d / 100)
+    return '%.2f' % (cached_ledger_balance.to_r.to_d / 100)
   end
 
   # Update the account balance with the calculated balance from the ledger
@@ -111,10 +111,10 @@ class Entry
     # does not map to a property in Credit
     # UPDATE: I hacked dm-aggregates to make it work
     mysum = Credit.sum(:amount, :entry_id => self.id)
-    return "%.2f" % (mysum.to_r.to_d / 100)
+    return '%.2f' % (mysum.to_r.to_d / 100)
 
     # Works fine, but isn't it the same thing?
-    #return "%.2f" % (Amount.sum(:amount, :type => 'Credit', :entry_id => self.id).to_r.to_d / 100)
+    #return '%.2f' % (Amount.sum(:amount, :type => 'Credit', :entry_id => self.id).to_r.to_d / 100)
   end
   def json_entry
     self.to_json(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
@@ -185,7 +185,7 @@ class Ledger
               self.posted_on, self.posted_on, self.amount,
               self.amount, self.id ]).sum(:amount)
 
-    return "%.2f" % ( (presum.to_i.to_r.to_d + self.amount) / 100)
+    return '%.2f' % ( (presum.to_i.to_r.to_d + self.amount) / 100)
   end
 end
 

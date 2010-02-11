@@ -247,8 +247,7 @@ module Regdel
     post '/account/close' do
       content_type :xml
       if @account = Account.get(params[:id])
-        @account.close
-        if @account.save
+        if @account.close.save
           xresult 'Success'
         else
           handle_error(@account.errors)
