@@ -206,12 +206,7 @@ module Regdel
         }
         return a
       end
-      def amt_decentify(amt)
-        return (amt.gsub(/[^0-9\.]/,'').to_d * 100).to_i
-      end
-      def json_entry(entry_id)
-        Entry.get(entry_id).to_json(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
-      end
+
       def account_ledger(account_id)
         Ledger.all(:account_id => account_id,:order => [ :posted_on.desc,:amount.desc ])
       end
@@ -354,7 +349,7 @@ module Regdel
 
     get '/json/entry/:id' do
       content_type :json
-      json_entry params[:id]
+      Entry.get(params[:id]).json_entry
     end
 
 
