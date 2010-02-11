@@ -30,4 +30,3 @@ module HasAmounts
     return "%.2f" % (instance_variable_get(attr).to_r.to_d / 100)
   end
 end
-
