@@ -1,6 +1,9 @@
 $('document').ready(function() {
   $("#nav-account").addClass("active");
 
+  // Set form action
+  $("#account-form").attr("action",app_prefix+"/account/submit");
+
   // Setup validation
   $("#account-form").validate({
     errorPlacement: function(error, element) { },
