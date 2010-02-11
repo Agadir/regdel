@@ -248,8 +248,7 @@ module Regdel
       end
 
       # Set object attributes with query parameters
-      atts = Account::PUB_ATTR
-      @account.attributes = params2attrs(params, atts)
+      @account.attributes = params2attrs params, Account::PUB_ATTR
 
       if @account.save
         mredirect '/accounts'
