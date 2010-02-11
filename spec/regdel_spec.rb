@@ -56,11 +56,6 @@ describe "Regdel" do
     get '/raw/xml/ledger'
     last_response.should be_ok
   end
-  it "should respond to /raw/transactions" do
-    get '/raw/transactions'
-    last_response.should be_ok
-  end
-
   it "should respond to /json/entry/1" do
     get '/json/entry/1'
     last_response.should be_ok
@@ -105,7 +100,7 @@ describe "Regdel" do
   it "should be able to create new account" do
     post '/account/submit', params={
       "name" => "Testing",
-      "type_id" => 50000,
+      "type_id" => 4,
       "number" => 50013,
       "description" => "Test account"
     }
@@ -117,7 +112,7 @@ describe "Regdel" do
     post '/account/submit', params={
       "id" => @account.id,
       "name" => "Testing OK",
-      "type_id" => 50000,
+      "type_id" => 4,
       "number" => 50013,
       "description" => "Test account"
     }
@@ -133,15 +128,15 @@ describe "Regdel" do
     last_response.body.should include("</html>")
   end
   it "should be able to close account" do
-    post '/account/close', params={"id" => 1}
+    post '/account/modify/close', params={"id" => 1}
     last_response.body.should include("Success")
   end
   it "should be able to reopen account" do
-    post '/account/reopen', params={"id" => 1}
+    post '/account/modify/reopen', params={"id" => 1}
     last_response.body.should include("Success")
   end
   it "should not be able to close this nonexistant account" do
-    post '/account/close', params={"id" => 'adkfjf'}
+    post '/account/modify/close', params={"id" => 'adkfjf'}
     last_response.body.should include("No account")
   end
   it "should respond to /account/new" do
