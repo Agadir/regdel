@@ -69,6 +69,30 @@ Like ledger-cli, regdel uses "x" as "trans";
 <dt>"xact"</dt>
 <dd>transaction</dd>
 </dl>
+
+
+Programming Style
+-----------------
+
+<pre class="sh_ruby">
+###
+#
+#    # Example gates as written in Regdel:
+#
+#    get '/path' do
+#      # DataMapper to get some data
+#      @resultset = Stuff.open
+#
+#      # Builder to output data to XML
+#      example = builder :'xml/example'
+#
+#      # XSLview Sinatra helper to transform XML to XML, HTML, or Text
+#      xslview accounts, Regdel.dirpfx + '/views/xsl/accounts.xsl'
+#    end
+#
+##
+</pre>
+
 License
 -------
 

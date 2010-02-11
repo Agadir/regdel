@@ -65,6 +65,26 @@ by XSL</li>
         <dd>transaction</dd>
       </dl>
       <hr xmlns=""/>
+      <h2 xmlns="">Programming Style</h2>
+      <pre class="sh_ruby">
+###
+#
+#    # Example gates as written in Regdel:
+#
+#    get '/path' do
+#      # DataMapper to get some data
+#      @resultset = Stuff.open
+#
+#      # Builder to output data to XML
+#      example = builder :'xml/example'
+#
+#      # XSLview Sinatra helper to transform XML to XML, HTML, or Text
+#      xslview accounts, Regdel.dirpfx + '/views/xsl/accounts.xsl'
+#    end
+#
+##
+</pre>
+      <hr xmlns=""/>
       <h2 xmlns="">License</h2>
       <p>Regdel is licensed under the <a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html">Affero GPLv3</a>.</p>
       <p>The Regdel source includes components from several other open source projects

@@ -40,29 +40,6 @@ require 'data/regdel_dm'
 require 'data/development'
 require 'helpers/xslview'
 
-class Ledger
-  # Called from a Ledger instance object, returns the ledger balance
-  # for the account after the transaction
-  def running_balance
-
-    # The SQL part of the prepared statment
-    # Selects all transactions posted on or before the reference transaction
-    # that have the same account_id, excludes the reference transaction itself
-    thesql = %{
-      account_id = ? AND ( posted_on < ? OR (
-        posted_on = ? AND ( amount < ? OR ( amount = ? AND id < ? ))
-      ))
-    }
-
-    # Datamapper conditional query
-    presum = Ledger.all( :conditions => [thesql, self.account_id,
-              self.posted_on, self.posted_on, self.amount,
-              self.amount, self.id ]).sum(:amount)
-
-    return "%.2f" % ( (presum.to_i.to_r.to_d + self.amount) / 100)
-  end
-end
-
 # The container for the Regdel application
 module Regdel
 
@@ -207,19 +184,12 @@ module Regdel
         return a
       end
 
-      def account_ledger(account_id)
-        Ledger.all(:account_id => account_id,:order => [ :posted_on.desc,:amount.desc ])
-      end
-      def close_account
-         { :closed_on => Time.now.to_i }
-      end
+
       # Transform amounts, in this case, convert to cents cents
       def amt_decentify(amt)
         return (amt.gsub(/[^0-9\.]/,'').to_d * 100).to_i
       end
-      # Create new credit for a specific entry
-      #def entry_credit_create(entry,params,idx)
-      #end
+
       # Create debits and credits
       def posting_xacts(posting,params)
         params[:credit_amount].each_index {|x|
@@ -238,22 +208,7 @@ module Regdel
         }
       end
     end
-###
-#
-#    # Example gates as written in Regdel:
-#
-#    get '/path' do
-#      # DataMapper to get some data
-#      @resultset = Stuff.open
-#
-#      # Builder to output data to XML
-#      example = builder :'xml/example'
-#
-#      # XSLview Sinatra helper to transform XML to XML, HTML, or Text
-#      xslview accounts, Regdel.dirpfx + '/views/xsl/accounts.xsl'
-#    end
-#
-##
+
 
     get '/accounts' do
       # Set scoped account types - FIXME
@@ -292,7 +247,7 @@ module Regdel
     post '/account/close' do
       content_type :xml
       if @account = Account.get(params[:id])
-        @account.attributes = close_account
+        @account.close
         if @account.save
           xresult 'Success'
         else
@@ -307,7 +262,7 @@ module Regdel
     post '/account/reopen' do
       content_type :xml
       if @account = Account.get(params[:id])
-        @account.attributes = { :closed_on => 0 }
+        @account.reopen
         if @account.save
           xresult 'Success'
         else
@@ -371,7 +326,7 @@ module Regdel
     get '/ledgers/account/:account_id' do
       @ledger_label   = Account.get(params[:account_id]).name
       @ledger_type    = 'account'
-      @mytransactions = account_ledger params[:account_id]
+      @mytransactions = Ledger.account_ledger params[:account_id]
       transactions    = builder :'xml/transactions'
       xslview transactions, 'ledgers.xsl'
     end

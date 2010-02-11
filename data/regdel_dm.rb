@@ -77,6 +77,12 @@ class Account
     self.cached_ledger_balance = mybal ? mybal : 0
     self.save
   end
+  def reopen
+    self.attributes = { :closed_on => 0 }
+  end
+  def close
+    self.attributes = { :closed_on => Time.now.to_i }
+  end
 end
 
 
@@ -109,6 +115,9 @@ class Entry
 
     # Works fine, but isn't it the same thing?
     #return "%.2f" % (Amount.sum(:amount, :type => 'Credit', :entry_id => self.id).to_r.to_d / 100)
+  end
+  def json_entry
+    self.to_json(:relationships=>{:credits=>{:methods => [:to_usd]},:debits=>{:methods => [:to_usd]}})
   end
 
 end
@@ -154,6 +163,30 @@ class Ledger
   belongs_to :entry
   belongs_to :entry_amount, :model => 'Amount', :child_key => [ :entry_amount_id ]
 
+  def self.account_ledger(account_id)
+    all(:account_id => account_id,:order => [ :posted_on.desc, :amount.desc ])
+  end
+
+  # Called from a Ledger instance object, returns the ledger balance
+  # for the account after the transaction
+  def running_balance
+
+    # The SQL part of the prepared statment
+    # Selects all transactions posted on or before the reference transaction
+    # that have the same account_id, excludes the reference transaction itself
+    thesql = %{
+      account_id = ? AND ( posted_on < ? OR (
+        posted_on = ? AND ( amount < ? OR ( amount = ? AND id < ? ))
+      ))
+    }
+
+    # Datamapper conditional query
+    presum = Ledger.all( :conditions => [thesql, self.account_id,
+              self.posted_on, self.posted_on, self.amount,
+              self.amount, self.id ]).sum(:amount)
+
+    return "%.2f" % ( (presum.to_i.to_r.to_d + self.amount) / 100)
+  end
 end
 
 
