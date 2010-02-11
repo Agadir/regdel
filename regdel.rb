@@ -172,22 +172,33 @@ module Regdel
       def mredirect(uri)
         redirect Regdel.uripfx+uri
       end
+
+      # Simple XML response
       def xresult(message)
         "<result>#{message}</result>"
       end
-      # Create a new hash based upon an array of keys and the params hash
-      def p2a(keys,params)
-        a = Hash.new
-        keys.each {|key|
-          a[key] = params[key]
-        }
-        return a
-      end
 
+      # Create a new hash based upon an array of keys and the params hash
+      def params2attrs(params,atts)
+        phash = Hash.new
+        atts.each {|attr|
+          phash[attr] = params[attr]
+        }
+        return phash
+      end
 
       # Transform amounts, in this case, convert to cents cents
       def amt_decentify(amt)
         return (amt.gsub(/[^0-9\.]/,'').to_d * 100).to_i
+      end
+
+      # General ledger in XML
+      def general_ledger_xml
+        @ledger_label = Ledger::GENERAL
+        @ledger_type  = Ledger::GENTYPE
+
+        @mytransactions = Ledger.all( :order => [ :posted_on.desc ] )
+        transactionstbl = builder :'xml/transactions'
       end
 
       # Create debits and credits
@@ -211,10 +222,9 @@ module Regdel
 
 
     get '/accounts' do
-      # Set scoped account types - FIXME
-      @my_account_types = Account::ACC_TYPE
+      @acctypes = Account::ACCTYPES
       @accounts = Account.open
-      accounts = builder :'xml/accounts'
+      accounts  = builder :'xml/accounts'
       xslview accounts, 'accounts.xsl'
     end
 
@@ -224,51 +234,41 @@ module Regdel
     end
 
     post '/account/submit' do
+      # Get record id and error root path
+      account_id = params[:id].to_i
+      error_path = '/account/'
 
-      # If this is an existing record, retrieve it; otherwise, create a new one
-      if params[:id].to_i > 0
-        @account = Account.get(params[:id])
-        error_target = '/account/edit/' + params[:id]
+      # If this is an existing object, retrieve it; otherwise, create a new one
+      if account_id > 0
+        @account = Account.get(account_id)
+        error_path << 'edit/' << account_id
       else
         @account = Account.new
-        error_target = '/account/new'
+        error_path << 'new'
       end
 
-      myatts = Account::PUB_ATTR
-      @account.attributes = p2a(myatts,params)
+      # Set object attributes with query parameters
+      atts = Account::PUB_ATTR
+      @account.attributes = params2attrs(params, atts)
 
       if @account.save
         mredirect '/accounts'
       else
-        mredirect error_target + '?error=' + handle_error(@account.errors)
+        mredirect error_path + '?error=' + handle_error(@account.errors)
       end
     end
 
-    post '/account/close' do
+
+    post '/account/modify/:operation' do
       content_type :xml
       if @account = Account.get(params[:id])
-        if @account.close.save
+        if @account.send params[:operation]
           xresult 'Success'
         else
           handle_error(@account.errors)
         end
       else
-        xresult 'No account found'
-      end
-    end
-
-
-    post '/account/reopen' do
-      content_type :xml
-      if @account = Account.get(params[:id])
-        @account.reopen
-        if @account.save
-          xresult 'Success'
-        else
-          handle_error(@account.errors)
-        end
-      else
-        xresult 'No account found'
+        xresult Account::NOTFOUND
       end
     end
 
@@ -323,9 +323,11 @@ module Regdel
 
 
     get '/ledgers/account/:account_id' do
-      @ledger_label   = Account.get(params[:account_id]).name
-      @ledger_type    = 'account'
-      @mytransactions = Ledger.account_ledger params[:account_id]
+      account_id = params[:account_id].to_i
+
+      @ledger_label   = Account.get(account_id).name
+      @ledger_type    = Ledger::ACCTYPE
+      @mytransactions = Ledger.account_ledger(account_id)
       transactions    = builder :'xml/transactions'
       xslview transactions, 'ledgers.xsl'
     end
@@ -351,20 +353,12 @@ module Regdel
     end
     get '/raw/xml/ledger' do
       content_type :xml
-      @ledger_label = "General"
-      @ledger_type = "general"
-      @mytransactions = Ledger.all( :order => [ :posted_on.desc ] )
-      transactions = builder :'xml/transactions'
+      general_ledger_xml
     end
     get '/raw/entries' do
       content_type :xml
       @myentries = Entry.all
       builder :'xml/entries'
-    end
-    get '/raw/transactions' do
-      content_type :xml
-      @mytrans = Ledger.all
-      @mytrans.to_xml
     end
     get '/raw/account/select' do
       content_type :xml
@@ -374,17 +368,13 @@ module Regdel
     get '/raw/accounts' do
       content_type :xml
       Account.get(1).update_ledger_balance
-      @my_account_types = Account::ACC_TYPE
+      @acctypes = Account::ACCTYPES
       @accounts = Account.open
       builder :'xml/accounts'
     end
     get '/raw/ledger' do
-      content_type :xml
-      @ledger_label = "General"
-      @ledger_type = "general"
-      @mytransactions = Ledger.all( :order => [ :posted_on.desc ] )
-      transactions = builder :'xml/transactions'
-      xslview transactions, 'ledgers.xsl'
+      # This isn't raw, it isn't cached
+      xslview general_ledger_xml, 'ledgers.xsl'
     end
 
     delete '/delete/ledger' do
@@ -415,7 +405,7 @@ module Regdel
 
       amounts.each do |myamount|
 
-        myid = myamount.entry_id
+        myid    = myamount.entry_id
         myentry = Entry.get(myid)
 
         newtrans = Ledger.new(
@@ -427,14 +417,12 @@ module Regdel
           :entry_amount_id => myamount.id
           ).save
       end
+
+      general_ledger_html = xslview general_ledger_xml, 'ledgers.xsl'
+
       begin
-        @ledger_label = "General"
-        @ledger_type = "general"
-        @mytransactions = Ledger.all( :order => [ :posted_on.desc ] )
-        transactions = builder :'xml/transactions'
-        xhtmltransaction = xslview transactions, 'ledgers.xsl'
-        myfile = File.new(targetfile,"w")
-        myfile.write(xhtmltransaction)
+        myfile = File.new(targetfile,'w')
+        myfile.write(general_ledger_html)
         myfile.close
       rescue StandardError
         # Close file handle and then delete
