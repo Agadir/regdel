@@ -38,7 +38,7 @@ require 'rack-docunext-content-length'
 require 'data/regdel-dm-modules'
 require 'data/regdel_dm'
 require 'data/development'
-require 'helpers/xslview'
+require 'sinatra/xslview'
 
 # The container for the Regdel application
 module Regdel
