@@ -143,14 +143,6 @@ module Regdel
     # Sinatra Helpers
     helpers Sinatra::XSLView
 
-    # Sinatra Helpers
-    register Sinatra::Cache
-
-    # This is causing a segmentation fault
-    #set :cache_enabled, false
-    #set :cache_page_extension, 'html'
-    #set :cache_output_dir, 'd/'
-
     before do
       # More aggressive cache settings for static files
       if request.env['REQUEST_URI']
@@ -175,6 +167,17 @@ module Regdel
         end
       end
     end
+
+
+    # Sinatra Helpers
+    #register Sinatra::Cache
+
+    # This is causing a segmentation fault if lint or reloader is enabled
+    # Otherwise it does work
+    #set :cache_enabled, true
+    #set :cache_page_extension, '.html'
+    #set :cache_output_dir, 'd/'
+
 
     helpers do
       # Just the usual Sinatra redirect with App prefix
@@ -234,7 +237,7 @@ module Regdel
       @acctypes = Account::ACCTYPES
       @accounts = Account.open
       accounts  = builder :'xml/accounts'
-      xslview accounts, 'accounts.xsl'
+      cache xslview accounts, 'accounts.xsl'
     end
 
     get '/json/account/:id' do
