@@ -39,6 +39,7 @@ require 'data/regdel-dm-modules'
 require 'data/regdel_dm'
 require 'data/development'
 require 'sinatra/xslview'
+require 'sinatra/cache'
 
 # The container for the Regdel application
 module Regdel
@@ -141,6 +142,14 @@ module Regdel
 
     # Sinatra Helpers
     helpers Sinatra::XSLView
+
+    # Sinatra Helpers
+    register Sinatra::Cache
+
+    # This is causing a segmentation fault
+    #set :cache_enabled, false
+    #set :cache_page_extension, 'html'
+    #set :cache_output_dir, 'd/'
 
     before do
       # More aggressive cache settings for static files
