@@ -71,7 +71,7 @@ module Regdel
     end
   end
 
-  # The Regdel Sinatra application
+  # The sub-classed Sinatra application
   class Main < Sinatra::Base
 
     # BEGIN Regdel Configuration and Rack middleware usage
@@ -237,7 +237,7 @@ module Regdel
       @acctypes = Account::ACCTYPES
       @accounts = Account.open
       accounts  = builder :'xml/accounts'
-      cache xslview accounts, 'accounts.xsl'
+      xslview accounts, 'accounts.xsl'
     end
 
     get '/json/account/:id' do
