@@ -324,7 +324,7 @@ module Regdel
       xslview entries, 'journal.xsl'
     end
 
-
+    # Retrieves ledger for a single account
     get '/ledgers/account/:account_id' do
       account_id = params[:account_id].to_i
 
@@ -337,12 +337,13 @@ module Regdel
 
 
     get '/stylesheet.css' do
+      cache_control :public, :max_age => 300
       content_type 'text/css', :charset => 'utf-8'
       sass 'css/regdel'.to_sym
     end
 
     not_found do
-      headers 'Last-Modified' => Time.now.httpdate, 'Cache-Control' => 'no-store'
+      cache_control :'no-store', :max_age => 0
       %(<div class="block"><div class="hd"><h2>Error</h2></div><div class="bd">This is nowhere to be found. <a href="#{Regdel.uripfx}/">Start over?</a></div></div>)
     end
 
@@ -376,7 +377,7 @@ module Regdel
       builder :'xml/accounts'
     end
     get '/raw/ledger' do
-      # This isn't raw, it isn't cached
+      # This isn't raw, it isn't cached, either
       xslview general_ledger_xml, 'ledgers.xsl'
     end
 
@@ -388,9 +389,9 @@ module Regdel
 
 
     get '/regdel/runtime/info' do
-      @uptime   = (0 + Time.now.to_i - Regdel.started_at).to_s
-      @sinatv   = Sinatra::VERSION
-      runtime   = builder :'xml/runtime'
+      @uptime = (0 + Time.now.to_i - Regdel.started_at).to_s
+      @sinatv = Sinatra::VERSION
+      runtime = builder :'xml/runtime'
       xslview runtime, 'runtime.xsl'
     end
 
