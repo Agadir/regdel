@@ -33,7 +33,6 @@ require 'rack/contrib'
 require 'rack-rewrite'
 require 'rack-xslview'
 require 'rexml/document'
-require 'rack-docunext-content-length'
 
 require 'data/regdel-dm-modules'
 require 'data/regdel_dm'
@@ -62,19 +61,11 @@ module Regdel
     Main
   end
 
-  # Regdel money object inherits string
-  class RdMoney < String
-
-    # Converts string representation of USD to amounts in cents
-    def no_d
-        return (self.gsub(/[^0-9\.]/,'').to_d * 100).to_i
-    end
-  end
 
   # The sub-classed Sinatra application
   class Main < Sinatra::Base
 
-    # BEGIN Regdel Configuration and Rack middleware usage
+    # BEGIN sub-classed Sinatra app Configuration and Rack middleware usage
     configure do
       Regdel.dirpfx = File.dirname(__FILE__)
       set :static, true
@@ -86,10 +77,10 @@ module Regdel
       # Set request.env with application mount path
       use Rack::Config do |env|
         env['RACK_MOUNT_PATH'] = Regdel.uripfx
-        env['RACK_ENV'] = ENV['RACK_ENV'] ? ENV['RACK_ENV'] : "none"
+        env['RACK_ENV'] = ENV['RACK_ENV'] ? ENV['RACK_ENV'] : 'none'
       end
 
-      # Setup XSL
+      # Setup XSL - better to do this only once
       Regdel.xslt = XML::XSLT.new()
       Regdel.xslfile = File.open(Regdel.dirpfx + '/views/xsl/html_main.xsl')
       Regdel.xslt.xsl = REXML::Document.new Regdel.xslfile
@@ -133,9 +124,6 @@ module Regdel
       rewrite Regdel.uripfx+'/account/new', '/s/xhtml/account_form.html'
       r301 Regdel.uripfx+'/journal', Regdel.uripfx+'/journal/0'
     end
-
-    # Recalculate Content-Length
-    use Rack::DocunextContentLength
 
     # Use Rack-XSLView
     use Rack::XSLView, :myxsl => Regdel.xslt, :noxsl => Regdel.omitxsl, :passenv => Regdel.passenv
@@ -217,14 +205,14 @@ module Regdel
       def posting_xacts(posting,params)
         params[:credit_amount].each_index {|x|
           myamt = posting.credits.create(
-            :amount => RdMoney.new(params[:credit_amount][x]).no_d,
+            :amount => amt_decentify(params[:credit_amount][x]),
             :account_id => params[:credit_account_id][x]
           )
           myamt.save
         }
         params[:debit_amount].each_index {|x|
           myamt = posting.debits.create(
-            :amount => RdMoney.new(params[:debit_amount][x]).no_d,
+            :amount => amt_decentify(params[:debit_amount][x]),
             :account_id => params[:debit_account_id][x]
           )
           myamt.save
@@ -351,7 +339,7 @@ module Regdel
 
     not_found do
       headers 'Last-Modified' => Time.now.httpdate, 'Cache-Control' => 'no-store'
-      %(<p>This is nowhere to be found. <a href="#{Regdel.uripfx}/">Start over?</a></p>)
+      %(<div class="block"><div class="hd"><h2>Error</h2></div><div class="bd">This is nowhere to be found. <a href="#{Regdel.uripfx}/">Start over?</a></div></div>)
     end
 
 
