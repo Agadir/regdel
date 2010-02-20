@@ -105,7 +105,6 @@ module Regdel
     end
 
     configure :demo do
-      use Rack::CommonLogger
       set :logging, true
       set :cachem, 6
     end
@@ -148,7 +147,7 @@ module Regdel
 
       # POSTs indicate data alterations, rebuild cache and semi-dynamic database entries
       if request.env['REQUEST_METHOD'].upcase == 'POST'
-        unless env['RACK_ENV']=='demo'
+        unless env['RACK_ENV']=='demoz'
           rebuild_ledger(Regdel.dirpfx + '/public/d/xhtml/ledger.html')
         end
         Account.all.each do |myaccount|
