@@ -133,19 +133,17 @@ module Regdel
 
     before do
       # More aggressive cache settings for static files
-      if request.env['REQUEST_URI']
-        if request.env['REQUEST_URI'].include? '/s/'
-          if request.env['HTTP_IF_MODIFIED_SINCE']
-            headers 'Cache-Control' => "public, max-age=#{options.cachem*80}"
-          else
-            headers 'Cache-Control' => "public, max-age=#{options.cachem*40}"
-          end
-        elsif request.env['REQUEST_URI'].include? '/d/'
-          headers 'Cache-Control' => "must-revalidate, max-age=#{options.cachem*10}"
+      request.env['REQUEST_URI'].gsub(/\/(s|d)\//) {|type|
+        # Static file
+        if type[0].to_s = 's'
+          # Longer ttl for follow-ups
+          age_mlt = request.env['HTTP_IF_MODIFIED_SINCE'] ? 80 : 40
         else
-          headers 'Cache-Control' => "max-age=#{options.cachem}"
+          # Real, yet, dynamic file
+          age_mlt = options.cachem * 10
         end
-      end
+        cache_control :public, :max_age => settings.cachem * age_mlt
+      }
 
       # POSTs indicate data alterations, rebuild cache and semi-dynamic database entries
       if request.env['REQUEST_METHOD'].upcase == 'POST'
@@ -168,6 +166,12 @@ module Regdel
 
 
     helpers do
+      # Markdown content is good
+      def markdown(template, options={})
+        output = render :md, template, options
+        '<div>'+output+'</div>'
+      end
+
       # Just the usual Sinatra redirect with App prefix
       def mredirect(uri)
         redirect Regdel.uripfx+uri
