@@ -45,10 +45,9 @@ end
 
 require 'regdel'
 
-Regdel::Main.set :run, false
-Regdel::Main.set :environment, ENV['RACK_ENV']
-
 map mountpath do
   # Remove leading slash if there is no path
-	run Regdel.new(mountpath.gsub(/^\/$/,''),dirpfx)
+	regdelapp = Regdel.new(mountpath.gsub(/^\/$/,''),dirpfx)
+	regdelapp.set :environment, ENV['RACK_ENV']
+	run regdelapp
 end
