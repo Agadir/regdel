@@ -33,6 +33,7 @@ require 'rack/contrib'
 require 'rack-rewrite'
 require 'rack-xslview'
 require 'rexml/document'
+require 'fileutils'
 
 require 'data/regdel-dm-modules'
 require 'data/regdel_dm'
@@ -425,8 +426,8 @@ module Regdel
         myfile.close
       rescue StandardError
         # Close file handle and then delete
-        myfile.close
-        File.delete(myfile)
+        #myfile.close
+        #File.delete(myfile)
         halt %(<p><a href="#{Regdel.uripfx}/">Error, start over?</a></p>)
       end
     end
