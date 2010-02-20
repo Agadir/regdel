@@ -38,7 +38,6 @@ require 'data/regdel-dm-modules'
 require 'data/regdel_dm'
 require 'data/development'
 require 'sinatra/xslview'
-require 'sinatra/cache'
 
 # The container for the Regdel application
 module Regdel
