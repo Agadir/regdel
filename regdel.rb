@@ -148,9 +148,7 @@ module Regdel
 
       # POSTs indicate data alterations, rebuild cache and semi-dynamic database entries
       if request.env['REQUEST_METHOD'].upcase == 'POST'
-        unless env['RACK_ENV']=='demoz'
-          rebuild_ledger(Regdel.dirpfx + '/public/d/xhtml/ledger.html')
-        end
+        rebuild_ledger(Regdel.dirpfx + '/public/d/xhtml/ledger.html')
         Account.all.each do |myaccount|
           myaccount.update_ledger_balance
         end
@@ -425,9 +423,6 @@ module Regdel
         myfile.write(general_ledger_html)
         myfile.close
       rescue StandardError
-        # Close file handle and then delete
-        #myfile.close
-        #File.delete(myfile)
         halt %(<p><a href="#{Regdel.uripfx}/">Error, start over?</a></p>)
       end
     end
