@@ -385,6 +385,7 @@ module Regdel
 
     get '/regdel/runtime/info' do
       @uptime   = (0 + Time.now.to_i - Regdel.started_at).to_s
+      @sinatv   = Sinatra::VERSION
       runtime   = builder :'xml/runtime'
       xslview runtime, 'runtime.xsl'
     end

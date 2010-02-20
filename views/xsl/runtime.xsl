@@ -32,6 +32,8 @@ xmlns="http://www.w3.org/1999/xhtml">
 <dd><xsl:value-of select="/regdel/@environment"/></dd>
 <dt>Uptime</dt>
 <dd><xsl:value-of select="/regdel/runtime/@uptime"/></dd>
+<dt>Sinatra Version</dt>
+<dd><b><xsl:value-of select="/regdel/@sinatv"/></b></dd>
 </dl>
 
 </xsl:template>
