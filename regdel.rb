@@ -32,13 +32,13 @@ require 'rack/utils'
 require 'rack/contrib'
 require 'rack-rewrite'
 require 'rack-xslview'
+require 'sinatra/xslview'
 require 'rexml/document'
 require 'fileutils'
 
 require 'data/regdel-dm-modules'
 require 'data/regdel_dm'
 require 'data/development'
-require 'sinatra/xslview'
 
 # The container for the Regdel application
 module Regdel
@@ -85,12 +85,13 @@ module Regdel
       Regdel.xslfile = File.open(Regdel.dirpfx + '/views/xsl/html_main.xsl')
       Regdel.xslt.xsl = REXML::Document.new Regdel.xslfile
 
-      # Used in runtime/info
-      Regdel.started_at = Time.now.to_i
-
       # Setup paths to remove from Rack::XSLView, and params to include
       Regdel.omitxsl = ['/raw/', '/s/js/', '/s/css/', '/s/img/']
       Regdel.passenv = ['PATH_INFO', 'RACK_MOUNT_PATH', 'RACK_ENV']
+
+      # Used in runtime/info
+      Regdel.started_at = Time.now.to_i
+
     end
 
     configure :production do
@@ -438,5 +439,7 @@ module Regdel
 end
 
 if __FILE__ == $0
-  Regdel.new('','.').run!
+	regdelapp = Regdel.new('','.')
+	regdelapp.set :environment, ENV['RACK_ENV']
+	regdelapp.run!
 end
