@@ -173,6 +173,7 @@ namespace :vlad do
   remote_task :restart do
     run "sudo svc -d /service/regdel"
     run "sudo svc -u /service/regdel"
+    run 'chmod 0777 /var/www/dev/regdel/current/public/s/xhtml'
   end
   task :deploy => [:update, :restart]
 end

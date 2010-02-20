@@ -148,7 +148,9 @@ module Regdel
 
       # POSTs indicate data alterations, rebuild cache and semi-dynamic database entries
       if request.env['REQUEST_METHOD'].upcase == 'POST'
-        rebuild_ledger(Regdel.dirpfx + '/public/d/xhtml/ledger.html')
+        unless env['RACK_ENV']=='demo'
+          rebuild_ledger(Regdel.dirpfx + '/public/d/xhtml/ledger.html')
+        end
         Account.all.each do |myaccount|
           myaccount.update_ledger_balance
         end
