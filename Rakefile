@@ -186,7 +186,7 @@ Spec::Rake::SpecTask.new(:spec) do |t|
   t.spec_files = Dir.glob('spec/*_spec.rb')
   t.spec_opts << '--format specdoc'
   t.rcov = true
-  t.rcov_opts = ['--exclude', '/var/lib/gems/1.8/gems,/usr/bin/spec,spec']
+  t.rcov_opts = ['--exclude', '/var/lib/gems/1.9.1/gems,/usr/bin/spec,spec']
 end
 
 
