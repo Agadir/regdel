@@ -69,9 +69,16 @@ xmlns="http://www.w3.org/1999/xhtml">
     <title>
       <xsl:value-of select="//h2" />
     </title>
-    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/jquery-1.3.2.js"></script>
+    <xsl:if test="$RACK_ENV='demo'">
+    <script type="text/javascript" src="http://www-01.evenserver.com/s/js/jquery/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="http://www-01.evenserver.com/s/js/jquery/plugins/jquery.url-1.0.js"></script>
+    <script type="text/javascript" src="http://www-01.evenserver.com/s/js/jquery/plugins/jquery.jselect-1.3.1.js"></script>
+    </xsl:if>
+    <xsl:if test="not($RACK_ENV='demo')">
+    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.url.js"></script>
     <script type="text/javascript" src="{$RACK_MOUNT_PATH}/s/js/jquery/plugins/jquery.jselect.js"></script>
+    </xsl:if>
     <script type="text/javascript">
     var app_prefix = '<xsl:value-of select="$RACK_MOUNT_PATH"/>';
     // These global variables are also used in account_form.js and entry_form.js

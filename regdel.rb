@@ -42,6 +42,7 @@ require 'data/development'
 
 # The container for the Regdel application
 module Regdel
+  VERSION = '0.0.1'
 
   class << self
     # uripfx     the prefix before Regdel's paths
