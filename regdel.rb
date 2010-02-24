@@ -136,7 +136,7 @@ module Regdel
       # More aggressive cache settings for static files
       request.env['REQUEST_URI'].gsub(/\/(s|d)\//) {|type|
         # Static file
-        if type[0].to_s = 's'
+        if type[0].to_s == 's'
           # Longer ttl for follow-ups
           age_mlt = request.env['HTTP_IF_MODIFIED_SINCE'] ? 80 : 40
         else
