@@ -100,9 +100,6 @@ module Regdel
     end
 
     configure :development do
-      Sinatra::Application.reset!
-      use Rack::Lint
-      use Rack::Reloader
       set :logging, false
       set :cachem, 1
     end
@@ -134,17 +131,19 @@ module Regdel
 
     before do
       # More aggressive cache settings for static files
-      request.env['REQUEST_URI'].gsub(/\/(s|d)\//) {|type|
-        # Static file
-        if type[0].to_s == 's'
-          # Longer ttl for follow-ups
-          age_mlt = request.env['HTTP_IF_MODIFIED_SINCE'] ? 80 : 40
-        else
-          # Real, yet, dynamic file
-          age_mlt = options.cachem * 10
-        end
-        cache_control :public, :max_age => settings.cachem * age_mlt
-      }
+      if request.env['REQUEST_URI']
+        request.env['REQUEST_URI'].gsub(/\/(s|d)\//) {|type|
+          # Static file
+          if type[0].to_s == 's'
+            # Longer ttl for follow-ups
+            age_mlt = request.env['HTTP_IF_MODIFIED_SINCE'] ? 80 : 40
+          else
+            # Real, yet, dynamic file
+            age_mlt = options.cachem * 10
+          end
+          cache_control :public, :max_age => settings.cachem * age_mlt
+        }
+      end
 
       # POSTs indicate data alterations, rebuild cache and semi-dynamic database entries
       if request.env['REQUEST_METHOD'].upcase == 'POST'
