@@ -27,7 +27,9 @@ describe "Regdel" do
   include Rack::Test::Methods
 
   def app
-    @app ||= Regdel.new('')
+    myapp = Regdel.new()
+    myapp.set :environment, 'test'
+    @app ||= myapp
   end
 
   it "should respond to /" do
