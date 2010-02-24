@@ -33,7 +33,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
   </h2>
   </div>
   <div class="bd">
-  <table id="journal-table" class="zebra">
+  <table id="journal-table" class="tablesorter zebra">
     <thead>
       <tr>
         <th>

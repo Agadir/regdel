@@ -5,11 +5,14 @@ $('document').ready(function() {
   $("#account-form").attr("action",app_prefix+"/account/submit");
 
   // Setup validation
-  $("#account-form").validate({
-    errorPlacement: function(error, element) { },
-    rules: {
-      name: "required"
-    }
+  $.getScript(app_prefix+'/s/js/pkgs/jquery-validate/jquery.validate.min.js', function() {
+    $("#account-form").validate({
+      errorPlacement: function(error, element) { },
+      rules: {
+        name: "required",
+        number: "required"
+      }
+    });
   });
 
   $('#type_id').jselect({

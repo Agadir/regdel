@@ -31,7 +31,7 @@ Fifth Floor, Boston, MA 02110-1301 USA
   </h2>
   </div>
   <div class="bd">
-<table class="accounts zebra" id="accounts-table">
+<table class="accounts tablesorter zebra" id="accounts-table">
 <thead>
 <tr>
 <th class="info"><span class="i18n i18n-account_type">Account Type</span></th>

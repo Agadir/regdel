@@ -21,7 +21,7 @@ $('document').ready(function() {
   $(".pagesize", $("#table-pager")).val(numrows);
 
   // Call tablesorter and pager
-  $("#ledger-table", $("#page-content")).addClass("tablesorter").tablesorter({
+  $("#ledger-table", $("#page-content")).tablesorter({
     widthFixed: true
   }).tablesorterPager({
     container: $("#table-pager"),

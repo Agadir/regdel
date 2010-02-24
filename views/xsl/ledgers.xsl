@@ -33,7 +33,7 @@ xmlns="http://www.w3.org/1999/xhtml">
   </h2>
   </div>
   <div class="bd">
-  <table class="zebra" id="ledger-table">
+  <table class="tablesorter zebra" id="ledger-table">
   <xsl:apply-templates />
   </table>
   </div>

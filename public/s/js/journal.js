@@ -41,7 +41,7 @@ $('document').ready(function() {
   );
 
   // Setup tablesorter
-  $("#journal-table", $("#page-content")).addClass("tablesorter").tablesorter({
+  $("#journal-table", $("#page-content")).tablesorter({
   });
 
 });
