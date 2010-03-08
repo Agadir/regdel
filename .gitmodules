@@ -13,3 +13,6 @@
 [submodule "public/s/js/pkgs/jquery.autocomplete"]
 	path = public/s/js/pkgs/jquery.autocomplete
 	url = http://github.com/docunext/jquery.autocomplete.bassistance.git
+[submodule "views/xsl/1bb02b59"]
+	path = views/xsl/1bb02b59
+	url = git://github.com/docunext/1bb02b59.git
