@@ -196,7 +196,7 @@ end
 require 'rdoc'
 require 'rdoc/rdoc'
 require 'rdoc/generator'
-require 'rdoc/generator/darkfish'
+#require 'rdoc/generator/darkfish'
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
     rdoc.title    = "Regdel - Ruby Powered Bookkeeping Software"
