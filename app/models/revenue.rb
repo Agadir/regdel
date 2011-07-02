@@ -1,0 +1,3 @@
+class Revenue < Account
+
+end
