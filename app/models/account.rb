@@ -1,10 +1,23 @@
 class Account < ActiveRecord::Base
+
   ACCOUNT_TYPES = ["Asset", "Liability", "Equity", "Revenue", "Expense"]
 
-  validates_uniqueness_of :name
+  serialize :attrs
+
+  validates :name,
+            :presence => true,
+            :uniqueness => true
+
   has_many :entries
 
+  has_many :accounts, :as => :accountable
+  belongs_to :accountable, :polymorphic => true
+
   acts_as_nested_set
+
+  state_machine :initial => :active do
+
+  end
 
 #  account_types[5] ="Gain"
 #  account_types[6] ="Loss"

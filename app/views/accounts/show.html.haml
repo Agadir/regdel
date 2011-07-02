@@ -1,7 +1,10 @@
 %h2= @account.name
 
--@sub_accounts.each do |sub|
+%h3= @account.type
+
+-if @sub_accounts
   %ul
+  -@sub_accounts.each do |sub|
     %li= account_link_for(sub)
 
 %p= new_sub_account_for(@account)

@@ -1,0 +1,3 @@
+class Check < Entry
+
+end

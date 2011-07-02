@@ -1,8 +1,11 @@
 =f.label :name
 =f.text_field :name
 =f.label :type
-=f.select :type, Account::ACCOUNT_TYPES
+=f.select :type, @account.class::ACCOUNT_TYPES
 =f.label :parent_id, "Sub-account of:"
 =f.select :parent_id, accounts_select, :selected => params[:id]
+-if @account.is_a?(BankAccount)
+  -@account.class::ATTRIBUTES.each do |attr|
+    %p= attr[1]
 %br
 =f.submit
