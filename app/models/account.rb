@@ -3,6 +3,8 @@ class Account < ActiveRecord::Base
 
   validates_uniqueness_of :name
 
+  acts_as_nested_set
+
 #  account_types[5] ="Gain"
 #  account_types[6] ="Loss"
 #  account_types[7] ="Distribution from Equity"

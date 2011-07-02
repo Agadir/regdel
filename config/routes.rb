@@ -1,5 +1,6 @@
 RegdelRails::Application.routes.draw do
   resources :accounts
+  match 'accounts/:id/new' => 'accounts#new', :as => :new_sub_account
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

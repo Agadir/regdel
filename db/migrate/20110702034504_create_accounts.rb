@@ -4,6 +4,8 @@ class CreateAccounts < ActiveRecord::Migration
       t.string :name
       t.integer :parent_id
       t.string :type
+      t.integer :lft
+      t.integer :rgt
 
       t.timestamps
     end

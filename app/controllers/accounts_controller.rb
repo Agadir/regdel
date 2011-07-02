@@ -8,6 +8,7 @@ class AccountsController < ApplicationController
 
   def show
     @account = Account.find(params[:id])
+    @sub_accounts = Account.find_all_by_parent_id(params[:id])
   end
 
   def edit
