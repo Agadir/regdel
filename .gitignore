@@ -6,4 +6,5 @@ myrake
 html
 config/deploy.rb
 config/database.rb
+log/*
 
