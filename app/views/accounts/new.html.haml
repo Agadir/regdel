@@ -1,1 +1,2 @@
-=render :partial => 'form', :locals => {:account => @account}
+-form_for @account do |f|
+  =render :partial => 'form', :locals => {:account => @account, :f => f}

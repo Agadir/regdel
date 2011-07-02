@@ -1,7 +1,6 @@
--form_for :account, :url => { :action => "create" } do |f|
-  =f.label :name
-  =f.text_field :name
-  =f.label :type
-  =f.select :type, Account::ACCOUNT_TYPES
-  %br
-  =f.submit
+=f.label :name
+=f.text_field :name
+=f.label :type
+=f.select :type, Account::ACCOUNT_TYPES
+%br
+=f.submit

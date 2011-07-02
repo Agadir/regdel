@@ -1,5 +1,7 @@
 class AccountsController < ApplicationController
 
+  before_filter :create_or_update, :only => [:edit, :new]
+
   def index
     @accounts = Account.find(:all)
   end
@@ -13,7 +15,10 @@ class AccountsController < ApplicationController
   end
 
   def update
-
+    @account = Account.find(params[:id])
+    if @account.update_attributes(params[:account])
+      redirect_to accounts_path
+    end
   end
 
   def new
@@ -24,6 +29,13 @@ class AccountsController < ApplicationController
     @account = params[:account][:type].constantize.new(params[:account])
     if @account.save
       redirect_to accounts_path
+    else
+      render :new
     end
+  end
+
+private
+  def create_or_update
+    @method = params.has_key?(:id) ? 'PUT' : 'POST'
   end
 end
