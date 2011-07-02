@@ -6,6 +6,9 @@ class CreateAccounts < ActiveRecord::Migration
       t.string :type
       t.integer :lft
       t.integer :rgt
+      t.inactive :boolean
+      t.description :text
+
 
       t.timestamps
     end

@@ -1,4 +1,6 @@
 RegdelRails::Application.routes.draw do
+
+  resources :entries
   resources :accounts
   match 'accounts/:id/new' => 'accounts#new', :as => :new_sub_account
 

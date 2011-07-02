@@ -2,6 +2,7 @@ class Account < ActiveRecord::Base
   ACCOUNT_TYPES = ["Asset", "Liability", "Equity", "Revenue", "Expense"]
 
   validates_uniqueness_of :name
+  has_many :entries
 
   acts_as_nested_set
 
