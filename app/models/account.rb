@@ -10,9 +10,7 @@ class Account < ActiveRecord::Base
             :uniqueness => true
 
   has_many :entries
-
-  has_many :accounts, :as => :accountable
-  belongs_to :accountable, :polymorphic => true
+  has_many :entry_amounts, :through => :entries
 
   acts_as_nested_set
 

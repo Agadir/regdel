@@ -1,2 +1,3 @@
--form_for @account do |f|
-  =render :partial => 'form', :locals => {:account => @account, :f => f}
+%h2= "New #{resource.class}"
+=form_for resource do |f|
+  =render :partial => 'form', :locals => {:account => resource, :f => f}

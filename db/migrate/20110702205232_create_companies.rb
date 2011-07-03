@@ -5,6 +5,7 @@ class CreateCompanies < ActiveRecord::Migration
       t.string :type
       t.string :state
       t.integer :group_id
+      t.integer :account_id
 
       t.timestamps
     end

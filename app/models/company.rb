@@ -1,13 +1,5 @@
-class Company < ActiveRecord::Base
+class Company < Account
 
-  validates :name,   
-            :presence => true,   
-            :uniqueness => true
-
-  has_many :accounts, :as => :accountable
-
-  state_machine :initial => :active do
-
-  end
+  has_many :contacts, :as => :contactable
 
 end

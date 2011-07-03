@@ -10,7 +10,6 @@ class CreateAccounts < ActiveRecord::Migration
       t.integer :rgt
       t.string :state
       t.text :description
-      t.references :accountable, :polymorphic => true
       t.text :attrs
 
       t.timestamps

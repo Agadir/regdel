@@ -1,0 +1,3 @@
+class Transfer < Entry
+
+end
