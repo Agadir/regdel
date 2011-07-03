@@ -1,8 +1,10 @@
 require 'test_helper'
 
 class AccountTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+
+  test "should not save account without name" do
+    acc = Account.new
+    assert !acc.save
   end
+
 end

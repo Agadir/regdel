@@ -2,13 +2,16 @@ class CreateAccounts < ActiveRecord::Migration
   def self.up
     create_table :accounts do |t|
       t.string :name
+      t.integer :number
+      t.integer :integer
       t.integer :parent_id
       t.string :type
       t.integer :lft
       t.integer :rgt
-      t.inactive :boolean
-      t.description :text
-
+      t.string :state
+      t.text :description
+      t.references :accountable, :polymorphic => true
+      t.text :attrs
 
       t.timestamps
     end

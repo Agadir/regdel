@@ -4,6 +4,7 @@ class CreateEntries < ActiveRecord::Migration
       t.string :memo
       t.string :state
       t.integer :fiscal_period_id
+      t.string :type
 
       t.timestamps
     end
