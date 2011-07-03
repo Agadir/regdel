@@ -9,7 +9,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'haml'
 gem 'nested_set'
 gem 'state_machine'
-
+gem 'inherited_resources'
 
 # Use unicorn as the web server
 # gem 'unicorn'

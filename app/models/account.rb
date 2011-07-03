@@ -1,4 +1,5 @@
 class Account < ActiveRecord::Base
+  include AccountMethods
 
   ACCOUNT_TYPES = ["Asset", "Liability", "Equity", "Revenue", "Expense"]
 

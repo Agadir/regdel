@@ -3,9 +3,11 @@
 =f.label :type
 =f.select :type, @account.class::ACCOUNT_TYPES
 =f.label :parent_id, "Sub-account of:"
-=f.select :parent_id, accounts_select, :selected => params[:id]
--if @account.is_a?(BankAccount)
+=f.select :parent_id, accounts_select, :selected => resource.parent_id
+-if resource.is_a?(BankAccount)
   -@account.class::ATTRIBUTES.each do |attr|
-    %p= attr[1]
+    =f.fields_for :attrs do |attr_form|
+      =attr_form.label attr[0], attr[1]
+      =attr_form.text_field attr[0], :value => resource.attrs[attr[0]]
 %br
 =f.submit
