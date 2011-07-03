@@ -2,7 +2,12 @@ RegdelRails::Application.routes.draw do
 
   resources :customers
   resources :vendors
-  resources :entries
+  resources :entries do
+    collection do
+      get 'write_check'
+      get 'transfer_funds'
+    end
+  end
   resources :accounts do
     resources :entries
   end
@@ -10,6 +15,8 @@ RegdelRails::Application.routes.draw do
   resources :assets
   resources :liabilities
   resources :credit_cards
+  resources :checks, :controller => :entries
+  resources :transfers, :controller => :entries
 
   match 'accounts/:id/new' => 'accounts#new', :as => :new_sub_account
 
