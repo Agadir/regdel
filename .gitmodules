@@ -16,3 +16,6 @@
 [submodule "views/xsl/1bb02b59"]
 	path = views/xsl/1bb02b59
 	url = git://github.com/docunext/1bb02b59.git
+[submodule "app/views/layouts/xsl/1bb02b59"]
+	path = app/views/layouts/xsl/1bb02b59
+	url = git://github.com/docunext/1bb02b59.git
