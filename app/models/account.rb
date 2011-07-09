@@ -18,6 +18,14 @@ class Account < ActiveRecord::Base
 
   end
 
+  def destroy
+    raise ActiveRecord::IndestructibleRecord
+  end
+
+  def as_base
+    self.becomes(Account)
+  end
+
 #  account_types[5] ="Gain"
 #  account_types[6] ="Loss"
 #  account_types[7] ="Distribution from Equity"
