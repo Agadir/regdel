@@ -34,6 +34,20 @@ xmlns="http://www.w3.org/1999/xhtml">
     <div id="doc3" class="yui-t6">
       <div id="hd">
         <h1>Regdel</h1>
+        <div id="navigation">
+        <ul id="primary-navigation">
+          <li id="nav-home"><a class="regdel-link" href="/">Home</a></li>
+          <li id="nav-journal"><a class="regdel-link" href="/entries">Journal</a></li>
+          <li id="nav-entry"><a id="nav-entry-link" class="regdel-link" href="/entries/new">New Entry</a></li>
+          <li id="nav-accounts"><a class="regdel-link" href="/accounts">Accounts</a></li>
+          <li id="nav-account"><a class="regdel-link" href="/accounts/new">New Account</a></li>
+        </ul>
+        <ul id="user-navigation">
+          <li><a href="/regdel/runtime/info" class="regdel-link">Settings</a></li>
+          <li><a href="/regdel/runtime/info" class="regdel-link not-production">Development</a></li>
+        </ul>
+        <div class="clear"></div>
+        </div>
       </div>
       <div id="bd">
         <div id="yui-main">
