@@ -8,6 +8,32 @@ gem 'nested_set'
 gem 'state_machine'
 gem 'inherited_resources'
 
+gem 'ruby-xslt', :require => 'xml/xslt'
+
+group :development do
+  #gem 'rack-xslview', :require => '/var/www/dev/Rack-XSLView/lib/rack-xslview.rb'
+  gem 'rack-xsl', :require => 'rack/xsl'
+end
+
+group :test do
+  #gem 'rack-xslview'
+  gem 'rack-xsl', :require => 'rack/xsl'
+  gem "shoulda"
+end
+
+group :production do
+  #gem 'rack-xslview'
+  gem 'rack-xsl', :require => 'rack/xsl'
+end
+gem 'tidy_ffi'
+
+gem 'rdiscount', ">= 1.6.8"
+gem 'rack-rdiscount', ">= 0.0.2", :require => 'rack/rdiscount'
+gem 'rack-contrib', :require => 'rack/contrib'
+gem 'rack', :require => 'rack/contrib/config'
+gem 'rack-rewrite'
+gem 'sass'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
