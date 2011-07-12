@@ -12,8 +12,8 @@ class Account < ActiveRecord::Base
   validates :type,
             :presence => true
 
-  has_many :entries
-  has_many :entry_amounts, :through => :entries
+  has_many :entries, :through => :entry_amounts
+  has_many :entry_amounts
 
   acts_as_nested_set
 
@@ -27,6 +27,10 @@ class Account < ActiveRecord::Base
 
   def as_base
     self.becomes(Account)
+  end
+
+  def balance
+    entry_amounts.sum(:amount_in_cents)
   end
 
 #  account_types[5] ="Gain"
