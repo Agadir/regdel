@@ -8,9 +8,16 @@ class Entry < ActiveRecord::Base
 
   validates_size_of :credits, :minimum => 1
   validates_size_of :debits, :minimum => 1
+  validate :credits_and_debits_must_balance
 
   def destroy
     raise ActiveRecord::IndestructibleRecord
+  end
+
+private
+
+  def credits_and_debits_must_balance
+    credits.sum(:amount_in_cents) == debits.sum(:amount_in_cents)
   end
 
 end

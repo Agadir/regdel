@@ -9,6 +9,9 @@ class Account < ActiveRecord::Base
             :presence => true,
             :uniqueness => true
 
+  validates :type,
+            :presence => true
+
   has_many :entries
   has_many :entry_amounts, :through => :entries
 

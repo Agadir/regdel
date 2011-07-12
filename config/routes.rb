@@ -15,6 +15,7 @@ RegdelRails::Application.routes.draw do
   resources :assets
   resources :liabilities
   resources :credit_cards
+  resources :expenses
   resources :checks, :controller => :entries
   resources :transfers, :controller => :entries
 

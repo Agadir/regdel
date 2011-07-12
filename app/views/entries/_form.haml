@@ -6,5 +6,10 @@
   =entry_form.select :account_id, accounts_select
   =entry_form.label :amount_in_cents, "Amount"
   =entry_form.text_field :amount_in_cents
+=f.fields_for :debits, @debits do |entry_form|
+  =entry_form.label :account_id
+  =entry_form.select :account_id, accounts_select
+  =entry_form.label :amount_in_cents, "Amount"
+  =entry_form.text_field :amount_in_cents
 %r
 =f.submit
