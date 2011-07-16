@@ -1,6 +1,7 @@
 %h2 Accounts
-- collection.each do |a|
-  %p=link_to a.name, self.send("#{a.type.underscore}_path",a)
-  %p= a.type
+-collection.group_by(&:type).each do |type, accounts|
+  %h4.account_type=type
+  -accounts.each do |a|
+    %p=link_to a.name, self.send("#{a.type.underscore}_path",a)
 
 =link_to "New", new_resource_path

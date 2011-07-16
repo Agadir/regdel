@@ -1,18 +1,19 @@
 require 'active_record/fixtures'
 
-#Asset.create({:name => 'Bank Accounts'})
-
 def seed_accounts(hash)
   hash.each_pair do |type, children|
-    children.each{ |name| type.create(
-      :name => name
-    ) }
+    children.each do |name|
+      type.create(
+        :name => name
+      )
+    end 
   end
 end
 
 seed_accounts({
   Asset      => ['Bank Accounts', 'Current Assets', 'Fixed Assets', 'Other Assets'],
-  Liability  => ['Current Liabilities', 'Long Term Liabilities']
+  Liability  => ['Current Liabilities', 'Long Term Liabilities'],
+  BankAccount => ['Bank Account 1']
 })
 
 
