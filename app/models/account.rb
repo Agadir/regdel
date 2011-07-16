@@ -10,23 +10,18 @@ class Account < ActiveRecord::Base
             :uniqueness => true
 
   validates :type,
-            :presence => true
+            :presence => true,
+            :exclusion => { :in => ['Account'] }
 
   has_many :entries, :through => :entry_amounts
   has_many :entry_amounts
 
   acts_as_nested_set
-
   state_machine :initial => :active do
-
   end
 
   def destroy
     raise ActiveRecord::IndestructibleRecord
-  end
-
-  def as_base
-    self.becomes(Account)
   end
 
   def balance

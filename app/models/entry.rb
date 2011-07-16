@@ -10,6 +10,10 @@ class Entry < ActiveRecord::Base
   validates_size_of :debits, :minimum => 1
   validate :credits_and_debits_must_balance
 
+  validates :type,
+            :presence => true,
+            :exclusion => { :in => ['Entry'] }
+
   def destroy
     raise ActiveRecord::IndestructibleRecord
   end

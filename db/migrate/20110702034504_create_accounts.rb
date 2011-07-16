@@ -11,6 +11,7 @@ class CreateAccounts < ActiveRecord::Migration
       t.string :state
       t.text :description
       t.text :attrs
+      t.boolean :active, :default => true
 
       t.timestamps
     end
