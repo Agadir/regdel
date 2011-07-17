@@ -6,6 +6,7 @@ class CreateEntries < ActiveRecord::Migration
       t.date :date
       t.integer :fiscal_period_id
       t.string :type
+      t.boolean :posted
 
       t.timestamps
     end

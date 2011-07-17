@@ -1,7 +1,8 @@
 class EntriesController < InheritedResources::Base
 
   def write_check
-    @entry = Check.new.becomes(Account)
+    @entry = Entry.new
+    @entry[:type] = 'Check'
     @debits = [Debit.new]
     @credits = []
     3.times do
@@ -13,19 +14,17 @@ class EntriesController < InheritedResources::Base
   end
 
   def transfer_funds 
-    @entry = Transfer.new
+    @entry = Entry.new
+    @entry[:type] = 'Transfer'
     @debits = [Debit.new]
-    @credits = []
-    3.times do
-      @credits << Credit.new
-    end
+    @credits = [Credit.new]
     @debit_accounts = BankAccount.find(:all)
     @credit_accounts = BankAccount.find(:all)
     render :new
   end
 
   def create_invoice 
-    @entry = Invoice.new
+    @entry = Invoice.new.as_base
     @credits = Credit.new
     @debits = Debit.new
     @debit_accounts = Customer.find(:all)
@@ -35,7 +34,7 @@ class EntriesController < InheritedResources::Base
 
   def create
     type = params[:entry][:type]
-    @entry = type.constantize.new(params[:entry])
+    @entry = type.capitalize.constantize.new(params[:entry])
     if @entry.save
       redirect_to entries_path
     else

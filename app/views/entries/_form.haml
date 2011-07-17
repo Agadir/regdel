@@ -1,5 +1,6 @@
 =f.label :memo
 =f.text_field :memo
+=f.hidden_field :type
 %br
 -@credits.each do |credit|
   =f.fields_for :credits, credit do |entry_form|
