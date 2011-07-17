@@ -6,6 +6,7 @@ class AccountTest < ActiveSupport::TestCase
     acc = Account.new
     assert !acc.save
   end
+
   test "should not save account with type Account" do
     acc = Account.new({:name => 'Blah'})
     assert !acc.save
@@ -22,9 +23,11 @@ class AccountTest < ActiveSupport::TestCase
       })
     end
     should "should have a balance" do
-
       assert !@asset.balance.nil?
     end
-    
+    should "should not get destroyed" do
+      assert !@asset.destroy
+    end
   end
+
 end

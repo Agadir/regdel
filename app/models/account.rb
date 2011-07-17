@@ -25,7 +25,7 @@ class Account < ActiveRecord::Base
   end
 
   def destroy
-    raise ActiveRecord::IndestructibleRecord
+    false
   end
 
   def balance
