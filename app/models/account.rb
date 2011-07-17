@@ -29,7 +29,7 @@ class Account < ActiveRecord::Base
   end
 
   def balance
-    entry_amounts.sum(:amount_in_cents)
+    entry_amounts.sum(:amount_in_cents) * 0.01
   end
 
 #  account_types[5] ="Gain"

@@ -22,6 +22,10 @@ class Entry < ActiveRecord::Base
     false
   end
 
+  def amount
+    self.credits.sum(:amount_in_cents) * 0.01
+  end
+
 private
 
   def credits_and_debits_must_balance

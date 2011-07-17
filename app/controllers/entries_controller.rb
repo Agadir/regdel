@@ -1,5 +1,6 @@
 class EntriesController < InheritedResources::Base
 
+
   def write_check
     @entry = Entry.new
     @entry[:type] = 'Check'
