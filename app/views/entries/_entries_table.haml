@@ -1,0 +1,11 @@
+-if collection
+  %table
+    %thead
+      %tr
+        %th Memo
+        %th Date
+    %tbody
+    -collection.each do |e|
+      %tr
+        %td= link_to e.memo, resource_path(e)
+        %td= e.date.to_s

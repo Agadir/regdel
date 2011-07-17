@@ -1,8 +1,6 @@
 %h2 Entries
 
--if collection
-  %ul
-  -collection.each do |e|
-    %li= link_to e.memo, resource_path(e)
+
+=render :partial => 'entries_table', :locals => {:collection => collection}
 
 =link_to "New", new_entry_path
