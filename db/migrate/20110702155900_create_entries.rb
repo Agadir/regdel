@@ -3,6 +3,7 @@ class CreateEntries < ActiveRecord::Migration
     create_table :entries do |t|
       t.string :memo
       t.string :state
+      t.date :date
       t.integer :fiscal_period_id
       t.string :type
 

@@ -20,6 +20,10 @@ class Account < ActiveRecord::Base
   state_machine :initial => :active do
   end
 
+  def as_base
+    self.becomes(Account) 
+  end
+
   def destroy
     raise ActiveRecord::IndestructibleRecord
   end

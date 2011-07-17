@@ -1,1 +1,4 @@
 %h2= resource.memo
+%p= resource.date
+-resource.entry_amounts.each do |e|
+  %p=e.amount_in_cents

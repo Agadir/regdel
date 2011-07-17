@@ -13,7 +13,7 @@ end
 seed_accounts({
   Asset      => ['Bank Accounts', 'Current Assets', 'Fixed Assets', 'Other Assets'],
   Liability  => ['Current Liabilities', 'Long Term Liabilities'],
-  BankAccount => ['Bank Account 1']
+  BankAccount => ['Bank Account 1', 'Bank Account 2']
 })
 
 
