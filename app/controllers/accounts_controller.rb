@@ -14,4 +14,8 @@ class AccountsController < InheritedResources::Base
     @sub_accounts = Account.find_all_by_parent_id(params[:id])
   end
 
+  def edit 
+    @account = Account.find(params[:id])
+  end
+
 end

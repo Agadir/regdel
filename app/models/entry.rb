@@ -16,7 +16,7 @@ class Entry < ActiveRecord::Base
             :exclusion => { :in => ['Entry'] }
 
   def destroy
-    raise ActiveRecord::IndestructibleRecord
+    false
   end
 
 private
