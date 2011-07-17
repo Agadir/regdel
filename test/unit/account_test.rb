@@ -14,4 +14,17 @@ class AccountTest < ActiveSupport::TestCase
   test "should calculate the account balance" do
     acc = Asset.make 
   end
+
+  context "existing accounts" do    
+    setup do
+      @asset = Asset.make({:name => 'Computer'})
+      @entry = Check.make({
+      })
+    end
+    should "should have a balance" do
+
+      assert !@asset.balance.nil?
+    end
+    
+  end
 end
