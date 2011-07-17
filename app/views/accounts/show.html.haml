@@ -6,3 +6,6 @@
   %ul
   -@sub_accounts.each do |sub|
     %li= account_link_for(sub)
+
+- @account.entries.each do |e|
+  %p= link_to e.memo, entry_path(e)
