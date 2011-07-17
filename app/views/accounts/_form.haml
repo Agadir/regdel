@@ -12,5 +12,8 @@
         =attr_form.text_field attr[0], :value => resource.attrs[attr[0]]
       -else
         =attr_form.text_field attr[0]
+-unless resource.new_record?
+  =f.check_box  :inactive
+  =f.label :inactive, "This account is disabled."
 %br
 =f.submit
