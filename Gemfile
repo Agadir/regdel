@@ -19,6 +19,7 @@ group :test do
   #gem 'rack-xslview'
   gem 'rack-xsl', :require => 'rack/xsl'
   gem "shoulda"
+  gem 'machinist', '>= 2.0.0.beta2' 
 end
 
 group :production do
