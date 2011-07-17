@@ -6,6 +6,7 @@ RegdelRails::Application.routes.draw do
     collection do
       get 'write_check'
       get 'transfer_funds'
+      get 'create_invoice'
     end
   end
   resources :accounts do
@@ -18,6 +19,7 @@ RegdelRails::Application.routes.draw do
   resources :expenses
   resources :checks, :controller => :entries
   resources :transfers, :controller => :entries
+  resources :invoices, :controller => :entries
 
   #match 'accounts/:id/new' => 'accounts#new', :as => :new_sub_account
 

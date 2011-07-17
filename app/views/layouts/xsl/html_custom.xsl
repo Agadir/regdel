@@ -40,6 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml">
           <li id="nav-journal"><a class="regdel-link" href="/entries">Journal</a></li>
           <li id="nav-transfer-funds"><a id="nav-entry-link" class="regdel-link" href="/entries/transfer_funds">Transfer Funds</a></li>
           <li id="nav-write-check"><a id="nav-entry-link" class="regdel-link" href="/entries/write_check">Write Check</a></li>
+          <li id="nav-invoice"><a id="nav-invoice-link" class="regdel-link" href="/entries/write_check">Create Invoice</a></li>
           <li id="nav-accounts"><a class="regdel-link" href="/accounts">Accounts</a></li>
           <li id="nav-account"><a class="regdel-link" href="/accounts/new">New Account</a></li>
         </ul>
