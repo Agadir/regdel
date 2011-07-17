@@ -3,12 +3,12 @@
 %br
 =f.fields_for :credits, @credits do |entry_form|
   =entry_form.label :account_id
-  =entry_form.select :account_id, accounts_select_for(@accounts)
+  =entry_form.select :account_id, accounts_select_for(@credit_accounts)
   =entry_form.label :amount_in_cents, "Amount"
   =entry_form.text_field :amount_in_cents
 =f.fields_for :debits, @debits do |entry_form|
   =entry_form.label :account_id
-  =entry_form.select :account_id, accounts_select_for(@accounts)
+  =entry_form.select :account_id, accounts_select_for(@debit_accounts)
   =entry_form.label :amount_in_cents, "Amount"
   =entry_form.text_field :amount_in_cents
 %r

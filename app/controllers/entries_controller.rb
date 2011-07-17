@@ -4,14 +4,16 @@ class EntriesController < InheritedResources::Base
     @entry = Check.new
     @credits = Credit.new
     @debits = Debit.new
-    @accounts = BankAccount.find(:all)
+    @debit_accounts = Expense.find(:all)
+    @credit_accounts = BankAccount.find(:all)
     render :new
   end
   def transfer_funds 
     @entry = Transfer.new
     @credits = Credit.new
     @debits = Debit.new
-    @accounts = BankAccount.find(:all)
+    @debit_accounts = BankAccount.find(:all)
+    @credit_accounts = BankAccount.find(:all)
     render :new
   end
   def create
