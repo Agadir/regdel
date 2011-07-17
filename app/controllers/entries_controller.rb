@@ -27,15 +27,15 @@ class EntriesController < InheritedResources::Base
   def create
     if params.has_key?(:transfer)
       @entry = Transfer.new(params[:transfer])
-    end
-    if params.has_key?(:check)
+    elsif params.has_key?(:check)
       @entry = Check.new(params[:check])
-    end
-    if params.has_key?(:invoice)
+    elsif params.has_key?(:invoice)
       @entry = Invoice.new(params[:invoice])
     end
-    if @entry.save
+    if @entry && @entry.save
       redirect_to entries_path
+    else
+      render :new
     end
   end
 end

@@ -14,6 +14,7 @@ RegdelRails::Application.routes.draw do
   end
   resources :bank_accounts
   resources :assets
+  resources :current_assets
   resources :liabilities
   resources :credit_cards
   resources :expenses

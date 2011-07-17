@@ -1,0 +1,3 @@
+class CurrentAsset < Asset
+
+end

@@ -11,10 +11,11 @@ def seed_accounts(hash)
 end
 
 seed_accounts({
-  Asset      => ['Bank Accounts', 'Current Assets', 'Fixed Assets', 'Other Assets'],
+  Asset      => ['Current Assets', 'Fixed Assets', 'Other Assets'],
+  CurrentAsset => ['Bank Accounts', 'Accounts Receivable'],
   Liability  => ['Current Liabilities', 'Long Term Liabilities'],
   BankAccount => ['Bank Account 1', 'Bank Account 2'],
-  Expense => ['Electricity'],
+  Expense => ['Electricity', 'Bank Fees', 'Insurance'],
   Customer => ['Customer 1']
 })
 
