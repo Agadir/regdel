@@ -58,7 +58,7 @@ xmlns="http://www.w3.org/1999/xhtml">
             <div id="page-content">
             <xsl:if test="$RACK_ENV='demo'">
             </xsl:if>
-            <xsl:apply-templates />
+            <xsl:apply-templates select="//div[@id='page-content']/*" />
             </div>
           </div></div>
         </div>
@@ -92,6 +92,7 @@ xmlns="http://www.w3.org/1999/xhtml">
     <link rel="stylesheet" type="text/css" href="{$RACK_MOUNT_PATH}/s/css/pkgs/yui-app-theme/css/yuiapp.css"/>
     <link rel="stylesheet" type="text/css" href="{$RACK_MOUNT_PATH}/s/css/pkgs/yui-app-theme/css/yuiapp-layouts.css"/>
     <link rel="stylesheet" type="text/css" href="{$RACK_MOUNT_PATH}/s/css/pkgs/yui-app-theme/css/red.css"/>
+    <xsl:apply-templates select="//div[@id='rails-head']/*" />
     <script type="text/javascript">
     var app_prefix = '<xsl:value-of select="$RACK_MOUNT_PATH"/>';
     // These global variables are also used in account_form.js and entry_form.js

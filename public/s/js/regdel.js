@@ -89,3 +89,6 @@ function relativeDate(date) {
     return ret + (offset < 0 ? "ago" : "from now");
 }
 
+$('document').ready(function() {
+$('.calendar_select').datepick({dateFormat: 'yyyy-mm-dd'});
+});
