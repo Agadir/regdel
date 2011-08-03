@@ -9,6 +9,11 @@ BankAccount.blueprint do
   number { 12345 }  
 end
 
+CreditCard.blueprint do
+  name { "VISA Bank" }
+  number { 12345 }  
+end
+
 Revenue.blueprint do
   name { "Hosting" }
 end
@@ -27,6 +32,11 @@ end
 
 Check.blueprint do
   memo { 'Payment to someone' }
+  date { Time.now }
+end
+
+Transfer.blueprint do
+  memo { 'OK' }
   date { Time.now }
 end
 

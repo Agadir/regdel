@@ -6,7 +6,7 @@ class EntriesController < InheritedResources::Base
     @entry[:type] = 'Check'
     @debits = [Debit.new]
     @credits = []
-    3.times do
+    1.times do
       @credits << Credit.new
     end
     @debit_accounts = Expense.find(:all)
