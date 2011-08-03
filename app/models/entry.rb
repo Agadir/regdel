@@ -9,7 +9,7 @@ class Entry < ActiveRecord::Base
   accepts_nested_attributes_for :entry_amounts
 
   validate :credits_and_debits_must_balance, :if => :posted?
-  validate :account_types_valid?
+  validate :entry_account_types_validation
   validate :entry_amounts_valid?
 
   validates :memo,
@@ -36,11 +36,19 @@ class Entry < ActiveRecord::Base
   end
 
   def account_types_valid?
-    false  
+    pending_entry_amounts.map(&:account).any?{|x| required_account_types.include?(x.class)}
   end
 
   def credits_and_debits_must_balance
     errors.add(:entry_amounts, "must balance") unless credits.sum(:amount_in_cents) == debits.sum(:amount_in_cents)
+  end
+
+  def pending_entry_amounts
+    debits | credits
+  end
+
+  def entry_account_types_validation
+    []
   end
 
 end
