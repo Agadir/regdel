@@ -6,9 +6,11 @@ class Entry < ActiveRecord::Base
   accepts_nested_attributes_for :credits
   accepts_nested_attributes_for :debits
 
-  validates_size_of :credits, :minimum => 1
-  validates_size_of :debits, :minimum => 1
   validate :credits_and_debits_must_balance, :if => :posted?
+  validate :account_types_valid?
+
+  validates :memo,
+            :presence => true
 
   validates :type,
             :presence => true,
@@ -27,6 +29,13 @@ class Entry < ActiveRecord::Base
   end
 
 private
+
+  def entry_amounts_valid?
+    debits.length >= 1 && credits.length >= 1
+  end
+  def account_types_valid?
+    true
+  end
 
   def credits_and_debits_must_balance
     credits.sum(:amount_in_cents) == debits.sum(:amount_in_cents)
