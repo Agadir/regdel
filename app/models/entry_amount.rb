@@ -1,5 +1,9 @@
 class EntryAmount < ActiveRecord::Base
   
+  validates :amount_in_cents,
+            :presence => true,
+            :numericality => true
+
   belongs_to :entry
   belongs_to :account
 
