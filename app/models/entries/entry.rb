@@ -20,6 +20,9 @@ class Entry < ActiveRecord::Base
             :exclusion => { :in => ['Entry'] }
 
 
+  state_machine :initial => :active do
+  end
+
   def as_base
     self.becomes(Entry)
   end

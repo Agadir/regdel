@@ -32,10 +32,4 @@ class Account < ActiveRecord::Base
     entry_amounts.sum(:amount_in_cents) * 0.01
   end
 
-#  account_types[5] ="Gain"
-#  account_types[6] ="Loss"
-#  account_types[7] ="Distribution from Equity"
-#  account_types[8] ="Contribution to Equity"
-#  account_types[9] ="Comprehensive Income"
-#  account_types[10] ="Other"
 end

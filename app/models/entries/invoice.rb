@@ -2,6 +2,9 @@ class Invoice < Entry
 
   belongs_to :customer
 
+  state_machine :initial => :open do
+  end
+
   def required_account_types
     [Revenue, Customer]
   end

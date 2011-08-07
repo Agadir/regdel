@@ -1,5 +1,8 @@
 class Check < Entry
 
+  state_machine :initial => :open do
+  end
+
   def required_account_types
     [BankAccount]
   end
