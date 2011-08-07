@@ -19,6 +19,7 @@ class Entry < ActiveRecord::Base
             :presence => true,
             :exclusion => { :in => ['Entry'] }
 
+
   def as_base
     self.becomes(Entry)
   end
