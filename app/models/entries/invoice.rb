@@ -1,5 +1,7 @@
 class Invoice < Entry
 
+  belongs_to :customer
+
   def required_account_types
     [Revenue, Customer]
   end

@@ -3,5 +3,7 @@ class CreditCard < Liability
   ACCOUNT_TYPES = [ ["Credit Card Account", "CreditCard"] ]
 
   has_one :external_account
+  has_many :credit_card_charges
+
 
 end

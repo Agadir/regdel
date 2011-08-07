@@ -1,6 +1,7 @@
 class CreateEntries < ActiveRecord::Migration
   def self.up
     create_table :entries do |t|
+      t.integer :number
       t.string :memo
       t.string :state
       t.date :date
