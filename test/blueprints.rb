@@ -18,6 +18,10 @@ Revenue.blueprint do
   name { "Hosting" }
 end
 
+Customer.blueprint do
+  name { "ABC Customer" }
+end
+
 Expense.blueprint do
   name { "Electricity" }
 end
@@ -41,5 +45,6 @@ Transfer.blueprint do
 end
 
 Invoice.blueprint do
-
+  memo { 'OK' }
+  date { Time.now }
 end

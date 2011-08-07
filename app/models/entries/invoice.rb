@@ -1,6 +1,11 @@
 class Invoice < Entry
 
-  def account_types_valid? 
-    entry_amounts.map(&:account).any?{|x| x.is_a?(Customer)}
+  def required_account_types
+    [Revenue, Customer]
   end
+
+  def entry_account_types_validation
+    errors.add(:entry_amounts, "accounts must have a bank account or a credit card") unless account_types_valid?
+  end
+
 end

@@ -4,6 +4,7 @@ class EntryAmount < ActiveRecord::Base
             :presence => true,
             :numericality => true
 
+
   belongs_to :entry
   belongs_to :account
 
