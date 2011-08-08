@@ -40,7 +40,8 @@ class Entry < ActiveRecord::Base
   end
 
   def account_types_valid?
-    pending_entry_amounts.map(&:account).any?{|x| required_account_types.include?(x.class)}
+    pending_entry_amounts.map(&:account).all?{|x| required_account_types.include?(x.class)}
+    #required_account_types.all?{|x| pending_entry_amounts.map(&:account).include?(x) }
   end
 
   def credits_and_debits_must_balance

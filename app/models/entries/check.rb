@@ -4,7 +4,7 @@ class Check < Entry
   end
 
   def required_account_types
-    [BankAccount]
+    [BankAccount, Expense, Vendor]
   end
 
   def entry_account_types_validation

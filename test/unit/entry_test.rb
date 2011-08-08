@@ -5,6 +5,7 @@ class EntryTest < ActiveSupport::TestCase
     @bank   = BankAccount.make
     @asset  = Asset.make
     @revenue = Revenue.make
+    @expense = Expense.make
     @card   = CreditCard.make
     @customer = Customer.make
   end
@@ -20,7 +21,7 @@ class EntryTest < ActiveSupport::TestCase
   end
   test "should save check with everything in its right place" do
     entry = Check.make 
-    c = entry.credits.build(:account => @revenue, :amount_in_cents => 12300)
+    c = entry.credits.build(:account => @expense, :amount_in_cents => 12300)
     d = entry.debits.build(:account => @bank, :amount_in_cents => 12300)
     assert entry.save
   end
