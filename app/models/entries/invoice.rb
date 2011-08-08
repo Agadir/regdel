@@ -1,6 +1,7 @@
 class Invoice < Entry
 
-  belongs_to :customer
+  belongs_to  :customer
+  belongs_to  :term
 
   state_machine :initial => :open do
   end

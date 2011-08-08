@@ -19,7 +19,9 @@ seed_accounts({
   Customer => ['Customer 1']
 })
 
-
+Term.create(
+  :terms => 'On receipt'
+)
 
 #
 ## Set up some basic accounts

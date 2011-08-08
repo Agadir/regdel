@@ -6,7 +6,7 @@ class CreateEntries < ActiveRecord::Migration
       t.string :state
       t.date :date
       t.date :posted_date, :null=> true
-      t.string :terms, :null=> true
+      t.string :term_id, :null=> true
       t.integer :fiscal_period_id, :null=> true
       t.string :type
       t.boolean :posted, :null=> true 
