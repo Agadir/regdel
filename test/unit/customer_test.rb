@@ -5,8 +5,11 @@ class CompanyTest < ActiveSupport::TestCase
     @revenue = Revenue.make
     @customer = Customer.make
   end
-  test "should not save entry without memo" do
-    entry = Invoice.new
-    assert !entry.save
+  test "should have no contacts" do
+    assert !@customer.contacts.present?
+  end
+  test "should have a contact" do
+    c = Email.make
+    assert !@customer.contacts.nil?
   end
 end

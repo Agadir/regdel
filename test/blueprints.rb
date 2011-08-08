@@ -27,13 +27,32 @@ Expense.blueprint do
 end
 
 Debit.blueprint do
-  amount_in_cents { 123 }
+  a = BankAccount.make
+  account { a }
+  amount_in_cents { 12300 }
+end
+
+Debit.blueprint(:customer) do
+  a = Customer.make
+  account { a }
+  amount_in_cents { 12300 }
 end
 
 Credit.blueprint do
-  amount_in_cents { 123 }
+  a = Expense.make
+  account { a }
+  amount_in_cents { 12300 }
 end
 
+Credit.blueprint(:revenue) do
+  a = Revenue.make
+  account { a }
+  amount_in_cents { 12300 }
+end
+
+Email.blueprint do
+  
+end
 Check.blueprint do
   memo { 'Payment to someone' }
   date { Time.now }
