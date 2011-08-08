@@ -51,8 +51,9 @@ Credit.blueprint(:revenue) do
 end
 
 Email.blueprint do
-  
+  address { 'test@test.com' }  
 end
+
 Check.blueprint do
   memo { 'Payment to someone' }
   date { Time.now }

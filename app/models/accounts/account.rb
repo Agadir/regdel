@@ -13,6 +13,7 @@ class Account < ActiveRecord::Base
 
   has_many :entries, :through => :entry_amounts
   has_many :entry_amounts
+  has_many :statements
 
   acts_as_nested_set
   state_machine :initial => :active do
