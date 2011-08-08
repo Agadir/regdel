@@ -1,9 +1,12 @@
 class Invoice < Entry
 
-  belongs_to  :customer
   belongs_to  :term
 
   state_machine :initial => :open do
+  end
+
+  def customer
+    accounts.select{|a| a.is_a?(Customer)}.first
   end
 
   def required_account_types

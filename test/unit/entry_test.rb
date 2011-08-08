@@ -35,5 +35,6 @@ class EntryTest < ActiveSupport::TestCase
     c = entry.credits.build(:account => @customer, :amount_in_cents => 12300)
     d = entry.debits.build(:account => @revenue, :amount_in_cents => 12300)
     assert entry.save
+    assert entry.customer
   end
 end
