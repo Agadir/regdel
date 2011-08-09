@@ -1,4 +1,5 @@
 class Entry < ActiveRecord::Base
+
   has_many :entry_amounts
   has_many :credits
   has_many :debits
@@ -8,7 +9,7 @@ class Entry < ActiveRecord::Base
   accepts_nested_attributes_for :debits
   accepts_nested_attributes_for :entry_amounts
 
-  validate :credits_and_debits_must_balance, :if => :posted?
+  validate :credits_and_debits_must_balance
   validate :entry_account_types_validation
   validate :entry_amounts_valid?
 
@@ -19,8 +20,24 @@ class Entry < ActiveRecord::Base
             :presence => true,
             :exclusion => { :in => ['Entry'] }
 
+  state_machine :entry_state, :initial => :draft do
 
-  state_machine :initial => :active do
+    event :complete do
+      transition :from => :draft, :to => :completed
+    end
+
+    event :post do
+      transition :from => :completed, :to => :posted
+    end
+
+    event :reconcile do
+      transition :from => :posted, :to => :reconciled
+    end
+
+    state :draft, :value => 0
+    state :completed, :value => 10
+    state :posted, :value => 20
+    state :reconciled, :value => 30
   end
 
   def as_base
@@ -35,6 +52,10 @@ class Entry < ActiveRecord::Base
     self.credits.sum(:amount_in_cents) * 0.01
   end
 
+  def balanced?
+    credits.sum(:amount_in_cents) == debits.sum(:amount_in_cents)
+  end
+
   def entry_amounts_valid?
     errors.add(:entry_amounts, "must be greater than zero") unless debits.length >= 1 && credits.length >= 1
   end
@@ -45,7 +66,11 @@ class Entry < ActiveRecord::Base
   end
 
   def credits_and_debits_must_balance
-    errors.add(:entry_amounts, "must balance") unless credits.sum(:amount_in_cents) == debits.sum(:amount_in_cents)
+    unless draft?
+      errors.add(:entry_amounts, "must balance") unless balanced?
+    else
+      true
+    end
   end
 
   def pending_entry_amounts
