@@ -38,4 +38,10 @@ class EntryTest < ActiveSupport::TestCase
     assert entry.save
     assert entry.customer
   end
+  test "should save credit card with everything in its right place" do
+    entry = CreditCardCharge.make
+    c = entry.credits.build(:account => @card, :amount_in_cents => 12300)
+    d = entry.debits.build(:account => @expense, :amount_in_cents => 12300)
+    assert entry.save
+  end
 end

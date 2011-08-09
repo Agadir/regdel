@@ -68,3 +68,8 @@ Invoice.blueprint do
   memo { 'OK' }
   date { Time.now }
 end
+
+CreditCardCharge.blueprint do
+  memo { 'OK' }
+  date { Time.now }
+end
