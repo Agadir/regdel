@@ -7,7 +7,7 @@ Summary
 Regdel is a double-entry accounting system written in Ruby, complete with
 accounts, a general journal, general ledger, and account ledgers. 
 
-There is a demonstration of Sinatra poweredd Regdel available here:
+There is a demonstration of Sinatra powered Regdel available here:
 
 [Regdel Demonstration](http://www.regdel.com/demo/regdel/)
 
