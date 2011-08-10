@@ -3,8 +3,8 @@ class CreateEntries < ActiveRecord::Migration
     create_table :entries do |t|
       t.integer :number, :null=> true
       t.string :memo
-      t.string :entry_state
-      t.string :state
+      t.integer :entry_state
+      t.integer :state
       t.date :date
       t.date :posted_date, :null=> true
       t.string :term_id, :null=> true

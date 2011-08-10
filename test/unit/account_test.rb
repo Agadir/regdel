@@ -25,6 +25,9 @@ class AccountTest < ActiveSupport::TestCase
     should "should have a balance" do
       assert !@asset.balance.nil?
     end
+    should "should have children" do
+      assert !@asset.children.nil?
+    end
     should "should not get destroyed" do
       assert !@asset.destroy
     end
