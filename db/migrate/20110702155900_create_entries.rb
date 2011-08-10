@@ -11,6 +11,7 @@ class CreateEntries < ActiveRecord::Migration
       t.integer :fiscal_period_id, :null=> true
       t.string :type
       t.boolean :posted, :null=> true 
+      t.boolean :reconciled, :null=> true 
 
       t.timestamps
     end
