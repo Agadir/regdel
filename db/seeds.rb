@@ -1,50 +1,36 @@
 require 'active_record/fixtures'
 
-def seed_accounts(hash)
+def seed_accounts(hash, parent_id=nil)
   hash.each_pair do |type, children|
+    a = type.create(
+      :name => type.name.titleize,
+      :parent_id => parent_id
+    )
     children.each do |name|
-      type.create(
-        :name => name
-      )
+      if name.is_a?(String)
+        type.create(
+          :name => name,
+          :parent_id => a.id
+        )
+      else
+        seed_accounts(name, a.id)
+      end
     end 
   end
 end
 
 seed_accounts({
-  Asset      => ['Current Assets', 'Fixed Assets', 'Other Assets'],
-  CurrentAsset => ['Bank Accounts', 'Accounts Receivable'],
+  Asset      => ['Fixed Assets', 'Other Assets',
+    {CurrentAsset => ['Accounts Receivable']},
+    {BankAccount => ['Bank Account 1', 'Bank Account 2']}
+  ],
   Liability  => ['Current Liabilities', 'Long Term Liabilities'],
-  BankAccount => ['Bank Account 1', 'Bank Account 2'],
   Expense => ['Electricity', 'Bank Fees', 'Insurance'],
-  Customer => ['Customer 1']
+  Revenue => [],
+  Equity => [],
+  Other => [ {Customer => ['Customer 1']} ]
 })
 
 Term.create(
   :terms => 'On receipt'
 )
-
-#
-## Set up some basic accounts
-#seed_accounts({
-#  Asset      => ['Current Assets', 'Fixed Assets', 'Other Assets'],
-#  Liabilities' => ['Current Liabilities', 'Long Term Liabilities'],
-#  'Revenue'     => ['Sales', 'Other Miscellaneous Income'],
-#  'Expenses'    => [
-#                    'Bank Charges',
-#                    'Dues and Subscriptions',
-#                    'Insurance',
-#                    'Legal and Professional Fees',
-#                    'Meals and Entertainment',
-#                    'Office Expenses',
-#                    'Other Miscellaneous Expenses',
-#                    'Rent or Lease',
-#                    'Repair and Maintenance',
-#                    'Supplies',
-#                    'Taxes and Licenses',
-#                    'Travel',
-#                    'Utilities'
-#                  ]})
-#seed_accounts({
-#  'Current Assets'      => ['Bank Accounts', 'Accounts Receivable'],
-#  'Current Liabilities' => ['Credit Cards', 'Accounts Payable']
-#})

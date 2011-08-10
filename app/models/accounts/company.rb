@@ -1,4 +1,4 @@
-class Company < Account
+class Company < Other 
 
   has_many :contacts
 

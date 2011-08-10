@@ -17,6 +17,21 @@ class Account < ActiveRecord::Base
 
   acts_as_nested_set
   state_machine :initial => :active do
+
+    event :hide do
+      transition :to => :hidden
+    end
+
+    event :deactivate do
+      transition :to => :inactive
+    end
+
+  end
+
+  class << self
+    def balance
+     all.map(&:balance).sum 
+    end
   end
 
   def as_base
@@ -29,6 +44,10 @@ class Account < ActiveRecord::Base
 
   def balance
     entry_amounts.sum(:amount_in_cents) * 0.01
+  end
+
+  def tree_balance
+    children.map(&:balance).sum
   end
 
 end
