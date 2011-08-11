@@ -1,6 +1,11 @@
 class Account < ActiveRecord::Base
   include AccountMethods
 
+  has_many :entry_amounts
+  has_many :entries, :through => :entry_amounts
+  has_many :statements
+  has_many :balances
+
   serialize :attrs
 
   validates :name,
@@ -10,10 +15,6 @@ class Account < ActiveRecord::Base
   validates :type,
             :presence => true,
             :exclusion => { :in => ['Account'] }
-
-  has_many :entries, :through => :entry_amounts
-  has_many :entry_amounts
-  has_many :statements
 
   acts_as_nested_set
   state_machine :initial => :active do
