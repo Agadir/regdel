@@ -34,6 +34,12 @@ class EntryTest < ActiveSupport::TestCase
     assert entry.issue_check!
     assert entry.posted?
   end
+  test "should not save transfer with the wrong account types" do
+    entry = Transfer.make
+    c = entry.credits.build(:account => @expense, :amount_in_cents => 12300)
+    d = entry.debits.build(:account => @customer, :amount_in_cents => 12300)
+    assert !entry.save
+  end
   test "should save transfer with everything in its right place" do
     entry = Transfer.make
     c = entry.credits.build(:account => @card, :amount_in_cents => 12300)

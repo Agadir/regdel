@@ -78,7 +78,6 @@ class Entry < ActiveRecord::Base
   end
 
   def entry_account_types_validation
-    []
+    errors.add(:entry_amounts, "accounts must have one of the following types: #{required_account_types.map(&:name).map(&:titleize).to_sentence(:last_word_connector => ' or ').downcase}") unless account_types_valid?
   end
-
 end

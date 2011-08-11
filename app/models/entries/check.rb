@@ -13,6 +13,8 @@ class Check < Entry
 
     state :open, :value => 100
     state :issued, :value => 110
+    state :printed, :value => 112
+    state :emailed, :value => 114
     state :cleared, :value => 120
   end
 
@@ -20,8 +22,5 @@ class Check < Entry
     [BankAccount, Expense, Vendor]
   end
 
-  def entry_account_types_validation
-    errors.add(:entry_amounts, "accounts must have a bank account or a credit card") unless account_types_valid?
-  end
 
 end
