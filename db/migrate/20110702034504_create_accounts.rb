@@ -12,6 +12,7 @@ class CreateAccounts < ActiveRecord::Migration
       t.text :description
       t.text :attrs
       t.boolean :inactive
+      t.date :last_reconciliation_date
 
       t.timestamps
     end

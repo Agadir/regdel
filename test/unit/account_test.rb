@@ -22,14 +22,18 @@ class AccountTest < ActiveSupport::TestCase
       @entry = Check.make({
       })
     end
-    should "should have a balance" do
-      assert !@asset.balance.nil?
+    should "should have a balance, and a tree balance" do
+      assert !@asset.current_balance.nil?
+      assert !@asset.tree_balance.nil?
     end
     should "should have children" do
       assert !@asset.children.nil?
     end
     should "should not get destroyed" do
       assert !@asset.destroy
+    end
+    should "reconcile" do
+      assert @asset.reconcile(Date.today, '123.00')
     end
   end
 

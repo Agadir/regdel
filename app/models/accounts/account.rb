@@ -2,7 +2,11 @@ class Account < ActiveRecord::Base
   include AccountMethods
 
   has_many :entry_amounts
-  has_many :entries, :through => :entry_amounts
+  has_many :entries, :through => :entry_amounts do
+    def non_reconciled_through_date(statement_date)
+      all.reject{|e| e.reconciled || e.date > statement_date}
+    end
+  end
   has_many :statements
   has_many :balances
 
@@ -43,12 +47,21 @@ class Account < ActiveRecord::Base
     false
   end
 
-  def balance
+  def current_balance
     entry_amounts.sum(:amount_in_cents) * 0.01
   end
 
   def tree_balance
     children.map(&:balance).sum
+  end
+
+  def reconcile(statement_date, statement_balance)
+    statement_balance = statement_balance.to_f * 100
+    entries.non_reconciled_through_date(statement_date).each do |e|
+      e.reconcile
+    end
+    balances.build(:date_of_balance => statement_date, :balance_in_cents => statement_balance)
+    update_attribute(:last_reconciliation_date, statement_date)
   end
 
 end

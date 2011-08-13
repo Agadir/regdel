@@ -48,13 +48,10 @@ table
       :vertical-align bottom
       :margin-left 5px
 
-=sidebar-item( !img, !x = 0, !y = 50% )
+@mixin sidebar-item( $img, $x: 0, $y: 50% )
   :padding-left 20px
   :display block
-  :background
-    :image= url(!img)
-    :repeat no-repeat
-    :position= !x !y
+  :background-image url($img) no-repeat position $x $y
 
 #sb-new-entry
   +sidebar-item("./s/img/pkgs/docunext-webapp-icons/tango/text-x-generic.png")
@@ -64,10 +61,7 @@ table
 
 #pager-next
   :padding-right 20px
-  :background
-    :image= url("./s/img/pkgs/docunext-webapp-icons/famfamfam/mini/arrow_right.gif")
-    :repeat no-repeat
-    :position= 98% 60%
+  :background-image url("./s/img/pkgs/docunext-webapp-icons/famfamfam/mini/arrow_right.gif") no-repeat position 98% 60%
 
 .remove-debit
   :display none

@@ -42,7 +42,7 @@ xmlns="http://www.w3.org/1999/xhtml">
           <li id="nav-write-check"><a id="nav-entry-link" class="regdel-link" href="/entries/write_check">Write Check</a></li>
           <li id="nav-invoice"><a id="nav-invoice-link" class="regdel-link" href="/entries/write_check">Create Invoice</a></li>
           <li id="nav-accounts"><a class="regdel-link" href="/accounts">Accounts</a></li>
-          <li id="nav-customers"><a class="regdel-link" href="/customer">Accounts</a></li>
+          <li id="nav-customers"><a class="regdel-link" href="/customers">Customers</a></li>
           <li id="nav-account"><a class="regdel-link" href="/accounts/new">New Account</a></li>
         </ul>
         <ul id="user-navigation">

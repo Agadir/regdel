@@ -46,6 +46,7 @@ class EntryTest < ActiveSupport::TestCase
     d = entry.debits.build(:account => @bank, :amount_in_cents => 12300)
     assert entry.save
     assert entry.balanced?
+    assert entry.complete
   end
   test "should save invoice with everything in its right place" do
     entry = Invoice.make(:term_id => 1) 
