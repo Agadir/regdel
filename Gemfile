@@ -7,6 +7,7 @@ gem 'haml'
 gem 'nested_set'
 gem 'state_machine'
 gem 'inherited_resources'
+gem 'memcached'
 
 gem 'ruby-xslt', :require => 'xml/xslt'
 

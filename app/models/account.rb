@@ -1,5 +1,4 @@
-class Account < ActiveRecord::Base
-  include AccountMethods
+class Account < AccountBase
 
   has_many :entry_amounts
   has_many :entries, :through => :entry_amounts do
@@ -17,10 +16,14 @@ class Account < ActiveRecord::Base
             :uniqueness => true
 
   validates :type,
-            :presence => true,
-            :exclusion => { :in => ['Account'] }
+            :presence => true
+
+  validates :type,
+            :uniqueness => true,
+            :if => "type == 'Account'"
 
   acts_as_nested_set
+
   state_machine :initial => :active do
 
     event :hide do
@@ -34,9 +37,27 @@ class Account < ActiveRecord::Base
   end
 
   class << self
+    include CacheAPI
+    def account_type_names
+      Account.root.children.map(&:name)
+    end
+    def sub_accounts_results
+      Account.root.children.map(&:descendants).flatten
+    end
+
+    def accounts_root
+      capi_get_or_set('accounts_root', Proc.new{ Account.root })
+    end
+    def account_types
+      capi_get_or_set('account_types', Account,  :account_type_names)
+    end
+    def sub_accounts
+      capi_get_or_set('sub_accounts', Account, :sub_accounts_results)
+    end
     def balance
      all.map(&:balance).sum 
     end
+    
   end
 
   def as_base
@@ -63,5 +84,4 @@ class Account < ActiveRecord::Base
     balances.build(:date_of_balance => statement_date, :balance_in_cents => statement_balance)
     update_attribute(:last_reconciliation_date, statement_date)
   end
-
 end

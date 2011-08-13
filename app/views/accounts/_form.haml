@@ -1,7 +1,7 @@
 =f.label :name
 =f.text_field :name
 =f.label :type
-=f.select :type, resource.class::ACCOUNT_TYPES
+=f.select :type, Account.account_types
 =f.label :parent_id, "Sub-account of:"
 =f.select :parent_id, accounts_select_for, :selected => resource.parent_id, :include_blank => true
 -if resource.is_a?(BankAccount)
