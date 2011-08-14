@@ -1,18 +1,5 @@
 class Entry < ActiveRecord::Base
 
-  Asset
-  Liability
-  Expense
-  Revenue
-  Other
-  Equity
-  BankAccount
-  CreditCard
-  Company
-  Customer
-  Vendor
-  CurrentAsset
-
   has_many :entry_amounts
   has_many :credits
   has_many :debits

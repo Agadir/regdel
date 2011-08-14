@@ -18,7 +18,11 @@
       =entry_form.text_field :amount_in_cents, :class => 'amount_field'
 -if resource.type == 'Check'
   %br
-  %p Pay to the Order Of
+  %p.payee
+    =f.fields_for :entry_amounts, @entry_amount do |x|
+      =x.select :account_id, accounts_select_for(@company_accounts)
+      Pay to the Order Of
+  %br
   =f.label :memo
   =f.text_field :memo, :class => 'memo'
 %hr

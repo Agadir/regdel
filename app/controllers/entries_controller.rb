@@ -5,6 +5,8 @@ class EntriesController < InheritedResources::Base
     @entry = Entry.new
     @entry[:type] = 'Check'
     @debits = [Debit.new]
+    @company_accounts = Company.all
+    @entry_amount = EntryAmount.new
     @credits = []
     1.times do
       @credits << Credit.new
