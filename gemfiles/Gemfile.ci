@@ -1,3 +1,5 @@
+source 'http://rubygems.org'
+
 gem 'rails'
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
@@ -7,7 +9,6 @@ gem 'state_machine'
 gem 'inherited_resources'
 
 gem 'ruby-xslt', :require => 'xml/xslt'
-
 
 group :test do
   gem "shoulda"
