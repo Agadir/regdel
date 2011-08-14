@@ -9,6 +9,7 @@ gem 'state_machine'
 gem 'inherited_resources'
 
 gem 'ruby-xslt', :require => 'xml/xslt'
+gem 'bcrypt-ruby'
 
 group :test do
   gem "shoulda"
