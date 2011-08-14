@@ -1,9 +1,0 @@
-
-Blah
-====
-
-* [Docunext](http://www.docunext.com/)
-* PBooks and Regdel
-* [test.html](test.html)
-* [test2.html](test2.html)
-
