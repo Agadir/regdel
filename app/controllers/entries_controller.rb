@@ -37,6 +37,7 @@ class EntriesController < InheritedResources::Base
 
   def create
     type = params[:entry][:type]
+    params[:entry].delete(:type)
     @entry = type.capitalize.constantize.new(params[:entry])
     if @entry.save
       redirect_to entries_path

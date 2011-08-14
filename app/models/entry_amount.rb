@@ -4,8 +4,14 @@ class EntryAmount < ActiveRecord::Base
             :presence => true,
             :numericality => true
 
+  before_validation :calculate_amount
+
   belongs_to :entry
   belongs_to :account
+
+  def calculate_amount
+    amount_in_cents = entry.amount if amount_in_cents.nil? && type.nil?
+  end
 
   def amount_in_cents=(amount_in_cents)
     write_attribute(:amount_in_cents, amount_in_cents.to_f * 100)
