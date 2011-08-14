@@ -1,6 +1,7 @@
 module CacheAPI
 
   def capi_get_or_set(key, k, m)
+    return k.send(m) if Rails.env.test?
 
     begin
       return $cache.get key

@@ -7,24 +7,22 @@ gem 'haml'
 gem 'nested_set'
 gem 'state_machine'
 gem 'inherited_resources'
-gem 'memcached'
 
 gem 'ruby-xslt', :require => 'xml/xslt'
 
 group :development do
-  #gem 'rack-xslview', :require => '/var/www/dev/Rack-XSLView/lib/rack-xslview.rb'
+  gem 'memcached'
   gem 'rack-xsl', :require => 'rack/xsl'
 end
 
 group :test do
-  #gem 'rack-xslview'
   gem 'rack-xsl', :require => 'rack/xsl'
   gem "shoulda"
   gem 'machinist', '>= 2.0.0.beta2' 
 end
 
 group :production do
-  #gem 'rack-xslview'
+  gem 'memcached'
   gem 'rack-xsl', :require => 'rack/xsl'
 end
 gem 'tidy_ffi'
