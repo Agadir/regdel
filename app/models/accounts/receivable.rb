@@ -1,0 +1,3 @@
+class Receivable < CurrentAsset
+
+end

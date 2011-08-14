@@ -1,0 +1,3 @@
+class Payable < CurrentLiability
+
+end

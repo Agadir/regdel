@@ -1,0 +1,3 @@
+class Deposit < Entry
+
+end
