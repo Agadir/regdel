@@ -1,2 +1,2 @@
 gemfile: gemfiles/Gemfile.ci
-script: "bundle exec rake db:drop db:create db:migrate test"
+script: "bundle exec rake db:migrate db:seed test:units"

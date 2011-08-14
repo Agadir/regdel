@@ -10,19 +10,12 @@ gem 'inherited_resources'
 
 gem 'ruby-xslt', :require => 'xml/xslt'
 
-group :development do
-  gem 'rack-xsl', :require => 'rack/xsl'
-end
 
 group :test do
-  gem 'rack-xsl', :require => 'rack/xsl'
   gem "shoulda"
   gem 'machinist', '>= 2.0.0.beta2' 
 end
 
-group :production do
-  gem 'rack-xsl', :require => 'rack/xsl'
-end
 gem 'tidy_ffi'
 
 gem 'rdiscount', ">= 1.6.8"
