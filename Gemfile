@@ -10,6 +10,7 @@ gem 'inherited_resources'
 
 gem 'ruby-xslt', :require => 'xml/xslt'
 gem 'bcrypt-ruby'
+gem 'bcrypt_ext'
 
 group :test do
   gem "shoulda"
