@@ -8,4 +8,5 @@ config/deploy.rb
 config/database.rb
 log/*
 tmp/*
+vendor/*
 
