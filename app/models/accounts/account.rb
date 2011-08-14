@@ -1,7 +1,7 @@
 class Account < AccountBase
 
-  has_many :entry_amounts
-  has_many :entries, :through => :entry_amounts do
+  has_many :transactions
+  has_many :entries, :through => :transactions do
     def non_reconciled_through_date(statement_date)
       all.reject{|e| e.reconciled || e.date > statement_date}
     end
@@ -69,7 +69,7 @@ class Account < AccountBase
   end
 
   def current_balance
-    entry_amounts.sum(:amount_in_cents) * 0.01
+    transactions.sum(:amount_in_cents) * 0.01
   end
 
   def tree_balance

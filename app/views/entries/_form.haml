@@ -19,7 +19,7 @@
 -if resource.type == 'Check'
   %br
   %p.payee
-    =f.fields_for :entry_amounts, @entry_amount do |x|
+    =f.fields_for :records, @proxy_transaction do |x|
       =x.select :account_id, accounts_select_for(@company_accounts)
       Pay to the Order Of
   %br

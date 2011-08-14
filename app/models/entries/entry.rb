@@ -1,17 +1,17 @@
 class Entry < ActiveRecord::Base
 
-  has_many :entry_amounts
+  has_many :records
   has_many :credits
   has_many :debits
-  has_many :accounts, :through => :entry_amounts
+  has_many :accounts, :through => :records
 
   accepts_nested_attributes_for :credits
   accepts_nested_attributes_for :debits
-  accepts_nested_attributes_for :entry_amounts
+  accepts_nested_attributes_for :records
 
   validate :credits_and_debits_must_balance
   validate :entry_account_types_validation
-  validate :entry_amounts_valid?
+  validate :transactions_valid?
 
   validates :memo,
             :presence => true
@@ -56,28 +56,28 @@ class Entry < ActiveRecord::Base
     credits.sum(:amount_in_cents) == debits.sum(:amount_in_cents)
   end
 
-  def entry_amounts_valid?
-    errors.add(:entry_amounts, "must be greater than zero") unless debits.length >= 1 && credits.length >= 1
+  def transactions_valid?
+    errors.add(:transactions, "must be greater than zero") unless debits.length >= 1 && credits.length >= 1
   end
 
   def account_types_valid?
-    pending_entry_amounts.map(&:account).all?{|x| required_account_types.include?(x.class)}
-    #required_account_types.all?{|x| pending_entry_amounts.map(&:account).include?(x) }
+    pending_transactions.map(&:account).all?{|x| required_account_types.include?(x.class)}
+    #required_account_types.all?{|x| pending_transactions.map(&:account).include?(x) }
   end
 
   def credits_and_debits_must_balance
     unless draft?
-      errors.add(:entry_amounts, "must balance") unless balanced?
+      errors.add(:transactions, "must balance") unless balanced?
     else
       true
     end
   end
 
-  def pending_entry_amounts
+  def pending_transactions
     debits | credits
   end
 
   def entry_account_types_validation
-    errors.add(:entry_amounts, "accounts must have one of the following types: #{required_account_types.map(&:name).map(&:titleize).to_sentence(:last_word_connector => ' or ').downcase}") unless account_types_valid?
+    errors.add(:transactions, "accounts must have one of the following types: #{required_account_types.map(&:name).map(&:titleize).to_sentence(:last_word_connector => ' or ').downcase}") unless account_types_valid?
   end
 end

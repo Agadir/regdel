@@ -9,7 +9,7 @@ class EntriesController < InheritedResources::Base
     # Vendor matches with bank
     @company_accounts = Vendor.all
     @payable = Credit.new
-    @entry_amount = Debit.new
+    @proxy_transaction = Debit.new
     @credits = []
     1.times do
       @credits << Credit.new
