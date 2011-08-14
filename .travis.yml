@@ -1,4 +1,5 @@
 bundler_args: --local --path=vendor
+gemfile: gemfiles/Gemfile.ci
 script: "bundle exec rake db:migrate db:seed test:units"
 rvm:
   - 1.9.2
