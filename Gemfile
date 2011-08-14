@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails'
+gem 'rails', :git => 'git://github.com/rails/rails.git', :branch => '3-1-stable'
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'haml'
@@ -9,13 +9,22 @@ gem 'state_machine'
 gem 'inherited_resources'
 
 gem 'ruby-xslt', :require => 'xml/xslt'
-gem 'bcrypt-ruby', :require => 'bcrypt_ext'
 
-group :test do
-  gem "shoulda"
-  gem 'machinist'
+group :development do
+  gem 'memcached'
+  gem 'rack-xsl', :require => 'rack/xsl'
 end
 
+group :test do
+  gem 'rack-xsl', :require => 'rack/xsl'
+  gem "shoulda"
+  gem 'machinist', '>= 2.0.0.beta2' 
+end
+
+group :production do
+  gem 'memcached'
+  gem 'rack-xsl', :require => 'rack/xsl'
+end
 gem 'tidy_ffi'
 
 gem 'rdiscount', ">= 1.6.8"
