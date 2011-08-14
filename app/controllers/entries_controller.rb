@@ -2,15 +2,19 @@ class EntriesController < InheritedResources::Base
 
 
   def write_check
+    # Bank to vendor, vendor to expense
     @entry = Entry.new
     @entry[:type] = 'Check'
     @debits = [Debit.new]
-    @company_accounts = Company.all
-    @entry_amount = EntryAmount.new
+    # Vendor matches with bank
+    @company_accounts = Vendor.all
+    @payable = Credit.new
+    @entry_amount = Debit.new
     @credits = []
     1.times do
       @credits << Credit.new
     end
+    # Vendor also matches with expense
     @debit_accounts = Expense.find(:all)
     @credit_accounts = BankAccount.find(:all)
     render :new

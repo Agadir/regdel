@@ -1,4 +1,5 @@
-class Vendor < Company
-  belongs_to :expense
+class Vendor < Payable 
+
+  has_many :contacts
 
 end

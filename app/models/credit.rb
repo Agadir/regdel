@@ -1,3 +1,0 @@
-class Credit < EntryAmount
-
-end

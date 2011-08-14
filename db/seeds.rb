@@ -3,7 +3,7 @@ require 'active_record/fixtures'
 def seed_accounts(hash, parent_id=nil)
   hash.each_pair do |type, children|
     a = type.create(
-      :name => type.name.titleize,
+      :name => type.name.pluralize.titleize,
       :parent_id => parent_id
     )
     children.each do |name|
@@ -21,14 +21,17 @@ end
 
 seed_accounts({
   Asset      => ['Fixed Assets', 'Other Assets',
-    {CurrentAsset => ['Accounts Receivable']},
+    {CurrentAsset => 
+      [{Receivable => [{Customer => ['Customer 1']}]}]
+    },
     {BankAccount => ['Bank Account 1', 'Bank Account 2']}
   ],
-  Liability  => ['Current Liabilities', 'Long Term Liabilities'],
+  Liability  => ['Long Term Liabilities',
+    {CurrentLiability => [{Vendor => ['Electric Company']}]}
+  ],
   Expense => ['Electricity', 'Bank Fees', 'Insurance'],
-  Revenue => [],
-  Equity => [],
-  Other => [ {Customer => ['Customer 1']} ]
+  Revenue => ['Professional Services'],
+  Equity => []
 })
 
 Term.create(

@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     unless Rails.env.production?
       load "#{Rails.root}/app/models/accounts/account_base.rb"
       load "#{Rails.root}/app/models/accounts/account.rb"
-      [ "app/models/accounts", "app/models/journal" ].each do |path|
+      [ "app/models/accounts", "app/models/transactions", "app/models/entries" ].each do |path|
         Dir["{Rails.root}/{path}/*.rb"].each do |file|
           load file
         end
@@ -24,6 +24,9 @@ class ApplicationController < ActionController::Base
       Customer
       Vendor
       CurrentAsset
+      CurrentLiability
+      Receivable
+      Payable
       Entry
       Check
       Transfer

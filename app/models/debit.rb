@@ -1,3 +1,0 @@
-class Debit < EntryAmount
-
-end
