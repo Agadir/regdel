@@ -1,16 +1,27 @@
+=f.hidden_field :type
+-if resource.type == 'Check'
+  .number
+    =f.label :number
+    =f.text_field :number
 %div.datefield
   =f.label :date
   =f.text_field :date, :class => "calendar_select"
-=f.label :memo
-=f.text_field :memo
-=f.hidden_field :type
-%br
+-unless resource.type == 'Check'
+  =f.label :memo
+  =f.text_field :memo
 -@credits.each do |credit|
   =f.fields_for :credits, credit do |entry_form|
     =entry_form.label :account_id
     =entry_form.select :account_id, accounts_select_for(@credit_accounts)
-    =entry_form.label :amount_in_cents, "Amount"
-    =entry_form.text_field :amount_in_cents
+    .amount_container
+      =entry_form.label :amount_in_cents, "Amount"
+      =entry_form.text_field :amount_in_cents, :class => 'amount_field'
+-if resource.type == 'Check'
+  %br
+  %p Pay to the Order Of
+  =f.label :memo
+  =f.text_field :memo, :class => 'memo'
+%hr
 -@debits.each do |debit|
   =f.fields_for :debits, debit do |entry_form|
     =entry_form.label :account_id

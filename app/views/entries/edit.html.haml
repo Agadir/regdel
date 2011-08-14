@@ -1,2 +1,4 @@
+%h3= "Edit #{resource.type.titleize}"
+%div{:class => resource.type.downcase}
 =form_for resource do |f|
   =render :partial => 'form', :locals => {:entry => resource, :f => f}
