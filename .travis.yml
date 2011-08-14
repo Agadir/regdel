@@ -1,2 +1,4 @@
 bundler_args: --local --path=vendor
 script: "bundle exec rake db:migrate db:seed test:units"
+rvm:
+  - 1.9.2
