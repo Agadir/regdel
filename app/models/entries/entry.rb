@@ -1,13 +1,15 @@
 class Entry < ActiveRecord::Base
 
   has_many :records
+  has_many :transactions, :class_name => Record, :conditions => ['type != "Proxy"']
+  has_many :proxies
   has_many :credits
   has_many :debits
   has_many :accounts, :through => :records
 
   accepts_nested_attributes_for :credits
   accepts_nested_attributes_for :debits
-  accepts_nested_attributes_for :records
+  accepts_nested_attributes_for :proxies
 
   validate :credits_and_debits_must_balance
   validate :entry_account_types_validation
@@ -47,6 +49,7 @@ class Entry < ActiveRecord::Base
   def destroy
     false
   end
+  alias_method :destroy, :delete
 
   def amount
     self.credits.sum(:amount_in_cents) * 0.01

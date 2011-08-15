@@ -5,7 +5,7 @@
     =f.text_field :number
 %div.datefield
   =f.label :date
-  =f.text_field :date, :class => "calendar_select"
+  =f.text_field :date, :class => "calendar_select", :value => Date.today
 -unless resource.type == 'Check'
   =f.label :memo
   =f.text_field :memo
@@ -19,7 +19,7 @@
 -if resource.type == 'Check'
   %br
   %p.payee
-    =f.fields_for :records, @proxy_transaction do |x|
+    =f.fields_for :proxies, @proxy_transaction do |x|
       =x.select :account_id, accounts_select_for(@company_accounts)
       Pay to the Order Of
   %br

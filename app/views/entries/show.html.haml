@@ -1,4 +1,16 @@
-%h2= resource.memo
+%h2= "#{resource.class.to_s} : #{resource.memo}"
 %p= resource.date
--resource.entry_amounts.each do |e|
-  %p=e.amount
+-if resource.proxies.present?
+  %p= resource.proxies.first.account.name
+
+%table
+  %thead
+    %tr
+      %th Account
+      %th Amount
+  %tbody
+    -resource.transactions.each do |e|
+      %tr
+        %td=link_to e.account.name, account_path(e.account)
+        %td=e.amount
+

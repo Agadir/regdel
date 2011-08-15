@@ -1,7 +1,11 @@
 class Account < AccountBase
 
-  has_many :transactions
-  has_many :entries, :through => :transactions do
+  has_many :records
+  has_many :transactions, :class_name => Record, :conditions => ['type != "Proxy"']
+  has_many :proxies
+  has_many :credits
+  has_many :debits
+  has_many :entries, :through => :records do
     def non_reconciled_through_date(statement_date)
       all.reject{|e| e.reconciled || e.date > statement_date}
     end
@@ -38,6 +42,7 @@ class Account < AccountBase
 
   class << self
     include CacheAPI
+
     def account_type_names
       Account.root.children.map(&:name)
     end
@@ -62,6 +67,10 @@ class Account < AccountBase
 
   def as_base
     self.becomes(Account) 
+  end
+
+  def find
+    super
   end
 
   def destroy
