@@ -32,6 +32,10 @@ class ApplicationController < ActionController::Base
       Transfer
       Invoice
       CreditCardCharge
+      Record
+      Transaction
+      Credit
+      Debit
     end
   end
 end

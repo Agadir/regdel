@@ -1,7 +1,7 @@
 class Account < AccountBase
 
   has_many :records
-  has_many :transactions, :class_name => Record, :conditions => ['type != "Proxy"']
+  has_many :transactions
   has_many :proxies
   has_many :credits
   has_many :debits

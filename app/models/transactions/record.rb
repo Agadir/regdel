@@ -3,11 +3,5 @@ class Record < ActiveRecord::Base
   belongs_to :entry
   belongs_to :account
 
-  class << self
-    def transactions
-      where(['type != "Proxy"'])
-    end
-  end
-
 
 end
