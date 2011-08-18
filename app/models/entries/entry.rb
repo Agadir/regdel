@@ -1,7 +1,7 @@
 class Entry < ActiveRecord::Base
 
   has_many :records
-  has_many :transactions, :class_name => Record, :conditions => ['type != "Proxy"']
+  has_many :transactions
   has_many :proxies
   has_many :credits
   has_many :debits
@@ -40,6 +40,12 @@ class Entry < ActiveRecord::Base
     state :completed, :value => 10
     state :posted, :value => 20
     state :reconciled, :value => 30
+  end
+
+  class << self
+    def before_date(date)
+      where(["date <= ?", date])
+    end
   end
 
   def as_base

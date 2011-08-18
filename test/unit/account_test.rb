@@ -21,10 +21,21 @@ class AccountTest < ActiveSupport::TestCase
       @asset = Asset.make({:name => 'Computer'})
       @entry = Check.make({
       })
+      @asset.save
+      @entry.save
     end
-    should "should have a balance, and a tree balance" do
+    should "have a balance, and a tree balance" do
       assert !@asset.current_balance.nil?
       assert !@asset.tree_balance.nil?
+    end
+    should "have a balance at a date" do
+      assert @asset.balance_as_of(Date.tomorrow)
+    end
+    should "have reconciled balances" do
+      b = Balance.make({:account_id => @asset.id})
+      b.save
+      @asset.reload
+      assert @asset.balances.present?
     end
     should "should have children" do
       assert !@asset.children.nil?
@@ -34,6 +45,9 @@ class AccountTest < ActiveSupport::TestCase
     end
     should "reconcile" do
       assert @asset.reconcile(Date.today, '123.00')
+    end
+    should "hide" do
+      assert @asset.hide
     end
   end
 

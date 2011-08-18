@@ -31,13 +31,20 @@ class Account < AccountBase
   state_machine :initial => :active do
 
     event :hide do
-      transition :to => :hidden
+      transition :from => :active, :to => :hidden
+    end
+
+    event :show do
+      transition :from => :hidden, :to => :active
     end
 
     event :deactivate do
       transition :to => :inactive
     end
 
+    event :activate do
+      transition :to => :active
+    end
   end
 
   class << self
@@ -79,6 +86,10 @@ class Account < AccountBase
 
   def current_balance
     transactions.sum(:amount_in_cents) * 0.01
+  end
+
+  def balance_as_of(date)
+    transactions.before_date(date).sum(:amount_in_cents) * 0.01
   end
 
   def tree_balance

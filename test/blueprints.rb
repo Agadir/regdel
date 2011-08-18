@@ -73,3 +73,9 @@ CreditCardCharge.blueprint do
   memo { 'OK' }
   date { Time.now }
 end
+
+Balance.blueprint do
+  date_of_balance { Date.today }
+  source { "Statement" }
+  balance_in_cents { 12300 }
+end
