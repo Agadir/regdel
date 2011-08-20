@@ -104,8 +104,12 @@ class Account < AccountBase
     false
   end
 
-  def height(depth)
-    Account.levels_of_sub_accounts + 1 - depth
+  def depth
+    parent.present? ? 1 + parent.depth : 0
+  end
+
+  def height(mydepth=depth)
+    Account.levels_of_sub_accounts + 1 - mydepth
   end
 
   def current_balance

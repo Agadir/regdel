@@ -41,6 +41,9 @@ class AccountTest < ActiveSupport::TestCase
     should "should have children" do
       assert !@asset.children.nil?
     end
+    should "should have a depth" do
+      assert @asset.depth.is_a?(Integer)
+    end
     should "have an external account" do
       a = @bank.build_external_account({:number => 12345})
       a.save
