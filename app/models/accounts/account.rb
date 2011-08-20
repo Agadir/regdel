@@ -17,7 +17,7 @@ class Account < AccountBase
 
   accepts_nested_attributes_for :external_account
 
-  serialize :attrs
+  #serialize :attrs
 
   validates :name,
             :presence => true,
@@ -62,8 +62,7 @@ class Account < AccountBase
     end
 
     def levels_of_sub_accounts
-      depths = []
-      account_tree.values.max
+      Account.map_with_level(Account.root.descendants) {|x,y| y}.max
     end
 
     def account_type_names
@@ -104,11 +103,7 @@ class Account < AccountBase
     false
   end
 
-  def depth
-    parent.present? ? 1 + parent.depth : 0
-  end
-
-  def height(mydepth=depth)
+  def height(mydepth=level)
     Account.levels_of_sub_accounts + 1 - mydepth
   end
 

@@ -4,7 +4,7 @@
     %tr{:class => "sub-account-of-#{acc.parent_id}"}
       -level.times do
         %td{:style => "width: 1em;"}
-      %td{:colspan => acc.height(level)}=link_to acc.name
+      %td{:colspan => acc.height(level)}=link_to acc.name, account_path(acc)
       %td=acc.current_balance
 
 =link_to "New", new_resource_path

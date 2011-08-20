@@ -47,5 +47,6 @@ module RegdelRails
     config.filter_parameters += [:password]
 
     config.active_record.identity_map = true
+    config.middleware.use ::Rack::PerftoolsProfiler, :default_printer => 'text', :bundler => true
   end
 end

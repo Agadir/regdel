@@ -74,6 +74,8 @@ GEM
     nested_set (1.6.7)
       activerecord (>= 3.0.0)
       railties (>= 3.0.0)
+    open4 (1.1.0)
+    perftools.rb (0.5.6)
     polyglot (0.3.2)
     rack (1.3.2)
     rack-cache (1.0.2)
@@ -82,6 +84,10 @@ GEM
       rack (>= 0.9.1)
     rack-mount (0.8.2)
       rack (>= 1.0.0)
+    rack-perftools_profiler (0.5.0)
+      open4 (~> 1.0)
+      perftools.rb (~> 0.5.6)
+      rack (~> 1.0)
     rack-rdiscount (0.0.3)
     rack-rewrite (1.0.2)
     rack-ssl (1.3.2)
@@ -124,6 +130,7 @@ DEPENDENCIES
   nested_set
   rack
   rack-contrib
+  rack-perftools_profiler
   rack-rdiscount (>= 0.0.2)
   rack-rewrite
   rack-xsl
