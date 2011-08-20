@@ -1,6 +1,6 @@
 class Invoice < Entry
 
-  belongs_to  :term
+  belongs_to :term
 
   state_machine :initial => :open, :namespace => :invoice do
 
