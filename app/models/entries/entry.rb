@@ -1,6 +1,6 @@
 class Entry < ActiveRecord::Base
 
-  has_many :records
+  has_many :records, :inverse_of => :entry
   has_many :transactions
   has_many :proxies
   has_many :credits

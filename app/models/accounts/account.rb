@@ -1,6 +1,8 @@
 class Account < AccountBase
 
-  has_many :records
+  has_one :external_account, :inverse_of => :account
+
+  has_many :records, :inverse_of => :account
   has_many :transactions
   has_many :proxies
   has_many :credits
@@ -12,6 +14,8 @@ class Account < AccountBase
   end
   has_many :statements
   has_many :balances
+
+  accepts_nested_attributes_for :external_account
 
   serialize :attrs
 
@@ -25,6 +29,7 @@ class Account < AccountBase
   validates :type,
             :uniqueness => true,
             :if => "type == 'Account'"
+
 
   acts_as_nested_set
 

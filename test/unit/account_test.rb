@@ -23,6 +23,7 @@ class AccountTest < ActiveSupport::TestCase
       })
       @asset.save
       @entry.save
+      @bank = BankAccount.make
     end
     should "have a balance, and a tree balance" do
       assert !@asset.current_balance.nil?
@@ -39,6 +40,11 @@ class AccountTest < ActiveSupport::TestCase
     end
     should "should have children" do
       assert !@asset.children.nil?
+    end
+    should "have an external account" do
+      a = @bank.build_external_account({:number => 12345})
+      a.save
+      assert @bank.external_account
     end
     should "should not get destroyed" do
       assert !@asset.destroy

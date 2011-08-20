@@ -1,7 +1,7 @@
 class Record < ActiveRecord::Base
   set_table_name 'transactions'
-  belongs_to :entry
-  belongs_to :account
+  belongs_to :entry, :inverse_of => :records
+  belongs_to :account, :inverse_of => :records
 
 
 end
