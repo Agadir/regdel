@@ -20,18 +20,20 @@ def seed_accounts(hash, parent_id=nil)
 end
 
 seed_accounts({
-  Asset      => ['Fixed Assets', 'Other Assets',
-    {CurrentAsset => 
-      [{Receivable => [{Customer => ['Customer 1']}]}]
-    },
-    {BankAccount => ['Bank Account 1', 'Bank Account 2']}
-  ],
-  Liability  => ['Long Term Liabilities',
-    {CurrentLiability => [{Vendor => ['Electric Company']}]}
-  ],
-  Expense => ['Electricity', 'Bank Fees', 'Insurance'],
-  Revenue => ['Professional Services'],
-  Equity => []
+  Account => [{
+    Asset      => ['Fixed Assets', 'Other Assets',
+      {CurrentAsset => 
+        [{Receivable => [{Customer => ['Customer 1']}]}]
+      },
+      {BankAccount => ['Bank Account 1', 'Bank Account 2']}
+    ],
+    Liability  => ['Long Term Liabilities',
+      {CurrentLiability => [{Vendor => ['Electric Company']}]}
+    ],
+    Expense => ['Electricity', 'Bank Fees', 'Insurance'],
+    Revenue => ['Professional Services'],
+    Equity => []
+    }]
 })
 
 Term.create(

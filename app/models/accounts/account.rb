@@ -55,9 +55,21 @@ class Account < AccountBase
   class << self
     include CacheAPI
 
+    def account_tree
+      tree = {}
+      Account.each_with_level(Account.root.descendants) {|x,y| tree[x] = y }
+      tree
+    end
+
+    def levels_of_sub_accounts
+      depths = []
+      account_tree.values.max
+    end
+
     def account_type_names
       Account.root.children.map(&:name)
     end
+
     def sub_accounts_results
       Account.root.children.map(&:descendants).flatten
     end
@@ -65,12 +77,15 @@ class Account < AccountBase
     def accounts_root
       capi_get_or_set('accounts_root', Proc.new{ Account.root })
     end
+
     def account_types
       capi_get_or_set('account_types', Account,  :account_type_names)
     end
+
     def sub_accounts
       capi_get_or_set('sub_accounts', Account, :sub_accounts_results)
     end
+
     def balance
      all.map(&:balance).sum 
     end
@@ -87,6 +102,10 @@ class Account < AccountBase
 
   def destroy
     false
+  end
+
+  def height(depth)
+    Account.levels_of_sub_accounts + 1 - depth
   end
 
   def current_balance

@@ -3,7 +3,7 @@ class AccountsController < InheritedResources::Base
 
   def create
     type = params[:account][:type]
-    a = type.constantize.new(params[:account])
+    a = type.singularize.constantize.new(params[:account])
     if a.save
       redirect_to accounts_path
     end

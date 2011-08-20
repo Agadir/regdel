@@ -1,10 +1,10 @@
 %h2 Accounts
--collection.group_by(&:type).each do |type, accounts|
-  %h4.account_type=type
-  %table
-    -accounts.reject{|x| x.nil?}.each do |a|
-      %tr
-        %td=link_to a.name, self.send("#{a.type.underscore}_path",a)
-        %td=a.current_balance
+%table{:style => "border: 1px;", :class => "tablesorter"}
+  -Account.each_with_level(Account.root.descendants) do |acc, level|
+    %tr{:class => "sub-account-of-#{acc.parent_id}"}
+      -level.times do
+        %td{:style => "width: 1em;"}
+      %td{:colspan => acc.height(level)}=link_to acc.name, account_path(acc)
+      %td=acc.current_balance
 
 =link_to "New", new_resource_path

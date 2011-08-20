@@ -32,10 +32,13 @@ class EntriesController < InheritedResources::Base
 
   def create_invoice 
     @entry = Invoice.new.as_base
-    @credits = Credit.new
-    @debits = Debit.new
-    @debit_accounts = Customer.find(:all)
+    @credits = [Credit.new]
+    @debits = [Debit.new]
+    @proxy_transaction = Proxy.new
+    @company_accounts = Customer.all
+    @debit_accounts = Receivable.find(:all)
     @credit_accounts = BankAccount.find(:all)
+    @revenue_accounts = Revenue.all
     render :new
   end
 
