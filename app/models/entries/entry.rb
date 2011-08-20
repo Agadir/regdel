@@ -70,7 +70,7 @@ class Entry < ActiveRecord::Base
   end
 
   def account_types_valid?
-    pending_transactions.map(&:account).all?{|x| required_account_types.include?(x.class)}
+    pending_transactions.map(&:account).all?{|x| required_account_types.any?{|rq| x.is_a?(rq)}}
     #required_account_types.all?{|x| pending_transactions.map(&:account).include?(x) }
   end
 

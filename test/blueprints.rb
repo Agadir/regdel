@@ -22,6 +22,10 @@ Customer.blueprint do
   name { "ABC Customer" }
 end
 
+Receivable.blueprint do
+  name { "Accounts Receivable" }
+end
+
 Expense.blueprint do
   name { "Electricity" }
 end
@@ -67,6 +71,11 @@ end
 Invoice.blueprint do
   memo { 'OK' }
   date { Time.now }
+end
+
+Payment.blueprint do
+  date { Time.now }
+  memo { 'Payment from someone' }
 end
 
 CreditCardCharge.blueprint do

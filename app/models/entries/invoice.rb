@@ -30,7 +30,7 @@ class Invoice < Entry
   end
 
   def required_account_types
-    [Revenue, Customer]
+    [Asset, Revenue, Customer]
   end
 
 end

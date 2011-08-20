@@ -4,6 +4,7 @@ class EntryTest < ActiveSupport::TestCase
   setup do
     @bank   = BankAccount.make
     @asset  = Asset.make
+    @ar       = Receivable.make
     @revenue = Revenue.make
     @expense = Expense.make
     @expense2 = Expense.make(:name => 'Phone')
@@ -50,9 +51,20 @@ class EntryTest < ActiveSupport::TestCase
   end
   test "should save invoice with everything in its right place" do
     entry = Invoice.make(:term_id => 1) 
-    c = entry.credits.build(:account => @customer, :amount_in_cents => 12300)
+    c = entry.credits.build(:account => @ar, :amount_in_cents => 12300)
     d = entry.debits.build(:account => @revenue, :amount_in_cents => 12300)
-    assert entry.save
+    e = entry.proxies.build(:account => @customer)
+    assert entry.save!
+    assert entry.customer
+    assert entry.balanced?
+    assert entry.complete
+  end
+  test "should pay invoice" do
+    entry = Payment.make
+    c = entry.credits.build(:account => @bank, :amount_in_cents => 12300)
+    d = entry.debits.build(:account => @ar, :amount_in_cents => 12300)
+    e = entry.proxies.build(:account => @customer)
+    assert entry.save!
     assert entry.customer
     assert entry.balanced?
     assert entry.complete
@@ -61,7 +73,7 @@ class EntryTest < ActiveSupport::TestCase
     entry = CreditCardCharge.make
     c = entry.credits.build(:account => @card, :amount_in_cents => 12300)
     d = entry.debits.build(:account => @expense, :amount_in_cents => 12300)
-    assert entry.save
+    assert entry.save!
     assert entry.balanced?
     assert entry.complete
   end
