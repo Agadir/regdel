@@ -25,23 +25,10 @@ function svx_loadcss(csshref) {
 
 $('document').ready(function() {
 
-  var hash = getUrlVars();
-  if (hash['error']) {
-      var err = '<div id="error">' + unescape(hash['error']) + '</div>';
-      $("body").append(err);
-  }
 
   $(":input:not(:button,:submit,:checkbox)").addClass("text");
   $(":button,:submit").addClass("button");
 
-  if(jQuery.url.setUrl(fixturl).segment(0)=='ledger' ||
-    jQuery.url.setUrl(fixturl).segment(0)=='ledgers' ) {
-    $("#nav-ledger","#navigation").addClass("active");
-  }
-
-  if($('.tablesorter').length > 0) {
-    $.getScript(app_prefix+'s/js/pkgs/tablesorter/jquery.tablesorter.js');
-  }
 });
 
 
