@@ -1,5 +1,5 @@
 %h2 Accounts
-%table{:style => "border: 1px;", :class => "tablesorter"}
+%table{:style => "border: 1px;", :id => "accounts-table"}
   -Account.each_with_level(Account.root.descendants) do |acc, level|
     %tr{:class => "sub-account-of-#{acc.parent_id}"}
       -level.times do

@@ -2,14 +2,15 @@
   :min-height 600px
   
   
-#accounts-table tbody
+#accounts-table tbody, #entries-table tbody
   a
-    :padding 5px
+    :padding 2px
   a:hover
     :color red
+  :background-color #eee
 
-#accounts-table tbody a
-  :padding 5px
+#accounts-table, #entries-table tbody a
+  :padding 2px
 
 .accounts tbody td
   :padding 0
@@ -25,21 +26,25 @@
   :float left 
   :margin-right 2px
 
-#accounts-table td:nth-child(1):hover
+#accounts-table, #entries-table td:hover
+  :background url('../s/img/pkgs/docunext-webapp-icons/tango/edit-find.png') no-repeat 98%
+  :cursor pointer
+  :background-color #ddd
+
+#accounts-table td, #accounts-table th, #entries-table td, #entries-table th
+  :border 1px solid #000
+
+#entries-table td:nth-child(1):hover
   :background url('../s/img/pkgs/docunext-webapp-icons/style/icon_info_sml.gif') no-repeat 98%
 
-#accounts-table td:nth-child(2):hover
+#entries-table td:nth-child(2):hover
   :background url('../s/img/pkgs/docunext-webapp-icons/eclipse/write_obj.gif') no-repeat 98%
 
-
-#accounts-table td:nth-child(3)
+#entries-table td:nth-child(3)
   :text-align right
 
-#accounts-table td:nth-child(3):hover
+#entries-table td:nth-child(3):hover
   :background url('../s/img/pkgs/docunext-webapp-icons/tango/edit-find.png') no-repeat 2%
-
-#accounts-table td,#accounts-table th
-  :border 1px solid #000
 
 .check
   :border 1px solid #555

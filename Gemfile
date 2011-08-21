@@ -8,6 +8,8 @@ gem 'nested_set'
 gem 'state_machine'
 gem 'inherited_resources'
 
+gem 'jquery-rails', '>= 1.0.12'
+
 gem 'ruby-xslt', :require => 'xml/xslt'
 
 group :development do

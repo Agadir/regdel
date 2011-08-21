@@ -1,13 +1,13 @@
 -if collection
-  %table
+  %table{:id => "entries-table"}
     %thead
       %tr
         %th Memo
         %th Date
         %th Amount
     %tbody
-    -collection.each do |e|
-      %tr
-        %td= link_to e.memo, resource_path(e)
-        %td= e.date.to_s
-        %td= e.amount
+      -collection.each do |e|
+        %tr
+          %td= link_to e.memo, resource_path(e)
+          %td= e.date.to_s
+          %td= e.amount
