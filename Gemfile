@@ -24,7 +24,7 @@ group :test do
 end
 
 group :production do
-  gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
+#  gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
   gem 'memcached'
   gem 'rack-xsl', :require => 'rack/xsl'
 end
