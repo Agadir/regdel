@@ -4,15 +4,6 @@
 [submodule "public/s/img/pkgs/docunext-webapp-icons"]
 	path = public/images/pkgs/docunext-webapp-icons
 	url = git://github.com/docunext/docunext-webapp-icons.git
-[submodule "public/s/js/pkgs/tablesorter"]
-	path = public/javascripts/pkgs/tablesorter
-	url = git://github.com/docunext/tablesorter.git
-[submodule "public/s/js/pkgs/jquery-tablesorter-app-theme"]
-	path = public/javascripts/pkgs/jquery-tablesorter-app-theme
-	url = http://github.com/docunext/jquery-tablesorter-app-theme.git
-[submodule "public/s/js/pkgs/jquery.autocomplete"]
-	path = public/javascripts/pkgs/jquery.autocomplete
-	url = http://github.com/docunext/jquery.autocomplete.bassistance.git
 [submodule "app/views/layouts/xsl/1bb02b59"]
 	path = app/views/layouts/xsl/1bb02b59
 	url = git://github.com/docunext/1bb02b59.git
