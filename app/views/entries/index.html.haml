@@ -9,26 +9,28 @@
       Entries
     .inner
       %table.table
-        %tr
-          %th.first ID
-          %th
-            = t("activerecord.attributes.entry.number", :default => t("activerecord.labels.number", :default => "Number"))
-          %th= t("web-app-theme.created_at", :default => "Created at")
-          %th.last &nbsp;
-        - @entries.each do |entry|
-          %tr{:class => cycle("odd", "even")}
-            %td
-              = entry.id
-            %td
-              = link_to entry.number, entry_path(entry)
-            %td
-              = entry.created_at
-            %td.last
-              = link_to "#{t("web-app-theme.show", :default => "Show")}", entry_path(entry)
-              |
-              \#{link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_entry_path(entry)} |
-              \#{link_to "#{t("web-app-theme.delete", :default => "Delete")}", entry_path(entry), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"}
+        %thead
+          %tr
+            %th.first ID
+            %th
+              = t("activerecord.attributes.entry.number", :default => t("activerecord.labels.number", :default => "Number"))
+            %th= t("web-app-theme.created_at", :default => "Created at")
+            %th.last &nbsp;
+        %tbody
+          - collection.each do |entry|
+            %tr{:class => cycle("odd", "even")}
+              %td
+                = entry.id
+              %td
+                = link_to entry.number, entry_path(entry)
+              %td
+                = entry.created_at
+              %td.last
+                = link_to "#{t("web-app-theme.show", :default => "Show")}", entry_path(entry)
+                |
+                \#{link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_entry_path(entry)} |
+                \#{link_to "#{t("web-app-theme.delete", :default => "Delete")}", entry_path(entry), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"}
       .actions-bar.wat-cf
         .actions
-        = will_paginate @entries
+        = will_paginate collection
 - content_for :sidebar, render(:partial => 'sidebar')

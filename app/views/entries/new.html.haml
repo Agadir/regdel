@@ -5,9 +5,8 @@
       %li.active= link_to "#{t("web-app-theme.new", :default => "New")}", new_entry_path
   .content
     %h2.title
-      = t("web-app-theme.new", :default => "New")
-      Entry
-    .inner
-      = form_for :entry, :url => entries_path, :html => { :class => :form } do |f|
-        = render :partial => "form", :locals => {:f => f}
+      = t("web-app-theme.new", :default => "New #{resource.type.capitalize}")
+    .inner{:class => resource.type.downcase}
+      = form_for resource, :url => entries_path, :html => { :class => :form } do |f|
+        = render :partial => "form", :locals => {:entry => resource, :f => f}
 - content_for :sidebar, render(:partial => 'sidebar')

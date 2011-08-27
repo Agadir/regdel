@@ -1,10 +1,16 @@
-%h2 Accounts
-%table{:style => "border: 1px;", :id => "accounts-table"}
-  -Account.each_with_level(Account.root.descendants) do |acc, level|
-    %tr{:class => "sub-account-of-#{acc.parent_id}"}
-      -level.times do
-        %td{:style => "width: 1em;"}
-      %td{:colspan => acc.height(level)}=link_to acc.name, account_path(acc)
-      %td=acc.current_balance
-
-=link_to "New", new_resource_path
+.content
+  %h2.title Accounts
+  .inner
+    %table.table{:style => "border: 1px;", :id => "accounts-table"}
+      %tr
+        %th.first{:colspan  => Account.levels_of_sub_accounts + 1 } Name
+        %th.last Balance
+      -Account.each_with_level(Account.root.descendants) do |acc, level|
+        %tr{:class => "sub-account-of-#{acc.parent_id}"}
+          -level.times do
+            %td{:style => "width: 1em;"}
+          %td{:colspan => acc.height(level)}=link_to acc.name, account_path(acc)
+          %td.last=acc.current_balance
+    .actions-bar.wat-cf
+      .actions
+        =link_to "New", new_resource_path
