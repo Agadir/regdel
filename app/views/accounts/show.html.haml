@@ -9,4 +9,5 @@
 
 =render :partial => 'entries/entries_table', :locals => {:collection => @account.entries}
 
-=link_to('Edit', edit_account_path(@account))
+.wat-cf
+  = link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_account_path(@account), :class => "button"
