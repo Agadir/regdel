@@ -1,5 +1,34 @@
-%h2 Entries
-
-=render :partial => 'entries_table', :locals => {:collection => collection}
-
-=link_to "New", new_entry_path
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active= link_to "#{t("web-app-theme.list", :default => "List")}", entries_path
+      %li= link_to "#{t("web-app-theme.new", :default => "New")}", new_entry_path
+  .content
+    %h2.title
+      = t("web-app-theme.all", :default => "All")
+      Entries
+    .inner
+      %table.table
+        %tr
+          %th.first ID
+          %th
+            = t("activerecord.attributes.entry.number", :default => t("activerecord.labels.number", :default => "Number"))
+          %th= t("web-app-theme.created_at", :default => "Created at")
+          %th.last &nbsp;
+        - @entries.each do |entry|
+          %tr{:class => cycle("odd", "even")}
+            %td
+              = entry.id
+            %td
+              = link_to entry.number, entry_path(entry)
+            %td
+              = entry.created_at
+            %td.last
+              = link_to "#{t("web-app-theme.show", :default => "Show")}", entry_path(entry)
+              |
+              \#{link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_entry_path(entry)} |
+              \#{link_to "#{t("web-app-theme.delete", :default => "Delete")}", entry_path(entry), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"}
+      .actions-bar.wat-cf
+        .actions
+        = will_paginate @entries
+- content_for :sidebar, render(:partial => 'sidebar')

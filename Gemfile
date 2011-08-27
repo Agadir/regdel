@@ -11,6 +11,11 @@ gem 'inherited_resources'
 gem 'jquery-rails', '>= 1.0.12'
 
 gem 'ruby-xslt', :require => 'xml/xslt'
+gem 'hpricot'
+
+gem 'ruby_parser'
+
+gem "will_paginate", :git => "https://github.com/p7r/will_paginate.git", :branch => "rails3"
 
 group :development do
   gem 'memcached'

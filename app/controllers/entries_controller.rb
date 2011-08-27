@@ -1,6 +1,8 @@
 class EntriesController < InheritedResources::Base
 
-
+  def collection
+    Entry.paginate(:page => params[:page])
+  end
   def write_check
     # Bank to vendor, vendor to expense
     @entry = Entry.new
