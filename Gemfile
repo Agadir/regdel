@@ -11,17 +11,25 @@ gem 'inherited_resources'
 gem 'jquery-rails', '>= 1.0.12'
 
 gem 'ruby-xslt', :require => 'xml/xslt'
+gem 'hpricot'
+
+gem 'ruby_parser'
+
+gem "will_paginate", :git => "https://github.com/p7r/will_paginate.git", :branch => "rails3"
 
 group :development do
   gem 'memcached'
   gem 'rack-xsl', :require => 'rack/xsl'
+  gem 'web-app-theme', '>= 0.6.2'
 end
 
 group :test do
   gem 'rack-xsl', :require => 'rack/xsl'
   gem "shoulda"
   gem 'machinist', '>= 2.0.0.beta2' 
+  gem 'web-app-theme', '>= 0.6.2'
 end
+
 
 group :production do
 #  gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'

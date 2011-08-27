@@ -1,16 +1,67 @@
-%h2= "#{resource.class.to_s} : #{resource.memo}"
-%p= resource.date
--if resource.proxies.present?
-  %p= resource.proxies.first.account.name
-
-%table
-  %thead
-    %tr
-      %th Account
-      %th Amount
-  %tbody
-    -resource.transactions.each do |e|
-      %tr
-        %td=link_to e.account.name, account_path(e.account)
-        %td=e.amount
-
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first= link_to "#{t("web-app-theme.list", :default => "List")}", entries_path
+      %li= link_to "#{t("web-app-theme.new", :default => "New")}", new_entry_path
+      %li.active= link_to "#{t("web-app-theme.show", :default => "Show")}", entry_path
+  .content
+    .inner
+      %p
+        %b
+          = t("activerecord.attributes.entry.number", :default => t("activerecord.labels.number", :default => "Number"))
+          \:
+        = @entry.number
+      %p
+        %b
+          = t("activerecord.attributes.entry.memo", :default => t("activerecord.labels.memo", :default => "Memo"))
+          \:
+        = @entry.memo
+      %p
+        %b
+          = t("activerecord.attributes.entry.entry_state", :default => t("activerecord.labels.entry_state", :default => "Entry state"))
+          \:
+        = @entry.entry_state
+      %p
+        %b
+          = t("activerecord.attributes.entry.state", :default => t("activerecord.labels.state", :default => "State"))
+          \:
+        = @entry.state
+      %p
+        %b
+          = t("activerecord.attributes.entry.date", :default => t("activerecord.labels.date", :default => "Date"))
+          \:
+        = @entry.date
+      %p
+        %b
+          = t("activerecord.attributes.entry.posted_date", :default => t("activerecord.labels.posted_date", :default => "Posted date"))
+          \:
+        = @entry.posted_date
+      %p
+        %b
+          = t("activerecord.attributes.entry.term_id", :default => t("activerecord.labels.term_id", :default => "Term"))
+          \:
+        = @entry.term_id
+      %p
+        %b
+          = t("activerecord.attributes.entry.fiscal_period_id", :default => t("activerecord.labels.fiscal_period_id", :default => "Fiscal period"))
+          \:
+        = @entry.fiscal_period_id
+      %p
+        %b
+          = t("activerecord.attributes.entry.type", :default => t("activerecord.labels.type", :default => "Type"))
+          \:
+        = @entry.type
+      %p
+        %b
+          = t("activerecord.attributes.entry.posted", :default => t("activerecord.labels.posted", :default => "Posted"))
+          \:
+        = @entry.posted
+      %p
+        %b
+          = t("activerecord.attributes.entry.reconciled", :default => t("activerecord.labels.reconciled", :default => "Reconciled"))
+          \:
+        = @entry.reconciled
+      .wat-cf
+        = link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_entry_path(@entry), :class => "button"
+        = link_to image_tag("web-app-theme/icons/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}") + " " + t("web-app-theme.delete", :default => "Delete"), entry_path(@entry), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
+- content_for :sidebar, render(:partial => 'sidebar')
