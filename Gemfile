@@ -15,13 +15,16 @@ gem 'ruby-xslt', :require => 'xml/xslt'
 group :development do
   gem 'memcached'
   gem 'rack-xsl', :require => 'rack/xsl'
+  gem 'web-app-theme', '>= 0.6.2'
 end
 
 group :test do
   gem 'rack-xsl', :require => 'rack/xsl'
   gem "shoulda"
   gem 'machinist', '>= 2.0.0.beta2' 
+  gem 'web-app-theme', '>= 0.6.2'
 end
+
 
 group :production do
 #  gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
