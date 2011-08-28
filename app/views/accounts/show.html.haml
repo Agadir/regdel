@@ -1,10 +1,9 @@
-%h2= @account.name
+.block
+  .content
+    %h2.title= @account.name
+    .inner
+      =render :partial => 'entries/entries_table', :locals => {:collection => @account.entries}
 
-%h3= @account.account_name
-
-
-=render :partial => 'entries/entries_table', :locals => {:collection => @account.entries}
-
-.wat-cf
-  = link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_account_path(@account), :class => "button"
+      .wat-cf
+        = link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_account_path(@account), :class => "button"
 - content_for :sidebar, render(:partial => 'sidebar')

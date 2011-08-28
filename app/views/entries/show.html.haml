@@ -38,11 +38,6 @@
         = @entry.posted_date
       %p
         %b
-          = t("activerecord.attributes.entry.term_id", :default => t("activerecord.labels.term_id", :default => "Term"))
-          \:
-        = @entry.term_id
-      %p
-        %b
           = t("activerecord.attributes.entry.fiscal_period_id", :default => t("activerecord.labels.fiscal_period_id", :default => "Fiscal period"))
           \:
         = @entry.fiscal_period_id
@@ -51,16 +46,6 @@
           = t("activerecord.attributes.entry.type", :default => t("activerecord.labels.type", :default => "Type"))
           \:
         = @entry.type
-      %p
-        %b
-          = t("activerecord.attributes.entry.posted", :default => t("activerecord.labels.posted", :default => "Posted"))
-          \:
-        = @entry.posted
-      %p
-        %b
-          = t("activerecord.attributes.entry.reconciled", :default => t("activerecord.labels.reconciled", :default => "Reconciled"))
-          \:
-        = @entry.reconciled
       .wat-cf
         = link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_entry_path(@entry), :class => "button"
         = link_to image_tag("web-app-theme/icons/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}") + " " + t("web-app-theme.delete", :default => "Delete"), entry_path(@entry), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
