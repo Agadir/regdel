@@ -2,12 +2,9 @@
 
 %h3= @account.account_name
 
--if @sub_accounts
-  %ul
-  -@sub_accounts.each do |sub|
-    %li= account_link_for(sub)
 
 =render :partial => 'entries/entries_table', :locals => {:collection => @account.entries}
 
 .wat-cf
   = link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_account_path(@account), :class => "button"
+- content_for :sidebar, render(:partial => 'sidebar')

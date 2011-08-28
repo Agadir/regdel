@@ -1,0 +1,7 @@
+-if @sub_accounts
+  .block
+    %h3 Sub-Accounts
+    %ul.navigation
+      -Account.each_with_level(@account.descendants) do |acc, level|
+        %li
+          = link_to raw('&#160;&#183;&#160;&#160;') * level + acc.name, account_path(acc)
