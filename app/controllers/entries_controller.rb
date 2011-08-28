@@ -9,15 +9,12 @@ class EntriesController < InheritedResources::Base
     # Bank to vendor, vendor to expense
     @entry = Entry.new
     @entry[:type] = 'Check'
-    @debits = [Debit.new]
+    @entry.debits << Debit.new
     # Vendor matches with bank
     @company_accounts = Vendor.all
     @payable = Credit.new
     @proxy_transaction = Proxy.new
-    @credits = []
-    1.times do
-      @credits << Credit.new
-    end
+    @entry.credits << Credit.new
     # Vendor also matches with expense
     @debit_accounts = Expense.find(:all)
     @credit_accounts = BankAccount.find(:all)
@@ -54,6 +51,19 @@ class EntriesController < InheritedResources::Base
       redirect_to entries_path
     else
       render :new
+    end
+  end
+  def update
+    entry_type = params[:type].downcase.to_sym
+    @entry = Entry.find(params[:id])
+    respond_to do |format|
+      if @entry.update_attributes(params[entry_type])
+        format.html { redirect_to(@entry) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @business.errors, :status => :unprocessable_entity }
+      end
     end
   end
 

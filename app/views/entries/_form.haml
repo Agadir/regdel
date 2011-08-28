@@ -1,3 +1,4 @@
+=hidden_field_tag :type, resource.type
 =f.hidden_field :type
 -if resource.type == 'Check'
   .number
@@ -9,13 +10,13 @@
 -unless resource.type == 'Check'
   =f.label :memo
   =f.text_field :memo
--@credits.each do |credit|
+-resource.credits.each do |credit|
   =f.fields_for :credits, credit do |entry_form|
     =entry_form.label :account_id
     =entry_form.select :account_id, accounts_select_for(@credit_accounts)
     .amount_container
       =entry_form.label :amount_in_cents, "Amount"
-      =entry_form.text_field :amount_in_cents, :class => 'amount_field'
+      =entry_form.text_field :amount_in_cents, :class => 'amount_field', :value => credit.amount_in_cents
 -if resource.type == 'Check'
   %br
   %p.payee
@@ -26,11 +27,11 @@
   =f.label :memo
   =f.text_field :memo, :class => 'memo'
 %hr
--@debits.each do |debit|
+-resource.debits.each do |debit|
   =f.fields_for :debits, debit do |entry_form|
     =entry_form.label :account_id
     =entry_form.select :account_id, accounts_select_for(@debit_accounts)
     =entry_form.label :amount_in_cents, "Amount"
-    =entry_form.text_field :amount_in_cents
+    =entry_form.text_field :amount_in_cents, :value => debit.amount_in_cents
 %r
 =f.submit

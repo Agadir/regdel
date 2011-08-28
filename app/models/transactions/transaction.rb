@@ -14,7 +14,10 @@ class Transaction < Record
     write_attribute(:amount_in_cents, amount_in_cents.to_f * 100)
   end
 
+  def amount_in_cents
+    read_attribute(:amount_in_cents) * 0.01
+  end
   def amount
-    amount_in_cents * 0.01
+    amount_in_cents 
   end
 end
