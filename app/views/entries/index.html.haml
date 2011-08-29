@@ -1,21 +1,20 @@
 .block
   .content
-    %h2.title
-      = t("web-app-theme.all", :default => "All")
-      Entries
+    %h2.title= resource_class.to_s.titleize.pluralize 
     .inner
       %table.table
         %thead
           %tr
             %th.first ID
+            %th Entry Type
             %th Memo
             %th= t("web-app-theme.created_at", :default => "Created at")
             %th.last &nbsp;
         %tbody
           - collection.each do |entry|
             %tr{:class => cycle("odd", "even")}
-              %td
-                = entry.id
+              %td= entry.id
+              %td= entry.class.name
               %td
                 = link_to entry.memo, entry_path(entry)
               %td

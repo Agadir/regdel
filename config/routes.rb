@@ -24,9 +24,9 @@ RegdelRails::Application.routes.draw do
   resources :payables
   resources :credit_cards
   resources :expenses
-  resources :checks, :controller => :entries
-  resources :transfers, :controller => :entries
-  resources :invoices, :controller => :entries
+  resources :checks
+  resources :transfers
+  resources :invoices
 
   #match 'accounts/:id/new' => 'accounts#new', :as => :new_sub_account
 

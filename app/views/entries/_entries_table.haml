@@ -2,12 +2,14 @@
   %table.table{:id => "entries-table"}
     %thead
       %tr
-        %th.first Memo
+        %th.first ID
+        %th Memo
         %th Date
         %th.last Amount
     %tbody
       -collection.each do |e|
         %tr
-          %td.first= link_to e.memo, entry_path(e)
+          %td.first= e.id
+          %td= link_to e.memo, entry_path(e)
           %td= e.date.to_s
           %td.last= e.amount

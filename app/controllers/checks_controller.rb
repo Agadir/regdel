@@ -1,0 +1,3 @@
+class ChecksController < EntriesController
+
+end

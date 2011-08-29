@@ -1,8 +1,10 @@
 class EntriesController < InheritedResources::Base
-  defaults :resource_class => Entry, :collection_name => 'entries', :instance_name => 'entry'
+  defaults :resource_class => controller_name.singularize.camelize.constantize, :collection_name => 'entries', :instance_name => 'entry'
 
   def collection
-    Entry.paginate(:page => params[:page])
+    path = Rails.application.routes.recognize_path request.env['PATH_INFO']
+    controller = path[:controller]
+    controller.singularize.camelize.constantize.paginate(:page => params[:page])
   end
 
   def write_check
@@ -24,8 +26,8 @@ class EntriesController < InheritedResources::Base
   def transfer_funds 
     @entry = Entry.new
     @entry[:type] = 'Transfer'
-    @debits = [Debit.new]
-    @credits = [Credit.new]
+    @entry.debits << Debit.new
+    @entry.credits << Credit.new
     @debit_accounts = BankAccount.find(:all)
     @credit_accounts = BankAccount.find(:all)
     render :new
