@@ -15,7 +15,7 @@ class Transaction < Record
   end
 
   def amount_in_cents
-    read_attribute(:amount_in_cents) * 0.01
+    read_attribute(:amount_in_cents).present? ? read_attribute(:amount_in_cents) * 0.01 : ''
   end
   def amount
     amount_in_cents 

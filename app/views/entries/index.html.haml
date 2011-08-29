@@ -8,8 +8,7 @@
         %thead
           %tr
             %th.first ID
-            %th
-              = t("activerecord.attributes.entry.number", :default => t("activerecord.labels.number", :default => "Number"))
+            %th Memo
             %th= t("web-app-theme.created_at", :default => "Created at")
             %th.last &nbsp;
         %tbody
@@ -18,9 +17,9 @@
               %td
                 = entry.id
               %td
-                = link_to entry.number, entry_path(entry)
+                = link_to entry.memo, entry_path(entry)
               %td
-                = entry.created_at
+                = entry.created_at.to_date
               %td.last
                 = link_to "#{t("web-app-theme.show", :default => "Show")}", entry_path(entry)
                 |

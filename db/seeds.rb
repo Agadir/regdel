@@ -23,17 +23,30 @@ seed_accounts({
   Account => [{
     Asset      => ['Fixed Assets', 'Other Assets',
       {CurrentAsset => 
-        [{Receivable => [{Customer => ['Customer 1']}]}]
+        [{Receivable => []}]
       },
       {BankAccount => ['Bank Account 1', 'Bank Account 2']}
     ],
     Liability  => ['Long Term Liabilities',
-      {CurrentLiability => [{Vendor => ['Electric Company']}]}
+      {CurrentLiability => 
+        [{Payable => []}]
+      }
     ],
     Expense => ['Electricity', 'Bank Fees', 'Insurance'],
     Revenue => ['Professional Services'],
-    Equity => []
+    Equity => ['Owner Equity'],
+    Other => [
+      {Company =>
+        [
+          {
+            Vendor => ['Electric Company']
+          },
+          {
+            Customer => ['Customer Awesome']
+          }
+        ]
     }]
+  }]
 })
 
 Term.create(

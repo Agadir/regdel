@@ -1,4 +1,4 @@
-class Vendor < Payable 
+class Vendor < Company 
 
   has_many :contacts
 

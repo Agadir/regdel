@@ -8,6 +8,6 @@
     %tbody
       -collection.each do |e|
         %tr
-          %td.first= link_to e.memo, resource_path(e)
+          %td.first= link_to e.memo, entry_path(e)
           %td= e.date.to_s
           %td.last= e.amount

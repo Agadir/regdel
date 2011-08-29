@@ -1,6 +1,0 @@
-%h2 Customers
-
--if @customers
-  %ul
-    -@customers.each do |c|
-      %li= link_to c.name, customer_path(c)

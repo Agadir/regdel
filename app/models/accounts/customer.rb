@@ -1,4 +1,4 @@
-class Customer < Receivable 
+class Customer < Company
 
   has_many :contacts
   has_many :invoices
