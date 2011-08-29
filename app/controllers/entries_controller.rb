@@ -2,9 +2,7 @@ class EntriesController < InheritedResources::Base
   defaults :resource_class => controller_name.singularize.camelize.constantize, :collection_name => 'entries', :instance_name => 'entry'
 
   def collection
-    path = Rails.application.routes.recognize_path request.env['PATH_INFO']
-    controller = path[:controller]
-    controller.singularize.camelize.constantize.paginate(:page => params[:page])
+    controller_name.singularize.camelize.constantize.paginate(:page => params[:page])
   end
 
   def write_check

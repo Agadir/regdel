@@ -14,9 +14,8 @@
           - collection.each do |entry|
             %tr{:class => cycle("odd", "even")}
               %td= entry.id
-              %td= entry.class.name
-              %td
-                = link_to entry.memo, entry_path(entry)
+              %td= link_to entry.class.name, self.send("#{entry.class.name.tableize}_url".to_sym)
+              %td= link_to entry.memo, entry_path(entry)
               %td
                 = entry.created_at.to_date
               %td.last
