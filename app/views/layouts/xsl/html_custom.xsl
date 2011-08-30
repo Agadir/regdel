@@ -21,7 +21,7 @@ along with this program; if not, see http://www.gnu.org/licenses
 or write to the Free Software Foundation, Inc., 51 Franklin Street,
 Fifth Floor, Boston, MA 02110-1301 USA
 -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+<xsl:stylesheet version="1.0" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 xmlns="http://www.w3.org/1999/xhtml">
 
 <xsl:strip-space elements="*"/>
@@ -31,6 +31,7 @@ xmlns="http://www.w3.org/1999/xhtml">
   <html>
     <xsl:call-template name="head"/>
     <body>
+    <xsl:apply-templates select="//xhtml:body/*" />
     <xsl:apply-templates select="//body/*" />
     </body>
     <xsl:if test="$RACK_ENV='demo'">

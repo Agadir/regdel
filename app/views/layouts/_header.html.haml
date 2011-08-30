@@ -1,0 +1,20 @@
+#header
+  %h1
+    %a{:href => "/"} Regdel
+  #user-navigation
+    %ul.wat-cf
+      %li= link_to "Development", '/ditz/'
+      %li
+        %a{:href => "#"}= "Profile"
+      %li
+        %a{:href => "#"}= "Settings"
+      %li
+        %a.logout{:href => "/logout"}= "Logout"
+  #main-navigation
+    %ul.wat-cf
+      %li= link_to "Accounts", accounts_path
+      %li= link_to "Entries", entries_path
+      %li= link_to "Write Check", write_check_entries_path 
+      %li= link_to "Make Transfer", transfer_funds_entries_path 
+      %li= link_to "Customers", customers_path
+      %li= link_to "Create Invoice", create_invoice_entries_path 
