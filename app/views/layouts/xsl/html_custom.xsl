@@ -30,46 +30,12 @@ xmlns="http://www.w3.org/1999/xhtml">
 <xsl:template name="page">
   <html>
     <xsl:call-template name="head"/>
-    <body class="rounded">
-    <div id="doc3" class="yui-t6">
-      <div id="hd">
-        <h1>Regdel</h1>
-        <div id="navigation">
-        <ul id="primary-navigation">
-          <li id="nav-home"><a class="regdel-link" href="/">Home</a></li>
-          <li id="nav-journal"><a class="regdel-link" href="/entries">Journal</a></li>
-          <li id="nav-transfer-funds"><a id="nav-entry-link" class="regdel-link" href="/entries/transfer_funds">Transfer Funds</a></li>
-          <li id="nav-write-check"><a id="nav-entry-link" class="regdel-link" href="/entries/write_check">Write Check</a></li>
-          <li id="nav-invoice"><a id="nav-invoice-link" class="regdel-link" href="/entries/create_invoice">Create Invoice</a></li>
-          <li id="nav-accounts"><a class="regdel-link" href="/accounts">Accounts</a></li>
-          <li id="nav-customers"><a class="regdel-link" href="/customers">Customers</a></li>
-          <li id="nav-account"><a class="regdel-link" href="/accounts/new">New Account</a></li>
-        </ul>
-        <ul id="user-navigation">
-          <li><a href="/regdel/runtime/info" class="regdel-link">Settings</a></li>
-          <li><a href="/regdel/runtime/info" class="regdel-link not-production">Development</a></li>
-        </ul>
-        <div class="clear"></div>
-        </div>
-      </div>
-      <div id="bd">
-        <div id="yui-main">
-          <div class="yui-b"><div class="yui-g">
-            <div id="page-content">
-            <xsl:if test="$RACK_ENV='demo'">
-            </xsl:if>
-            <xsl:apply-templates select="//div[@id='page-content']/*" />
-            </div>
-          </div></div>
-        </div>
-        <div id="sidebar" class="yui-b">
-        </div>
-      </div>
-    </div>
+    <body>
+    <xsl:apply-templates select="//body/*" />
+    </body>
     <xsl:if test="$RACK_ENV='demo'">
       <xsl:call-template name="analytics_code"/>
     </xsl:if>
-    </body>
   </html>
 </xsl:template>
 
@@ -78,14 +44,7 @@ xmlns="http://www.w3.org/1999/xhtml">
     <title>
       <xsl:value-of select="//h2" />
     </title>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="{$RACK_MOUNT_PATH}/s/css/pkgs/yui-app-theme/css/yuiapp.css"/>
-    <link rel="stylesheet" type="text/css" href="{$RACK_MOUNT_PATH}/s/css/pkgs/yui-app-theme/css/yuiapp-layouts.css"/>
-    <link rel="stylesheet" type="text/css" href="{$RACK_MOUNT_PATH}/s/css/pkgs/yui-app-theme/css/red.css"/>
-    <xsl:apply-templates select="//div[@id='rails-head']/*" />
-    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/javascripts/regdel.js"></script>
-    <link rel="stylesheet" href="{$RACK_MOUNT_PATH}/javascripts/datepicker/datePicker.css" type="text/css" media="screen" />
-    <script type="text/javascript" src="{$RACK_MOUNT_PATH}/javascripts/datepicker/jquery.datePicker.js"></script>
+    <xsl:apply-templates select="//head/*" />
   </head>
 </xsl:template>
 
