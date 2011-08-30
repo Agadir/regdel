@@ -22,8 +22,9 @@
                 = entry.created_at.to_date
               %td.last
                 = link_to "#{t("web-app-theme.show", :default => "Show")}", entry_path(entry)
-                |
-                \#{link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_entry_path(entry)} |
+                &#160;|
+                \#{link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_entry_path(entry)}
+                &#160;|
                 \#{link_to "#{t("web-app-theme.delete", :default => "Delete")}", entry_path(entry), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"}
       .actions-bar.wat-cf
         .actions
