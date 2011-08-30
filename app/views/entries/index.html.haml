@@ -8,6 +8,7 @@
             %th.first ID
             %th Entry Type
             %th Memo
+            %th Amount 
             %th= t("web-app-theme.created_at", :default => "Created at")
             %th.last &nbsp;
         %tbody
@@ -16,6 +17,7 @@
               %td= entry.id
               %td= link_to entry.class.name, self.send("#{entry.class.name.tableize}_url".to_sym)
               %td= link_to entry.memo, entry_path(entry)
+              %td= entry.amount
               %td
                 = entry.created_at.to_date
               %td.last
