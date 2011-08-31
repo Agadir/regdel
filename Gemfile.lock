@@ -104,6 +104,7 @@ GEM
     rdiscount (1.6.8)
     rdoc (3.9.2)
     responders (0.6.4)
+    ruby-prof (0.10.8)
     ruby-xslt (0.9.8)
     ruby_parser (2.2.0)
       sexp_processor (~> 3.0)
@@ -146,6 +147,7 @@ DEPENDENCIES
   rack-xsl
   rails!
   rdiscount (>= 1.6.8)
+  ruby-prof
   ruby-xslt
   ruby_parser
   sass

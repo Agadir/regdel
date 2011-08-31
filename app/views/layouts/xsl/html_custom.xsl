@@ -31,8 +31,21 @@ xmlns="http://www.w3.org/1999/xhtml">
   <html>
     <xsl:call-template name="head"/>
     <body>
-    <xsl:apply-templates select="//xhtml:body/*" />
-    <xsl:apply-templates select="//body/*" />
+      <xsl:if test="$USE_HTML_PARTIALS='1'">
+        <xsl:apply-templates select="document('html/header.html')/*"/>
+      </xsl:if>
+      <div id="container"> 
+        <div class="wat-cf" id="wrapper"> 
+          <xsl:apply-templates select="//xhtml:body/*" />
+          <xsl:apply-templates select="//div[@class='flash']" />
+          <div id="main">
+            <xsl:apply-templates select="//div[@id='main']/*" />
+            <xsl:if test="$USE_HTML_PARTIALS='1'">
+              <xsl:apply-templates select="document('html/footer.html')/*"/>
+            </xsl:if>
+          </div>
+        </div>
+      </div>
     </body>
     <xsl:if test="$RACK_ENV='demo'">
       <xsl:call-template name="analytics_code"/>

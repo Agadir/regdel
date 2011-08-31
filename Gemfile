@@ -28,6 +28,7 @@ group :test do
   gem "shoulda"
   gem 'machinist', '>= 2.0.0.beta2' 
   gem 'web-app-theme', '>= 0.6.2'
+  gem 'ruby-prof'
 end
 
 

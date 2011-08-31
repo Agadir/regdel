@@ -14,12 +14,13 @@ use Rack::Config do |env|
   env['TS'] = Time.now.to_i
   #env['ORIG_PATH_INFO'] = env['PATH_INFO'].gsub(/\.mdwn$/,'.html')
   env['ORIG_PATH_INFO'] = env['PATH_INFO']
+  env['USE_HTML_PARTIALS'] = 1
 end
 
 use Rack::XSL,
   :myxsl => XML::XSLT.new(),
   :noxsl => ['/raw/', '/s/js/', '/s/css/', '/s/img/'],
-  :passenv => ['PATH_INFO', 'RACK_MOUNT_PATH', 'RACK_ENV', 'ORIG_PATH_INFO'],
+  :passenv => ['PATH_INFO', 'RACK_MOUNT_PATH', 'RACK_ENV', 'ORIG_PATH_INFO', 'USE_HTML_PARTIALS'],
   :xslfile => File.open(myxslfile) {|f| f.read },
   :xslfilename => myxslfile,
   :excludehtml => false,
