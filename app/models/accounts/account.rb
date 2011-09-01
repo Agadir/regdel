@@ -31,6 +31,12 @@ class Account < AccountBase
             :if => "type == 'Account'"
 
 
+  class << self
+    def active
+      where(["inactive != true", 1])
+    end
+  end
+
   acts_as_nested_set
 
   state_machine :initial => :active do
