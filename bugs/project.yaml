@@ -1,0 +1,16 @@
+--- !ditz.rubyforge.org,2008-03-06/project 
+name: regdel
+version: "0.5"
+components: 
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: regdel
+releases: 
+- !ditz.rubyforge.org,2008-03-06/release 
+  name: "0.01"
+  status: :unreleased
+  release_time: 
+  log_events: 
+  - - 2011-09-01 07:07:23.416746 Z
+    - docunext <albert.lash@docunext.com>
+    - created
+    - This will be the first version, released as an effort to try to be more proactive about consistent development.

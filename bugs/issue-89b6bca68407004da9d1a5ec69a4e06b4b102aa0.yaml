@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: TODO
+desc: 1. Figure out way to add accounts and reload form in one fell swoop - ajax methodology.
+type: :task
+component: regdel
+release: 
+reporter: docunext <albert.lash@docunext.com>
+status: :unstarted
+disposition: 
+creation_time: 2011-08-30 09:51:27.794130 Z
+references: []
+
+id: 89b6bca68407004da9d1a5ec69a4e06b4b102aa0
+log_events: 
+- - 2011-08-30 09:51:30.658099 Z
+  - albertlash <albert.lash@docunext.com>
+  - created
+  - ""

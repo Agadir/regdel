@@ -2,7 +2,8 @@ class AccountsController < InheritedResources::Base
   defaults :resource_class => Account, :collection_name => 'accounts', :instance_name => 'account'
 
   before_filter :clear_accounts_cache, :only => [:create, :update]
-
+  caches_action :index
+  
   def create
     type = params[:account][:type]
     a = type.singularize.constantize.new(params[:account])
@@ -23,5 +24,6 @@ class AccountsController < InheritedResources::Base
   private
     def clear_accounts_cache
       expire_fragment('accounts_table')
+      expire_action :action => :index
     end
 end
