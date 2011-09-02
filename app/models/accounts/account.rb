@@ -19,6 +19,8 @@ class Account < AccountBase
 
   #serialize :attrs
 
+  validate :only_one_root
+
   validates :name,
             :presence => true,
             :uniqueness => true
@@ -31,36 +33,30 @@ class Account < AccountBase
             :if => "type == 'Account'"
 
 
-  class << self
-    def active
-      where(["inactive != true", 1])
-    end
-  end
-
   acts_as_nested_set
 
-  state_machine :initial => :active do
+  state_machine :initial => :shown do
 
     event :hide do
-      transition :from => :active, :to => :hidden
+      transition :from => :shown, :to => :hidden
     end
 
     event :show do
-      transition :from => :hidden, :to => :active
+      transition :from => :hidden, :to => :shown
     end
 
-    event :deactivate do
-      transition :to => :inactive
-    end
-
-    event :activate do
-      transition :to => :active
-    end
   end
 
   class << self
     include CacheAPI
 
+    def orphans
+      where(:parent_id => nil)
+    end
+
+    def viewable
+      where("inactive = ? AND state != ? AND parent_id > ?", false, 'hidden', 0)
+    end
     def account_tree
       tree = {}
       Account.each_with_level(Account.root.descendants) {|x,y| tree[x] = y }
@@ -133,4 +129,8 @@ class Account < AccountBase
     balances.build(:date_of_balance => statement_date, :balance_in_cents => statement_balance)
     update_attribute(:last_reconciliation_date, statement_date)
   end
+  private
+    def only_one_root
+      Account.orphans.count == 1
+    end
 end

@@ -8,7 +8,7 @@
             %th.first{:colspan  => Account.levels_of_sub_accounts + 1 } Name
             %th.last Balance
         %tbody
-          -Account.each_with_level(resource_class.first.descendants.reject{|x| x.inactive == true}) do |acc, level|
+          -Account.each_with_level(resource_class.first.descendants.with_scope {Account.viewable}) do |acc, level|
             %tr{:class => "sub-account-of-#{acc.parent_id} #{cycle('odd','even')}"}
               -level.times do
                 %td{:style => "width: 1em;"}

@@ -11,6 +11,10 @@ RegdelRails::Application.routes.draw do
   end
   resources :accounts do
     resources :entries
+    member do
+      get 'hide'
+      get 'unhide'
+    end
   end
   resources :bank_accounts
   resources :assets
