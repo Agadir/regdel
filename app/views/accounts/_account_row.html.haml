@@ -1,0 +1,9 @@
+%tr{:class => "sub-account-of-#{acc.parent_id} #{cycle('odd','even')}"}
+  -level.times do
+    %td{:style => "width: 1em;"}
+  %td{:colspan => acc.height(level)}=link_to acc.name, account_path(acc)
+  %td.last=acc.current_balance
+  -if acc.has_descendants?
+    -acc.children.each do |sub|
+      - sublevel = level + 1
+      =render(:partial => 'account_row', :locals => {:acc => sub, :level => sublevel})

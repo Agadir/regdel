@@ -19,7 +19,9 @@ class Account < AccountBase
 
   #serialize :attrs
 
-  validate :only_one_root
+  validates :parent_id,
+            :presence => true,
+            :unless => Proc.new {|a| Account.count == 0 }
 
   validates :name,
             :presence => true,
@@ -105,6 +107,14 @@ class Account < AccountBase
     false
   end
 
+  def parent_id=(id=nil)
+    if id.present? || AccountBase.count == 0 
+      write_attribute(:parent_id, id) 
+    else
+      write_attribute(:parent_id, 1)
+    end
+  end
+
   def height(mydepth=level)
     Account.levels_of_sub_accounts + 1 - mydepth
   end
@@ -129,8 +139,4 @@ class Account < AccountBase
     balances.build(:date_of_balance => statement_date, :balance_in_cents => statement_balance)
     update_attribute(:last_reconciliation_date, statement_date)
   end
-  private
-    def only_one_root
-      Account.orphans.count == 1
-    end
 end

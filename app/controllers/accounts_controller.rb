@@ -2,7 +2,7 @@ class AccountsController < InheritedResources::Base
   defaults :resource_class => Account, :collection_name => 'accounts', :instance_name => 'account'
 
   before_filter :clear_accounts_cache, :only => [:create, :update, :hide]
-  caches_action :index
+#  caches_action :index
   
   def create
     type = params[:account][:type]

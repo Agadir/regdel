@@ -7,7 +7,7 @@ module CacheAPI
       return $cache.get key
     rescue Memcached::NotFound
       v = k.send(m)
-      $cache.set key, v
+      $cache.set key, v, 10
       return v
     end
 

@@ -1,4 +1,5 @@
 .block
+  =render(:partial => 'secondary_navigation')
   .content
     %h2.title= resource_class.to_s.titleize.pluralize
     .inner
@@ -8,12 +9,10 @@
             %th.first{:colspan  => Account.levels_of_sub_accounts + 1 } Name
             %th.last Balance
         %tbody
-          -Account.each_with_level(resource_class.first.descendants.with_scope {Account.viewable}) do |acc, level|
-            %tr{:class => "sub-account-of-#{acc.parent_id} #{cycle('odd','even')}"}
-              -level.times do
-                %td{:style => "width: 1em;"}
-              %td{:colspan => acc.height(level)}=link_to acc.name, account_path(acc)
-              %td.last=acc.current_balance
+          -# -Account.each_with_level(resource_class.first.children.with_scope {Account.viewable}) do |acc, level|
+          -resource_class.root.children.each do |acc|
+            =render(:partial => 'account_row', :locals => {:acc => acc, :level => 0})
+
       .actions-bar.wat-cf
         .actions
           =link_to "New", new_resource_path
