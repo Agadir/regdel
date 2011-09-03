@@ -1,4 +1,4 @@
-%tr{:class => "sub-account-of-#{acc.parent_id} #{cycle('odd','even')}"}
+%tr{:class => "sub-account-of-#{acc.parent_id} #{cycle('odd','even')} level#{level}"}
   -level.times do
     %td{:style => "width: 1em;"}
   %td{:colspan => acc.height(level)}=link_to acc.name, account_path(acc)

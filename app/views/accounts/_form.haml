@@ -1,9 +1,14 @@
 =f.label :name
 =f.text_field :name
-=f.label :type
-=f.select :type, Account.account_types
-=f.label :parent_id, "Sub-account of:"
-=f.select :parent_id, accounts_select_for, :selected => resource.parent_id, :include_blank => true
+-if resource.new_record?
+  =f.label :type
+  =f.select :type, Account.account_types, :selected => resource.class.name.pluralize
+  =f.label :parent_id, "Sub-account of:"
+  =f.select :parent_id, accounts_select_for, :selected => resource.parent_id, :include_blank => true
+-else
+  =f.hidden_field :type
+  =f.label :parent_id, "Sub-account of:"
+  =f.select :parent_id, accounts_select_for(resource.self_and_ancestors.reject{|x| x.parent_id.nil?}.first.self_and_descendants.reject{|z| z.id == resource.id}), :selected => resource.parent_id
 -if resource.is_a?(BankAccount)
   -resource.class::ATTRIBUTES.each do |attr|
     =f.fields_for :attrs do |attr_form|
