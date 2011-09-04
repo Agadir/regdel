@@ -12,4 +12,4 @@
           %td.first= e.id
           %td= link_to e.memo, entry_path(e)
           %td= e.date.to_s
-          %td.last= e.amount
+          %td.last= number_to_currency(e.amount)

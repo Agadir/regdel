@@ -1,7 +1,6 @@
 .block
   =render(:partial => 'secondary_navigation')
   .content
-    %h2.title= resource_class.to_s.titleize.pluralize
     .inner
       %table.table
         %thead
@@ -9,10 +8,9 @@
             %th.first{:colspan  => Account.levels_of_sub_accounts + 1 } Name
             %th.last Balance
         %tbody
-          -# -Account.each_with_level(resource_class.first.children.with_scope {Account.viewable}) do |acc, level|
           -resource_class.root.children.each do |acc|
             =render(:partial => 'account_row', :locals => {:acc => acc, :level => 0})
-
       .actions-bar.wat-cf
         .actions
-          =link_to "New", new_resource_path
+          .wat-cf
+            = link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "Show All") + " " + "Show All", '#', :class => "button"

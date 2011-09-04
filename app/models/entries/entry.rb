@@ -46,6 +46,9 @@ class Entry < ActiveRecord::Base
     def before_date(date)
       where(["date <= ?", date])
     end
+    def per_page 
+      10
+    end
   end
 
   def as_base

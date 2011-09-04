@@ -17,7 +17,7 @@
               %td= entry.id
               %td= link_to entry.class.name, self.send("#{entry.class.name.tableize}_url".to_sym)
               %td= link_to entry.memo, entry_path(entry)
-              %td= entry.amount
+              %td= number_to_currency(entry.amount)
               %td
                 = entry.created_at.to_date
               %td.last
@@ -28,5 +28,6 @@
                 \#{link_to "#{t("web-app-theme.delete", :default => "Delete")}", entry_path(entry), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"}
       .actions-bar.wat-cf
         .actions
-        = will_paginate collection
+        = will_paginate collection 
+
 - content_for :sidebar, render(:partial => 'sidebar')

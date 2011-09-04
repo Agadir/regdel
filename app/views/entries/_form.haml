@@ -16,7 +16,7 @@
     =entry_form.select :account_id, accounts_select_for(@credit_accounts)
     .amount_container
       =entry_form.label :amount_in_cents, "Amount"
-      =entry_form.text_field :amount_in_cents, :class => 'amount_field', :value => credit.amount_in_cents
+      =entry_form.text_field :amount_in_cents, :class => 'amount_field', :value => number_to_currency(credit.amount, :unit => '')
 -if resource.type == 'Invoice'
   %p.payee
     =f.fields_for :proxies, @proxy_transaction do |x|
@@ -33,6 +33,6 @@
     =entry_form.label :account_id
     =entry_form.select :account_id, accounts_select_for(@debit_accounts)
     =entry_form.label :amount_in_cents, "Amount"
-    =entry_form.text_field :amount_in_cents, :value => debit.amount_in_cents
+    =entry_form.text_field :amount_in_cents, :value => number_to_currency(debit.amount, :unit => '')
 %r
 =f.submit

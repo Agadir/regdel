@@ -5,6 +5,9 @@ class EntriesController < InheritedResources::Base
     controller_name.singularize.camelize.constantize.paginate(:page => params[:page])
   end
 
+  def index 
+    @entries = Entry.paginate(:page => params[:page])
+  end
   def write_check
     # Bank to vendor, vendor to expense
     @entry = Entry.new
