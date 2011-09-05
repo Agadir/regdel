@@ -1,5 +1,13 @@
 RegdelRails::Application.routes.draw do
 
+  get "report/index"
+
+  get "report/income"
+
+  get "report/balance"
+
+  get "report/cash_flow"
+
   resources :customers
   resources :vendors
   resources :entries do

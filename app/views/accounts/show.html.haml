@@ -3,9 +3,11 @@
   .content
     %h2.title= @account.name
     .inner
-      =render :partial => 'entries/entries_table', :locals => {:collection => @account.entries}
+      =render :partial => 'entries/entries_table', :locals => {:collection => @entries}
 
-      .wat-cf
+      .actions-bar.wat-cf
+        .actions
+        = will_paginate @entries 
         = link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_account_path(@account), :class => "button"
         = link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "") + " " + can_show_or_hide_for(resource), hide_account_path(resource), :class => "button"
 

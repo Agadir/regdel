@@ -22,5 +22,21 @@ namespace :generate do
 
     end
   end
+  task :random_invoices => :environment do
+
+    (1..500).each do |i|
+      receivable = Receivable.first
+      revenue = Revenue.first.descendants.first
+      proxy = Customer.last
+      total_amount = rand(100000) * 0.01
+      entry = Invoice.new(:memo => "Invoice", :date => Time.now)
+      c = entry.credits.build(:account => revenue, :amount_in_cents => total_amount)
+      d = entry.debits.build(:account => receivable, :amount_in_cents => total_amount)
+      p = entry.proxies.build(:account => proxy, :amount_in_cents => 0)
+      entry.save!
+
+
+    end
+  end
 
 end

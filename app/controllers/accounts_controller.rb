@@ -26,6 +26,7 @@ class AccountsController < InheritedResources::Base
   def show
     @account = Account.find(params[:id])
     @sub_accounts = Account.find_all_by_parent_id(params[:id])
+    @entries = @account.entries.paginate(:page => params[:page], :per_page => 10)
   end
 
   def edit 
