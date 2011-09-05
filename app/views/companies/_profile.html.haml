@@ -1,4 +1,4 @@
 Contact Information
 
 -@account.emails.each do |em|
-  %p= em.address
+  %p= mail_to(em.address)
