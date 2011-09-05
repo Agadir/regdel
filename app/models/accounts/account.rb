@@ -120,7 +120,11 @@ class Account < AccountBase
   end
 
   def current_balance
-    transactions.sum(:amount_in_cents) * 0.01
+    sub = transactions.sum(:amount_in_cents) * 0.01
+    if self.has_descendants?
+      sub = sub + self.children.map(&:current_balance).sum
+    end
+    sub
   end
 
   def balance_as_of(date)

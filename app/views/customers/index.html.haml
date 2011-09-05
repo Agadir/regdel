@@ -1,0 +1,16 @@
+.block
+  =render(:partial => 'secondary_navigation')
+  .content
+    .inner
+      %table.table
+        %thead
+          %tr
+            %th.first{:colspan  => Customer.levels_of_sub_accounts + 1 } Name
+            %th.last Balance
+        %tbody
+          -Customer.first.children.each do |acc|
+            =render(:partial => 'account_row', :locals => {:acc => acc, :level => 0})
+      .actions-bar.wat-cf
+        .actions
+          .wat-cf
+            = link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "Show All") + " " + "Show All", '#', :class => "button"
