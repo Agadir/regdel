@@ -1,9 +1,16 @@
 .block
   =render(:partial => 'secondary_navigation')
   .content
-    %h2.title= @account.name
     .inner
-      =render :partial => 'entries/entries_table', :locals => {:collection => @entries}
+      .form
+        .columns.wat-cf
+          .column.left{:style => "width: 30%"} 
+            %h3.customer Details
+            =render :partial => 'companies/profile'
+
+          .column.right{:style => "width: 70%"}
+            %h3.zone Transactions 
+            =render :partial => 'entries/entries_table', :locals => {:collection => @entries}
 
       .actions-bar.wat-cf
         .actions

@@ -1,0 +1,5 @@
+.secondary-navigation
+  %h2.subtitle.white.r= @account.present? ? @account.name : resource_class.to_s.titleize.pluralize
+  %ul.wat-cf
+    %li.first= link_to "List", collection_path
+    %li= link_to "New", new_resource_path

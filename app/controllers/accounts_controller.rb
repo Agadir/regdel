@@ -31,6 +31,9 @@ class AccountsController < InheritedResources::Base
 
   def edit 
     @account = Account.find(params[:id])
+    if @account.is_a?(Company)
+      @account.emails << Email.new unless @account.emails.present?
+    end
   end
 
   private

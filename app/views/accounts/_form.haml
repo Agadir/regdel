@@ -20,4 +20,9 @@
 -unless resource.new_record?
   =f.check_box  :inactive
   =f.label :inactive, "This account is disabled."
+-if resource.is_a?(Company)
+  -resource.emails.each do |email|
+    =f.fields_for :emails, email do |email_fields|
+      =email_fields.label :address
+      =email_fields.text_field :address
 =f.submit

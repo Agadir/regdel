@@ -1,0 +1,6 @@
+.block
+  .content
+    .inner
+      %h2= "Edit #{resource.class.name} Account"
+      =form_for resource do |f|
+        =render :partial => 'form', :locals => {:account => resource, :f => f}
