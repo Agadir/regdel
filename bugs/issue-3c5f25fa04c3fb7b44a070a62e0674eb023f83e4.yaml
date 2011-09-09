@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Rails Demonstration
+desc: Change demonstration to use rails instead of sinatra, it is deprecated.
+type: :task
+component: regdel
+release: 
+reporter: docunext <albert.lash@docunext.com>
+status: :unstarted
+disposition: 
+creation_time: 2011-09-09 11:04:01.906690 Z
+references: []
+
+id: 3c5f25fa04c3fb7b44a070a62e0674eb023f83e4
+log_events: 
+- - 2011-09-09 11:04:07.686800 Z
+  - docunext <albert.lash@docunext.com>
+  - created
+  - ""
