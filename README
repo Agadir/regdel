@@ -33,6 +33,8 @@ ruby regdel.rb
 Status
 ------
 
+* 2011-09 Regdel development progressing quite well, models have been well
+  refined
 * 2011-07 Switched to Rails 3.1 Alpha
 * 2010-01 Alpha
 * 2009-12 Project Started
@@ -42,15 +44,20 @@ Requirements
 ------------
 
 * Rails 3.1+
-* Rack-XSLView
 * SQLite / MySQL
 * Haml, Sass, Yui-App-Theme
 * Git
 
+Optional
+--------
+
+* Rack-XSLView
+
 TODO
 ----
 
-1. Remove Rack-XSL dependency
+1. Test removal of rack-xsl
+2. Update demo to use Rails instead of Sinatra
 
 Terminology
 -----------
@@ -70,4 +77,4 @@ License
 Regdel is licensed under the [Affero GPLv3](http://www.fsf.org/licensing/licenses/agpl-3.0.html).
 
 The Regdel source includes components from several other open source projects
-of varyious licenses.
+of various licenses.
