@@ -46,8 +46,9 @@ gem 'rack', :require => 'rack/contrib/config'
 gem 'rack-rewrite'
 gem 'sass'
 
+
 # Use unicorn as the web server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
