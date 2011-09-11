@@ -43,8 +43,3 @@ use Rack::XSL,
     :tidy_mark => 0,
     :logical_emphasis => 1,
   }
-
-map "/demo/regdel" do
-  require ::File.expand_path('../config/environment',  __FILE__)
-  run RegdelRails::Application
-end
