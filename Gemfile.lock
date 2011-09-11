@@ -89,7 +89,6 @@ GEM
       rack (>= 0.4)
     rack-mount (0.8.3)
       rack (>= 1.0.0)
-    rack-rewrite (1.1.0)
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.1)
@@ -139,8 +138,6 @@ DEPENDENCIES
   machinist (>= 2.0.0.beta2)
   memcached
   nested_set
-  rack
-  rack-rewrite
   rails!
   sass
   shoulda
