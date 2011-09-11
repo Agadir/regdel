@@ -62,7 +62,7 @@ xmlns="http://www.w3.org/1999/xhtml">
       <xsl:apply-templates select="//head/*" />
     </xsl:if>
     <xsl:if test="$USE_HTML_PARTIALS='1'">
-      <xsl:apply-templates select="document('html/head.html')/head/*"/>
+      <xsl:apply-templates select="document('html/head.html')/*"/>
     </xsl:if>
   </head>
 </xsl:template>
