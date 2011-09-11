@@ -40,5 +40,5 @@ namespace :vlad do
   remote_task :logtail do
     run "tail /tmp/webapps/#{myapp}.log -n 100"
   end
-  task :deploy => [:update, :bundle, :restart, :fix]
+  task :deploy => [:update, :bundle, :render, :restart, :fix]
 end
