@@ -1,6 +1,8 @@
 !!!
 %html
-  =render(:partial => 'layouts/head')
+  %head
+    %title Regdel
+    =render(:partial => 'layouts/head')
   %body
     #container
       -unless request.env['USE_HTML_PARTIALS']
