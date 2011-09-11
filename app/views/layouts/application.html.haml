@@ -13,6 +13,7 @@
             %div{:class => "message #{type}"}
               %p= message
         #main
+          =render(:partial => 'layouts/ads') 
           = yield
           =render(:partial => 'layouts/footer') if Rails.env.demo?
         #sidebar
