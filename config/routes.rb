@@ -40,7 +40,7 @@ RegdelRails::Application.routes.draw do
   resources :transfers
   resources :invoices
 
-  mount Beast::Engine => '/forums'
+  mount Beast::Engine => '/beast'
 
   #match 'accounts/:id/new' => 'accounts#new', :as => :new_sub_account
 

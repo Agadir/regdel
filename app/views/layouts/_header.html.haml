@@ -1,5 +1,5 @@
 #header
-  %h1= link_to "Regdel", accounts_path
+  %h1= link_to "Regdel", main_app.accounts_path
   #user-navigation
     %ul.wat-cf
       %li= link_to "Development", '/ditz/'
@@ -11,9 +11,9 @@
         %a.logout{:href => "/logout"}= "Logout"
   #main-navigation
     %ul.wat-cf
-      %li= link_to "Accounts", accounts_path
-      %li= link_to "Entries", entries_path
-      %li= link_to "Write Check", write_check_entries_path 
-      %li= link_to "Make Transfer", transfer_funds_entries_path 
-      %li= link_to "Customers", customers_path
-      %li= link_to "Create Invoice", create_invoice_entries_path 
+      %li= link_to "Accounts", main_app.accounts_path
+      %li= link_to "Entries", main_app.entries_path
+      %li= link_to "Write Check", main_app.write_check_entries_path 
+      %li= link_to "Make Transfer", main_app.transfer_funds_entries_path 
+      %li= link_to "Customers", main_app.customers_path
+      %li= link_to "Create Invoice", main_app.create_invoice_entries_path 

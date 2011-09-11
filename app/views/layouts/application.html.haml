@@ -13,7 +13,7 @@
               %p= message
         #main
           =render(:partial => 'layouts/ads') if Rails.env.demo?
-          = yield
+          =content_for?(:content) ? yield(:content) : yield
           =render(:partial => 'layouts/footer')
         #sidebar
           = yield :sidebar
