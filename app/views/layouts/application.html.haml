@@ -2,10 +2,10 @@
 %html
   %head
     %title Regdel
-    =render(:partial => 'layouts/head') unless Rails.env.demo?
+    =render(:partial => 'layouts/head') if Rails.env.demo?
   %body
     #container
-      -unless Rails.env.demo?
+      -if Rails.env.demo?
         =render(:partial => 'layouts/header') 
       #wrapper.wat-cf
         .flash
@@ -14,6 +14,6 @@
               %p= message
         #main
           = yield
-          =render(:partial => 'layouts/footer') unless Rails.env.demo?
+          =render(:partial => 'layouts/footer') if Rails.env.demo?
         #sidebar
           = yield :sidebar
