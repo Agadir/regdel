@@ -10,48 +10,34 @@ gem 'inherited_resources'
 
 gem 'jquery-rails', '>= 1.0.12'
 
-gem 'ruby-xslt', :require => 'xml/xslt'
-gem 'hpricot'
-
-gem 'ruby_parser'
+#gem 'hpricot'
+#gem 'ruby_parser'
 
 gem "will_paginate", :git => "https://github.com/p7r/will_paginate.git", :branch => "rails3"
 
 group :development do
   gem 'memcached'
-  gem 'rack-xsl', :require => 'rack/xsl'
   gem 'web-app-theme', '>= 0.6.2'
 end
 
 group :test do
-  gem 'rack-xsl', :require => 'rack/xsl'
   gem "shoulda"
   gem 'machinist', '>= 2.0.0.beta2' 
   gem 'web-app-theme', '>= 0.6.2'
-  gem 'ruby-prof'
 end
 
 
 group :production do
 #  gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
   gem 'memcached'
-  gem 'rack-xsl', :require => 'rack/xsl'
 end
-gem 'tidy_ffi'
 
-gem 'rdiscount', ">= 1.6.8"
-gem 'rack-rdiscount', ">= 0.0.2", :require => 'rack/rdiscount'
-gem 'rack-contrib', :require => 'rack/contrib'
 gem 'rack', :require => 'rack/contrib/config'
 gem 'rack-rewrite'
 gem 'sass'
 
-
-# Use unicorn as the web server
 gem 'unicorn'
 
-# Deploy with Capistrano
-# gem 'capistrano'
 gem 'vlad'
 gem 'vlad-git'
 
