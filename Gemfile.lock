@@ -54,6 +54,12 @@ GIT
   specs:
     will_paginate (3.0.pre3)
 
+PATH
+  remote: ../beast
+  specs:
+    beast (0.0.1)
+      rails (>= 3.1.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -132,6 +138,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  beast!
   haml
   inherited_resources
   jquery-rails (>= 1.0.12)
