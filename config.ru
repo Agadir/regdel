@@ -43,3 +43,6 @@ use Rack::XSL,
     :tidy_mark => 0,
     :logical_emphasis => 1,
   }
+
+require ::File.expand_path('../config/environment',  __FILE__)
+run RegdelRails::Application
