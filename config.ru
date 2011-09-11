@@ -8,9 +8,11 @@ require 'rack-rewrite'
 
 myxslfile = File.dirname(__FILE__) + '/app/views/layouts/xsl/html_main.xsl'
 
+prefix = '/demo/regdel'
+
 use Rack::Config do |env|
   env['RACK_ENV'] = Rails.env
-  env['RACK_MOUNT_PATH'] = ''
+  env['RACK_MOUNT_PATH'] = prefix
   env['TS'] = Time.now.to_i
   #env['ORIG_PATH_INFO'] = env['PATH_INFO'].gsub(/\.mdwn$/,'.html')
   env['ORIG_PATH_INFO'] = env['PATH_INFO']
@@ -19,7 +21,7 @@ end
 
 use Rack::XSL,
   :myxsl => XML::XSLT.new(),
-  :noxsl => ['/raw/', '/s/js/', '/s/css/', '/s/img/'],
+  :noxsl => ['/raw/', '/s/js/', '/s/css/', '/s/img/', '/javascripts/', '/stylesheets/'],
   :passenv => ['PATH_INFO', 'RACK_MOUNT_PATH', 'RACK_ENV', 'ORIG_PATH_INFO', 'USE_HTML_PARTIALS'],
   :xslfile => File.open(myxslfile) {|f| f.read },
   :xslfilename => myxslfile,
@@ -45,4 +47,7 @@ use Rack::XSL,
   }
 
 require ::File.expand_path('../config/environment',  __FILE__)
+
+use Rack::Static, :urls => ["/stylesheets", "/javascripts"], :root => 'public'
+
 run RegdelRails::Application
