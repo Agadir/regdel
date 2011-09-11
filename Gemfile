@@ -32,8 +32,6 @@ group :production do
   gem 'memcached'
 end
 
-gem 'rack', :require => 'rack/contrib/config'
-gem 'rack-rewrite'
 gem 'sass'
 
 gem 'unicorn'
