@@ -2,19 +2,18 @@
 %html
   %head
     %title Regdel
-    =render(:partial => 'layouts/head') if Rails.env.demo?
+    =render(:partial => 'layouts/head')
   %body
     #container
-      -if Rails.env.demo?
-        =render(:partial => 'layouts/header') 
+      =render(:partial => 'layouts/header') 
       #wrapper.wat-cf
         .flash
           - flash.each do |type, message|
             %div{:class => "message #{type}"}
               %p= message
         #main
-          =render(:partial => 'layouts/ads') 
+          =render(:partial => 'layouts/ads') if Rails.env.demo?
           = yield
-          =render(:partial => 'layouts/footer') if Rails.env.demo?
+          =render(:partial => 'layouts/footer')
         #sidebar
           = yield :sidebar
