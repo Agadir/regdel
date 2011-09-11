@@ -1,5 +1,8 @@
 require 'machinist/active_record'
 
+Account.blueprint do
+  name { "Accounts" }
+end
 Asset.blueprint do
   name { "Photo Copier" }
 end

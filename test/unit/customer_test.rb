@@ -5,11 +5,11 @@ class CompanyTest < ActiveSupport::TestCase
     @revenue = Revenue.make
     @customer = Customer.make
   end
-  test "should have no contacts" do
-    assert !@customer.contacts.present?
+  test "should have no emails" do
+    assert !@customer.emails.present?
   end
   test "should have a contact" do
     c = Email.make
-    assert !@customer.contacts.nil?
+    assert !@customer.emails.nil?
   end
 end

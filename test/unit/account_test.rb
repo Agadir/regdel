@@ -7,13 +7,11 @@ class AccountTest < ActiveSupport::TestCase
     assert !acc.save
   end
 
-#  test "should not save account with type Account" do
-#    acc = Account.new({:name => 'Blah'})
-#    assert !acc.save
-#  end
-
   test "should calculate the account balance" do
-    acc = Asset.make 
+    root = Account.make
+    root.save
+    acc = Asset.make({:parent_id => root.id})
+    acc.save
   end
 
   context "existing accounts" do    
@@ -54,9 +52,6 @@ class AccountTest < ActiveSupport::TestCase
     end
     should "reconcile" do
       assert @asset.reconcile(Date.today, '123.00')
-    end
-    should "hide" do
-      assert @asset.hide
     end
   end
 
