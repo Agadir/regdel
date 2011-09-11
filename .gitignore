@@ -3,7 +3,6 @@ webrat.log
 coverage
 myrake
 html
-config/deploy.rb
 config/database.rb
 log/*
 tmp/*

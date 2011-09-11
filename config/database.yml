@@ -15,6 +15,12 @@ test:
   pool: 5
   timeout: 5000
 
+demo:
+  adapter: sqlite3
+  database: ../shared/db/demo.sqlite3
+  pool: 5
+  timeout: 5000
+
 production:
   adapter: sqlite3
   database: ../shared/db/production.sqlite3
