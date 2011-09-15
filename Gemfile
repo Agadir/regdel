@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', :git => 'git://github.com/rails/rails.git', :branch => '3-1-stable'
+gem 'rails', '>= 3.1.0' 
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'haml'
@@ -13,7 +13,8 @@ gem 'jquery-rails', '>= 1.0.12'
 #gem 'hpricot'
 #gem 'ruby_parser'
 
-gem "will_paginate", :git => "https://github.com/p7r/will_paginate.git", :branch => "rails3"
+gem "will_paginate"
+#, :git => "https://github.com/p7r/will_paginate.git", :branch => "rails3"
 
 group :development do
   gem 'memcached'
