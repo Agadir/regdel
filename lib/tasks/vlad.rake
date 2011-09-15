@@ -18,16 +18,16 @@ namespace :vlad do
     run "sudo mv /tmp/#{myapp} /service/"
   end
   remote_task :bundle do
-    run "cd /var/www/dev/#{myapp}/current/ && sudo /var/lib/gems/1.8/bin/bundle install --path /var/www/dev/gems"
+    run "cd /var/www/dev/#{myapp}/current/ && sudo /var/lib/gems/1.9.1/bin/bundle install --path /var/www/dev/gems"
   end
   remote_task :render do
-    run "cd /var/www/dev/#{myapp}/current/ && /var/lib/gems/1.8/bin/bundle exec rake render:partials"
+    run "cd /var/www/dev/#{myapp}/current/ && /var/lib/gems/1.9.1/bin/bundle exec rake render:partials"
   end
   remote_task :migrate do
-    run "cd /var/www/dev/#{myapp}/current/ && /var/lib/gems/1.8/bin/bundle exec rake db:migrate"
+    run "cd /var/www/dev/#{myapp}/current/ && /var/lib/gems/1.9.1/bin/bundle exec rake db:migrate"
   end
   remote_task :seed do
-    run "cd /var/www/dev/#{myapp}/current/ && /var/lib/gems/1.8/bin/bundle exec rake db:seed"
+    run "cd /var/www/dev/#{myapp}/current/ && /var/lib/gems/1.9.1/bin/bundle exec rake db:seed"
   end
   remote_task :restart do 
     run "sudo svc -d /service/#{myapp}" 
