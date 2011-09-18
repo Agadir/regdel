@@ -18,7 +18,7 @@ namespace :vlad do
     run "sudo mv /tmp/#{myapp} /service/"
   end
   remote_task :bundle do
-    run "cd /var/www/dev/#{myapp}/current/ && sudo /var/lib/gems/1.9.1/bin/bundle install --path /var/www/dev/gems"
+    run "cd /var/www/dev/#{myapp}/current/ && ~/.rvm/bin/rvm exec bundle install --path /var/www/dev/appgems"
   end
   remote_task :render do
     run "cd /var/www/dev/#{myapp}/current/ && /var/lib/gems/1.9.1/bin/bundle exec rake render:partials"
