@@ -8,7 +8,13 @@ gem 'nested_set'
 gem 'state_machine'
 gem 'inherited_resources'
 
-gem 'jquery-rails', '>= 1.0.12'
+group :assets do
+  gem 'sass-rails', "  ~> 3.1.0"
+  gem 'coffee-rails', "~> 3.1.0"
+  gem 'uglifier'
+end
+
+gem 'jquery-rails'
 
 #gem 'hpricot'
 #gem 'ruby_parser'
