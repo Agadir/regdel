@@ -1,6 +1,3 @@
 [submodule "public/s/img/pkgs/docunext-webapp-icons"]
 	path = public/images/pkgs/docunext-webapp-icons
 	url = git://github.com/docunext/docunext-webapp-icons.git
-[submodule "app/views/layouts/xsl/1bb02b59"]
-	path = app/views/layouts/xsl/1bb02b59
-	url = git://github.com/docunext/1bb02b59.git

@@ -20,7 +20,6 @@ gem 'jquery-rails'
 #gem 'ruby_parser'
 
 gem "will_paginate"
-#, :git => "https://github.com/p7r/will_paginate.git", :branch => "rails3"
 
 group :development do
   gem 'memcached'
