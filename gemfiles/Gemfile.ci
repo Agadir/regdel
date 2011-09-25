@@ -21,13 +21,6 @@ gem "will_paginate"
 
 group :test do
   gem "shoulda"
-  gem 'machinist', '>= 2.0.0.beta2' 
-  gem 'web-app-theme', '>= 0.6.2'
+  gem 'machinist'
+  gem 'web-app-theme'
 end
-
-gem 'rdiscount', ">= 1.6.8"
-gem 'rack-rdiscount', ">= 0.0.2", :require => 'rack/rdiscount'
-gem 'rack-contrib', :require => 'rack/contrib'
-gem 'rack', :require => 'rack/contrib/config'
-gem 'rack-rewrite'
-gem 'sass'

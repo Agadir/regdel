@@ -24,13 +24,13 @@ gem "will_paginate"
 
 group :development do
   gem 'memcached'
-  gem 'web-app-theme', '>= 0.6.2'
+  gem 'web-app-theme'
 end
 
 group :test do
   gem "shoulda"
-  gem 'machinist', '>= 2.0.0.beta2' 
-  gem 'web-app-theme', '>= 0.6.2'
+  gem 'machinist'
+  gem 'web-app-theme'
 end
 
 group :production do
