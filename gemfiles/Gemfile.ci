@@ -24,3 +24,6 @@ group :test do
   gem 'machinist'
   gem 'web-app-theme'
 end
+
+gem 'vlad'
+gem 'vlad-git'
