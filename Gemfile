@@ -16,6 +16,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'css3buttons'
 
 #gem 'hpricot'
 #gem 'ruby_parser'
