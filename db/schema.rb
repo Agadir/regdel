@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110911210515) do
+ActiveRecord::Schema.define(:version => 20110811010422) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -44,43 +44,6 @@ ActiveRecord::Schema.define(:version => 20110911210515) do
     t.integer  "created_by"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "beast_forums", :force => true do |t|
-    t.integer  "site_id"
-    t.string   "name"
-    t.text     "description"
-    t.integer  "topics_count"
-    t.integer  "posts_count"
-    t.integer  "position"
-    t.string   "status"
-    t.string   "permalink"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "beast_posts", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "topic_id"
-    t.text     "body"
-    t.datetime "created_at"
-    t.integer  "updated_at"
-  end
-
-  create_table "beast_topics", :force => true do |t|
-    t.integer  "forum_id"
-    t.integer  "user_id"
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "hits"
-    t.integer  "sticky"
-    t.integer  "posts_count"
-    t.integer  "locked"
-    t.integer  "last_post_id"
-    t.datetime "last_updated_at"
-    t.integer  "last_user_id"
-    t.string   "parmalink"
   end
 
   create_table "companies", :force => true do |t|
