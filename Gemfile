@@ -2,7 +2,7 @@ source :gemcutter
 
 gem 'rails'
 
-gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'sqlite3'
 gem 'haml'
 gem 'sass'
 gem 'nested_set'
