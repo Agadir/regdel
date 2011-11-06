@@ -18,13 +18,10 @@ end
 gem 'jquery-rails'
 gem 'css3buttons'
 
-#gem 'hpricot'
-#gem 'ruby_parser'
-
 gem "will_paginate"
 
 group :development do
-  gem 'memcached'
+#  gem 'memcached'
   gem 'web-app-theme'
 end
 
@@ -40,6 +37,4 @@ group :production do
 end
 
 gem 'unicorn'
-
-gem 'vlad'
-gem 'vlad-git'
+gem 'capistrano'
