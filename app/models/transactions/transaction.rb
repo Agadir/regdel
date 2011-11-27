@@ -1,5 +1,5 @@
 class Transaction < Record
-  
+
   validates :amount_in_cents,
             :presence => true,
             :numericality => true

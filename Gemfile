@@ -2,12 +2,14 @@ source :gemcutter
 
 gem 'rails'
 
-gem 'sqlite3'
+gem 'mysql'
+#gem 'sqlite3'
 gem 'haml'
 gem 'sass'
 gem 'nested_set'
 gem 'state_machine'
 gem 'inherited_resources'
+gem 'prawn'
 
 group :assets do
   gem 'sass-rails'
@@ -21,7 +23,7 @@ gem 'css3buttons'
 gem "will_paginate"
 
 group :development do
-#  gem 'memcached'
+  gem 'memcached'
   gem 'web-app-theme'
 end
 

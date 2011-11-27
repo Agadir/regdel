@@ -3,5 +3,7 @@ class Record < ActiveRecord::Base
   belongs_to :entry, :inverse_of => :records
   belongs_to :account, :inverse_of => :records
 
+  delegate :name, :to => :account, :prefix => true
+
 
 end

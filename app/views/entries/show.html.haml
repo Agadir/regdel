@@ -63,7 +63,7 @@
               %tbody
                 -resource.transactions.each do |xact|
                   %tr
-                    %td.first= link_to xact.account.name, account_path(xact.account)
+                    %td.first= link_to xact.account_name, account_path(xact.account)
                     %td
                     %td
                     %td.last= number_to_currency(xact.amount)
