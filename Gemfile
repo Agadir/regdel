@@ -3,7 +3,7 @@ source :gemcutter
 gem 'rails'
 
 gem 'mysql'
-#gem 'sqlite3'
+gem 'therubyracer'
 gem 'haml'
 gem 'sass'
 gem 'nested_set'

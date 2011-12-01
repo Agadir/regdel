@@ -31,6 +31,7 @@ RegdelRails::Application.configure do
   # In production, Apache or nginx will already do this
   config.serve_static_assets = true
 
+  config.assets.prefix = '/demo/regdel/s'
   config.asset_path = proc { |path| "/demo/regdel#{path}" }
 
   # Enable serving of images, stylesheets, and javascripts from an asset server

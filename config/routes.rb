@@ -1,5 +1,5 @@
 RegdelRails::Application.routes.draw do
-
+  
   get "report/index"
 
   get "report/income"
@@ -25,7 +25,6 @@ RegdelRails::Application.routes.draw do
     end
   end
   resources :bank_accounts
-  resources :assets
   resources :equities
   resources :current_assets
   resources :current_liabilities
@@ -101,4 +100,5 @@ RegdelRails::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 
+  resources :assets, :as => 'products'
 end

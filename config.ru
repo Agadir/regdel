@@ -4,3 +4,5 @@ map path_prefix do
   require ::File.expand_path('../config/environment',  __FILE__)
   run RegdelRails::Application
 end
+#require ::File.expand_path('../config/environment',  __FILE__)
+#run RegdelRails::Application
